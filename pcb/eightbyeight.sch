@@ -9322,6 +9322,7 @@ Revision E:
 Revision F:
 -Round badge corners slightly
 -Increase base brightness for LED resistors
+-Change power diodes to 1n5819 for lower reverse current leakage
 
 TODO:
 -Cosmetic: ESP8266 GPIO 18mislabeled, should be 16</text>
@@ -9347,8 +9348,8 @@ CERN OHL v.1.2 for applicable conditions </text>
 <plain>
 <text x="76.2" y="101.6" size="1.778" layer="91">Pin assignments for matrix output:
 LED_DAT + LED_CLK use ESPI hardware
-LED_OE needs to be on a pin with FTM capability
-LED_ROW_* and LED_STB are GPIO and need to be together on a unique port</text>
+LED_OE and LED_STB need to be on pins with FTM0 capability
+LED_ROW_* are GPIO and need to be together on a unique port</text>
 <text x="12.7" y="238.76" size="1.778" layer="91">Provides LED drive signal, USB/Serial conversion</text>
 <text x="12.7" y="243.84" size="2.54" layer="94">ARM microcontroller</text>
 <wire x1="7.62" y1="251.46" x2="182.88" y2="251.46" width="0.4064" layer="94"/>

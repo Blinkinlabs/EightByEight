@@ -42,5 +42,11 @@ class ArmFlasher():
 if __name__ == '__main__':
 	armFlasher = ArmFlasher()
 	print(armFlasher.eraseFlash())
+
+        # Development images
 	print(armFlasher.writeFirmware("../bootloader/blinky-boot.elf"))
 	print(armFlasher.writeFirmware("../firmware/app-image.hex"))
+
+        #released images
+	#print(armFlasher.writeFirmware("../bin/blinky-boot-v100.elf"))
+	#print(armFlasher.writeFirmware("../bin/eightbyeight-app-image-v100.hex"))

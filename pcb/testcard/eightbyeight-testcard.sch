@@ -667,10 +667,16 @@ We've spent an enormous amount of time creating and checking these footprints an
 
 Revision A:
 -Matches Rev D/E/F application versions
+-On JTAG, ARM_TX and ARM_RX are swapped
+-LED_DAT_0 not connected to digital header
 
 Revision B:
 -Put connectors and labels on proper side
--Make test card longer to give space for ribbon cables</text>
+-Make test card longer to give space for ribbon cables
+
+TODO:
+-Swap ARM_TX and ARM_RX on JTAG
+-connect LED_DAT_0 to digital header</text>
 <text x="129.54" y="358.14" size="10.16" layer="91" align="bottom-center">EightByEight Test card</text>
 <text x="129.54" y="345.44" size="6.4516" layer="91" align="bottom-center">Copyright 2016 Blinkinlabs, LLC</text>
 </plain>
@@ -1083,6 +1089,11 @@ the ARM JTAG pins</text>
 <wire x1="195.58" y1="144.78" x2="182.88" y2="144.78" width="0.1524" layer="91"/>
 <label x="182.88" y="144.78" size="1.778" layer="95"/>
 </segment>
+<segment>
+<pinref part="DIGITAL_TEST" gate="G$1" pin="7"/>
+<wire x1="43.18" y1="43.18" x2="15.24" y2="43.18" width="0.1524" layer="91"/>
+<label x="15.24" y="43.18" size="1.778" layer="95"/>
+</segment>
 </net>
 <net name="LED_OE" class="0">
 <segment>
@@ -1094,13 +1105,6 @@ the ARM JTAG pins</text>
 <pinref part="DIGITAL_TEST" gate="G$1" pin="13"/>
 <wire x1="15.24" y1="35.56" x2="43.18" y2="35.56" width="0.1524" layer="91"/>
 <label x="15.24" y="35.56" size="1.778" layer="95"/>
-</segment>
-</net>
-<net name="LED_DATA" class="0">
-<segment>
-<pinref part="DIGITAL_TEST" gate="G$1" pin="7"/>
-<wire x1="43.18" y1="43.18" x2="15.24" y2="43.18" width="0.1524" layer="91"/>
-<label x="15.24" y="43.18" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="ESP_GPIO5" class="0">
@@ -1118,10 +1122,6 @@ the ARM JTAG pins</text>
 </nets>
 </sheet>
 </sheets>
-<errors>
-<approved hash="113,2,193.571,130.071,FRAME2,,,,,"/>
-<approved hash="113,1,130.071,193.571,FRAME6,,,,,"/>
-</errors>
 </schematic>
 </drawing>
 <compatibility>

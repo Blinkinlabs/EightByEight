@@ -121,6 +121,7 @@ void dataLoop() {
     }
 }
 
+bool commandSetBrightness(uint8_t* buffer);
 
 struct Command {
     uint8_t name;   // Command identifier
@@ -129,7 +130,7 @@ struct Command {
 };
 
 Command commands[] = {
-//    {0x01,   1,   commandStartWrite},   // Start writing an animation
+    {0x01,   2,   commandSetBrightness},  // Set the display brightness
 //    {0x02,   65,  commandWrite},        // Write 64 bytes of data
 //    {0x03,   1,   commandStopWrite},    // Stop writing
 //    {0x04,   1,   commandStartRead},    // Start reading back the animation
@@ -176,4 +177,12 @@ void commandLoop() {
         }
         break;
     }
+}
+
+// Brightness, 0-255
+bool commandSetBrightness(uint8_t* buffer) {
+    matrix.setBrightness(buffer[0]/255.0);
+
+    buffer[0] = 0;
+    return true;
 }

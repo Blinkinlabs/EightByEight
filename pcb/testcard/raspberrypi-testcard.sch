@@ -12582,9 +12582,6 @@ chip</description>
 <part name="GND8" library="supply1" deviceset="GND" device=""/>
 <part name="SUPPLY1" library="SparkFun-Aesthetics" deviceset="5V" device=""/>
 <part name="SUPPLY2" library="SparkFun-Aesthetics" deviceset="3.3V" device=""/>
-<part name="SUPPLY3" library="SparkFun-Aesthetics" deviceset="3.3V" device=""/>
-<part name="SUPPLY4" library="SparkFun-Aesthetics" deviceset="3.3V" device=""/>
-<part name="SUPPLY5" library="SparkFun-Aesthetics" deviceset="3.3V" device=""/>
 <part name="J1" library="blinkinlabs" deviceset="USB_MICRO" device="SMT+THRUHULE"/>
 <part name="U$2" library="blinkinlabs" deviceset="RELAY" device=""/>
 <part name="U$3" library="blinkinlabs" deviceset="RELAY" device=""/>
@@ -12604,8 +12601,6 @@ chip</description>
 <part name="C1" library="adafruit" deviceset="C-US" device="C0402" value="100nF"/>
 <part name="GND14" library="supply1" deviceset="GND" device=""/>
 <part name="GND15" library="supply1" deviceset="GND" device=""/>
-<part name="SUPPLY9" library="SparkFun-Aesthetics" deviceset="3.3V" device=""/>
-<part name="SUPPLY10" library="SparkFun-Aesthetics" deviceset="3.3V" device=""/>
 <part name="R17" library="adafruit" deviceset="R-US_" device="R0402" value="4.7k"/>
 <part name="R18" library="adafruit" deviceset="R-US_" device="R0402" value="4.7k"/>
 <part name="R1" library="adafruit" deviceset="R-US_" device="R0402" value="10k"/>
@@ -12642,7 +12637,7 @@ chip</description>
 <part name="GND24" library="supply1" deviceset="GND" device=""/>
 <part name="GND25" library="supply1" deviceset="GND" device=""/>
 <part name="C2" library="adafruit" deviceset="C-US" device="C0402" value="100nF"/>
-<part name="R10" library="microbuilder" deviceset="RESISTOR" device="2512" value="0.1/1% (PT2512FK-070R1L)"/>
+<part name="R10" library="microbuilder" deviceset="RESISTOR" device="2512" value="50/1% (PT2512FK-070R1L)"/>
 <part name="U9" library="GeekAmmo" deviceset="P-CHANNEL-MOSFET" device=""/>
 <part name="U10" library="GeekAmmo" deviceset="N-CHANNEL-MOSFET" device="-BSS138"/>
 <part name="GND26" library="supply1" deviceset="GND" device=""/>
@@ -12674,6 +12669,11 @@ chip</description>
 <part name="SUPPLY23" library="SparkFun-Aesthetics" deviceset="3.3V" device=""/>
 <part name="SW2" library="blinkinlabs" deviceset="BUTTON_MOMENTARY_GROUND" device="" value="BRIGHTNESS"/>
 <part name="GND32" library="supply1" deviceset="GND" device=""/>
+<part name="SUPPLY3" library="SparkFun-Aesthetics" deviceset="5V" device=""/>
+<part name="SUPPLY5" library="SparkFun-Aesthetics" deviceset="5V" device=""/>
+<part name="SUPPLY9" library="SparkFun-Aesthetics" deviceset="5V" device=""/>
+<part name="SUPPLY10" library="SparkFun-Aesthetics" deviceset="5V" device=""/>
+<part name="SUPPLY4" library="SparkFun-Aesthetics" deviceset="5V" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -12681,7 +12681,18 @@ chip</description>
 <text x="17.78" y="325.12" size="3.81" layer="91" align="top-left">Revision Notes/Changelog
 
 Revision A:
--Initial version</text>
+-Initial version
+
+TODO:
+-Add fuse on DUT power
+-Switch digital test pins to I/O expander for protection, drive strength,
+  and 3.3/5v configuration
+-Move LEDs off of serial line, break out as FTDI header
+-Use 5V for ADC power
+-Add buffer for JTAG/ICSP
+-Determine if JTAG requires hardware SPI, and if not move off of SPI
+  and break out SPI
+-Fix battery connector</text>
 <text x="129.54" y="358.14" size="10.16" layer="91" align="bottom-center">Raspberry Pi Test driver</text>
 <text x="129.54" y="345.44" size="6.4516" layer="91" align="bottom-center">Copyright 2016 Blinkinlabs, LLC</text>
 </plain>
@@ -12793,6 +12804,16 @@ design could vary the input voltage, have a fixed max current, etc.</text>
 <wire x1="561.34" y1="142.24" x2="561.34" y2="251.46" width="0.4064" layer="94"/>
 <wire x1="678.18" y1="142.24" x2="678.18" y2="251.46" width="0.4064" layer="94"/>
 <wire x1="561.34" y1="142.24" x2="678.18" y2="142.24" width="0.4064" layer="94"/>
+<text x="119.38" y="187.96" size="1.778" layer="91">GP11</text>
+<text x="119.38" y="185.42" size="1.778" layer="91">GP9</text>
+<text x="119.38" y="182.88" size="1.778" layer="91">GP10</text>
+<text x="119.38" y="177.8" size="1.778" layer="91">GP7</text>
+<text x="119.38" y="180.34" size="1.778" layer="91">START BUTTON</text>
+<text x="119.38" y="167.64" size="1.778" layer="91">USB RELAY</text>
+<text x="119.38" y="195.58" size="1.778" layer="91">PASS LED</text>
+<text x="119.38" y="193.04" size="1.778" layer="91">FAIL LED</text>
+<text x="119.38" y="154.94" size="1.778" layer="91">POWER_LIMITED</text>
+<text x="119.38" y="160.02" size="1.778" layer="91">POWER_FULL</text>
 </plain>
 <instances>
 <instance part="FRAME2" gate="G$1" x="0" y="0"/>
@@ -12813,9 +12834,6 @@ design could vary the input voltage, have a fixed max current, etc.</text>
 <instance part="GND8" gate="1" x="139.7" y="-71.12"/>
 <instance part="SUPPLY1" gate="G$1" x="58.42" y="208.28"/>
 <instance part="SUPPLY2" gate="G$1" x="50.8" y="208.28"/>
-<instance part="SUPPLY3" gate="G$1" x="101.6" y="-35.56"/>
-<instance part="SUPPLY4" gate="G$1" x="139.7" y="-99.06"/>
-<instance part="SUPPLY5" gate="G$1" x="101.6" y="-93.98"/>
 <instance part="J1" gate="G$1" x="198.12" y="-55.88"/>
 <instance part="U$2" gate="G$1" x="223.52" y="-76.2" rot="R90"/>
 <instance part="U$3" gate="G$1" x="246.38" y="-76.2" rot="R90"/>
@@ -12835,8 +12853,6 @@ design could vary the input voltage, have a fixed max current, etc.</text>
 <instance part="C1" gate="G$1" x="20.32" y="-104.14"/>
 <instance part="GND14" gate="1" x="20.32" y="-60.96"/>
 <instance part="GND15" gate="1" x="20.32" y="-114.3"/>
-<instance part="SUPPLY9" gate="G$1" x="20.32" y="-99.06"/>
-<instance part="SUPPLY10" gate="G$1" x="20.32" y="-45.72"/>
 <instance part="R17" gate="G$1" x="33.02" y="50.8" rot="R90"/>
 <instance part="R18" gate="G$1" x="38.1" y="50.8" rot="R90"/>
 <instance part="R1" gate="G$1" x="205.74" y="-109.22" rot="R90"/>
@@ -12908,6 +12924,11 @@ design could vary the input voltage, have a fixed max current, etc.</text>
 <attribute name="VALUE" x="461.01" y="-65.405" size="1.778" layer="96" rot="R90"/>
 </instance>
 <instance part="GND32" gate="1" x="464.82" y="-83.82"/>
+<instance part="SUPPLY3" gate="G$1" x="101.6" y="-35.56"/>
+<instance part="SUPPLY5" gate="G$1" x="20.32" y="-45.72"/>
+<instance part="SUPPLY9" gate="G$1" x="20.32" y="-99.06"/>
+<instance part="SUPPLY10" gate="G$1" x="101.6" y="-93.98"/>
+<instance part="SUPPLY4" gate="G$1" x="139.7" y="-99.06"/>
 </instances>
 <busses>
 </busses>
@@ -13432,6 +13453,32 @@ design could vary the input voltage, have a fixed max current, etc.</text>
 <wire x1="622.3" y1="220.98" x2="622.3" y2="215.9" width="0.1524" layer="91"/>
 <junction x="622.3" y="215.9"/>
 </segment>
+<segment>
+<pinref part="U1" gate="G$1" pin="VDD"/>
+<wire x1="101.6" y1="-35.56" x2="101.6" y2="-38.1" width="0.1524" layer="91"/>
+<pinref part="SUPPLY3" gate="G$1" pin="5V"/>
+</segment>
+<segment>
+<pinref part="C3" gate="G$1" pin="1"/>
+<wire x1="20.32" y1="-45.72" x2="20.32" y2="-48.26" width="0.1524" layer="91"/>
+<pinref part="SUPPLY5" gate="G$1" pin="5V"/>
+</segment>
+<segment>
+<pinref part="C1" gate="G$1" pin="1"/>
+<wire x1="20.32" y1="-99.06" x2="20.32" y2="-101.6" width="0.1524" layer="91"/>
+<pinref part="SUPPLY9" gate="G$1" pin="5V"/>
+</segment>
+<segment>
+<pinref part="U2" gate="G$1" pin="VDD"/>
+<wire x1="101.6" y1="-93.98" x2="101.6" y2="-96.52" width="0.1524" layer="91"/>
+<pinref part="SUPPLY10" gate="G$1" pin="5V"/>
+</segment>
+<segment>
+<pinref part="U2" gate="G$1" pin="ADDR"/>
+<wire x1="137.16" y1="-111.76" x2="139.7" y2="-111.76" width="0.1524" layer="91"/>
+<wire x1="139.7" y1="-111.76" x2="139.7" y2="-99.06" width="0.1524" layer="91"/>
+<pinref part="SUPPLY4" gate="G$1" pin="5V"/>
+</segment>
 </net>
 <net name="3.3V" class="1">
 <segment>
@@ -13443,32 +13490,6 @@ design could vary the input voltage, have a fixed max current, etc.</text>
 <wire x1="50.8" y1="195.58" x2="50.8" y2="198.12" width="0.1524" layer="91"/>
 <pinref part="SUPPLY2" gate="G$1" pin="3.3V"/>
 <junction x="50.8" y="198.12"/>
-</segment>
-<segment>
-<pinref part="U1" gate="G$1" pin="VDD"/>
-<pinref part="SUPPLY3" gate="G$1" pin="3.3V"/>
-<wire x1="101.6" y1="-35.56" x2="101.6" y2="-38.1" width="0.1524" layer="91"/>
-</segment>
-<segment>
-<pinref part="U2" gate="G$1" pin="ADDR"/>
-<wire x1="137.16" y1="-111.76" x2="139.7" y2="-111.76" width="0.1524" layer="91"/>
-<wire x1="139.7" y1="-111.76" x2="139.7" y2="-99.06" width="0.1524" layer="91"/>
-<pinref part="SUPPLY4" gate="G$1" pin="3.3V"/>
-</segment>
-<segment>
-<pinref part="U2" gate="G$1" pin="VDD"/>
-<pinref part="SUPPLY5" gate="G$1" pin="3.3V"/>
-<wire x1="101.6" y1="-93.98" x2="101.6" y2="-96.52" width="0.1524" layer="91"/>
-</segment>
-<segment>
-<pinref part="SUPPLY10" gate="G$1" pin="3.3V"/>
-<pinref part="C3" gate="G$1" pin="1"/>
-<wire x1="20.32" y1="-45.72" x2="20.32" y2="-48.26" width="0.1524" layer="91"/>
-</segment>
-<segment>
-<pinref part="SUPPLY9" gate="G$1" pin="3.3V"/>
-<pinref part="C1" gate="G$1" pin="1"/>
-<wire x1="20.32" y1="-99.06" x2="20.32" y2="-101.6" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="R17" gate="G$1" pin="2"/>
