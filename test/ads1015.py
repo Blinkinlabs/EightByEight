@@ -159,14 +159,9 @@ class ADS1015:
 
 		bytes = [(config >> 8) & 0xFF, config & 0xFF]
 		self._device.writeList(self.__ADS1015_REG_CONFIG, bytes)
-		bytes = [(config >> 8) & 0xFF, config & 0xFF]
-		self._device.writeList(self.__ADS1015_REG_CONFIG, bytes)
-		bytes = [(config >> 8) & 0xFF, config & 0xFF]
-		self._device.writeList(self.__ADS1015_REG_CONFIG, bytes)
-		bytes = [(config >> 8) & 0xFF, config & 0xFF]
-		self._device.writeList(self.__ADS1015_REG_CONFIG, bytes)
 
 		# then wait for it to complete
+		time.sleep(.03)
 		while(True):
 			result = self._device.readU16(self.__ADS1015_REG_CONFIG, little_endian=False)
 
@@ -180,10 +175,11 @@ class ADS1015:
 
 
 if __name__ == '__main__':
-	ads = ADS1015(address=0x49)
-	ads.dumpRegisters()
+	ads = ADS1015(address=0x48)
+	#ads.dumpRegisters()
 
-	print(ads.measure(0))
-	print(ads.measure(1))
-	print(ads.measure(2))
-	print(ads.measure(3))
+	while True:
+		print(ads.measure(0)),
+		print(ads.measure(1)),
+		print(ads.measure(2)),
+		print(ads.measure(3))

@@ -1,66 +1,177 @@
-import Adafruit_BBIO.ADC as ADC
-import Adafruit_BBIO.GPIO as GPIO
+import testrig
+import RPi.GPIO as GPIO
+
+import subprocess
+
+class EightByEightTestRig():
+
+	dutPins = {
+"ARM_BOOTLOADER" : "1", #ok
+"ESP_GPIO0" : "2",	#ok
+"ARM_RX1" : "3",	#ok
+"ESP_RESET" : "4",	#ok
+"ESP_GPIO16" : "5",	#ok
+"I2C_SDA" : "6",	#ok
+"LED_DATA" : "7",	#not connected on test rig
+"I2C_SCL" : "8",	#ok
+"LED_CLK" : "9",	#ok
+"BUTTON" : "10",	#ok
+"LED_STB" : "11",	#ok
+"ESP_GPIO5" : "12",	#ok
+"LED_OE" : "13",	#ok
+"ARM_TMS" : "JTAG_TMS",
+"ARM_TCK" : "JTAG_TCK",
+"ARM_TX" : "JTAG_TDO",  # TODO FIX ME IN HARDWARE
+"ARM_RX" : "JTAG_TDI",  # TODO FIX ME IN HARDWARE
+"ARM_RESET" : "JTAG_RESET"
+}
+
+	dutVoltages = {
+"BOOST_5V" : "1",
+"VBAT" : "2",
+"+5V" : "3",
+"+3V3" : "4",
+"ARM_3V3" : "5"
+}
+
+	def __init__(self):
+		self.testrig = testrig.TestRig()
+
+	def reset(self):
+		self.testrig.setPowerMode("off")
+		self.testrig.disableUSB()
+
+		for pin, number in self.dutPins.items():
+			self.testrig.digitalPinMode(number, GPIO.IN)
+
+	def readDutPin(self, pin):
+		if (pin in self.dutPins):
+			return self.testrig.readDigitalPin(self.dutPins[pin])
+		else:
+			raise(NameError("Invalid pin"))
+
+	def readDutPins(self):
+		values = {}
+		for pin in self.dutPins:
+			values[pin] = self.readDutPin(pin)
+		return values
+
+	def dutPinMode(self, pin, mode):
+		if pin in self.dutPins:
+			self.testrig.digitalPinMode(self.dutPins[pin], mode)
+		else:
+			raise(NameError("Invalid pin"))
+
+	def dutPinWrite(self, pin, state):
+		if pin in self.dutPins:
+			self.testrig.digitalPinWrite(self.dutPins[pin], state)
+		else:
+			raise(NameError("Invalid pin"))
+
+	def readDutVoltage(self, name):
+		if (name in self.dutVoltages):
+			return self.testrig.readVoltage(self.dutVoltages[name])
+		else:
+			raise(NameError("Invalid pin"))
+		
+	def readDutVoltages(self):
+		values = {}
+		for pin in self.dutVoltages:
+			values[pin] = self.readDutVoltage(pin)
+		return values
+
+	def checkForBootloaderDevice(self):
+		# Test if the device is present on the USB bus, in bootloader mode
+		result = subprocess.call(["lsusb", "-d", "1d50:8888"])
+		return result == 0
+
+	def checkForBootloaderDevice(self):
+		# Test if the device is present on the USB bus, in bootloader mode
+		result = subprocess.call(["lsusb", "-d", "1d50:8888"])
+		return result == 0
+		
 
 
-DUT_0_RADIO_CSN = "P8_33"
-DUT_0_RADIO_CE = "P8_35"
-DUT_0_LED_ENABLE = "P8_37"
-DUT_0_RESET = "P9_42"
+def testIcspGpio():
+	# ICSP GPIO test: use logic analyzer to verify each output is exercised in sequence
+	dut.dutPinMode("ARM_RESET", GPIO.OUT)
+	dut.dutPinMode("ARM_TMS", GPIO.OUT)
+	dut.dutPinMode("ARM_TCK", GPIO.OUT)
+	dut.dutPinMode("ARM_TX", GPIO.OUT)
+	dut.dutPinMode("ARM_RX", GPIO.OUT)
+	dut.dutPinWrite("ARM_RESET", GPIO.HIGH)
+	dut.dutPinWrite("ARM_RESET", GPIO.LOW)
+	dut.dutPinWrite("ARM_TX", GPIO.HIGH)
+	dut.dutPinWrite("ARM_TX", GPIO.LOW)
+	dut.dutPinWrite("ARM_RX", GPIO.HIGH)
+	dut.dutPinWrite("ARM_RX", GPIO.LOW)
+	dut.dutPinWrite("ARM_TMS", GPIO.HIGH)
+	dut.dutPinWrite("ARM_TMS", GPIO.LOW)
+	dut.dutPinWrite("ARM_TCK", GPIO.HIGH)
+	dut.dutPinWrite("ARM_TCK", GPIO.LOW)
 
-DUT_0_LOW_CURRENT = "P8_13"
-DUT_0_NORMAL_CURRENT = "P8_14"
+def testDigitalGpio():
+	dut.dutPinMode("ARM_BOOTLOADER", GPIO.OUT)
+	dut.dutPinMode("ESP_GPIO0", GPIO.OUT)
+	dut.dutPinMode("ARM_RX1", GPIO.OUT)
+	dut.dutPinMode("ESP_RESET", GPIO.OUT)
+	dut.dutPinMode("ESP_GPIO16", GPIO.OUT)
+	dut.dutPinMode("I2C_SDA", GPIO.OUT)
+	dut.dutPinMode("LED_DATA", GPIO.OUT)
+	dut.dutPinMode("I2C_SCL", GPIO.OUT)
+	dut.dutPinMode("LED_CLK", GPIO.OUT)
+	dut.dutPinMode("BUTTON", GPIO.OUT)
+	dut.dutPinMode("LED_STB", GPIO.OUT)
+	dut.dutPinMode("ESP_GPIO5", GPIO.OUT)
+	dut.dutPinMode("LED_OE", GPIO.OUT)
+	dut.dutPinWrite("ARM_BOOTLOADER", GPIO.HIGH)
+	dut.dutPinWrite("ARM_BOOTLOADER", GPIO.LOW)
+	dut.dutPinWrite("ESP_GPIO0", GPIO.HIGH)
+	dut.dutPinWrite("ESP_GPIO0", GPIO.LOW)
+	dut.dutPinWrite("ARM_RX1", GPIO.HIGH)
+	dut.dutPinWrite("ARM_RX1", GPIO.LOW)
+	dut.dutPinWrite("ESP_RESET", GPIO.HIGH)
+	dut.dutPinWrite("ESP_RESET", GPIO.LOW)
+	dut.dutPinWrite("ESP_GPIO16", GPIO.HIGH)
+	dut.dutPinWrite("ESP_GPIO16", GPIO.LOW)
+	dut.dutPinWrite("I2C_SDA", GPIO.HIGH)
+	dut.dutPinWrite("I2C_SDA", GPIO.LOW)
+	dut.dutPinWrite("LED_DATA", GPIO.HIGH)
+	dut.dutPinWrite("LED_DATA", GPIO.LOW)
+	dut.dutPinWrite("I2C_SCL", GPIO.HIGH)
+	dut.dutPinWrite("I2C_SCL", GPIO.LOW)
+	dut.dutPinWrite("LED_CLK", GPIO.HIGH)
+	dut.dutPinWrite("LED_CLK", GPIO.LOW)
+	dut.dutPinWrite("BUTTON", GPIO.HIGH)
+	dut.dutPinWrite("BUTTON", GPIO.LOW)
+	dut.dutPinWrite("LED_STB", GPIO.HIGH)
+	dut.dutPinWrite("LED_STB", GPIO.LOW)
+	dut.dutPinWrite("ESP_GPIO5", GPIO.HIGH)
+	dut.dutPinWrite("ESP_GPIO5", GPIO.LOW)
+	dut.dutPinWrite("LED_OE", GPIO.HIGH)
+	dut.dutPinWrite("LED_OE", GPIO.LOW)
 
-V_LED_0_SENSE = "AIN3"
-V_BATT_0_SENSE = "AIN5"
+if __name__ == '__main__':
+	import time
 
-STATUS_LED_RED = "P8_10"
-STATUS_LED_GREEN = "P8_9"
-START_BUTTON = "P8_11"
+	dut = EightByEightTestRig()
 
-class FlyByNightDut:
-	def __init__(self, input = 0):
-		if (input == 0):
-			self.v_led_sense =  V_LED_0_SENSE
-			self.v_batt_sense = V_BATT_0_SENSE
-			self.led_enable =   DUT_0_LED_ENABLE
-			self.reset =        DUT_0_RESET
-			self.radio_ce =     DUT_0_RADIO_CE
-			self.low_current =  DUT_0_LOW_CURRENT
-			self.normal_current =  DUT_0_NORMAL_CURRENT
+	dut.reset()
+
+	#testIcspGpio()
+	#testDigitalGpio()
+
+	# ARM reset test
+	#dut.dutPinMode("ARM_RESET", GPIO.OUT)
+	#dut.dutPinWrite("ARM_RESET", GPIO.LOW)
+
+	dut.testrig.setPowerMode("full")
+	dut.testrig.enableUSB()
+
+	dut.checkForBootloaderDevice()
 
 
-	def init(self):
-		GPIO.setup(self.led_enable, GPIO.IN)
-		GPIO.setup(self.reset, GPIO.IN)
-		GPIO.setup(self.radio_ce, GPIO.IN)
-		GPIO.setup(self.low_current, GPIO.OUT)
-		GPIO.setup(self.normal_current, GPIO.OUT)
-		self.setPowerMode(0)
+	print(dut.testrig.readDutPower())
+	print(dut.readDutPins())
+#	print(dut.readDutVoltages())
 
-	def setPowerMode(self, mode):
-		if mode == 0:
-			GPIO.output(self.low_current, GPIO.HIGH)
-			GPIO.output(self.normal_current, GPIO.HIGH)
-		if mode == 1:
-			GPIO.output(self.low_current, GPIO.LOW)
-			GPIO.output(self.normal_current, GPIO.HIGH)
-		if mode == 2:
-			GPIO.output(self.low_current, GPIO.HIGH)
-			GPIO.output(self.normal_current, GPIO.LOW)
-
-	def enterReset(self):
-		# Put the microcontroller in reset mode
-		GPIO.setup(self.reset, GPIO.OUT)
-		GPIO.output(self.reset, GPIO.LOW)
-
-	def exitReset(self):
-		# Exit reset mode (starts the microcontroller)
-		GPIO.setup(self.reset, GPIO.IN)
-
-	def enableLed(self):
-		# Enable the LED output
-		GPIO.setup(self.led_enable, GPIO.OUT)
-		GPIO.output(self.led_enable, GPIO.HIGH)
-
-	def disableLed(self):
-		GPIO.setup(self.led_enable, GPIO.IN)

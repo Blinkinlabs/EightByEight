@@ -8,8 +8,8 @@
 Description=Test runner for flybynight
 
 [Service]
-WorkingDirectory=/home/debian/flybynight
-ExecStart=/home/debian/flybynight/run-flybynight.sh
+WorkingDirectory=/home/pi/EightByEight/test
+ExecStart=/home/pi/EightByEighty/test/run-eightbyeight-tests.sh
 KillMode=process
 
 [Install]

@@ -1,15 +1,12 @@
 #!/usr/bin/python
 
 import time
-import smbus
-from Adafruit_I2C import Adafruit_I2C
 
 # ===========================================================================
 # INA219 Class
 # ===========================================================================
 
 class INA219:
-	i2c = None
 
 # ===========================================================================
 #   I2C ADDRESS/BITS
@@ -35,10 +32,17 @@ class INA219:
 	__INA219_CONFIG_GAIN_8_320MV             = 0x1800  # Gain 8, 320mV Range
 
 	__INA219_CONFIG_BADCRES_MASK             = 0x0780  # Bus ADC Resolution Mask
-	__INA219_CONFIG_BADCRES_9BIT             = 0x0080  # 9-bit bus res = 0..511
-	__INA219_CONFIG_BADCRES_10BIT            = 0x0100  # 10-bit bus res = 0..1023
-	__INA219_CONFIG_BADCRES_11BIT            = 0x0200  # 11-bit bus res = 0..2047
-	__INA219_CONFIG_BADCRES_12BIT            = 0x0400  # 12-bit bus res = 0..4097
+	__INA219_CONFIG_BADCRES_9BIT_1S_84US     = 0x0080  # 1x 9-bit bus res = 0..511
+	__INA219_CONFIG_BADCRES_10BIT_1S_148US   = 0x0100  # 1x 10-bit bus res = 0..1023
+	__INA219_CONFIG_BADCRES_11BIT_1S_276US   = 0x0200  # 1x 11-bit bus res = 0..2047
+	__INA219_CONFIG_BADCRES_12BIT_1S_532US   = 0x0400  # 1x 12-bit bus res = 0..4097
+	__INA219_CONFIG_BADCRES_12BIT_2S_1060US  = 0x0480  # 2 x 12-bit samples averaged together
+	__INA219_CONFIG_BADCRES_12BIT_4S_2130US  = 0x0500  # 4 x 12-bit samples averaged together
+	__INA219_CONFIG_BADCRES_12BIT_8S_4260US  = 0x0580  # 8 x 12-bit samples averaged together
+	__INA219_CONFIG_BADCRES_12BIT_16S_8510US = 0x0600  # 16 x 12-bit samples averaged together
+	__INA219_CONFIG_BADCRES_12BIT_32S_17MS   = 0x0680  # 32 x 12-bit samples averaged together
+	__INA219_CONFIG_BADCRES_12BIT_64S_34MS   = 0x0700  # 64 x 12-bit samples averaged together
+	__INA219_CONFIG_BADCRES_12BIT_128S_69MS  = 0x0780  # 128 x 12-bit samples averaged together
 
 	__INA219_CONFIG_SADCRES_MASK             = 0x0078  # Shunt ADC Resolution and Averaging Mask
 	__INA219_CONFIG_SADCRES_9BIT_1S_84US     = 0x0000  # 1 x 9-bit shunt sample
@@ -62,6 +66,8 @@ class INA219:
 	__INA219_CONFIG_MODE_SVOLT_CONTINUOUS    = 0x0005
 	__INA219_CONFIG_MODE_BVOLT_CONTINUOUS    = 0x0006
 	__INA219_CONFIG_MODE_SANDBVOLT_CONTINUOUS = 0x0007
+
+
 # ===========================================================================
 
 # ===========================================================================
@@ -75,6 +81,8 @@ class INA219:
 # ===========================================================================
 	__INA219_REG_BUSVOLTAGE                  = 0x02
 # ===========================================================================
+	__INA219_BUSVOLTAGE_CNVR		= 0x0002 # Conversion ready
+	__INA219_BUSVOLTAGE_OVERFLOW		= 0x0001 # Math overflow
 
 # ===========================================================================
 #   POWER REGISTER (R)
@@ -95,14 +103,17 @@ class INA219:
 # ===========================================================================
 
 	# Constructor
-	def __init__(self, address=0x40, debug=False):
-		self.i2c = Adafruit_I2C(address, debug=False)
+	def __init__(self, address=0x40, i2c=None, resistance=.1, debug=False, **kwargs):
+		if i2c is None:
+			import Adafruit_GPIO.I2C as I2C
+			i2c = I2C
+		self._device = i2c.get_i2c_device(address, **kwargs)
 		self.address = address
 		self.debug = debug
-		
-		self.ina219SetCalibration_32V_2A()
-		#self.ina219SetCalibration_16V_400mA()
-	
+
+		self.reset()
+		self.ina219SetCalibration(resistance, gain=4)
+
 	def twosToInt(self, val, len):
 		# Convert twos compliment to integer
 
@@ -111,50 +122,88 @@ class INA219:
 
 		return val
 
-	def ina219SetCalibration_32V_2A(self):
-		self.ina219_currentDivider_mA = 10  # Current LSB = 100uA per bit (1000/100 = 10)
-		self.ina219_powerDivider_mW = 2     # Power LSB = 1mW per bit (2/1)
+	def dumpRegisters(self):
+                for reg in range(0,6):
+                        result = self._device.readU16(reg, little_endian=False)
+                        print(reg),
+                        print(format(result,'04x'))
 		
-		# Set Calibration register to 'Cal' calculated above	
-		bytes = [(0x1000 >> 8) & 0xFF, 0x1000 & 0xFF]
-		self.i2c.writeList(self.__INA219_REG_CALIBRATION, bytes)
-		
-		# Set Config register to take into account the settings above
-		config = self.__INA219_CONFIG_BVOLTAGERANGE_32V | \
-				 self.__INA219_CONFIG_GAIN_8_320MV | \
-				 self.__INA219_CONFIG_BADCRES_12BIT | \
-				 self.__INA219_CONFIG_SADCRES_12BIT_1S_532US | \
-				 self.__INA219_CONFIG_MODE_SANDBVOLT_CONTINUOUS
-		
-		bytes = [(config >> 8) & 0xFF, config & 0xFF]
-		self.i2c.writeList(self.__INA219_REG_CONFIG, bytes)
 
-	def ina219SetCalibration_16V_400mA(self):
-		self.ina219_currentDivider_mA = 20  # Current LSB = 50uA per bit (1000/50 = 20)
-		self.ina219_powerDivider_mW = 1     # Power LSB = 1mW per bit (2/1)
+	def reset(self):
+		config  = self.__INA219_CONFIG_RESET
+
+		bytes = [(config >> 8) & 0xFF,  config & 0xFF]
+		self._device.writeList(self.__INA219_REG_CONFIG, bytes)
+
+	def ina219SetCalibration(self, resistance, gain=8, voltageRange=32, maxAmps=4):
+		self.currentLSB = float(maxAmps)/pow(2,15)
+		self.gain = gain
 		
 		# Set Calibration register to 'Cal' calculated above	
-		bytes = [(0x1000 >> 8) & 0xFF, 0x2000 & 0xFF]
-		self.i2c.writeList(self.__INA219_REG_CALIBRATION, bytes)
-		
-		# Set Config register to take into account the settings above
-		config = self.__INA219_CONFIG_BVOLTAGERANGE_16V | \
-				 self.__INA219_CONFIG_GAIN_1_40MV | \
-				 self.__INA219_CONFIG_BADCRES_12BIT | \
-				 self.__INA219_CONFIG_SADCRES_12BIT_1S_532US | \
-				 self.__INA219_CONFIG_MODE_SANDBVOLT_CONTINUOUS
+		calibration = int(0.04096/(self.currentLSB*resistance))
+
+		bytes = [(calibration >> 8) & 0xFF,  calibration & 0xFF]
+		self._device.writeList(self.__INA219_REG_CALIBRATION, bytes)
+
+		config = 0;
+
+		if (voltageRange == 16):
+			config |= self.__INA219_CONFIG_BVOLTAGERANGE_16V
+		if (voltageRange == 32):
+			config |= self.__INA219_CONFIG_BVOLTAGERANGE_32V
+
+		if (gain == 1):
+			config |= self.__INA219_CONFIG_GAIN_1_40MV
+		elif (gain == 2):
+			config |= self.__INA219_CONFIG_GAIN_2_80MV
+		elif (gain == 4):
+			config |= self.__INA219_CONFIG_GAIN_4_160MV
+		elif (gain == 8):
+			config |= self.__INA219_CONFIG_GAIN_8_320MV
+
+		# Slowest, most accurate bus ADC sampling
+		config |= self.__INA219_CONFIG_BADCRES_12BIT_128S_69MS
+
+		# Slowest, most accurate current sampling
+		config |= self.__INA219_CONFIG_SADCRES_12BIT_128S_69MS
+
+		# and run in continuous mode
+		#config |= self.__INA219_CONFIG_MODE_SANDBVOLT_CONTINUOUS
+		#config |= self.__INA219_CONFIG_MODE_SANDBVOLT_TRIGGERED
+
+		self.config = config
+
 		
 		bytes = [(config >> 8) & 0xFF, config & 0xFF]
-		self.i2c.writeList(self.__INA219_REG_CONFIG, bytes)
+		self._device.writeList(self.__INA219_REG_CONFIG, bytes)
+
+
+	def measure(self):
+		# Trigger a measurement by writing out the config register
+		config = self.config | self.__INA219_CONFIG_MODE_SANDBVOLT_TRIGGERED
+
+		bytes = [(config >> 8) & 0xFF, config & 0xFF]
+		self._device.writeList(self.__INA219_REG_CONFIG, bytes)
+
+		# then wait for it to complete
+		while(True):
+			result = self._device.readU16(self.__INA219_REG_BUSVOLTAGE, little_endian=False)
+
+			if (result & self.__INA219_BUSVOLTAGE_CNVR):
+				break
+			
 
 	def getBusVoltage_raw(self):
-		result = self.i2c.readU16(self.__INA219_REG_BUSVOLTAGE)
+		result = self._device.readU16(self.__INA219_REG_BUSVOLTAGE, little_endian=False)
+
+		if (result & self.__INA219_BUSVOLTAGE_OVERFLOW):
+			print("Error- conversion overflow"),
 		
-		# Shift to the right 3 to drop CNVR and OVF and multiply by LSB
-		return (result >> 3) * 4
+		# Shift to the right 3 to drop CNVR
+		return (result >> 3) 
 		
 	def getShuntVoltage_raw(self):
-		result = self.i2c.readList(self.__INA219_REG_SHUNTVOLTAGE,2)
+		result = self._device.readList(self.__INA219_REG_SHUNTVOLTAGE,2)
 		if (result[0] >> 7 == 1):
 			testint = (result[0]*256 + result[1])
 			othernew = self.twosToInt(testint, 16)
@@ -163,7 +212,7 @@ class INA219:
 			return (result[0] << 8) | (result[1])
 
 	def getCurrent_raw(self):
-		result = self.i2c.readList(self.__INA219_REG_CURRENT,2)
+		result = self._device.readList(self.__INA219_REG_CURRENT,2)
 		if (result[0] >> 7 == 1):
 			testint = (result[0]*256 + result[1])
 			othernew = self.twosToInt(testint, 16)
@@ -172,7 +221,7 @@ class INA219:
 			return (result[0] << 8) | (result[1])
 
 	def getPower_raw(self):
-		result = self.i2c.readList(self.__INA219_REG_POWER,2)
+		result = self._device.readList(self.__INA219_REG_POWER,2)
 		if (result[0] >> 7 == 1):
 			testint = (result[0]*256 + result[1])
 			othernew = self.twosToInt(testint, 16)
@@ -186,16 +235,16 @@ class INA219:
 		
 	def getBusVoltage_V(self):
 		value = self.getBusVoltage_raw()
-		return value * 0.001
+		return value * 0.004
 		
 	def getCurrent_mA(self):
 		valueDec = self.getCurrent_raw()
-		valueDec /= self.ina219_currentDivider_mA
+		valueDec *= self.currentLSB*1000
 		return valueDec
 		
 	def getPower_mW(self):
 		valueDec = self.getPower_raw()
-		valueDec /= self.ina219_powerDivider_mW
+		valueDec *= self.currentLSB*20
 		return valueDec
 
 
