@@ -48,8 +48,7 @@ void RGBMatrix::setBrightness(uint8_t brightness)
   }
   Serial1.print(char(1)); // Set brightness command
   Serial1.print(char(brightness)); // And the brightness data
-  
-    
+
 #else
   // feather uses NeoPixel hat
   neopixels.setBrightness(brightness);

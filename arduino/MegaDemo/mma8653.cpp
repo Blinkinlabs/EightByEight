@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016, Blinkinlabs, LLC
+ * Copyright (c) 2015, 2016, Blinkinlabs, LLC
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -165,10 +165,10 @@ bool MMA8653::getXYZ(float& X, float& Y, float& Z) {
         Wire.read();
     }
     if(Wire.available()) {
-        Y = factor*(int8_t)Wire.read();
+        X = factor*(int8_t)Wire.read();
     }
     if(Wire.available()) {
-        X = factor*(int8_t)Wire.read();
+        Y = factor*(int8_t)Wire.read();
     }
     if(Wire.available()) {
         Z = factor*(int8_t)Wire.read();

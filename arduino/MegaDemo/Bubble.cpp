@@ -27,9 +27,9 @@ void Bubble::draw(RGBMatrix &matrix)
 	// don't draw the bubble once we pass 45 degree or so
 	int blend = (fabs(az)) * 50 / (2 * 9.81);
 
-	// rotate the x y by 45 degrees
-	const float rx = ax * 0.851 - ay * 0.525;
-	const float ry = ay * 0.851 + ax * 0.525;
+	// rotate the x y by -45 degrees
+	const float rx = ay * 0.851 - ax * 0.525;
+	const float ry = ax * 0.851 + ay * 0.525;
 
 	const float row = rx * (LED_ROWS / (25));
 	const float col = ry * (LED_COLS / (25));
