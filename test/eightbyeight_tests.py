@@ -169,7 +169,7 @@ class EightByEightTests(unittest.TestCase):
 
 	def test_630_flashApplicationFirmware(self):
 		address = 0x0000
-		filename = "/home/pi/EightByEight/bin/MegaDemo.bin"
+		filename = "/home/pi/EightByEight/bin/megademo-v100.bin"
 
 		self.dut.espFlasher.writeFirmware(address, filename)
 		self.assertTrue(True)
