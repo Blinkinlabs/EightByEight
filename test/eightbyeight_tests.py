@@ -111,13 +111,13 @@ class EightByEightTests(unittest.TestCase):
 		self.dut.testrig.setPowerMode("full")
 		self.dut.testrig.enableUSB()
 
-		self.assertTrue(self.dut.armFlasher.writeFirmware("../bootloader/blinky-boot.elf"))
+		self.assertTrue(self.dut.armFlasher.writeFirmware("../bin/blinky-boot-v100.hex"))
 
 	def test_420_armProgramBootloader(self):
 		self.dut.testrig.setPowerMode("full")
 		self.dut.testrig.enableUSB()
 
-		self.assertTrue(self.dut.armFlasher.writeFirmware("../firmware/app-image.hex"))
+		self.assertTrue(self.dut.armFlasher.writeFirmware("../bin/eightbyeight-app-image-v100.hex"))
 
 	def test_460_usbBootloaderMode(self):
 		self.dut.testrig.setPowerMode("full")
