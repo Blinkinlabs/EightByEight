@@ -19,11 +19,6 @@
 
 int serialMode;         // Serial protocol we are speaking
 
-// Buffer to store incoming frame
-uint8_t frameData[LED_ROWS*LED_COLS*BYTES_PER_PIXEL];
-
-//extern bool reloadAnimations;
-
 ///// Defines for the data mode
 void dataLoop();
 
@@ -40,8 +35,6 @@ uint8_t controlBuffer[CONTROL_BUFFER_SIZE];     // Buffer for receiving command 
 int controlBufferIndex;     // Current location in the buffer
 
 void serialReset() {
-//    serialAnimation.reset();
-
     serialMode = SERIAL_MODE_DATA;
 
     bufferIndex = 0;
@@ -82,9 +75,8 @@ void dataLoop() {
 
             // Prevent overflow by ignoring any pixel data beyond LED_COUNT
             if(pixelIndex < LED_COUNT) {
-                frameData[pixelIndex*3 + 0] = buffer[0];
-                frameData[pixelIndex*3 + 1] = buffer[1];
-                frameData[pixelIndex*3 + 2] = buffer[2];
+                setPixel(pixelIndex%LED_COLS, pixelIndex/LED_COLS,
+                         buffer[0], buffer[1], buffer[2]);
                 pixelIndex++;
             }
         }
@@ -100,7 +92,7 @@ void dataLoop() {
 
         // If this is the first escape character, refresh the output
         if(escapeRunCount == 1) {
-            memcpy(getPixels(), frameData, LED_ROWS*LED_COLS*BYTES_PER_PIXEL);
+            //memcpy(getPixels(), frameData, LED_ROWS*LED_COLS*BYTES_PER_PIXEL);
             show();
         }
         
@@ -131,7 +123,7 @@ Command commands[] = {
 //    {0x04,   1,   commandStartRead},    // Start reading back the animation
 //    {0x05,   1,   commandRead},         // Read 64 bytes of data
 //    {0x06,   1,   commandStopRead},     // Stop reading
-//    {0xFF,   0,   NULL}
+    {0xFF,   0,   NULL}
 };
 
 
@@ -175,6 +167,7 @@ void commandLoop() {
 }
 
 /*
+
 static bool writing = false;
 static int packetCount;         // Count of packets we have written so far
 
@@ -256,12 +249,13 @@ bool commandWrite(uint8_t* buffer) {
 bool commandStopWrite(uint8_t* buffer) {
     writing = false;
 
-    reloadAnimations = true;
+    //reloadAnimations = true;
 
     buffer[0] = 0;
     return true;
 }
 
+/*
 bool commandStartRead(uint8_t* buffer) {
     // Reset the write state machine
     reading = true;
