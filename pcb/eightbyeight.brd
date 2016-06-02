@@ -23,12 +23,12 @@
 <layer number="13" name="Route13" color="4" fill="5" visible="no" active="no"/>
 <layer number="14" name="Route14" color="1" fill="6" visible="no" active="no"/>
 <layer number="15" name="Route" color="5" fill="1" visible="no" active="yes"/>
-<layer number="16" name="Bottom" color="1" fill="1" visible="yes" active="yes"/>
-<layer number="17" name="Pads" color="10" fill="1" visible="yes" active="yes"/>
-<layer number="18" name="Vias" color="10" fill="1" visible="yes" active="yes"/>
-<layer number="19" name="Unrouted" color="6" fill="1" visible="yes" active="yes"/>
+<layer number="16" name="Bottom" color="1" fill="1" visible="no" active="yes"/>
+<layer number="17" name="Pads" color="10" fill="1" visible="no" active="yes"/>
+<layer number="18" name="Vias" color="10" fill="1" visible="no" active="yes"/>
+<layer number="19" name="Unrouted" color="6" fill="1" visible="no" active="yes"/>
 <layer number="20" name="Dimension" color="15" fill="1" visible="yes" active="yes"/>
-<layer number="21" name="tPlace" color="6" fill="1" visible="yes" active="yes"/>
+<layer number="21" name="tPlace" color="6" fill="1" visible="no" active="yes"/>
 <layer number="22" name="bPlace" color="3" fill="1" visible="no" active="yes"/>
 <layer number="23" name="tOrigins" color="15" fill="1" visible="yes" active="yes"/>
 <layer number="24" name="bOrigins" color="15" fill="1" visible="no" active="yes"/>
@@ -46,20 +46,20 @@
 <layer number="36" name="bGlue" color="7" fill="5" visible="no" active="yes"/>
 <layer number="37" name="tTest" color="7" fill="1" visible="no" active="yes"/>
 <layer number="38" name="bTest" color="7" fill="1" visible="no" active="yes"/>
-<layer number="39" name="tKeepout" color="4" fill="11" visible="yes" active="yes"/>
+<layer number="39" name="tKeepout" color="4" fill="11" visible="no" active="yes"/>
 <layer number="40" name="bKeepout" color="1" fill="11" visible="no" active="yes"/>
-<layer number="41" name="tRestrict" color="4" fill="10" visible="yes" active="yes"/>
+<layer number="41" name="tRestrict" color="4" fill="10" visible="no" active="yes"/>
 <layer number="42" name="bRestrict" color="1" fill="10" visible="no" active="yes"/>
 <layer number="43" name="vRestrict" color="2" fill="10" visible="no" active="yes"/>
 <layer number="44" name="Drills" color="7" fill="1" visible="no" active="yes"/>
 <layer number="45" name="Holes" color="7" fill="1" visible="no" active="yes"/>
 <layer number="46" name="Milling" color="3" fill="1" visible="no" active="yes"/>
 <layer number="47" name="Measures" color="7" fill="1" visible="no" active="yes"/>
-<layer number="48" name="Document" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="48" name="Document" color="7" fill="1" visible="no" active="yes"/>
 <layer number="49" name="Reference" color="7" fill="1" visible="no" active="yes"/>
 <layer number="50" name="dxf" color="7" fill="1" visible="no" active="no"/>
 <layer number="51" name="tDocu" color="7" fill="1" visible="yes" active="yes"/>
-<layer number="52" name="bDocu" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="52" name="bDocu" color="7" fill="1" visible="no" active="yes"/>
 <layer number="53" name="tGND_GNDA" color="7" fill="9" visible="no" active="no"/>
 <layer number="54" name="bGND_GNDA" color="1" fill="9" visible="no" active="no"/>
 <layer number="56" name="wert" color="7" fill="1" visible="no" active="no"/>
@@ -111,7 +111,7 @@
 <layer number="154" name="FabDoc2" color="2" fill="1" visible="no" active="no"/>
 <layer number="155" name="FabDoc3" color="7" fill="15" visible="no" active="no"/>
 <layer number="199" name="Contour" color="7" fill="1" visible="no" active="yes"/>
-<layer number="200" name="200bmp" color="15" fill="1" visible="yes" active="yes"/>
+<layer number="200" name="200bmp" color="15" fill="1" visible="no" active="yes"/>
 <layer number="201" name="201bmp" color="15" fill="1" visible="no" active="yes"/>
 <layer number="202" name="202bmp" color="15" fill="9" visible="no" active="yes"/>
 <layer number="203" name="203bmp" color="4" fill="10" visible="no" active="yes"/>
@@ -154,118 +154,8 @@
 </layers>
 <board>
 <plain>
-<wire x1="10" y1="10" x2="90" y2="10" width="0.254" layer="150"/>
-<wire x1="90" y1="10" x2="90" y2="28" width="0.254" layer="150"/>
-<wire x1="90" y1="28" x2="90" y2="30" width="0.254" layer="150"/>
-<wire x1="90" y1="30" x2="50" y2="70" width="0.254" layer="150" curve="90"/>
-<wire x1="50" y1="70" x2="10" y2="30" width="0.254" layer="150" curve="90"/>
-<wire x1="10" y1="30" x2="10" y2="28" width="0.254" layer="150"/>
 <circle x="30" y="57" radius="1.5" width="0.254" layer="20"/>
 <circle x="57" y="30" radius="1.5" width="0.254" layer="20"/>
-<wire x1="10" y1="28" x2="10" y2="10" width="0.254" layer="150"/>
-<wire x1="90" y1="28" x2="10" y2="28" width="0.254" layer="150"/>
-<text x="2" y="80.05" size="0.8128" layer="46">Slot drill with copper</text>
-<rectangle x1="1.314525" y1="16.023796875" x2="12.2009625" y2="17.233346875" layer="201"/>
-<rectangle x1="17.037125" y1="16.023796875" x2="19.45774375" y2="17.233346875" layer="201"/>
-<rectangle x1="20.666784375" y1="16.023796875" x2="31.553221875" y2="17.233346875" layer="201"/>
-<rectangle x1="35.18034375" y1="16.023796875" x2="44.85774375" y2="17.233346875" layer="201"/>
-<rectangle x1="47.275825" y1="16.023796875" x2="49.69644375" y2="17.233346875" layer="201"/>
-<rectangle x1="56.953225" y1="16.023796875" x2="59.3713" y2="17.233346875" layer="201"/>
-<rectangle x1="60.58034375" y1="16.023796875" x2="63.0009625" y2="17.233346875" layer="201"/>
-<rectangle x1="65.41904375" y1="16.023796875" x2="75.09644375" y2="17.233346875" layer="201"/>
-<rectangle x1="77.514525" y1="16.023796875" x2="79.9326" y2="17.233346875" layer="201"/>
-<rectangle x1="87.189384375" y1="16.023796875" x2="89.610003125" y2="17.233346875" layer="201"/>
-<rectangle x1="95.65774375" y1="16.023796875" x2="98.075825" y2="17.233346875" layer="201"/>
-<rectangle x1="1.314525" y1="17.233346875" x2="13.41" y2="18.442890625" layer="201"/>
-<rectangle x1="17.037125" y1="17.233346875" x2="19.45774375" y2="18.442890625" layer="201"/>
-<rectangle x1="20.666784375" y1="17.233346875" x2="32.762259375" y2="18.442890625" layer="201"/>
-<rectangle x1="33.971303125" y1="17.233346875" x2="46.066784375" y2="18.442890625" layer="201"/>
-<rectangle x1="47.275825" y1="17.233346875" x2="49.69644375" y2="18.442890625" layer="201"/>
-<rectangle x1="55.74164375" y1="17.233346875" x2="59.3713" y2="18.442890625" layer="201"/>
-<rectangle x1="60.58034375" y1="17.233346875" x2="63.0009625" y2="18.442890625" layer="201"/>
-<rectangle x1="64.210003125" y1="17.233346875" x2="75.096440625" y2="18.442890625" layer="201"/>
-<rectangle x1="77.514525" y1="17.233346875" x2="79.9326" y2="18.442890625" layer="201"/>
-<rectangle x1="87.189384375" y1="17.233346875" x2="89.610003125" y2="18.442890625" layer="201"/>
-<rectangle x1="95.65774375" y1="17.233346875" x2="98.075825" y2="18.442890625" layer="201"/>
-<rectangle x1="1.314525" y1="18.44289375" x2="3.7326" y2="19.6524375" layer="201"/>
-<rectangle x1="10.989384375" y1="18.44289375" x2="13.410003125" y2="19.6524375" layer="201"/>
-<rectangle x1="17.037125" y1="18.44289375" x2="19.45774375" y2="19.6524375" layer="201"/>
-<rectangle x1="30.34164375" y1="18.44289375" x2="32.7622625" y2="19.6524375" layer="201"/>
-<rectangle x1="33.971303125" y1="18.44289375" x2="36.389384375" y2="19.6524375" layer="201"/>
-<rectangle x1="43.648703125" y1="18.44289375" x2="46.066784375" y2="19.6524375" layer="201"/>
-<rectangle x1="47.275825" y1="18.44289375" x2="58.1622625" y2="19.6524375" layer="201"/>
-<rectangle x1="60.58034375" y1="18.44289375" x2="63.0009625" y2="19.6524375" layer="201"/>
-<rectangle x1="64.210003125" y1="18.44289375" x2="66.628084375" y2="19.6524375" layer="201"/>
-<rectangle x1="77.514525" y1="18.44289375" x2="79.9326" y2="19.6524375" layer="201"/>
-<rectangle x1="87.189384375" y1="18.44289375" x2="89.610003125" y2="19.6524375" layer="201"/>
-<rectangle x1="95.65774375" y1="18.44289375" x2="98.075825" y2="19.6524375" layer="201"/>
-<rectangle x1="1.314525" y1="19.652440625" x2="3.7326" y2="20.861990625" layer="201"/>
-<rectangle x1="10.989384375" y1="19.652440625" x2="13.410003125" y2="20.861990625" layer="201"/>
-<rectangle x1="17.037125" y1="19.652440625" x2="19.45774375" y2="20.861990625" layer="201"/>
-<rectangle x1="20.666784375" y1="19.652440625" x2="32.762259375" y2="20.861990625" layer="201"/>
-<rectangle x1="33.971303125" y1="19.652440625" x2="36.389384375" y2="20.861990625" layer="201"/>
-<rectangle x1="43.648703125" y1="19.652440625" x2="46.066784375" y2="20.861990625" layer="201"/>
-<rectangle x1="47.275825" y1="19.652440625" x2="58.1622625" y2="20.861990625" layer="201"/>
-<rectangle x1="60.58034375" y1="19.652440625" x2="63.0009625" y2="20.861990625" layer="201"/>
-<rectangle x1="64.210003125" y1="19.652440625" x2="76.305484375" y2="20.861990625" layer="201"/>
-<rectangle x1="77.514525" y1="19.652440625" x2="79.9326" y2="20.861990625" layer="201"/>
-<rectangle x1="87.189384375" y1="19.652440625" x2="89.610003125" y2="20.861990625" layer="201"/>
-<rectangle x1="95.65774375" y1="19.652440625" x2="98.075825" y2="20.861990625" layer="201"/>
-<rectangle x1="1.314525" y1="20.861990625" x2="3.7326" y2="22.071534375" layer="201"/>
-<rectangle x1="10.989384375" y1="20.861990625" x2="13.410003125" y2="22.071534375" layer="201"/>
-<rectangle x1="17.037125" y1="20.861990625" x2="19.45774375" y2="22.071534375" layer="201"/>
-<rectangle x1="20.666784375" y1="20.861990625" x2="31.553221875" y2="22.071534375" layer="201"/>
-<rectangle x1="33.971303125" y1="20.861990625" x2="36.389384375" y2="22.071534375" layer="201"/>
-<rectangle x1="43.648703125" y1="20.861990625" x2="46.066784375" y2="22.071534375" layer="201"/>
-<rectangle x1="47.275825" y1="20.861990625" x2="49.69644375" y2="22.071534375" layer="201"/>
-<rectangle x1="56.953225" y1="20.861990625" x2="59.3713" y2="22.071534375" layer="201"/>
-<rectangle x1="60.58034375" y1="20.861990625" x2="63.0009625" y2="22.071534375" layer="201"/>
-<rectangle x1="64.210003125" y1="20.861990625" x2="76.305484375" y2="22.071534375" layer="201"/>
-<rectangle x1="77.514525" y1="20.861990625" x2="79.9326" y2="22.071534375" layer="201"/>
-<rectangle x1="87.189384375" y1="20.861990625" x2="89.610003125" y2="22.071534375" layer="201"/>
-<rectangle x1="95.65774375" y1="20.861990625" x2="98.075825" y2="22.071534375" layer="201"/>
-<rectangle x1="1.314525" y1="22.0715375" x2="3.7326" y2="23.28083125" layer="201"/>
-<rectangle x1="10.989384375" y1="22.0715375" x2="13.410003125" y2="23.28083125" layer="201"/>
-<rectangle x1="17.037125" y1="22.0715375" x2="19.45774375" y2="23.28083125" layer="201"/>
-<rectangle x1="20.666784375" y1="22.0715375" x2="23.084859375" y2="23.28083125" layer="201"/>
-<rectangle x1="33.971303125" y1="22.0715375" x2="36.389384375" y2="23.28083125" layer="201"/>
-<rectangle x1="43.648703125" y1="22.0715375" x2="46.066784375" y2="23.28083125" layer="201"/>
-<rectangle x1="47.275825" y1="22.0715375" x2="49.69644375" y2="23.28083125" layer="201"/>
-<rectangle x1="56.953225" y1="22.0715375" x2="59.3713" y2="23.28083125" layer="201"/>
-<rectangle x1="64.210003125" y1="22.0715375" x2="66.628084375" y2="23.28083125" layer="201"/>
-<rectangle x1="73.8848625" y1="22.0715375" x2="76.30548125" y2="23.28083125" layer="201"/>
-<rectangle x1="77.514525" y1="22.0715375" x2="79.9326" y2="23.28083125" layer="201"/>
-<rectangle x1="87.189384375" y1="22.0715375" x2="89.610003125" y2="23.28083125" layer="201"/>
-<rectangle x1="95.65774375" y1="22.0715375" x2="98.075825" y2="23.28083125" layer="201"/>
-<rectangle x1="1.314525" y1="23.28083125" x2="13.41" y2="24.49038125" layer="201"/>
-<rectangle x1="14.61904375" y1="23.28083125" x2="19.45774375" y2="24.49038125" layer="201"/>
-<rectangle x1="20.666784375" y1="23.28083125" x2="32.762259375" y2="24.49038125" layer="201"/>
-<rectangle x1="33.971303125" y1="23.28083125" x2="46.066784375" y2="24.49038125" layer="201"/>
-<rectangle x1="47.275825" y1="23.28083125" x2="59.3713" y2="24.49038125" layer="201"/>
-<rectangle x1="60.58034375" y1="23.28083125" x2="63.0009625" y2="24.49038125" layer="201"/>
-<rectangle x1="64.210003125" y1="23.28083125" x2="76.305484375" y2="24.49038125" layer="201"/>
-<rectangle x1="77.514525" y1="23.28083125" x2="89.61" y2="24.49038125" layer="201"/>
-<rectangle x1="90.81904375" y1="23.28083125" x2="102.914525" y2="24.49038125" layer="201"/>
-<rectangle x1="1.314525" y1="24.49038125" x2="12.2009625" y2="25.699925" layer="201"/>
-<rectangle x1="14.61904375" y1="24.49038125" x2="18.2487" y2="25.699925" layer="201"/>
-<rectangle x1="20.666784375" y1="24.49038125" x2="32.762259375" y2="25.699925" layer="201"/>
-<rectangle x1="35.18034375" y1="24.49038125" x2="44.85774375" y2="25.699925" layer="201"/>
-<rectangle x1="47.275825" y1="24.49038125" x2="58.1622625" y2="25.699925" layer="201"/>
-<rectangle x1="60.58034375" y1="24.49038125" x2="63.0009625" y2="25.699925" layer="201"/>
-<rectangle x1="65.41904375" y1="24.49038125" x2="75.09644375" y2="25.699925" layer="201"/>
-<rectangle x1="77.514525" y1="24.49038125" x2="88.4009625" y2="25.699925" layer="201"/>
-<rectangle x1="90.81904375" y1="24.49038125" x2="102.914525" y2="25.699925" layer="201"/>
-<text x="79" y="7" size="1.4224" layer="202" font="vector" rot="MR180" align="center">LeoBlinky 2015
-Created with love by Blinkinlabs</text>
-<text x="29.8" y="8.5" size="0.8128" layer="201" font="vector" align="top-center">GND</text>
-<text x="27.2" y="8.5" size="0.8128" layer="201" font="vector" align="top-center">RX</text>
-<text x="24.7" y="8.5" size="0.8128" layer="201" font="vector" align="top-center">TMS</text>
-<text x="22.1" y="8.5" size="0.8128" layer="201" font="vector" align="top-center">RST</text>
-<text x="22.1" y="14" size="0.8128" layer="201" font="vector" align="bottom-center">5V</text>
-<text x="24.7" y="14" size="0.8128" layer="201" font="vector" align="bottom-center">TX</text>
-<text x="27.3" y="14" size="0.8128" layer="201" font="vector" align="bottom-center">TCK</text>
-<text x="29.8" y="14" size="0.8128" layer="201" font="vector" align="bottom-center">3V3</text>
-<wire x1="0" y1="0" x2="60" y2="0" width="0.254" layer="20"/>
 <wire x1="60" y1="0" x2="60" y2="60" width="0.254" layer="20"/>
 <wire x1="60" y1="60" x2="0" y2="60" width="0.254" layer="20"/>
 <wire x1="0" y1="60" x2="0" y2="0" width="0.254" layer="20"/>
@@ -296,6 +186,7 @@ Created with love by Blinkinlabs</text>
 <wire x1="39.9" y1="53.15" x2="53.15" y2="39.95" width="0.1" layer="41"/>
 <text x="3.1" y="11.4" size="1.778" layer="21" rot="R90">EightByEight RevA 2016-05</text>
 <text x="7.7" y="56.4" size="1.778" layer="21">by Blinkinlabs</text>
+<wire x1="60" y1="0" x2="0" y2="0" width="0.254" layer="20"/>
 </plain>
 <libraries>
 <library name="adafruit">
@@ -1135,113 +1026,116 @@ Modified from Laen's PCB Order Design Rules</description>
 <attribute name="VALUE" x="17.300503125" y="23.6" size="1.016" layer="27" rot="R270"/>
 </element>
 <element name="C7" library="adafruit" package="C0402" value="100nF" x="6.5" y="14.7" smashed="yes" rot="R180">
-<attribute name="NAME" x="5.235" y="15.638" size="1.27" layer="25" rot="R180"/>
-<attribute name="VALUE" x="5.235" y="15.605" size="1.27" layer="27" rot="R180"/>
+<attribute name="NAME" x="5.235" y="15.638" size="1.016" layer="25" rot="R180"/>
+<attribute name="VALUE" x="5.235" y="15.605" size="1.016" layer="27" rot="R180"/>
 </element>
 <element name="R1" library="adafruit" package="R0402" value="2k 1%" x="16.3" y="14.7" smashed="yes" rot="R180">
-<attribute name="NAME" x="17.162" y="13.835" size="1.27" layer="25" rot="R270"/>
-<attribute name="VALUE" x="17.168" y="13.835" size="1.27" layer="27" rot="R270"/>
+<attribute name="NAME" x="17.162" y="13.835" size="1.016" layer="25" rot="R270"/>
+<attribute name="VALUE" x="17.168" y="13.835" size="1.016" layer="27" rot="R270"/>
 </element>
 <element name="R7" library="adafruit" package="R0402" value="33" x="48.2" y="27.1" smashed="yes" rot="R180">
-<attribute name="NAME" x="44.865" y="26.162003125" size="1.27" layer="25"/>
-<attribute name="VALUE" x="44.865" y="26.168" size="1.27" layer="27"/>
+<attribute name="NAME" x="44.865" y="26.162003125" size="1.016" layer="25"/>
+<attribute name="VALUE" x="44.865" y="26.168" size="1.016" layer="27"/>
 </element>
 <element name="R8" library="adafruit" package="R0402" value="33" x="48.2" y="28.25" smashed="yes" rot="R180">
-<attribute name="NAME" x="44.864996875" y="27.612003125" size="1.27" layer="25"/>
-<attribute name="VALUE" x="44.865" y="27.618" size="1.27" layer="27"/>
+<attribute name="NAME" x="44.864996875" y="27.612003125" size="1.016" layer="25"/>
+<attribute name="VALUE" x="44.865" y="27.618" size="1.016" layer="27"/>
 </element>
-<element name="CON1" library="blinkinlabs" package="USB_MICRO_THRUHOLE" value="USB_MICROSMT+THRUHULE" x="58.36" y="23.2" smashed="yes" rot="R90"/>
+<element name="CON1" library="blinkinlabs" package="USB_MICRO_THRUHOLE" value="USB_MICROSMT+THRUHULE" x="58.36" y="23.2" smashed="yes" rot="R90">
+<attribute name="VALUE" x="63.36" y="19.39" size="1.27" layer="27" rot="R90"/>
+<attribute name="NAME" x="57.85" y="18.01" size="1.27" layer="25" rot="R270"/>
+</element>
 <element name="R6" library="adafruit" package="R0402" value="10k" x="6.5" y="13.5" smashed="yes">
-<attribute name="NAME" x="5.235" y="14.238" size="1.27" layer="25" rot="R180"/>
-<attribute name="VALUE" x="5.235" y="14.232" size="1.27" layer="27" rot="R180"/>
+<attribute name="NAME" x="5.235" y="14.238" size="1.016" layer="25" rot="R180"/>
+<attribute name="VALUE" x="5.235" y="14.232" size="1.016" layer="27" rot="R180"/>
 </element>
 <element name="C8" library="adafruit" package="C0402" value="100nF" x="10.9" y="25.3" smashed="yes">
-<attribute name="NAME" x="12.365" y="24.862" size="1.27" layer="25"/>
-<attribute name="VALUE" x="12.365" y="24.795" size="1.27" layer="27"/>
+<attribute name="NAME" x="12.365" y="24.862" size="1.016" layer="25"/>
+<attribute name="VALUE" x="12.365" y="24.795" size="1.016" layer="27"/>
 </element>
 <element name="SW1" library="blinkinlabs" package="SWITCH_6P-2POS" value="SWITCH_SPDT" x="5" y="5" smashed="yes" rot="R135"/>
 <element name="C2" library="adafruit" package="C0402" value="100nF" x="29.9" y="5.5" smashed="yes" rot="R270">
-<attribute name="NAME" x="29.662" y="4.035" size="1.27" layer="25" rot="R270"/>
-<attribute name="VALUE" x="29.695" y="4.035" size="1.27" layer="27" rot="R270"/>
+<attribute name="NAME" x="29.662" y="4.035" size="1.016" layer="25" rot="R270"/>
+<attribute name="VALUE" x="29.695" y="4.035" size="1.016" layer="27" rot="R270"/>
 </element>
 <element name="C5" library="adafruit" package="C0402" value="2.2uF" x="26.35" y="5.5" smashed="yes" rot="R270">
-<attribute name="NAME" x="25.612" y="3.735" size="1.27" layer="25" rot="R270"/>
-<attribute name="VALUE" x="25.345" y="4.035" size="1.27" layer="27" rot="R270"/>
+<attribute name="NAME" x="25.612" y="3.735" size="1.016" layer="25" rot="R270"/>
+<attribute name="VALUE" x="25.345" y="4.035" size="1.016" layer="27" rot="R270"/>
 </element>
 <element name="C1" library="adafruit" package="C0402" value="100nF" x="28.7" y="5.5" smashed="yes" rot="R270">
-<attribute name="NAME" x="28.162" y="4.035" size="1.27" layer="25" rot="R270"/>
-<attribute name="VALUE" x="28.195" y="4.035" size="1.27" layer="27" rot="R270"/>
+<attribute name="NAME" x="28.162" y="4.035" size="1.016" layer="25" rot="R270"/>
+<attribute name="VALUE" x="28.195" y="4.035" size="1.016" layer="27" rot="R270"/>
 </element>
 <element name="C4" library="adafruit" package="C0402" value="100nF" x="27.5" y="5.5" smashed="yes" rot="R270">
-<attribute name="NAME" x="26.762" y="4.035" size="1.27" layer="25" rot="R270"/>
-<attribute name="VALUE" x="26.795" y="4.035" size="1.27" layer="27" rot="R270"/>
+<attribute name="NAME" x="26.762" y="4.035" size="1.016" layer="25" rot="R270"/>
+<attribute name="VALUE" x="26.795" y="4.035" size="1.016" layer="27" rot="R270"/>
 </element>
 <element name="U1" library="blinkinlabs" package="QFN32_5X5_LONGLEADS" value="MK20D--VFM5" x="30.2" y="11.2" smashed="yes" rot="R45">
-<attribute name="NAME" x="33.131546875" y="13.328246875" size="1.27" layer="25" rot="R45"/>
-<attribute name="VALUE" x="33.14905" y="13.335515625" size="1.27" layer="27" rot="R45"/>
+<attribute name="NAME" x="33.131546875" y="13.328246875" size="1.016" layer="25" rot="R45"/>
+<attribute name="VALUE" x="33.14905" y="13.335515625" size="1.016" layer="27" rot="R45"/>
 </element>
 <element name="C3" library="adafruit" package="C0402" value="100nF" x="25.65" y="10.25" smashed="yes" rot="R270">
-<attribute name="NAME" x="26.388" y="11.415" size="1.27" layer="25" rot="R90"/>
-<attribute name="VALUE" x="26.355" y="11.415" size="1.27" layer="27" rot="R90"/>
+<attribute name="NAME" x="25.888" y="11.615" size="1.016" layer="25" rot="R90"/>
+<attribute name="VALUE" x="26.355" y="11.415" size="1.016" layer="27" rot="R90"/>
 </element>
 <element name="SW2" library="blinkinlabs" package="TD-07XB" value="BRIGHTNESS" x="54" y="54" smashed="yes" rot="R315">
-<attribute name="NAME" x="46.492640625" y="53.501940625" size="1.27" layer="25" rot="R315"/>
-<attribute name="VALUE" x="46.636075" y="53.34536875" size="1.27" layer="27" rot="R315"/>
+<attribute name="NAME" x="56.392640625" y="58.001940625" size="1.016" layer="25" rot="R315"/>
+<attribute name="VALUE" x="46.636075" y="53.34536875" size="1.016" layer="27" rot="R315"/>
 </element>
 <element name="U3" library="blinkinlabs" package="TSSOP16" value="74138" x="13.4" y="28.6" smashed="yes" rot="R90">
-<attribute name="NAME" x="12.495596875" y="29.382803125" size="1.016" layer="25" ratio="10" rot="R270"/>
+<attribute name="NAME" x="13.917196875" y="31.995596875" size="1.016" layer="25" ratio="10"/>
 <attribute name="VALUE" x="13.813803125" y="31.3828" size="1.016" layer="27" ratio="10" rot="R270"/>
 </element>
 <element name="L2" library="blinkinlabs" package="0805" value="130ohm @100MHz" x="52.1" y="26.6" smashed="yes" rot="R180">
-<attribute name="NAME" x="53.432" y="28.273" size="1.27" layer="25"/>
-<attribute name="VALUE" x="53.332" y="28.038" size="0.4064" layer="27" ratio="10"/>
+<attribute name="NAME" x="53.432" y="28.273" size="1.016" layer="25"/>
+<attribute name="VALUE" x="53.332" y="28.038" size="1.016" layer="27"/>
 </element>
 <element name="Q1" library="blinkinlabs" package="CRSYTAL_2520" value="16MHz" x="36.5" y="8.8" smashed="yes" rot="R180">
-<attribute name="VALUE" x="38.3" y="8.2" size="1.27" layer="27"/>
-<attribute name="NAME" x="38.3" y="8.2" size="1.27" layer="25"/>
+<attribute name="VALUE" x="38.3" y="8.2" size="1.016" layer="27"/>
+<attribute name="NAME" x="38.3" y="8.2" size="1.016" layer="25"/>
 </element>
 <element name="Z1" library="PaxInstrument-T400" package="SPARKFUN-RESISTORS_0603-RES" value="PGB1010603" x="53.3" y="23.2" smashed="yes" rot="R270">
 <attribute name="MPN" value="PGB1010603NRHF" x="57.3" y="27.2" size="1.8" layer="27" font="vector" rot="R270" display="off"/>
 <attribute name="MF" value="Littelfuse" x="57.3" y="27.2" size="1.8" layer="27" font="vector" rot="R270" display="off"/>
-<attribute name="NAME" x="52.662" y="21.789" size="1.27" layer="25" font="vector" rot="R270"/>
-<attribute name="VALUE" x="52.657" y="21.816" size="0.4064" layer="27" font="vector" rot="R270"/>
+<attribute name="NAME" x="52.662" y="21.789" size="1.016" layer="25" font="vector" rot="R270"/>
+<attribute name="VALUE" x="52.657" y="21.816" size="1.016" layer="27" font="vector" rot="R270"/>
 </element>
 <element name="Z2" library="PaxInstrument-T400" package="SPARKFUN-RESISTORS_0603-RES" value="PGB1010603" x="51.1" y="24" smashed="yes" rot="R270">
 <attribute name="MPN" value="PGB1010603NRHF" x="58.1" y="31" size="1.8" layer="27" font="vector" rot="R270" display="off"/>
 <attribute name="MF" value="Littelfuse" x="58.1" y="31" size="1.8" layer="27" font="vector" rot="R270" display="off"/>
-<attribute name="NAME" x="50.562" y="22.289" size="1.27" layer="25" font="vector" rot="R270"/>
-<attribute name="VALUE" x="50.557" y="22.316" size="0.4064" layer="27" font="vector" rot="R270"/>
+<attribute name="NAME" x="50.562" y="22.289" size="1.016" layer="25" font="vector" rot="R270"/>
+<attribute name="VALUE" x="50.557" y="22.316" size="1.016" layer="27" font="vector" rot="R270"/>
 </element>
 <element name="R2" library="adafruit" package="R0402" value="2k" x="6.5" y="10.2" smashed="yes">
-<attribute name="NAME" x="5.235" y="10.138" size="1.27" layer="25" rot="R180"/>
-<attribute name="VALUE" x="5.235" y="10.132" size="1.27" layer="27" rot="R180"/>
+<attribute name="NAME" x="5.235" y="10.138" size="1.016" layer="25" rot="R180"/>
+<attribute name="VALUE" x="5.235" y="10.132" size="1.016" layer="27" rot="R180"/>
 </element>
 <element name="R3" library="adafruit" package="R0402" value="2k" x="6.5" y="11.3" smashed="yes">
-<attribute name="NAME" x="5.235" y="11.538" size="1.27" layer="25" rot="R180"/>
-<attribute name="VALUE" x="5.235" y="11.532" size="1.27" layer="27" rot="R180"/>
+<attribute name="NAME" x="5.235" y="11.538" size="1.016" layer="25" rot="R180"/>
+<attribute name="VALUE" x="5.235" y="11.532" size="1.016" layer="27" rot="R180"/>
 </element>
 <element name="R4" library="adafruit" package="R0402" value="2k" x="6.2" y="32.5" smashed="yes">
-<attribute name="NAME" x="2.465" y="32.262" size="1.27" layer="25"/>
-<attribute name="VALUE" x="5.565" y="30.468" size="1.27" layer="27"/>
+<attribute name="NAME" x="4.935" y="32.938" size="1.016" layer="25" rot="R180"/>
+<attribute name="VALUE" x="4.635" y="33.832" size="1.016" layer="27" rot="R180"/>
 </element>
 <element name="R5" library="adafruit" package="R0402" value="2k" x="6.2" y="31.3" smashed="yes">
-<attribute name="NAME" x="2.465" y="30.662" size="1.27" layer="25"/>
-<attribute name="VALUE" x="5.565" y="29.268" size="1.27" layer="27"/>
+<attribute name="NAME" x="4.935" y="31.638" size="1.016" layer="25" rot="R180"/>
+<attribute name="VALUE" x="4.735" y="31.832" size="1.016" layer="27" rot="R180"/>
 </element>
 <element name="U4" library="blinkinlabs" package="SSOP24-150" value="ICN2026" x="9" y="20" smashed="yes" rot="R180">
 <attribute name="NAME" x="7.7" y="23.8" size="1.016" layer="25" rot="R270"/>
 <attribute name="VALUE" x="9.3" y="23.8" size="1.016" layer="27" rot="R270"/>
 </element>
 <element name="R9" library="adafruit" package="R0402" value="2k 1%" x="9.7" y="14.7" smashed="yes" rot="R180">
-<attribute name="NAME" x="8.062" y="14.235" size="1.27" layer="25" rot="R270"/>
-<attribute name="VALUE" x="8.068" y="14.235" size="1.27" layer="27" rot="R270"/>
+<attribute name="NAME" x="8.062" y="14.235" size="1.016" layer="25" rot="R270"/>
+<attribute name="VALUE" x="8.068" y="14.235" size="1.016" layer="27" rot="R270"/>
 </element>
 <element name="C11" library="adafruit" package="C0402" value="100nF" x="13.2" y="14.7" smashed="yes" rot="R180">
-<attribute name="NAME" x="13.538" y="15.565" size="1.27" layer="25" rot="R90"/>
-<attribute name="VALUE" x="13.605" y="15.465" size="1.27" layer="27" rot="R90"/>
+<attribute name="NAME" x="13.538" y="15.565" size="1.016" layer="25" rot="R90"/>
+<attribute name="VALUE" x="13.605" y="15.465" size="1.016" layer="27" rot="R90"/>
 </element>
-<element name="U$1" library="blinkinlabs" package="ESP_WROOM_02" value="ESP_WROOM_02" x="44" y="44" smashed="yes" rot="R315">
-<attribute name="NAME" x="43.611415625" y="45.61801875" size="1.27" layer="25" rot="R315"/>
+<element name="U6" library="blinkinlabs" package="ESP_WROOM_02" value="ESP_WROOM_02" x="44" y="44" smashed="yes" rot="R315">
+<attribute name="NAME" x="43.611415625" y="45.61801875" size="1.016" layer="25" rot="R315"/>
 </element>
 <element name="U$2" library="blinkinlabs" package="2X05-1.27MM-SMD" value="JTAG_ARM_10PIN" x="34.9" y="4.1" smashed="yes" rot="R180"/>
 <element name="LED_1" library="blinkinlabs" package="LED_3528" value="LED_RGB_CA" x="7.25" y="7.25" rot="MR45"/>
@@ -1309,147 +1203,149 @@ Modified from Laen's PCB Order Design Rules</description>
 <element name="LED_63" library="blinkinlabs" package="LED_3528" value="LED_RGB_CA" x="46.25" y="52.75" rot="MR45"/>
 <element name="LED_64" library="blinkinlabs" package="LED_3528" value="LED_RGB_CA" x="52.75" y="52.75" rot="MR45"/>
 <element name="R13" library="adafruit" package="R0402" value="2k" x="6.2" y="36.3" smashed="yes">
-<attribute name="NAME" x="4.835" y="36.538" size="1.27" layer="25" rot="R180"/>
-<attribute name="VALUE" x="4.835" y="36.532" size="1.27" layer="27" rot="R180"/>
+<attribute name="NAME" x="4.835" y="36.538" size="1.016" layer="25" rot="R180"/>
+<attribute name="VALUE" x="4.835" y="36.532" size="1.016" layer="27" rot="R180"/>
 </element>
 <element name="R14" library="adafruit" package="R0402" value="2k" x="6.2" y="39.6" smashed="yes">
-<attribute name="NAME" x="4.835" y="40.738" size="1.27" layer="25" rot="R180"/>
-<attribute name="VALUE" x="4.835" y="40.732" size="1.27" layer="27" rot="R180"/>
+<attribute name="NAME" x="4.835" y="40.738" size="1.016" layer="25" rot="R180"/>
+<attribute name="VALUE" x="4.835" y="40.732" size="1.016" layer="27" rot="R180"/>
 </element>
 <element name="R15" library="adafruit" package="R0402" value="2k" x="6.2" y="37.4" smashed="yes">
-<attribute name="NAME" x="4.835" y="37.938" size="1.27" layer="25" rot="R180"/>
-<attribute name="VALUE" x="4.835" y="37.932" size="1.27" layer="27" rot="R180"/>
+<attribute name="NAME" x="4.835" y="37.938" size="1.016" layer="25" rot="R180"/>
+<attribute name="VALUE" x="4.835" y="37.932" size="1.016" layer="27" rot="R180"/>
 </element>
 <element name="R16" library="adafruit" package="R0402" value="2k" x="6.2" y="38.5" smashed="yes">
-<attribute name="NAME" x="4.835" y="39.338" size="1.27" layer="25" rot="R180"/>
-<attribute name="VALUE" x="4.835" y="39.332" size="1.27" layer="27" rot="R180"/>
+<attribute name="NAME" x="4.835" y="39.338" size="1.016" layer="25" rot="R180"/>
+<attribute name="VALUE" x="4.835" y="39.332" size="1.016" layer="27" rot="R180"/>
 </element>
-<element name="U$3" library="blinkinlabs" package="BATTERY_AA_SMD" value="BATTERY" x="30" y="30" rot="R315"/>
-<element name="U$4" library="teensy_adapter" package="SC70-6L" value="FDG6316P" x="7" y="26" smashed="yes" rot="R90">
-<attribute name="NAME" x="2.4" y="25.75" size="1.016" layer="25"/>
-<attribute name="VALUE" x="9.35" y="24.8" size="1.016" layer="27" rot="R90"/>
+<element name="BAT" library="blinkinlabs" package="BATTERY_AA_SMD" value="BATTERY" x="30" y="30" smashed="yes" rot="R315">
+<attribute name="NAME" x="25.509871875" y="32.694075" size="1.016" layer="25" font="vector" rot="R315"/>
 </element>
-<element name="U$5" library="teensy_adapter" package="SC70-6L" value="FDG6316P" x="7" y="29" smashed="yes" rot="R90">
-<attribute name="NAME" x="2.4" y="28.75" size="1.016" layer="25"/>
-<attribute name="VALUE" x="9.35" y="27.8" size="1.016" layer="27" rot="R90"/>
+<element name="U10" library="teensy_adapter" package="SC70-6L" value="FDG6316P" x="7" y="26" smashed="yes" rot="R90">
+<attribute name="NAME" x="5.1" y="26.75" size="1.016" layer="25" rot="R180"/>
+<attribute name="VALUE" x="3.9" y="26.65" size="1.016" layer="27" rot="R180"/>
 </element>
-<element name="U$6" library="teensy_adapter" package="SC70-6L" value="FDG6316P" x="8.2" y="34.4" smashed="yes">
+<element name="U9" library="teensy_adapter" package="SC70-6L" value="FDG6316P" x="7" y="29" smashed="yes" rot="R90">
+<attribute name="NAME" x="4.8" y="29.45" size="1.016" layer="25" rot="R180"/>
+<attribute name="VALUE" x="4.6" y="29.15" size="1.016" layer="27" rot="R180"/>
+</element>
+<element name="U11" library="teensy_adapter" package="SC70-6L" value="FDG6316P" x="8.2" y="34.4" smashed="yes">
 <attribute name="NAME" x="9.15" y="35.9" size="1.016" layer="25" rot="R90"/>
 <attribute name="VALUE" x="9.15" y="35.9" size="1.016" layer="27" rot="R90"/>
 </element>
-<element name="U$7" library="teensy_adapter" package="SC70-6L" value="FDG6316P" x="11.1" y="34.4" smashed="yes">
+<element name="U12" library="teensy_adapter" package="SC70-6L" value="FDG6316P" x="11.1" y="34.4" smashed="yes">
 <attribute name="NAME" x="11.75" y="35.9" size="1.016" layer="25" rot="R90"/>
-<attribute name="VALUE" x="11.75" y="35.9" size="1.016" layer="27" rot="R90"/>
+<attribute name="VALUE" x="11.65" y="36.6" size="1.016" layer="27" rot="R90"/>
 </element>
 <element name="R19" library="SparkFun-Passives" package="0603-ARV" value="200" x="22.2" y="19.8" smashed="yes" rot="R270">
-<attribute name="NAME" x="23.795" y="20.26" size="1.27" layer="25" ratio="10"/>
-<attribute name="VALUE" x="23.795" y="20.27" size="1.27" layer="27" ratio="10"/>
+<attribute name="NAME" x="23.795" y="20.26" size="1.016" layer="25" ratio="10"/>
+<attribute name="VALUE" x="23.795" y="20.27" size="1.016" layer="27"/>
 </element>
 <element name="R20" library="SparkFun-Passives" package="0603-ARV" value="200" x="22.2" y="23.2" smashed="yes" rot="R270">
-<attribute name="NAME" x="23.795" y="22.46" size="1.27" layer="25" ratio="10"/>
-<attribute name="VALUE" x="23.795" y="22.47" size="1.27" layer="27" ratio="10"/>
+<attribute name="NAME" x="23.795" y="22.46" size="1.016" layer="25" ratio="10"/>
+<attribute name="VALUE" x="23.795" y="22.47" size="1.016" layer="27"/>
 </element>
 <element name="U8" library="teensy_adapter" package="VFDFN-10" value="MMA8653FC" x="27.2" y="47.5" smashed="yes" rot="R315"/>
 <element name="R17" library="adafruit" package="R0402" value="4.7k" x="30.1" y="52.6" smashed="yes" rot="R90">
-<attribute name="NAME" x="30.238" y="54.665" size="1.27" layer="25" rot="R90"/>
-<attribute name="VALUE" x="30.232" y="54.665" size="1.27" layer="27" rot="R90"/>
+<attribute name="NAME" x="30.238" y="54.665" size="1.016" layer="25" rot="R90"/>
+<attribute name="VALUE" x="30.232" y="54.665" size="1.016" layer="27" rot="R90"/>
 </element>
 <element name="R18" library="adafruit" package="R0402" value="4.7k" x="31.3" y="52.6" smashed="yes" rot="R90">
-<attribute name="NAME" x="31.738" y="54.665" size="1.27" layer="25" rot="R90"/>
-<attribute name="VALUE" x="31.732" y="54.665" size="1.27" layer="27" rot="R90"/>
+<attribute name="NAME" x="31.738" y="54.665" size="1.016" layer="25" rot="R90"/>
+<attribute name="VALUE" x="31.732" y="54.665" size="1.016" layer="27" rot="R90"/>
 </element>
 <element name="C13" library="adafruit" package="C0402" value="100nF" x="24" y="50.8" smashed="yes" rot="R90">
-<attribute name="NAME" x="19.562" y="49.235" size="1.27" layer="25" rot="R270"/>
-<attribute name="VALUE" x="19.595" y="49.235" size="1.27" layer="27" rot="R270"/>
+<attribute name="NAME" x="19.562" y="49.235" size="1.016" layer="25" rot="R270"/>
+<attribute name="VALUE" x="19.595" y="49.235" size="1.016" layer="27" rot="R270"/>
 </element>
 <element name="C14" library="adafruit" package="C0402" value="100nF" x="29.4" y="45.1" smashed="yes" rot="R270">
-<attribute name="NAME" x="31.338" y="43.365" size="1.27" layer="25" rot="R90"/>
-<attribute name="VALUE" x="31.505" y="43.365" size="1.27" layer="27" rot="R90"/>
+<attribute name="NAME" x="31.338" y="43.365" size="1.016" layer="25" rot="R90"/>
+<attribute name="VALUE" x="31.505" y="43.365" size="1.016" layer="27" rot="R90"/>
 </element>
 <element name="C15" library="adafruit" package="C0402" value="100nF" x="25.5" y="50.8" smashed="yes" rot="R90">
-<attribute name="NAME" x="21.162" y="49.235" size="1.27" layer="25" rot="R270"/>
-<attribute name="VALUE" x="21.195" y="49.235" size="1.27" layer="27" rot="R270"/>
+<attribute name="NAME" x="21.162" y="49.235" size="1.016" layer="25" rot="R270"/>
+<attribute name="VALUE" x="21.195" y="49.235" size="1.016" layer="27" rot="R270"/>
 </element>
 <element name="R21" library="adafruit" package="R0402" value="0" x="48.2" y="31.6" smashed="yes">
-<attribute name="NAME" x="49.565" y="31.262" size="1.27" layer="25"/>
-<attribute name="VALUE" x="49.565" y="31.268" size="1.27" layer="27"/>
+<attribute name="NAME" x="49.565" y="31.262" size="1.016" layer="25"/>
+<attribute name="VALUE" x="49.565" y="31.268" size="1.016" layer="27"/>
 </element>
 <element name="R22" library="adafruit" package="R0402" value="0" x="48.2" y="30.5" smashed="yes">
-<attribute name="NAME" x="49.565" y="29.862" size="1.27" layer="25"/>
-<attribute name="VALUE" x="49.565" y="29.868" size="1.27" layer="27"/>
+<attribute name="NAME" x="49.565" y="29.862" size="1.016" layer="25"/>
+<attribute name="VALUE" x="49.565" y="29.868" size="1.016" layer="27"/>
 </element>
 <element name="R23" library="adafruit" package="R0402" value="10k" x="32.5" y="52.6" smashed="yes" rot="R90">
-<attribute name="NAME" x="33.138" y="54.665" size="1.27" layer="25" rot="R90"/>
-<attribute name="VALUE" x="33.132" y="54.665" size="1.27" layer="27" rot="R90"/>
+<attribute name="NAME" x="33.138" y="54.665" size="1.016" layer="25" rot="R90"/>
+<attribute name="VALUE" x="33.132" y="54.665" size="1.016" layer="27" rot="R90"/>
 </element>
 <element name="R25" library="adafruit" package="R0402" value="10k" x="34.9" y="52.6" smashed="yes" rot="R270">
-<attribute name="NAME" x="36.038" y="54.665" size="1.27" layer="25" rot="R90"/>
-<attribute name="VALUE" x="36.032" y="54.765" size="1.27" layer="27" rot="R90"/>
+<attribute name="NAME" x="36.038" y="54.665" size="1.016" layer="25" rot="R90"/>
+<attribute name="VALUE" x="36.032" y="54.765" size="1.016" layer="27" rot="R90"/>
 </element>
 <element name="R24" library="adafruit" package="R0402" value="DNP" x="33.7" y="52.6" smashed="yes" rot="R270">
-<attribute name="NAME" x="34.638" y="54.665" size="1.27" layer="25" rot="R90"/>
-<attribute name="VALUE" x="34.632" y="54.665" size="1.27" layer="27" rot="R90"/>
+<attribute name="NAME" x="34.638" y="54.665" size="1.016" layer="25" rot="R90"/>
+<attribute name="VALUE" x="34.632" y="54.665" size="1.016" layer="27" rot="R90"/>
 </element>
 <element name="R26" library="adafruit" package="R0402" value="10k" x="36.1" y="52.6" smashed="yes" rot="R90">
-<attribute name="NAME" x="37.538" y="54.665" size="1.27" layer="25" rot="R90"/>
-<attribute name="VALUE" x="37.532" y="54.665" size="1.27" layer="27" rot="R90"/>
+<attribute name="NAME" x="37.538" y="54.665" size="1.016" layer="25" rot="R90"/>
+<attribute name="VALUE" x="37.532" y="54.665" size="1.016" layer="27" rot="R90"/>
 </element>
 <element name="R27" library="adafruit" package="R0402" value="10k" x="51.6" y="33.6" smashed="yes" rot="R180">
-<attribute name="NAME" x="51.165" y="34.262" size="1.27" layer="25"/>
-<attribute name="VALUE" x="51.165" y="34.268" size="1.27" layer="27"/>
+<attribute name="NAME" x="51.165" y="34.262" size="1.016" layer="25"/>
+<attribute name="VALUE" x="51.165" y="34.268" size="1.016" layer="27"/>
 </element>
 <element name="R28" library="adafruit" package="R0402" value="10k" x="48.2" y="29.4" smashed="yes">
-<attribute name="NAME" x="49.565" y="28.462" size="1.27" layer="25"/>
-<attribute name="VALUE" x="49.565" y="28.468" size="1.27" layer="27"/>
+<attribute name="NAME" x="49.565" y="28.462" size="1.016" layer="25"/>
+<attribute name="VALUE" x="49.565" y="28.468" size="1.016" layer="27"/>
 </element>
 <element name="U$8" library="blinkinlabs" package="SO08-150" value="MP3401A" x="13.8" y="10.7" smashed="yes" rot="R90">
-<attribute name="VALUE" x="12.255" y="14.34" size="1.27" layer="27" ratio="10" rot="R270"/>
-<attribute name="NAME" x="12.275" y="12.405" size="1.27" layer="25" ratio="10" rot="R270"/>
+<attribute name="VALUE" x="12.255" y="14.34" size="1.016" layer="27" rot="R270"/>
+<attribute name="NAME" x="12.275" y="12.405" size="1.016" layer="25" ratio="10" rot="R270"/>
 </element>
-<element name="L4" library="blinkinlabs" package="INDUCTOR_CD43" value="2.2uH" x="21" y="8.9" smashed="yes" rot="R270">
-<attribute name="NAME" x="20.62" y="5.94" size="1.27" layer="25" rot="R270"/>
-<attribute name="VALUE" x="20.615" y="5.94" size="1.27" layer="27" rot="R270"/>
+<element name="L1" library="blinkinlabs" package="INDUCTOR_CD43" value="2.2uH" x="21" y="8.9" smashed="yes" rot="R270">
+<attribute name="NAME" x="20.82" y="4.74" size="1.016" layer="25" rot="R270"/>
+<attribute name="VALUE" x="20.615" y="5.94" size="1.016" layer="27" rot="R270"/>
 </element>
 <element name="D1" library="adafruit" package="CHIP-LED0603" value="BLUE" x="6.5" y="12.4" smashed="yes" rot="R90">
-<attribute name="NAME" x="5.235" y="12.865" size="1.27" layer="25" rot="R180"/>
-<attribute name="VALUE" x="5.235" y="12.905" size="1.27" layer="27" rot="R180"/>
+<attribute name="NAME" x="5.235" y="12.865" size="1.016" layer="25" rot="R180"/>
+<attribute name="VALUE" x="5.235" y="12.905" size="1.016" layer="27" rot="R180"/>
 </element>
 <element name="R10" library="adafruit" package="R0603" value="1" x="17.5" y="5.7" smashed="yes" rot="R270">
-<attribute name="NAME" x="16.889" y="4.489" size="1.27" layer="25" rot="R270"/>
-<attribute name="VALUE" x="16.868" y="4.489" size="1.27" layer="27" rot="R270"/>
+<attribute name="NAME" x="16.889" y="4.489" size="1.016" layer="25" rot="R270"/>
+<attribute name="VALUE" x="16.868" y="4.489" size="1.016" layer="27" rot="R270"/>
 </element>
 <element name="C10" library="adafruit" package="C0603" value="2.2nF" x="15.4" y="5.7" smashed="yes" rot="R90">
-<attribute name="NAME" x="14.762" y="4.489" size="1.27" layer="25" rot="R270"/>
-<attribute name="VALUE" x="14.768" y="4.489" size="1.27" layer="27" rot="R270"/>
+<attribute name="NAME" x="14.762" y="4.489" size="1.016" layer="25" rot="R270"/>
+<attribute name="VALUE" x="14.768" y="4.489" size="1.016" layer="27" rot="R270"/>
 </element>
 <element name="C12" library="adafruit" package="C0805" value="10uF" x="22.5" y="13.3" smashed="yes" rot="R90">
-<attribute name="NAME" x="23.784" y="14.811" size="1.27" layer="25" rot="R90"/>
-<attribute name="VALUE" x="23.786" y="14.811" size="1.27" layer="27" rot="R90"/>
+<attribute name="NAME" x="23.084" y="14.811" size="1.016" layer="25" rot="R90"/>
+<attribute name="VALUE" x="23.786" y="14.811" size="1.016" layer="27" rot="R90"/>
 </element>
 <element name="C9" library="adafruit" package="C0805" value="10uF" x="12" y="6" smashed="yes">
-<attribute name="NAME" x="11.516" y="4.489" size="1.27" layer="25" rot="R270"/>
-<attribute name="VALUE" x="11.514" y="4.489" size="1.27" layer="27" rot="R270"/>
+<attribute name="NAME" x="11.516" y="4.489" size="1.016" layer="25" rot="R270"/>
+<attribute name="VALUE" x="11.514" y="4.489" size="1.016" layer="27" rot="R270"/>
 </element>
 <element name="C6" library="adafruit" package="C0805" value="10uF" x="28.4" y="52.6" smashed="yes" rot="R270">
-<attribute name="NAME" x="28.684" y="54.711" size="1.27" layer="25" rot="R90"/>
-<attribute name="VALUE" x="28.686" y="54.711" size="1.27" layer="27" rot="R90"/>
+<attribute name="NAME" x="28.684" y="54.711" size="1.016" layer="25" rot="R90"/>
+<attribute name="VALUE" x="28.686" y="54.711" size="1.016" layer="27" rot="R90"/>
 </element>
 <element name="U5" library="SparkFun-PowerIC" package="SOT23-5" value="MIC5219 3.3V" x="25.4" y="53.8" smashed="yes" rot="R270">
 <attribute name="PROD_ID" value="VREG-09872" x="37.4" y="57.8" size="1.778" layer="27" rot="R270" display="off"/>
-<attribute name="NAME" x="25.541" y="55.711" size="0.4064" layer="25" rot="R90"/>
-<attribute name="VALUE" x="25.5905" y="55.7475" size="0.4064" layer="27" rot="R90"/>
+<attribute name="NAME" x="25.541" y="55.711" size="1.016" layer="25" rot="R90"/>
+<attribute name="VALUE" x="25.5905" y="55.7475" size="1.016" layer="27" rot="R90"/>
 </element>
 <element name="C16" library="adafruit" package="C0402" value="470pF" x="26.7" y="50.8" smashed="yes" rot="R270">
-<attribute name="NAME" x="22.862" y="49.135" size="1.27" layer="25" rot="R270"/>
-<attribute name="VALUE" x="22.895" y="49.135" size="1.27" layer="27" rot="R270"/>
+<attribute name="NAME" x="22.862" y="49.135" size="1.016" layer="25" rot="R270"/>
+<attribute name="VALUE" x="22.895" y="49.135" size="1.016" layer="27" rot="R270"/>
 </element>
 <element name="C17" library="adafruit" package="C0805" value="10uF" x="20.4" y="13.3" smashed="yes" rot="R90">
-<attribute name="NAME" x="21.984" y="14.911" size="1.27" layer="25" rot="R90"/>
-<attribute name="VALUE" x="21.986" y="14.911" size="1.27" layer="27" rot="R90"/>
+<attribute name="NAME" x="21.584" y="14.911" size="1.016" layer="25" rot="R90"/>
+<attribute name="VALUE" x="21.986" y="14.911" size="1.016" layer="27" rot="R90"/>
 </element>
 <element name="C18" library="adafruit" package="C0805" value="10uF" x="21.3" y="53.6" smashed="yes" rot="R270">
-<attribute name="NAME" x="21.884" y="55.411" size="1.27" layer="25" rot="R90"/>
-<attribute name="VALUE" x="21.886" y="55.411" size="1.27" layer="27" rot="R90"/>
+<attribute name="NAME" x="21.884" y="55.411" size="1.016" layer="25" rot="R90"/>
+<attribute name="VALUE" x="21.886" y="55.411" size="1.016" layer="27" rot="R90"/>
 </element>
 </elements>
 <signals>
@@ -1463,7 +1359,7 @@ Modified from Laen's PCB Order Design Rules</description>
 <contactref element="LED_7" pad="2"/>
 <contactref element="LED_8" pad="2"/>
 <contactref element="R2" pad="2"/>
-<contactref element="U$4" pad="6"/>
+<contactref element="U10" pad="6"/>
 <wire x1="52.29038125" y1="8.69956875" x2="52.5" y2="8.9091875" width="0.254" layer="16"/>
 <wire x1="52.5" y1="8.9091875" x2="52.5" y2="10.5" width="0.254" layer="16"/>
 <via x="52.5" y="10.5" extent="1-16" drill="0.3"/>
@@ -1539,7 +1435,7 @@ Modified from Laen's PCB Order Design Rules</description>
 <contactref element="LED_14" pad="2"/>
 <contactref element="LED_15" pad="2"/>
 <contactref element="LED_16" pad="2"/>
-<contactref element="U$4" pad="3"/>
+<contactref element="U10" pad="3"/>
 <contactref element="R3" pad="2"/>
 <via x="51.1" y="16.5" extent="1-16" drill="0.3"/>
 <wire x1="51.1" y1="16.5" x2="46" y2="16.5" width="0.4064" layer="15"/>
@@ -1617,7 +1513,7 @@ Modified from Laen's PCB Order Design Rules</description>
 <contactref element="LED_23" pad="2"/>
 <contactref element="LED_24" pad="2"/>
 <contactref element="R4" pad="2"/>
-<contactref element="U$5" pad="6"/>
+<contactref element="U9" pad="6"/>
 <wire x1="52.29038125" y1="21.69956875" x2="52.5" y2="21.9091875" width="0.254" layer="16"/>
 <wire x1="52.5" y1="21.9091875" x2="52.5" y2="20.4" width="0.254" layer="16"/>
 <wire x1="52.5" y1="20.4" x2="52.2" y2="20.1" width="0.254" layer="16"/>
@@ -1694,7 +1590,7 @@ Modified from Laen's PCB Order Design Rules</description>
 <contactref element="LED_31" pad="2"/>
 <contactref element="LED_32" pad="2"/>
 <contactref element="R5" pad="2"/>
-<contactref element="U$5" pad="3"/>
+<contactref element="U9" pad="3"/>
 <wire x1="52.29038125" y1="28.19956875" x2="52.5" y2="28.4091875" width="0.254" layer="16"/>
 <wire x1="52.5" y1="28.4091875" x2="52.5" y2="30" width="0.254" layer="16"/>
 <via x="52.5" y="30" extent="1-16" drill="0.3"/>
@@ -1772,9 +1668,9 @@ Modified from Laen's PCB Order Design Rules</description>
 <contactref element="U$2" pad="P$5"/>
 <contactref element="U$2" pad="P$3"/>
 <contactref element="U$2" pad="P$9"/>
-<contactref element="U$1" pad="GND$1"/>
-<contactref element="U$1" pad="GND$2"/>
-<contactref element="U$1" pad="GND$3"/>
+<contactref element="U6" pad="GND$1"/>
+<contactref element="U6" pad="GND$2"/>
+<contactref element="U6" pad="GND$3"/>
 <contactref element="R3" pad="1"/>
 <contactref element="R4" pad="1"/>
 <contactref element="R5" pad="1"/>
@@ -1782,7 +1678,7 @@ Modified from Laen's PCB Order Design Rules</description>
 <contactref element="R14" pad="1"/>
 <contactref element="R15" pad="1"/>
 <contactref element="R16" pad="1"/>
-<contactref element="U$3" pad="-"/>
+<contactref element="BAT" pad="-"/>
 <polygon width="0.254" layer="2">
 <vertex x="0" y="60"/>
 <vertex x="60" y="60"/>
@@ -2257,14 +2153,14 @@ Modified from Laen's PCB Order Design Rules</description>
 <contactref element="C4" pad="1"/>
 <contactref element="U3" pad="6"/>
 <contactref element="U3" pad="16"/>
-<contactref element="U$4" pad="1"/>
-<contactref element="U$4" pad="4"/>
-<contactref element="U$5" pad="1"/>
-<contactref element="U$5" pad="4"/>
-<contactref element="U$6" pad="1"/>
-<contactref element="U$6" pad="4"/>
-<contactref element="U$7" pad="1"/>
-<contactref element="U$7" pad="4"/>
+<contactref element="U10" pad="1"/>
+<contactref element="U10" pad="4"/>
+<contactref element="U9" pad="1"/>
+<contactref element="U9" pad="4"/>
+<contactref element="U11" pad="1"/>
+<contactref element="U11" pad="4"/>
+<contactref element="U12" pad="1"/>
+<contactref element="U12" pad="4"/>
 <wire x1="8.85" y1="35.25" x2="8.85" y2="34.4" width="0.4064" layer="1"/>
 <wire x1="7.55" y1="33.55" x2="7.55" y2="34.4" width="0.4064" layer="1"/>
 <wire x1="10.45" y1="33.55" x2="10.45" y2="34.4" width="0.4064" layer="1"/>
@@ -2349,7 +2245,7 @@ Modified from Laen's PCB Order Design Rules</description>
 <wire x1="26.5" y1="7.2" x2="26.5" y2="7.189340625" width="0.6096" layer="15"/>
 </signal>
 <signal name="+3V3">
-<contactref element="U$1" pad="3V3"/>
+<contactref element="U6" pad="3V3"/>
 <contactref element="R23" pad="2"/>
 <contactref element="R26" pad="2"/>
 <contactref element="R27" pad="2"/>
@@ -2440,7 +2336,7 @@ Modified from Laen's PCB Order Design Rules</description>
 <wire x1="32.3" y1="5.7" x2="32.3" y2="5.4" width="0.254" layer="16"/>
 </signal>
 <signal name="ESP_TXD">
-<contactref element="U$1" pad="TXD"/>
+<contactref element="U6" pad="TXD"/>
 <contactref element="R21" pad="1"/>
 <wire x1="46.262740625" y1="33.251975" x2="46.9" y2="32.614715625" width="0.3048" layer="1"/>
 <wire x1="46.9" y1="32.614715625" x2="46.9" y2="32" width="0.3048" layer="1"/>
@@ -2448,21 +2344,21 @@ Modified from Laen's PCB Order Design Rules</description>
 <wire x1="47.3" y1="31.6" x2="47.55" y2="31.6" width="0.3048" layer="1"/>
 </signal>
 <signal name="ESP_RXD">
-<contactref element="U$1" pad="RXD"/>
+<contactref element="U6" pad="RXD"/>
 <contactref element="R22" pad="1"/>
 <wire x1="45.20208125" y1="32.191315625" x2="46.893396875" y2="30.5" width="0.3048" layer="1"/>
 <wire x1="46.893396875" y1="30.5" x2="47.55" y2="30.5" width="0.3048" layer="1"/>
 </signal>
 <signal name="LED_S0">
 <contactref element="U3" pad="15"/>
-<contactref element="U$4" pad="2"/>
+<contactref element="U10" pad="2"/>
 <wire x1="10.4822" y1="27.3" x2="9.95" y2="27.3" width="0.254" layer="1"/>
 <wire x1="9.95" y1="27.3" x2="8.65" y2="26" width="0.254" layer="1"/>
 <wire x1="7.85" y1="26" x2="8.65" y2="26" width="0.254" layer="1"/>
 </signal>
 <signal name="LED_S1">
 <contactref element="U3" pad="14"/>
-<contactref element="U$4" pad="5"/>
+<contactref element="U10" pad="5"/>
 <via x="11.6" y="28" extent="1-16" drill="0.3"/>
 <wire x1="11.6" y1="28" x2="9.6" y2="26" width="0.254" layer="15"/>
 <wire x1="9.6" y1="26" x2="5.2" y2="26" width="0.254" layer="15"/>
@@ -2473,14 +2369,14 @@ Modified from Laen's PCB Order Design Rules</description>
 </signal>
 <signal name="LED_S2">
 <contactref element="U3" pad="13"/>
-<contactref element="U$5" pad="2"/>
+<contactref element="U9" pad="2"/>
 <wire x1="7.85" y1="29" x2="8.9" y2="29" width="0.254" layer="1"/>
 <wire x1="8.9" y1="29" x2="9.3" y2="28.6" width="0.254" layer="1"/>
 <wire x1="9.3" y1="28.6" x2="10.4822" y2="28.6" width="0.254" layer="1"/>
 </signal>
 <signal name="LED_S3">
 <contactref element="U3" pad="12"/>
-<contactref element="U$5" pad="5"/>
+<contactref element="U9" pad="5"/>
 <wire x1="10.4822" y1="29.25" x2="11.35" y2="29.25" width="0.254" layer="1"/>
 <wire x1="11.35" y1="29.25" x2="11.6" y2="29" width="0.254" layer="1"/>
 <via x="11.6" y="29" extent="1-16" drill="0.3"/>
@@ -2515,8 +2411,8 @@ Modified from Laen's PCB Order Design Rules</description>
 </polygon>
 <via x="55.9" y="4" extent="1-16" drill="0.3"/>
 <contactref element="U$8" pad="3"/>
-<contactref element="L4" pad="P$1"/>
-<contactref element="U$3" pad="+"/>
+<contactref element="L1" pad="P$1"/>
+<contactref element="BAT" pad="+"/>
 <contactref element="C12" pad="1"/>
 <wire x1="22.5" y1="12.45" x2="22.5" y2="10.9" width="1.016" layer="1"/>
 <via x="23.1" y="10.05" extent="1-16" drill="0.3"/>
@@ -2616,7 +2512,7 @@ Modified from Laen's PCB Order Design Rules</description>
 <contactref element="SW2" pad="1"/>
 <contactref element="SW2" pad="2"/>
 <contactref element="R28" pad="1"/>
-<contactref element="U$1" pad="IO4"/>
+<contactref element="U6" pad="IO4"/>
 <wire x1="49.651290625" y1="55.166725" x2="52.559009375" y2="52.25900625" width="0.4064" layer="1"/>
 <wire x1="51.709009375" y1="53.10900625" x2="52.559009375" y2="52.25900625" width="0.4064" layer="1"/>
 <wire x1="52.559009375" y1="52.25900625" x2="55.166725" y2="49.651290625" width="0.4064" layer="1"/>
@@ -4205,7 +4101,7 @@ Modified from Laen's PCB Order Design Rules</description>
 <wire x1="45.79038125" y1="34.69956875" x2="46.5" y2="35.4091875" width="0.254" layer="16"/>
 <wire x1="46.5" y1="35.4091875" x2="46.5" y2="36" width="0.254" layer="16"/>
 <via x="46.5" y="36" extent="1-16" drill="0.3"/>
-<contactref element="U$6" pad="6"/>
+<contactref element="U11" pad="6"/>
 <wire x1="6.85" y1="36.3" x2="7.5" y2="36.3" width="0.4064" layer="1"/>
 <wire x1="7.5" y1="36.3" x2="7.8" y2="36.6" width="0.4064" layer="1"/>
 <wire x1="7.55" y1="35.25" x2="7.55" y2="36.35" width="0.4064" layer="1"/>
@@ -4253,7 +4149,7 @@ Modified from Laen's PCB Order Design Rules</description>
 <wire x1="45.79038125" y1="41.19956875" x2="46" y2="41.4091875" width="0.254" layer="16"/>
 <wire x1="46" y1="41.4091875" x2="46" y2="42.5" width="0.254" layer="16"/>
 <via x="46" y="42.5" extent="1-16" drill="0.3"/>
-<contactref element="U$6" pad="3"/>
+<contactref element="U11" pad="3"/>
 <wire x1="8.85" y1="33.55" x2="8.85" y2="33" width="0.4064" layer="1"/>
 <wire x1="8.85" y1="33" x2="9.3" y2="32.55" width="0.4064" layer="1"/>
 <wire x1="9.3" y1="32.55" x2="10.4" y2="32.55" width="0.4064" layer="1"/>
@@ -4314,7 +4210,7 @@ Modified from Laen's PCB Order Design Rules</description>
 <wire x1="6.79038125" y1="47.69956875" x2="7" y2="47.9091875" width="0.254" layer="16"/>
 <wire x1="7" y1="47.9091875" x2="7" y2="49" width="0.254" layer="16"/>
 <via x="7" y="49" extent="1-16" drill="0.3"/>
-<contactref element="U$7" pad="6"/>
+<contactref element="U12" pad="6"/>
 <via x="10.4" y="37.4" extent="1-16" drill="0.3"/>
 <wire x1="10.4" y1="37.4" x2="10.4" y2="38.6" width="0.4064" layer="16"/>
 <wire x1="10.4" y1="38.6" x2="10.5" y2="38.7" width="0.4064" layer="16"/>
@@ -4338,7 +4234,7 @@ Modified from Laen's PCB Order Design Rules</description>
 <contactref element="LED_63" pad="2"/>
 <contactref element="LED_64" pad="2"/>
 <contactref element="R16" pad="2"/>
-<contactref element="U$7" pad="3"/>
+<contactref element="U12" pad="3"/>
 <wire x1="52.29038125" y1="54.19956875" x2="53" y2="53.48995" width="0.4064" layer="16"/>
 <wire x1="53" y1="53.48995" x2="53" y2="53" width="0.4064" layer="16"/>
 <via x="53" y="53" extent="1-16" drill="0.3"/>
@@ -4438,7 +4334,7 @@ Modified from Laen's PCB Order Design Rules</description>
 </signal>
 <signal name="LED_S4">
 <contactref element="U3" pad="11"/>
-<contactref element="U$6" pad="2"/>
+<contactref element="U11" pad="2"/>
 <wire x1="9.9" y1="29.9" x2="10.4822" y2="29.9" width="0.254" layer="1"/>
 <wire x1="8.2" y1="33.55" x2="8.2" y2="32.8" width="0.254" layer="1"/>
 <wire x1="8.2" y1="32.8" x2="9.5" y2="31.5" width="0.254" layer="1"/>
@@ -4447,7 +4343,7 @@ Modified from Laen's PCB Order Design Rules</description>
 </signal>
 <signal name="LED_S5">
 <contactref element="U3" pad="10"/>
-<contactref element="U$6" pad="5"/>
+<contactref element="U11" pad="5"/>
 <wire x1="8.2" y1="35.25" x2="8.2" y2="35.8" width="0.254" layer="1"/>
 <wire x1="8.2" y1="35.8" x2="8.5" y2="36.1" width="0.254" layer="1"/>
 <via x="11.8" y="31.6" extent="1-16" drill="0.3"/>
@@ -4464,7 +4360,7 @@ Modified from Laen's PCB Order Design Rules</description>
 </signal>
 <signal name="LED_S6">
 <contactref element="U3" pad="9"/>
-<contactref element="U$7" pad="2"/>
+<contactref element="U12" pad="2"/>
 <wire x1="11.1" y1="31.9" x2="10.6" y2="31.4" width="0.254" layer="1"/>
 <wire x1="10.6" y1="31.4" x2="10.6" y2="31.2" width="0.254" layer="1"/>
 <wire x1="10.6" y1="31.2" x2="10.5" y2="31.2178" width="0.254" layer="1"/>
@@ -4473,7 +4369,7 @@ Modified from Laen's PCB Order Design Rules</description>
 </signal>
 <signal name="LED_S7">
 <contactref element="U3" pad="7"/>
-<contactref element="U$7" pad="5"/>
+<contactref element="U12" pad="5"/>
 <wire x1="11.1" y1="35.25" x2="11.1" y2="35.8" width="0.254" layer="1"/>
 <wire x1="11.1" y1="35.8" x2="11.4" y2="36.1" width="0.254" layer="1"/>
 <wire x1="11.4" y1="36.1" x2="12" y2="36.1" width="0.254" layer="1"/>
@@ -4573,7 +4469,7 @@ Modified from Laen's PCB Order Design Rules</description>
 <signal name="I2C_SCL">
 <contactref element="U8" pad="P$2"/>
 <contactref element="R18" pad="1"/>
-<contactref element="U$1" pad="IO14"/>
+<contactref element="U6" pad="IO14"/>
 <wire x1="37.494615625" y1="50.50538125" x2="36.799996875" y2="51.2" width="0.254" layer="1"/>
 <wire x1="35.7" y1="50.9" x2="31.3" y2="50.9" width="0.254" layer="15"/>
 <via x="31.3" y="50.9" extent="1-16" drill="0.3"/>
@@ -4590,7 +4486,7 @@ Modified from Laen's PCB Order Design Rules</description>
 <signal name="I2C_SDA">
 <contactref element="U8" pad="P$10"/>
 <contactref element="R17" pad="1"/>
-<contactref element="U$1" pad="IO2"/>
+<contactref element="U6" pad="IO2"/>
 <wire x1="33.251975" y1="46.262740625" x2="30.63235625" y2="48.882359375" width="0.254" layer="1"/>
 <wire x1="30.63235625" y1="48.882359375" x2="30.1" y2="49.414715625" width="0.254" layer="1"/>
 <wire x1="30.1" y1="51.95" x2="30.1" y2="49.414715625" width="0.254" layer="1"/>
@@ -4600,7 +4496,7 @@ Modified from Laen's PCB Order Design Rules</description>
 <wire x1="30.582359375" y1="48.882359375" x2="30.63235625" y2="48.882359375" width="0.254" layer="1"/>
 </signal>
 <signal name="ESP_GPIO0">
-<contactref element="U$1" pad="IO0"/>
+<contactref element="U6" pad="IO0"/>
 <contactref element="R23" pad="1"/>
 <contactref element="R24" pad="2"/>
 <wire x1="32.5" y1="51.95" x2="32.5" y2="51.3" width="0.254" layer="1"/>
@@ -4619,7 +4515,7 @@ Modified from Laen's PCB Order Design Rules</description>
 <wire x1="33.1" y1="50.2" x2="33.1" y2="51" width="0.254" layer="1"/>
 </signal>
 <signal name="ESP_GPIO15">
-<contactref element="U$1" pad="IO15"/>
+<contactref element="U6" pad="IO15"/>
 <contactref element="R25" pad="2"/>
 <wire x1="34.312634375" y1="47.3234" x2="33.6" y2="48.036034375" width="0.254" layer="1"/>
 <wire x1="33.6" y1="48.036034375" x2="33.6" y2="48.5" width="0.254" layer="1"/>
@@ -4627,7 +4523,7 @@ Modified from Laen's PCB Order Design Rules</description>
 <wire x1="34.9" y1="49.8" x2="34.9" y2="51.95" width="0.254" layer="1"/>
 </signal>
 <signal name="N$8">
-<contactref element="U$1" pad="EN"/>
+<contactref element="U6" pad="EN"/>
 <contactref element="R26" pad="1"/>
 <wire x1="37.821315625" y1="52.3" x2="38.555275" y2="51.566040625" width="0.254" layer="1"/>
 <wire x1="37.821315625" y1="52.3" x2="37.3" y2="52.3" width="0.254" layer="1"/>
@@ -4635,7 +4531,7 @@ Modified from Laen's PCB Order Design Rules</description>
 <wire x1="36.95" y1="51.95" x2="36.1" y2="51.95" width="0.254" layer="1"/>
 </signal>
 <signal name="N$11">
-<contactref element="U$1" pad="RST"/>
+<contactref element="U6" pad="RST"/>
 <contactref element="R27" pad="1"/>
 <wire x1="49.444721875" y1="36.43395625" x2="50.5" y2="35.378678125" width="0.3048" layer="1"/>
 <wire x1="50.5" y1="35.378678125" x2="51.221321875" y2="35.378678125" width="0.3048" layer="1"/>
@@ -4708,7 +4604,6 @@ Modified from Laen's PCB Order Design Rules</description>
 <via x="25.35" y="6.55" extent="1-16" drill="0.3"/>
 <wire x1="25.35" y1="6.55" x2="25.35" y2="6.5" width="0.4064" layer="16"/>
 <wire x1="25.35" y1="6.5" x2="27.15" y2="4.7" width="0.4064" layer="16"/>
-<wire x1="27.15" y1="4.7" x2="28.75" y2="4.7" width="0" layer="19" extent="1-16"/>
 <wire x1="28.75" y1="4.7" x2="29.5" y2="5.45" width="0.4064" layer="16"/>
 <wire x1="29.5" y1="5.45" x2="29.5" y2="7" width="0.4064" layer="16"/>
 <wire x1="29.5" y1="7" x2="29.45" y2="7.05" width="0.4064" layer="16"/>
@@ -4716,6 +4611,7 @@ Modified from Laen's PCB Order Design Rules</description>
 <wire x1="29.9" y1="6.6" x2="29.45" y2="7.05" width="0.254" layer="1"/>
 <wire x1="28.7" y1="6.15" x2="28.7" y2="7.05" width="0.254" layer="1"/>
 <wire x1="25.35" y1="7" x2="25.35" y2="6.55" width="0.254" layer="1"/>
+<wire x1="29.121659375" y1="8.35389375" x2="28.414553125" y2="9.061" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="CHARGE">
 <contactref element="U$8" pad="6"/>
@@ -4766,7 +4662,7 @@ Modified from Laen's PCB Order Design Rules</description>
 </signal>
 <signal name="N$3">
 <contactref element="U$8" pad="1"/>
-<contactref element="L4" pad="P$2"/>
+<contactref element="L1" pad="P$2"/>
 <contactref element="R10" pad="1"/>
 <polygon width="0.254" layer="1" thermals="no">
 <vertex x="15.8" y="9.2"/>
@@ -5138,10 +5034,4 @@ Modified from Laen's PCB Order Design Rules</description>
 </errors>
 </board>
 </drawing>
-<compatibility>
-<note version="6.3" minversion="6.2.2" severity="warning">
-Since Version 6.2.2 text objects can contain more than one line,
-which will not be processed correctly with this version.
-</note>
-</compatibility>
 </eagle>
