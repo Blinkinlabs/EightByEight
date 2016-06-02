@@ -55,6 +55,10 @@
 #define PACKETS_PER_LUT          1  // originally 25
 
 
+// Start of animation data in flash.
+// TODO: Make this use the definition from the linker automatically.
+#define ANIMATION_DATA_START    0x5000
+
 // Initialize the board hardware
 extern void initBoard();
 

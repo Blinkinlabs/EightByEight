@@ -3,7 +3,7 @@
 #include "serialloop.h"
 #include "usb_serial.h"
 #include "matrix.h"
-//#include "dfu.h"
+#include "dfu.h"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -103,9 +103,9 @@ void dataLoop() {
     }
 }
 
-//bool commandStartWrite(uint8_t* buffer);
-//bool commandWrite(uint8_t* buffer);
-//bool commandStopWrite(uint8_t* buffer);
+bool commandStartWrite(uint8_t* buffer);
+bool commandWrite(uint8_t* buffer);
+bool commandStopWrite(uint8_t* buffer);
 //bool commandStartRead(uint8_t* buffer);
 //bool commandRead(uint8_t* buffer);
 //bool commandStopRead(uint8_t* buffer);
@@ -117,9 +117,9 @@ struct Command {
 };
 
 Command commands[] = {
-//    {0x01,   1,   commandStartWrite},   // Start writing an animation
-//    {0x02,   65,  commandWrite},        // Write 64 bytes of data
-//    {0x03,   1,   commandStopWrite},    // Stop writing
+    {0x01,   1,   commandStartWrite},   // Start writing an animation
+    {0x02,   65,  commandWrite},        // Write 64 bytes of data
+    {0x03,   1,   commandStopWrite},    // Stop writing
 //    {0x04,   1,   commandStartRead},    // Start reading back the animation
 //    {0x05,   1,   commandRead},         // Read 64 bytes of data
 //    {0x06,   1,   commandStopRead},     // Stop reading
@@ -166,13 +166,9 @@ void commandLoop() {
     }
 }
 
-/*
-
 static bool writing = false;
 static int packetCount;         // Count of packets we have written so far
 
-static bool reading = false;
-static int readPacketCount;         // Count of packets we have written so far
 
 #define BYTES_PER_PACKET 64
 #define PACKETS_PER_BLOCK (DFU_TRANSFER_SIZE / BYTES_PER_PACKET)
@@ -256,6 +252,10 @@ bool commandStopWrite(uint8_t* buffer) {
 }
 
 /*
+
+static bool reading = false;
+static int readPacketCount;         // Count of packets we have written so far
+
 bool commandStartRead(uint8_t* buffer) {
     // Reset the write state machine
     reading = true;

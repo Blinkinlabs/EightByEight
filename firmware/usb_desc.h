@@ -88,21 +88,21 @@ let me know?  http://forum.pjrc.com/forums/4-Suggestions-amp-Bug-Reports
 //  #define VENDOR_ID		0x1209
   #define VENDOR_ID		0x1d50
   #define PRODUCT_ID		0x8888
-  #define DEVICE_VER		0x0100
+  #define DEVICE_VER		0x0200
 
   #define DEVICE_CLASS          0xEF  // Miscellaneous
   #define DEVICE_SUBCLASS       0x02  // Common class
   #define DEVICE_PROTOCOL       0x01  // Interface association descriptor
 
   #define MANUFACTURER_NAME	{'B','l','i','n','k','i','n','l','a','b','s'}
-  #define MANUFACTURER_NAME_LEN	11
-  #define PRODUCT_NAME		{'L','e','o','B','l','i','n','k','y','2','0','1','5'}
-  #define PRODUCT_NAME_LEN	13
-  #define SERIAL_NAME           {'L','e','o','B','l','i','n','k','y','2','0','1','5',' ','S','e','r','i','a','l'}
-  #define SERIAL_NAME_LEN       20
-  #define FC_NAME               {'L','e','o','B','l','i','n','k','y','2','0','1','5',' ','F','a','d','e','c','a','n','d','y'}
-  #define FC_NAME_LEN           23
-  #define DFU_NAME              {'L','e','o','B','l','i','n','k','y','2','0','1','5',' ','D','F','U'}
+  #define MANUFACTURER_NAME_LEN	10
+  #define PRODUCT_NAME		{'E','i','g','h','t','B','y','E','i','g','h','t'}
+  #define PRODUCT_NAME_LEN	12
+  #define SERIAL_NAME           {'E','i','g','h','t','B','y','E','i','g','h','t',' ','S','e','r','i','a','l'}
+  #define SERIAL_NAME_LEN       19
+  #define FC_NAME               {'E','i','g','h','t','B','y','E','i','g','h','t',' ','F','a','d','e','c','a','n','d','y'}
+  #define FC_NAME_LEN           22
+  #define DFU_NAME              {'E','i','g','h','t','B','y','E','i','g','h','t',' ','D','F','U'}
   #define DFU_NAME_LEN          17
   #define EP0_SIZE		64
   #define NUM_ENDPOINTS		4       // 1=fadecandy,dfu 2,3,4=serial

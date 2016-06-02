@@ -80,24 +80,6 @@ void setupWatchdog() {
 }
 
 
-// Handle full messages here
-void handleData(uint16_t dataSize, uint8_t* data) {
-    switch(data[0]) {
-        case 0x00:  // Display some data on the LEDs
-        {
-    
-            if(dataSize != 1 + LED_ROWS*LED_COLS*BYTES_PER_PIXEL) {
-                return;
-            }
-            memcpy(getPixels(), &data[1], LED_ROWS*LED_COLS*BYTES_PER_PIXEL);
-            show();
-        }
-        default:
-            break;
-    }
-}
-
-
 extern "C" int main()
 {
     setupWatchdog();
@@ -111,29 +93,19 @@ extern "C" int main()
         }
     }
         
-
     initBoard();
-
-//    serialReceiver.reset();
     serialReset();
-
     matrixSetup();
 
-    #define BRIGHTNESS_COUNT 8
-    const int brightnessLevels[BRIGHTNESS_COUNT] = {255,204,153,102,51,102,153,204};
-
-    int brightnessStep = 5;
     bool streaming_mode = false;
+
 
     // Application main loop
     while (usb_dfu_state == DFU_appIDLE) {
 
         watchdog_refresh();
-
-        // TODO: Don't do this so often
-        setBrightness(brightnessLevels[brightnessStep]/255.0);
-
         if(!streaming_mode) {
+            memcpy(getPixels(), (uint32_t*)ANIMATION_DATA_START, LED_ROWS*LED_COLS*BYTES_PER_PIXEL);
             setPixel(5,0,255,0,0);
             setPixel(7,0,0,255,0);
             setPixel(6,1,255,0,0);

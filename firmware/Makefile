@@ -32,6 +32,7 @@ C_FILES = \
 	usb_dev.c \
 	usb_mem.c \
 	usb_serial.c \
+	dfu.c \
 	yield.c
 
 CPP_FILES = \
@@ -82,9 +83,6 @@ $(TARGET).elf: $(OBJS) $(LDSCRIPT)
 install: $(TARGET).dfu
 	$(DFU_UTIL) -d 1d50 -D $<
 #	$(DFU_UTIL) -d 1209 -D $<
-
-benchmark: install
-	python benchmark.py
 
 # compiler generated dependency info
 -include $(OBJS:.o=.d)
