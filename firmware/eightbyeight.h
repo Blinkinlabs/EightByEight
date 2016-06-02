@@ -25,29 +25,22 @@
 #define BLINKYTILE_H
 
 
-#define LED_COLS 12          // Number of columns that the LED matrix has
-#define LED_ROWS 4          // Number of rows that the LED matrix has
-
-#define LED_COUNT           (LED_COLS*LED_ROWS)  // Number of LEDs we are controlling
+#define LED_COLS 8          // Number of columns that the LED matrix has
+#define LED_ROWS 8          // Number of rows that the LED matrix has
 #define BYTES_PER_PIXEL     1
 
-#define BUTTON_COUNT        1   // One input button
-
-#define BUTTON_A_PIN        9   // PC3
+#define LED_COUNT           (LED_COLS*LED_ROWS)  // Number of LEDs we are controlling
 
 // Output assignments
 // Note: These can't be changed arbitrarily- the GPIOs are actually
 // referred to in the library by their port assignments.
-#define LED_DATA_PIN    5   // PB0
-#define LED_CLOCK_PIN   6   // PB1
+#define LED_CLOCK_PIN   11   // PC6
+#define LED_DATA_PIN    12   // PC5
 #define LED_STROBE_PIN  14  // PD4
 #define LED_OE_PIN      4   // FTM0 channel 1 / PA4
 #define S0              15  // PD5
 #define S1              16  // PD6
-
-// File types
-#define FILETYPE_ANIMATION      0x12
-
+#define S2              17  // PD7  TODO: Test me
 
 // Fadecandy interface defines
 //#define LUT_CH_SIZE             257
@@ -62,10 +55,8 @@
 #define PACKETS_PER_LUT          1  // originally 25
 
 
-// Initialize the board hardware (buttons, status led, LED control pins)
+// Initialize the board hardware
 extern void initBoard();
-
-extern bool readButton();
 
 // Refresh the watchdog, so that the board doesn't reset
 static inline void watchdog_refresh(void)

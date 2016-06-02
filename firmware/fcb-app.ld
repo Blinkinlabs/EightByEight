@@ -34,8 +34,7 @@
 /* For 64k variant, no flexram */
 MEMORY
 {
-    FLASH (rx) : ORIGIN = 0x00001000, LENGTH = 38K
-    ANIMATIONS_FLASH (rx) : ORIGIN = 0x0000A000, LENGTH = 24K
+    FLASH (rx) : ORIGIN = 0x00001000, LENGTH = 16K
     RAM  (rwx) : ORIGIN = 0x1FFFE000, LENGTH = 16K
 }
 
@@ -101,9 +100,6 @@ SECTIONS
 
     _estack = ORIGIN(RAM) + LENGTH(RAM) - 4;
     boot_token = _estack;
-
-    _animations_flash_begin = ORIGIN(ANIMATIONS_FLASH);
-    _animations_flash_length = LENGTH(ANIMATIONS_FLASH);
 }
 
 

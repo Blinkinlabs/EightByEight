@@ -85,7 +85,8 @@ let me know?  http://forum.pjrc.com/forums/4-Suggestions-amp-Bug-Reports
 
 
 #if defined(USB_SERIAL_FC_DFU)
-  #define VENDOR_ID		0x1209
+//  #define VENDOR_ID		0x1209
+  #define VENDOR_ID		0x1d50
   #define PRODUCT_ID		0x8888
   #define DEVICE_VER		0x0100
 

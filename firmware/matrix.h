@@ -26,7 +26,7 @@
 
 #include "WProgram.h"
 #include "pins_arduino.h"
-#include "leoblinky.h"
+#include "eightbyeight.h"
 
 //Display Geometry
 // Note the bits per channels is equal to BIT_DEPTH + PAGED_BITS
@@ -34,16 +34,6 @@
 #define PAGED_BITS 2       // Number of pages (simulate higher bit depths)
 
 #define PAGES 4
-
-// Output assignments
-// Note: These can't be changed arbitrarily- the GPIOs are actually
-// referred to in the library by their port assignments.
-#define LED_DATA_PIN    5   // Port B, output 6
-#define LED_CLOCK_PIN   6   // Port B, output 5
-#define LED_STROBE_PIN  14  // Port D, output 6
-#define LED_OE_PIN      4   // FTM0 channel 1 / Port A, output 4
-#define S0              15  // Port D, t 4
-#define S1              16  // Port Doutput 5
 
 #if BYTES_PER_PIXEL == 3
 // RGB pixel type
@@ -91,7 +81,6 @@ extern void show();
 // Get the display pixel buffer
 // @return Pointer to the pixel display buffer, a uint8_t array of size
 // LED_ROWS*LED_COLS
-// TODO: Change to pixel type...
 extern Pixel* getPixels();
 
 // The display is double-buffered internally. This function returns

@@ -24,38 +24,20 @@
 #include "matrix.h"
 #include "brightness_table.h"
 
-// Offsets in the port c register (data)
-#define DMA_DAT_SHIFT   0       // Location of the data pin in Port B register
-#define DMA_CLK_SHIFT   1       // Location of the clock pin in Port B register
+// Offsets in the port C register (data)
+#define DMA_DAT_SHIFT   5       // Location of the data pin in Port C register
+#define DMA_CLK_SHIFT   6       // Location of the clock pin in Port C register
 
 // Offsets in the port D register (address)
-#define DMA_S0_SHIFT   5
-#define DMA_S1_SHIFT   6
 #define DMA_STB_SHIFT  4        // Location of the strobe pin in Port D register
+#define DMA_S0_SHIFT   5        // Note that S1 and S2 have to follow S0 sequentially.
+#define DMA_S1_SHIFT   6
+#define DMA_S2_SHIFT   7
 
 
 // Output positions for the signals in each group
 // These are out of order to make the board routing easier
 // RGB RGB RGB RGB RGB
-/*
-uint8_t OUTPUT_ORDER[] = {
-    2,  // R0
-    0,  // G0
-    1,  // B0
-    5,  // R1
-    3,  // G1
-    4,  // B1
-    8,  // R2
-    6,  // G2
-    7,  // B2
-    11,  // R3
-    9, // G3
-    10, // B3
-    14, // R4
-    12, // G4
-    13, // B4
-};
-*/
 uint8_t OUTPUT_ORDER[] = {
     0,  // R0
     1,  // G0
@@ -125,6 +107,7 @@ void matrixSetup() {
   // Set all the pins to outputs
   pinMode(S0, OUTPUT);
   pinMode(S1, OUTPUT);
+  pinMode(S2, OUTPUT);
 
   pinMode(LED_DATA_PIN, OUTPUT);
   pinMode(LED_CLOCK_PIN, OUTPUT);
@@ -145,7 +128,10 @@ void matrixSetup() {
         last_address = address;
       }
 
+// direct address select lines
 //#define addressBits(addr) (~((1<<DMA_STB_SHIFT) | (1<<(DMA_S0_SHIFT + addr))))
+
+// Mux-based address select lines
 #define addressBits(addr) (~((1<<DMA_STB_SHIFT) | ((addr)<<(DMA_S0_SHIFT))))
 
       for(int i = 0; i < ADDRESS_REPEAT_COUNT; i++) {
@@ -450,14 +436,14 @@ void setupTCD2(uint8_t* source, int minorLoopSize, int majorLoops) {
   DMA_TCD2_CITER_ELINKYES |= (0x03 << 9);
 }
 
-// TCD3 clocks and strobes the pixel data, which are on port B
+// TCD3 clocks and strobes the pixel data, which are on port C
 void setupTCD3(uint8_t* source, int minorLoopSize, int majorLoops) {
   DMA_TCD3_SADDR = source;                                        // Address to read from
   DMA_TCD3_SOFF = 1;                                              // Bytes to increment source register between writes 
   DMA_TCD3_ATTR = DMA_TCD_ATTR_SSIZE(0) | DMA_TCD_ATTR_DSIZE(0);  // 8-bit input and output
   DMA_TCD3_NBYTES_MLNO = minorLoopSize;                           // Number of bytes to transfer in the minor loop
   DMA_TCD3_SLAST = 0;                                             // Bytes to add after a major iteration count (N/A)
-  DMA_TCD3_DADDR = &GPIOB_PDOR;                                   // Address to write to
+  DMA_TCD3_DADDR = &GPIOC_PDOR;                                   // Address to write to
   DMA_TCD3_DOFF = 0;                                              // Bytes to increment destination register between write
   DMA_TCD3_CITER_ELINKNO = majorLoops;                            // Number of major loops to complete
   DMA_TCD3_BITER_ELINKNO = majorLoops;                            // Reset value for CITER (must be equal to CITER)

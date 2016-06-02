@@ -11,8 +11,7 @@ OBJDUMP = arm-none-eabi-objdump
 SIZE = arm-none-eabi-size
 
 # Bootloader to include in whole-chip .hex image
-FCBOOT_IMAGE = ../bin/blinky-boot-v100.hex
-#FCBOOT_IMAGE = ../bootloader/blinky-boot.hex
+BOOTLOADER_IMAGE = ../bin/blinky-boot-v100.hex
 
 # Configuration options
 OPTIONS += -DF_CPU=48000000 -D__MK20DN64__ -DUSB_SERIAL_FC_DFU
@@ -20,7 +19,7 @@ OPTIONS += -DF_CPU=48000000 -D__MK20DN64__ -DUSB_SERIAL_FC_DFU
 #######################################################
 
 # The name of your project (used to name the compiled .dfu file)
-TARGET = leoblinky2015-firmware
+TARGET = eightbyeight-firmware
 
 # Temporary .hex file for application image only, without bootloader
 APP_HEX = app-image.hex
@@ -37,13 +36,9 @@ C_FILES = \
 
 CPP_FILES = \
 	main.cpp \
-	leoblinky.cpp \
+	eightbyeight.cpp \
 	protocol.cpp \
-	buttons.cpp \
-        animation.cpp \
-        patterns.cpp \
         matrix.cpp \
-        jedecflash.cpp \
         spi4teensy3.cpp \
 
 # Headers
@@ -82,11 +77,11 @@ $(TARGET).elf: $(OBJS) $(LDSCRIPT)
 
 %.hex: %.elf
 	$(OBJCOPY) -O ihex $< $(APP_HEX)
-	(grep -v :00000001FF $(FCBOOT_IMAGE); cat $(APP_HEX)) > $@
+	(grep -v :00000001FF $(BOOTLOADER_IMAGE); cat $(APP_HEX)) > $@
 
 install: $(TARGET).dfu
-#	$(DFU_UTIL) -d 1d50 -D $<
-	$(DFU_UTIL) -d 1209 -D $<
+	$(DFU_UTIL) -d 1d50 -D $<
+#	$(DFU_UTIL) -d 1209 -D $<
 
 benchmark: install
 	python benchmark.py
