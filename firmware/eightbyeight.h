@@ -27,7 +27,7 @@
 
 #define LED_COLS 8          // Number of columns that the LED matrix has
 #define LED_ROWS 8          // Number of rows that the LED matrix has
-#define BYTES_PER_PIXEL     1
+#define BYTES_PER_PIXEL     3
 
 #define LED_COUNT           (LED_COLS*LED_ROWS)  // Number of LEDs we are controlling
 

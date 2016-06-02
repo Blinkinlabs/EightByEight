@@ -30,10 +30,9 @@
 
 //Display Geometry
 // Note the bits per channels is equal to BIT_DEPTH + PAGED_BITS
-#define BIT_DEPTH 11       // Color bits per channel (Note: input is always 8 bit)
-#define PAGED_BITS 2       // Number of pages (simulate higher bit depths)
-
-#define PAGES 4
+#define BIT_DEPTH 8       // Color bits per channel (Note: input is always 8 bit)
+#define PAGED_BITS 1       // Number of pages (simulate higher bit depths)
+#define PAGES 1
 
 #if BYTES_PER_PIXEL == 3
 // RGB pixel type

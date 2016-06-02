@@ -1,7 +1,7 @@
 /*
  * Blinky Controller
  *
-* Copyright (c) 2014 Matt Mets
+* Copyright (c) 2014, 2016 Blinkinlabs, LLC
  *
  * based on Fadecandy Firmware, Copyright (c) 2013 Micah Elizabeth Scott
  * 
@@ -47,7 +47,7 @@ extern uint32_t boot_token;
 
 static void dfu_reboot()
 {
-    // Reboot to the Fadecandy Bootloader
+    // Reboot to the Bootloader
     boot_token = 0x74624346;
 
     // Short delay to allow the host to receive the response to DFU_DETACH.
@@ -85,10 +85,10 @@ void handleData(uint16_t dataSize, uint8_t* data) {
         case 0x00:  // Display some data on the LEDs
         {
     
-            if(dataSize != 1 + LED_ROWS*LED_COLS) {
+            if(dataSize != 1 + LED_ROWS*LED_COLS*BYTES_PER_PIXEL) {
                 return;
             }
-            memcpy(getPixels(), &data[1], LED_ROWS*LED_COLS);
+            memcpy(getPixels(), &data[1], LED_ROWS*LED_COLS*BYTES_PER_PIXEL);
             show();
         }
         default:
@@ -117,24 +117,14 @@ extern "C" int main()
 
     matrixSetup();
 
-    // TODO: Fix pinMode()!
-    PORTB_PCR0 = PORT_PCR_MUX(1) | PORT_PCR_DSE | PORT_PCR_SRE;
-    PORTB_PCR1 = PORT_PCR_MUX(1) | PORT_PCR_DSE | PORT_PCR_SRE;
-    GPIOB_PDDR |= 0x01 | 0x02;
-    GPIOB_PDOR |= 0x01 | 0x02;
-    PORTD_PCR5 = PORT_PCR_MUX(1) | PORT_PCR_DSE | PORT_PCR_SRE;
-    PORTD_PCR6 = PORT_PCR_MUX(1) | PORT_PCR_DSE | PORT_PCR_SRE;
-    GPIOD_PDDR |= 0x05 | 0x06;
-    GPIOD_PDOR |= 0x05 | 0x06;
+    #define BRIGHTNESS_COUNT 8
+    const int brightnessLevels[BRIGHTNESS_COUNT] = {255,204,153,102,51,102,153,204};
 
+    int brightnessStep = 5;
+    bool streaming_mode = false;
 
     // Application main loop
     while (usb_dfu_state == DFU_appIDLE) {
-        #define BRIGHTNESS_COUNT 8
-        const int brightnessLevels[BRIGHTNESS_COUNT] = {255,204,153,102,51,102,153,204};
-        int brightnessStep = 5;
-
-        bool streaming_mode;
 
         watchdog_refresh();
 
@@ -142,12 +132,19 @@ extern "C" int main()
         setBrightness(brightnessLevels[brightnessStep]/255.0);
 
         if(!streaming_mode) {
-            for(int row = 0; row < LED_ROWS; row++) {
-                for(int col = 0; col < LED_COLS; col++) {
-                    setPixel(col, row, 100);
-                    show();
-                }
-            }
+            setPixel(5,0,255,0,0);
+            setPixel(7,0,0,255,0);
+            setPixel(6,1,255,0,0);
+            setPixel(5,2,255,0,0);
+            setPixel(7,2,0,255,0);
+            setPixel(6,3,255,0,0);
+            setPixel(5,4,255,0,0);
+            setPixel(7,4,0,255,0);
+            setPixel(6,5,255,0,0);
+            setPixel(5,6,255,0,0);
+            setPixel(7,6,0,255,0);
+            setPixel(6,7,255,0,0);
+            show();
         }
 
         if(usb_serial_available() > 0) {

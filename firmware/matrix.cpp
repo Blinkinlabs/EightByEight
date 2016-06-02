@@ -25,8 +25,8 @@
 #include "brightness_table.h"
 
 // Offsets in the port C register (data)
-#define DMA_DAT_SHIFT   5       // Location of the data pin in Port C register
-#define DMA_CLK_SHIFT   6       // Location of the clock pin in Port C register
+#define DMA_CLK_SHIFT   5       // Location of the clock pin in Port C register
+#define DMA_DAT_SHIFT   6       // Location of the data pin in Port C register
 
 // Offsets in the port D register (address)
 #define DMA_STB_SHIFT  4        // Location of the strobe pin in Port D register
@@ -37,23 +37,32 @@
 
 // Output positions for the signals in each group
 // These are out of order to make the board routing easier
-// RGB RGB RGB RGB RGB
+// RGB RGB RGB RGB RGB RGB RGB RGB RGB
 uint8_t OUTPUT_ORDER[] = {
-    0,  // R0
-    1,  // G0
-    2,  // B0
-    3,  // R1
-    4,  // G1
-    5,  // B1
-    6,  // R2
-    7,  // G2
-    8,  // B2
-    9,  // R3
-    10, // G3
-    11, // B3
-    12, // R4
-    13, // G4
-    14, // B4
+    23,  // R0
+    7,  // G0
+    15,  // B0
+    22,  // R1
+    6,  // G1
+    14,  // B1
+    21,  // R2
+    5,  // G2
+    13,  // B2
+    20,  // R3
+    4, // G3
+    12, // B3
+    19,  // R4
+    3,  // G4
+    11,  // B4
+    18,  // R5
+    2,  // G5
+    10,  // B5
+    17,  // R6
+    1,  // G6
+    9,  // B6
+    16,  // R7
+    0, // G7
+    8, // B7
 };
 
 // Display buffer (write into this!)
@@ -113,6 +122,20 @@ void matrixSetup() {
   pinMode(LED_CLOCK_PIN, OUTPUT);
   pinMode(LED_STROBE_PIN, OUTPUT);
   pinMode(LED_OE_PIN, OUTPUT);
+
+
+    // TODO: Does pinMode() work?
+    PORTC_PCR5 = PORT_PCR_MUX(1) | PORT_PCR_DSE | PORT_PCR_SRE;
+    PORTC_PCR6 = PORT_PCR_MUX(1) | PORT_PCR_DSE | PORT_PCR_SRE;
+    GPIOC_PDDR |= 0x00000060;
+    GPIOC_PDOR |= 0x00000000;
+
+    PORTD_PCR4 = PORT_PCR_MUX(1) | PORT_PCR_DSE | PORT_PCR_SRE;
+    PORTD_PCR5 = PORT_PCR_MUX(1) | PORT_PCR_DSE | PORT_PCR_SRE;
+    PORTD_PCR6 = PORT_PCR_MUX(1) | PORT_PCR_DSE | PORT_PCR_SRE;
+    PORTD_PCR7 = PORT_PCR_MUX(1) | PORT_PCR_DSE | PORT_PCR_SRE;
+    GPIOD_PDDR |= 0x000000F0;
+    GPIOD_PDOR |= 0x00000000;
 
   digitalWrite(LED_DATA_PIN, HIGH);
 
@@ -231,7 +254,7 @@ void matrixSetup() {
   currentPage = 0;
 
   // Clear the display and kick off transmission
-  memset(backBuffer, 0, LED_ROWS*LED_COLS*PAGES);
+  memset(backBuffer, 0, LED_ROWS*LED_COLS*BYTES_PER_PIXEL*PAGES);
   show();
 }
 
@@ -288,33 +311,7 @@ void pixelsToDmaBuffer(Pixel* pixelInput, uint8_t bufferOutput[]) {
     for(int row = 0; row < LED_ROWS; row++) {
       for(int col = 0; col < LED_COLS; col++) {
     
-#if BYTES_PER_PIXEL == 3
-
-#error Cannot handle 3 bytes with pages yet!     
-        uint16_t data_R = brightnessTable[pixelInput[row*LED_COLS + col].R];
-        uint16_t data_G = brightnessTable[pixelInput[row*LED_COLS + col].G];
-        uint16_t data_B = brightnessTable[pixelInput[row*LED_COLS + col].B];
- 
-        for(int depth = 0; depth < BIT_DEPTH; depth++) {
-          uint8_t output_r =
-              (((data_R >> depth) & 0x01) << DMA_DAT_SHIFT);
-          uint8_t output_g =
-              (((data_G >> depth) & 0x01) << DMA_DAT_SHIFT);
-          uint8_t output_b =
-              (((data_B >> depth) & 0x01) << DMA_DAT_SHIFT);
- 
-          int offset_r = OUTPUT_ORDER[col*3 + 0];
-          int offset_g = OUTPUT_ORDER[col*3 + 1];
-          int offset_b = OUTPUT_ORDER[col*3 + 2];
- 
-          bufferOutput[row*ROW_DEPTH_SIZE + depth*ROW_BIT_SIZE + offset_r*2 + 0] = output_r;
-          bufferOutput[row*ROW_DEPTH_SIZE + depth*ROW_BIT_SIZE + offset_r*2 + 1] = output_r | 1 << DMA_CLK_SHIFT;
-          bufferOutput[row*ROW_DEPTH_SIZE + depth*ROW_BIT_SIZE + offset_g*2 + 0] = output_g;
-          bufferOutput[row*ROW_DEPTH_SIZE + depth*ROW_BIT_SIZE + offset_g*2 + 1] = output_g | 1 << DMA_CLK_SHIFT;
-          bufferOutput[row*ROW_DEPTH_SIZE + depth*ROW_BIT_SIZE + offset_b*2 + 0] = output_b;
-          bufferOutput[row*ROW_DEPTH_SIZE + depth*ROW_BIT_SIZE + offset_b*2 + 1] = output_b | 1 << DMA_CLK_SHIFT;
- 
-#elif BYTES_PER_PIXEL == 1
+#if BYTES_PER_PIXEL == 1
  
         int data = brightnessTable[int(systemBrightness*pixelInput[row*LED_COLS + col])];
 
@@ -347,6 +344,37 @@ void pixelsToDmaBuffer(Pixel* pixelInput, uint8_t bufferOutput[]) {
  
           bufferOutput[page*PANEL_DEPTH_SIZE + row*ROW_DEPTH_SIZE + depth*ROW_BIT_SIZE + offset*2 + 0] = output;
           bufferOutput[page*PANEL_DEPTH_SIZE + row*ROW_DEPTH_SIZE + depth*ROW_BIT_SIZE + offset*2 + 1] = output | 1 << DMA_CLK_SHIFT;
+
+#elif BYTES_PER_PIXEL == 3
+
+// #error Cannot handle 3 bytes with pages yet!
+
+        //uint16_t data_R = brightnesstable[pixelInput[row*LED_COLS + col].R];
+        //uint16_t data_G = brightnesstable[pixelInput[row*LED_COLS + col].G];
+        //uint16_t data_B = brightnesstable[pixelInput[row*LED_COLS + col].B];
+        uint16_t data_R = pixelInput[row*LED_COLS + col].R;
+        uint16_t data_G = pixelInput[row*LED_COLS + col].G;
+        uint16_t data_B = pixelInput[row*LED_COLS + col].B;
+ 
+        for(int depth = 0; depth < BIT_DEPTH; depth++) {
+          uint8_t output_r =
+              (((data_R >> depth) & 0x01) << DMA_DAT_SHIFT);
+          uint8_t output_g =
+              (((data_G >> depth) & 0x01) << DMA_DAT_SHIFT);
+          uint8_t output_b =
+              (((data_B >> depth) & 0x01) << DMA_DAT_SHIFT);
+ 
+          int offset_r = OUTPUT_ORDER[col*BYTES_PER_PIXEL + 0];
+          int offset_g = OUTPUT_ORDER[col*BYTES_PER_PIXEL + 1];
+          int offset_b = OUTPUT_ORDER[col*BYTES_PER_PIXEL + 2];
+ 
+          bufferOutput[row*ROW_DEPTH_SIZE + depth*ROW_BIT_SIZE + offset_r*2 + 0] = output_r;
+          bufferOutput[row*ROW_DEPTH_SIZE + depth*ROW_BIT_SIZE + offset_r*2 + 1] = output_r | 1 << DMA_CLK_SHIFT;
+          bufferOutput[row*ROW_DEPTH_SIZE + depth*ROW_BIT_SIZE + offset_g*2 + 0] = output_g;
+          bufferOutput[row*ROW_DEPTH_SIZE + depth*ROW_BIT_SIZE + offset_g*2 + 1] = output_g | 1 << DMA_CLK_SHIFT;
+          bufferOutput[row*ROW_DEPTH_SIZE + depth*ROW_BIT_SIZE + offset_b*2 + 0] = output_b;
+          bufferOutput[row*ROW_DEPTH_SIZE + depth*ROW_BIT_SIZE + offset_b*2 + 1] = output_b | 1 << DMA_CLK_SHIFT;
+ 
  
 #endif
         }
