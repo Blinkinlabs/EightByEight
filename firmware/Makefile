@@ -37,7 +37,7 @@ C_FILES = \
 CPP_FILES = \
 	main.cpp \
 	eightbyeight.cpp \
-	protocol.cpp \
+	serialloop.cpp \
         matrix.cpp \
         spi4teensy3.cpp \
 

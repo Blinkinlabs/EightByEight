@@ -34,13 +34,14 @@
 #include "eightbyeight.h"
 #include "patterns.h"
 
-#include "protocol.h"
+//#include "protocol.h"
+#include "serialloop.h"
 #include "usb_serial.h"
 
 #include "matrix.h"
 
 // Serial programming receiver
-Protocol serialReceiver;
+//Protocol serialReceiver;
 
 // Reserved RAM area for signalling entry to bootloader
 extern uint32_t boot_token;
@@ -113,7 +114,8 @@ extern "C" int main()
 
     initBoard();
 
-    serialReceiver.reset();
+//    serialReceiver.reset();
+    serialReset();
 
     matrixSetup();
 
@@ -149,12 +151,7 @@ extern "C" int main()
 
         if(usb_serial_available() > 0) {
             streaming_mode = true;
-
-            if(serialReceiver.parseByte(usb_serial_getchar())) {
-              uint16_t dataSize = serialReceiver.getPacketSize();
-              uint8_t* data = serialReceiver.getPacket();
-              handleData(dataSize, data);
-            }
+            serialLoop();
         }
     }
 
