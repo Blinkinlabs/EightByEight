@@ -6,7 +6,7 @@
 import math
 
 inputBitDepth = 8
-outputBitDepth = 13
+outputBitDepth = 10
 
 inputScale = (1 << inputBitDepth)       # Number of input steps
 outputScale = (1 << outputBitDepth)     # Number of output steps

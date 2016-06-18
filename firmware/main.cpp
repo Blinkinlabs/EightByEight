@@ -24,7 +24,6 @@
  */
 
 #include <math.h>
-#include <algorithm>
 #include <stdlib.h>
 #include <stdio.h>
 #include "WProgram.h"
@@ -95,7 +94,9 @@ extern "C" int main()
         
     initBoard();
     serialReset();
-    matrixSetup();
+
+    matrix.begin();
+    matrix.setBrightness(1);
 
     bool streaming_mode = false;
 
@@ -105,20 +106,20 @@ extern "C" int main()
 
         watchdog_refresh();
         if(!streaming_mode) {
-            memcpy(getPixels(), (uint32_t*)ANIMATION_DATA_START, LED_ROWS*LED_COLS*BYTES_PER_PIXEL);
-            setPixel(5,0,255,0,0);
-            setPixel(7,0,0,255,0);
-            setPixel(6,1,255,0,0);
-            setPixel(5,2,255,0,0);
-            setPixel(7,2,0,255,0);
-            setPixel(6,3,255,0,0);
-            setPixel(5,4,255,0,0);
-            setPixel(7,4,0,255,0);
-            setPixel(6,5,255,0,0);
-            setPixel(5,6,255,0,0);
-            setPixel(7,6,0,255,0);
-            setPixel(6,7,255,0,0);
-            show();
+//            memcpy(getPixels(), (uint32_t*)ANIMATION_DATA_START, LED_ROWS*LED_COLS*BYTES_PER_PIXEL);
+            memset(matrix.getPixels(), 0, LED_ROWS*LED_COLS*BYTES_PER_PIXEL);
+            static float i = 0;
+            i += .1;
+
+
+            for(int row = 0; row < LED_ROWS; row++) {
+                for(int col = 0; col < LED_COLS; col++) {
+                    uint8_t val = row*LED_COLS + col + i;
+                    matrix.setPixelColor(row,col, val, val, val);
+                }
+            }
+
+            matrix.show();
         }
 
         if(usb_serial_available() > 0) {

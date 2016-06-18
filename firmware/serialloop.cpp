@@ -10,6 +10,7 @@
 #define SERIAL_MODE_DATA     0x01
 #define SERIAL_MODE_COMMAND  0x02
 
+extern Matrix matrix;
 
 //extern bool reloadAnimations;
 
@@ -75,7 +76,7 @@ void dataLoop() {
 
             // Prevent overflow by ignoring any pixel data beyond LED_COUNT
             if(pixelIndex < LED_COUNT) {
-                setPixel(pixelIndex%LED_COLS, pixelIndex/LED_COLS,
+                matrix.setPixelColor(pixelIndex%LED_COLS, pixelIndex/LED_COLS,
                          buffer[0], buffer[1], buffer[2]);
                 pixelIndex++;
             }
@@ -93,7 +94,7 @@ void dataLoop() {
         // If this is the first escape character, refresh the output
         if(escapeRunCount == 1) {
             //memcpy(getPixels(), frameData, LED_ROWS*LED_COLS*BYTES_PER_PIXEL);
-            show();
+            matrix.show();
         }
         
         if(escapeRunCount > 8) {
