@@ -9236,7 +9236,6 @@ new: Attribute TP_SIGNAL_NAME&lt;br&gt;
 <part name="R11" library="adafruit" deviceset="R-US_" device="R0805" value="50"/>
 <part name="GND43" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="TP1" library="testpad" deviceset="PTR1" device="B2,54"/>
-<part name="TP2" library="testpad" deviceset="PTR1" device="B2,54"/>
 <part name="TP3" library="testpad" deviceset="PTR1" device="B2,54"/>
 <part name="ANALOG_IN" library="testpad" deviceset="PTR1" device="B2,54"/>
 <part name="3V3" library="supply1" deviceset="+3V3" device=""/>
@@ -9245,26 +9244,27 @@ new: Attribute TP_SIGNAL_NAME&lt;br&gt;
 <sheets>
 <sheet>
 <plain>
-<text x="17.78" y="360.68" size="3.81" layer="91" align="top-left">EightByEight PCB Notes/Changelog
+<text x="17.78" y="325.12" size="3.81" layer="91" align="top-left">Revision Notes/Changelog
 
 Revision A:
--Mod required to power over USB
+-Diode mod required to power over USB
 
 Revision B:
 -Add diodes to enable power from USB
 -Connect ESP reset and boot select pins to ARM for auto-programming
--Connect ESP TX1 pin to ARM for LED control or modeswitch
+-Connect ESP TX1 pin to ARM for LED control
+-Move I2C_SDA to ESP pin 12
+-Connect accelerometer interrupt pin to ESP pin 13
+-Remove ground planes under ESP8266 antenna area
 
 TODO:
 -Add jumper pad for entering boot mode on ARM processor
--Test power supply for ESP8266, is something bigger required?
 -Hook LED_OE or similar to the row driver MUX (if 3.3v compatible)
--Connect accelerometer interrupt pin  to ESP
 -Break out some IO on ESP for expansion
 -Will smaller diode sizes work?
--Remove shielding under ESP8266 antenna area
--ESP8266 part: 18 should be 16
--Test alternate I2C pins on ESP8266</text>
+-Cosmetic: ESP8266 GPIO 18mislabeled, should be 16</text>
+<text x="129.54" y="358.14" size="10.16" layer="91" align="bottom-center">EightByEight Blinky Badge</text>
+<text x="129.54" y="345.44" size="6.4516" layer="91" align="bottom-center">Copyright 2016 Blinkinlabs, LLC</text>
 </plain>
 <instances>
 <instance part="FRAME6" gate="G$1" x="0" y="0"/>
@@ -9296,6 +9296,10 @@ LED_OE needs to be on a pin with FTM capability</text>
 <wire x1="7.62" y1="10.16" x2="7.62" y2="86.36" width="0.4064" layer="94"/>
 <wire x1="7.62" y1="10.16" x2="121.92" y2="10.16" width="0.4064" layer="94"/>
 <wire x1="121.92" y1="10.16" x2="121.92" y2="86.36" width="0.4064" layer="94"/>
+<text x="76.2" y="116.84" size="1.778" layer="91">Pin assignments for USB/Serial conversion:
+ARM_RX and ARM_TX are UART0
+ESP_RESET is virtually connected to RTS
+ESP_GPIO0 is virtually connected to DTR</text>
 </plain>
 <instances>
 <instance part="R7" gate="G$1" x="73.66" y="55.88" smashed="yes">
@@ -9782,7 +9786,6 @@ Connected to ESP and ARM</text>
 <attribute name="VALUE" x="17.78" y="148.59" size="1.778" layer="96"/>
 </instance>
 <instance part="TP1" gate="G$1" x="287.02" y="215.9" rot="R90"/>
-<instance part="TP2" gate="G$1" x="287.02" y="220.98" rot="R90"/>
 <instance part="TP3" gate="G$1" x="287.02" y="226.06" rot="R90"/>
 <instance part="ANALOG_IN" gate="G$1" x="287.02" y="210.82" rot="R90"/>
 <instance part="3V3" gate="G$1" x="180.34" y="218.44" smashed="yes">
@@ -9942,16 +9945,6 @@ Connected to ESP and ARM</text>
 <label x="91.44" y="218.44" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="R17" gate="G$1" pin="1"/>
-<wire x1="20.32" y1="129.54" x2="20.32" y2="109.22" width="0.1524" layer="91"/>
-<label x="20.32" y="109.22" size="1.778" layer="95" rot="R90"/>
-</segment>
-<segment>
-<pinref part="U8" gate="G$1" pin="SDA"/>
-<wire x1="236.22" y1="139.7" x2="254" y2="139.7" width="0.1524" layer="91"/>
-<label x="241.3" y="139.7" size="1.778" layer="95"/>
-</segment>
-<segment>
 <wire x1="180.34" y1="200.66" x2="162.56" y2="200.66" width="0.1524" layer="91"/>
 <pinref part="R12" gate="G$1" pin="1"/>
 <wire x1="180.34" y1="203.2" x2="180.34" y2="200.66" width="0.1524" layer="91"/>
@@ -10053,18 +10046,6 @@ Connected to ESP and ARM</text>
 <label x="266.7" y="226.06" size="1.778" layer="95"/>
 </segment>
 </net>
-<net name="ESP_EXP_2" class="0">
-<segment>
-<pinref part="U6" gate="G$1" pin="IO12"/>
-<wire x1="86.36" y1="210.82" x2="104.14" y2="210.82" width="0.1524" layer="91"/>
-<label x="91.44" y="210.82" size="1.778" layer="95"/>
-</segment>
-<segment>
-<pinref part="TP2" gate="G$1" pin="TP"/>
-<wire x1="264.16" y1="220.98" x2="284.48" y2="220.98" width="0.1524" layer="91"/>
-<label x="266.7" y="220.98" size="1.778" layer="95"/>
-</segment>
-</net>
 <net name="ESP_EXP_3" class="0">
 <segment>
 <pinref part="U6" gate="G$1" pin="IO18"/>
@@ -10087,6 +10068,23 @@ Connected to ESP and ARM</text>
 <pinref part="U6" gate="G$1" pin="TOUT"/>
 <wire x1="53.34" y1="205.74" x2="25.4" y2="205.74" width="0.1524" layer="91"/>
 <label x="27.94" y="205.74" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="I2C_SDA" class="0">
+<segment>
+<pinref part="U6" gate="G$1" pin="IO12"/>
+<wire x1="86.36" y1="210.82" x2="104.14" y2="210.82" width="0.1524" layer="91"/>
+<label x="91.44" y="210.82" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="R17" gate="G$1" pin="1"/>
+<wire x1="20.32" y1="129.54" x2="20.32" y2="109.22" width="0.1524" layer="91"/>
+<label x="20.32" y="109.22" size="1.778" layer="95" rot="R90"/>
+</segment>
+<segment>
+<pinref part="U8" gate="G$1" pin="SDA"/>
+<wire x1="236.22" y1="139.7" x2="254" y2="139.7" width="0.1524" layer="91"/>
+<label x="241.3" y="139.7" size="1.778" layer="95"/>
 </segment>
 </net>
 </nets>
