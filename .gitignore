@@ -1,0 +1,13 @@
+*.DS_Store
+*.[bls]#[0-9]
+*.o
+*.d
+*.swp
+firmware/*.dfu
+firmware/*.hex
+firmware/*.elf
+bootloader/*.elf
+bootloader/*.hex
+bootloader/*.bin
+*.pyc
+driver/*crt
