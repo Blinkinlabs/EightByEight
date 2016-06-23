@@ -33,6 +33,7 @@
 #include "eightbyeight.h"
 #include "patterns.h"
 
+#include "HardwareSerial.h"
 //#include "protocol.h"
 #include "serialloop.h"
 #include "usb_serial.h"
@@ -95,36 +96,44 @@ extern "C" int main()
     initBoard();
     serialReset();
 
-    matrix.begin();
-    matrix.setBrightness(1);
+    pinMode(2, OUTPUT);
+    for(int i = 0; i < 10; i++) {
+        digitalWrite(2, HIGH);
+        digitalWrite(2, LOW);
+        digitalWrite(2, LOW);
+    }
 
-    bool streaming_mode = false;
+    serial_begin(BAUD2DIV(115200));
+    serial_format(SERIAL_8N1);
+//    serial_write("test", 4);
+
+    matrix.setBrightness(1);
+    matrix.begin();
+
+    bool streamingMode = false;
 
 
     // Application main loop
     while (usb_dfu_state == DFU_appIDLE) {
 
         watchdog_refresh();
-        if(!streaming_mode) {
-//            memcpy(getPixels(), (uint32_t*)ANIMATION_DATA_START, LED_ROWS*LED_COLS*BYTES_PER_PIXEL);
-            memset(matrix.getPixels(), 0, LED_ROWS*LED_COLS*BYTES_PER_PIXEL);
-            static float i = 0;
-            i += .1;
-
-
-            for(int row = 0; row < LED_ROWS; row++) {
-                for(int col = 0; col < LED_COLS; col++) {
-                    uint8_t val = row*LED_COLS + col + i;
-                    matrix.setPixelColor(row,col, val, val, val);
-                }
-            }
-
+        if(!streamingMode) {
+            colorSwirl();
             matrix.show();
         }
 
-        if(usb_serial_available() > 0) {
-            streaming_mode = true;
-            serialLoop();
+//        if(usb_serial_available() > 0) {
+//            streamingMode = true;
+//            serialLoop();
+//        }
+
+        // TODO: Something more robust
+        while(usb_serial_available()) {
+            serial_putchar(usb_serial_getchar());
+        }
+
+        while(serial_available()) {
+            usb_serial_putchar(serial_getchar());
         }
     }
 

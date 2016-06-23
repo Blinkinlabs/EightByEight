@@ -33,14 +33,15 @@ C_FILES = \
 	usb_mem.c \
 	usb_serial.c \
 	dfu.c \
-	yield.c
+	yield.c \
+	serial1.c
 
 CPP_FILES = \
 	main.cpp \
 	eightbyeight.cpp \
 	serialloop.cpp \
         matrix.cpp \
-        spi4teensy3.cpp \
+        patterns.cpp \
 
 # Headers
 INCLUDES = -I.

@@ -34,8 +34,8 @@
 /* For 64k variant, no flexram */
 MEMORY
 {
-    FLASH (rx) : ORIGIN = 0x00001000, LENGTH = 16K
-    ANIMATIONS_FLASH (rx) : ORIGIN = 0x5000, LENGTH = 44K
+    FLASH (rx) : ORIGIN = 0x00001000, LENGTH = 32K
+    ANIMATIONS_FLASH (rx) : ORIGIN = 0x9000, LENGTH = 32K
     RAM  (rwx) : ORIGIN = 0x1FFFE000, LENGTH = 16K
 }
 

@@ -128,6 +128,13 @@ volatile uint8_t usb_configuration = 0;
 //volatile uint8_t usb_reboot_timer = 0;
 volatile uint8_t usb_dfu_state = DFU_appIDLE;
 
+// TODO: Move this to a callback
+#define USB_SERIAL_DTR  0x01
+#define USB_SERIAL_RTS  0x02
+uint8_t dtr(void) { return (usb_cdc_line_rtsdtr & USB_SERIAL_DTR) ? 1 : 0; }
+uint8_t rts(void) { return (usb_cdc_line_rtsdtr & USB_SERIAL_RTS) ? 1 : 0; }
+
+
 static void endpoint0_stall(void)
 {
 	USB0_ENDPT0 = USB_ENDPT_EPSTALL | USB_ENDPT_EPRXEN | USB_ENDPT_EPTXEN | USB_ENDPT_EPHSHK;
@@ -324,6 +331,22 @@ static void usb_setup(void)
 	  case 0x2221: // CDC_SET_CONTROL_LINE_STATE
 		usb_cdc_line_rtsdtr = setup.wValue;
 		//serial_print("set control line state\n");
+
+		// TODO: Make this happen elsewhere?
+		if(rts()) {
+			GPIOB_PCOR = 0x1;
+		}
+		else {
+			GPIOB_PSOR = 0x1;
+		}
+		if(dtr()) {
+			GPIOB_PCOR = 0x2;
+		}
+		else {
+			GPIOB_PSOR = 0x2;
+		}
+
+
 		break;
 	  case 0x2321: // CDC_SEND_BREAK
 		break;

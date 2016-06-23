@@ -24,6 +24,8 @@
 #ifndef PATTERNS_H
 #define PATTERNS_H
 
-extern void count_up_loop();
+extern void countUpLoop();
+extern void bleedTest();
+extern void colorSwirl();
 
 #endif

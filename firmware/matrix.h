@@ -29,19 +29,31 @@
 #include "eightbyeight.h"
 
 //Display Geometry
-// Note the bits per channels is equal to BIT_DEPTH + PAGED_BITS
-#define BIT_DEPTH 10 // Color bits per channel (Note: input is always 8 bit)
-#define PAGED_BITS 1 // Number of pages (simulate higher bit depths)
-#define PAGES 1
+#define BIT_DEPTH 11 // Number of bits used to drive each LED
+#define PAGES 1 // Dithered bits
+
 
 // RGB pixel type
-struct Pixel {
-  uint8_t R;
-  uint8_t G;
-  uint8_t B;
+class Pixel {
+public:
+    Pixel() {
+        R = 0;
+        G = 0;
+        B = 0;
+    }
+
+    Pixel(uint8_t r, uint8_t g, uint8_t b) {
+        R = r;
+        G = g;
+        B = b;
+    }
+
+    uint8_t R;
+    uint8_t G;
+    uint8_t B;
 };
 
-// Big 'ol waveform that should be sent out over DMA in chunks.
+// Big 'ol waveform that is bitbanged onto the GPIO bus by the DMA engine
 // There are LED_ROWS separate loops, where the LED matrix address lines
 // to be set before they are activated.
 // For each of these rows, there are then BIT_DEPTH separate inner loops
@@ -82,7 +94,13 @@ public:
     // @param r uint8_t new red value for the pixel (0 - 255)
     // @param g uint8_t new green value for the pixel (0 - 255)
     // @param b uint8_t new blue value for the pixel (0 - 255)
-    void setPixelColor(int column, int row, uint8_t r, uint8_t g, uint8_t b);
+    void setPixelColor(uint8_t column, uint8_t row, uint8_t r, uint8_t g, uint8_t b);
+
+    // Update a single pixel in the array
+    // @param column int pixel column (0 to led_cols - 1)
+    // @param row int pixel row (0 to led_rows - 1)
+    // @param pixel Pixel New pixel color
+    void setPixelColor(uint8_t column, uint8_t row, const Pixel& pixel);
 
     // Get the display pixel buffer
     // @return Pointer to the pixel display buffer, a uint8_t array of size
@@ -132,12 +150,15 @@ private:
     // true if there is already an update waiting.
     bool bufferWaiting() const;
 
-    void setupTCDs();
+    void programTCDs();
     void setupTCD0(uint32_t* source, int minorLoopSize, int majorLoops);
     void setupTCD1(uint32_t* source, int minorLoopSize, int majorLoops);
     void setupTCD2(uint8_t* source, int minorLoopSize, int majorLoops);
     void setupTCD3(uint8_t* source, int minorLoopSize, int majorLoops);
     void setupFTM0();
+
+    void buildAddressTable();
+    void buildTimerTables();
 
     void pixelsToDmaBuffer(Pixel* pixelInput, uint8_t bufferOutput[]);
 };
