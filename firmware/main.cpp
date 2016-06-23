@@ -96,16 +96,9 @@ extern "C" int main()
     initBoard();
     serialReset();
 
-    pinMode(2, OUTPUT);
-    for(int i = 0; i < 10; i++) {
-        digitalWrite(2, HIGH);
-        digitalWrite(2, LOW);
-        digitalWrite(2, LOW);
-    }
-
-    serial_begin(BAUD2DIV(115200));
+    // TODO: Make the baud rate adjustable
+    serial_begin(BAUD2DIV(460800));
     serial_format(SERIAL_8N1);
-//    serial_write("test", 4);
 
     matrix.setBrightness(1);
     matrix.begin();
@@ -117,10 +110,10 @@ extern "C" int main()
     while (usb_dfu_state == DFU_appIDLE) {
 
         watchdog_refresh();
-        if(!streamingMode) {
-            colorSwirl();
-            matrix.show();
-        }
+//        if(!streamingMode) {
+//            colorSwirl();
+//            matrix.show();
+//        }
 
 //        if(usb_serial_available() > 0) {
 //            streamingMode = true;
@@ -128,12 +121,28 @@ extern "C" int main()
 //        }
 
         // TODO: Something more robust
+        #define MAX_SERIAL_TRANSFER 60
+        char buff[MAX_SERIAL_TRANSFER];
+
         while(usb_serial_available()) {
-            serial_putchar(usb_serial_getchar());
+            int bytesToTransfer = usb_serial_available();
+            if(bytesToTransfer > MAX_SERIAL_TRANSFER) {
+                bytesToTransfer = MAX_SERIAL_TRANSFER;
+            }
+            usb_serial_read(buff, bytesToTransfer);
+            serial_write(buff, bytesToTransfer);
         }
 
         while(serial_available()) {
-            usb_serial_putchar(serial_getchar());
+            int bytesToTransfer = serial_available();
+            if(bytesToTransfer > MAX_SERIAL_TRANSFER) {
+                bytesToTransfer = MAX_SERIAL_TRANSFER;
+            }
+
+            for(int byte = 0; byte < bytesToTransfer; byte++) {
+                buff[byte] = serial_getchar();
+            }
+            usb_serial_write(buff, bytesToTransfer);
         }
     }
 

@@ -332,20 +332,19 @@ static void usb_setup(void)
 		usb_cdc_line_rtsdtr = setup.wValue;
 		//serial_print("set control line state\n");
 
+                // NodeMCU style DTR/RTS handling
 		// TODO: Make this happen elsewhere?
-		if(rts()) {
+		if(rts() && !dtr()) {
 			GPIOB_PCOR = 0x1;
-		}
-		else {
-			GPIOB_PSOR = 0x1;
-		}
-		if(dtr()) {
-			GPIOB_PCOR = 0x2;
-		}
-		else {
 			GPIOB_PSOR = 0x2;
 		}
-
+		else if(!rts() && dtr()) {
+			GPIOB_PCOR = 0x2;
+			GPIOB_PSOR = 0x1;
+		}
+                else {
+                    GPIOB_PSOR = 0x3;
+                }
 
 		break;
 	  case 0x2321: // CDC_SEND_BREAK

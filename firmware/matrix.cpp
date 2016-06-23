@@ -75,6 +75,9 @@ Matrix::Matrix() {
 
 void Matrix::begin() {
     // Set all the pins to outputs
+    digitalWrite(LED_OE_PIN, HIGH);
+    pinMode(LED_OE_PIN, OUTPUT);
+
     pinMode(S0, OUTPUT);
     pinMode(S1, OUTPUT);
     pinMode(S2, OUTPUT);
@@ -82,9 +85,6 @@ void Matrix::begin() {
     pinMode(LED_DATA_PIN, OUTPUT);
     pinMode(LED_CLOCK_PIN, OUTPUT);
     pinMode(LED_STROBE_PIN, OUTPUT);
-    pinMode(LED_OE_PIN, OUTPUT);
-
-    digitalWrite(LED_OE_PIN, HIGH);
 
     buildAddressTable();
     buildTimerTables();
@@ -110,9 +110,6 @@ void Matrix::begin() {
     DMAMUX0_CHCFG0 = DMAMUX_DISABLE;
     DMAMUX0_CHCFG0 = DMAMUX_SOURCE_FTM0_CH1 | DMAMUX_ENABLE;
  
-    // Load this frame of data into the DMA engine
-    programTCDs();
- 
     // FTM
     SIM_SCGC6 |= SIM_SCGC6_FTM0;  // Enable FTM0 clock
     setupFTM0();
@@ -123,8 +120,12 @@ void Matrix::begin() {
     currentPage = 0;
  
     // Clear the display and kick off transmission
-    memset(backBuffer, 0, LED_ROWS*LED_COLS*BYTES_PER_PIXEL*PAGES);
+    //memset(frontBuffer, 0, LED_ROWS*LED_COLS*BYTES_PER_PIXEL*PAGES);
+    memset(pixels, 0, LED_ROWS*LED_COLS*BYTES_PER_PIXEL);
     show();
+
+    // Load this frame of data into the DMA engine
+    programTCDs();
 }
 
 bool Matrix::bufferWaiting() const {

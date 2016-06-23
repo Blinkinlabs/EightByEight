@@ -106,7 +106,7 @@ let me know?  http://forum.pjrc.com/forums/4-Suggestions-amp-Bug-Reports
   #define DFU_NAME_LEN          16
   #define EP0_SIZE		64
   #define NUM_ENDPOINTS		4       // 1=fadecandy,dfu 2,3,4=serial
-  #define NUM_USB_BUFFERS	12      // FC uses 9*3, serial 12, we don't need this many?
+  #define NUM_USB_BUFFERS	25      // FC uses 9*3, serial 12, we don't need this many?
   #define NUM_INTERFACE		4       // 0=cdc_status, 1=cdc_data, 2=fadecandy, 3=dfu
   #define CDC_IAD_DESCRIPTOR	1
   #define CDC_STATUS_INTERFACE	0
