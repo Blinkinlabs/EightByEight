@@ -95,7 +95,7 @@ let me know?  http://forum.pjrc.com/forums/4-Suggestions-amp-Bug-Reports
   #define DEVICE_PROTOCOL       0x01  // Interface association descriptor
 
   #define MANUFACTURER_NAME	{'B','l','i','n','k','i','n','l','a','b','s'}
-  #define MANUFACTURER_NAME_LEN	10
+  #define MANUFACTURER_NAME_LEN	11
   #define PRODUCT_NAME		{'E','i','g','h','t','B','y','E','i','g','h','t'}
   #define PRODUCT_NAME_LEN	12
   #define SERIAL_NAME           {'E','i','g','h','t','B','y','E','i','g','h','t',' ','S','e','r','i','a','l'}
@@ -103,7 +103,7 @@ let me know?  http://forum.pjrc.com/forums/4-Suggestions-amp-Bug-Reports
   #define FC_NAME               {'E','i','g','h','t','B','y','E','i','g','h','t',' ','F','a','d','e','c','a','n','d','y'}
   #define FC_NAME_LEN           22
   #define DFU_NAME              {'E','i','g','h','t','B','y','E','i','g','h','t',' ','D','F','U'}
-  #define DFU_NAME_LEN          17
+  #define DFU_NAME_LEN          16
   #define EP0_SIZE		64
   #define NUM_ENDPOINTS		4       // 1=fadecandy,dfu 2,3,4=serial
   #define NUM_USB_BUFFERS	12      // FC uses 9*3, serial 12, we don't need this many?
