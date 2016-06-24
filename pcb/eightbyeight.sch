@@ -9240,6 +9240,7 @@ new: Attribute TP_SIGNAL_NAME&lt;br&gt;
 <part name="ANALOG_IN" library="testpad" deviceset="PTR1" device="B2,54"/>
 <part name="3V3" library="supply1" deviceset="+3V3" device=""/>
 <part name="R12" library="adafruit" deviceset="R-US_" device="R0402" value="10k"/>
+<part name="TP16" library="testpad" deviceset="PTR1" device="B1,27"/>
 </parts>
 <sheets>
 <sheet>
@@ -9256,10 +9257,10 @@ Revision B:
 -Move I2C_SDA to ESP pin 12
 -Connect accelerometer interrupt pin to ESP pin 13
 -Remove ground planes under ESP8266 antenna area
+-Add jumper pad for entering boot mode on ARM processor
+-Hook LED_OE or similar to the row driver MUX
 
 TODO:
--Add jumper pad for entering boot mode on ARM processor
--Hook LED_OE or similar to the row driver MUX (if 3.3v compatible)
 -Break out some IO on ESP for expansion
 -Will smaller diode sizes work?
 -Cosmetic: ESP8266 GPIO 18mislabeled, should be 16</text>
@@ -9300,6 +9301,16 @@ LED_OE needs to be on a pin with FTM capability</text>
 ARM_RX and ARM_TX are UART0
 ESP_RESET is virtually connected to RTS
 ESP_GPIO0 is virtually connected to DTR</text>
+<text x="193.04" y="228.6" size="1.778" layer="91">If shorted during boot, the ARM will go directly
+into DFU mode. Useful if the application firmware
+becomes unstable. Note that this is a software
+feature- it is implemented by the bootloader
+firmware.</text>
+<text x="193.04" y="243.84" size="2.54" layer="94">ARM boot select</text>
+<wire x1="187.96" y1="251.46" x2="269.24" y2="251.46" width="0.4064" layer="94"/>
+<wire x1="187.96" y1="172.72" x2="187.96" y2="251.46" width="0.4064" layer="94"/>
+<wire x1="269.24" y1="172.72" x2="269.24" y2="251.46" width="0.4064" layer="94"/>
+<wire x1="187.96" y1="172.72" x2="269.24" y2="172.72" width="0.4064" layer="94"/>
 </plain>
 <instances>
 <instance part="R7" gate="G$1" x="73.66" y="55.88" smashed="yes">
@@ -9344,6 +9355,7 @@ ESP_GPIO0 is virtually connected to DTR</text>
 <instance part="P+3" gate="1" x="91.44" y="226.06" smashed="yes">
 <attribute name="VALUE" x="91.44" y="227.33" size="1.778" layer="96"/>
 </instance>
+<instance part="TP16" gate="G$1" x="223.52" y="205.74" rot="R90"/>
 </instances>
 <busses>
 </busses>
@@ -9677,6 +9689,18 @@ ESP_GPIO0 is virtually connected to DTR</text>
 <pinref part="U1" gate="G$1" pin="PTC3"/>
 <wire x1="144.78" y1="185.42" x2="162.56" y2="185.42" width="0.1524" layer="91"/>
 <label x="147.32" y="185.42" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="ARM_BOOTLOADER" class="0">
+<segment>
+<pinref part="TP16" gate="G$1" pin="TP"/>
+<wire x1="220.98" y1="205.74" x2="195.58" y2="205.74" width="0.1524" layer="91"/>
+<label x="195.58" y="205.74" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="U1" gate="G$1" pin="PTC4"/>
+<wire x1="162.56" y1="182.88" x2="144.78" y2="182.88" width="0.1524" layer="91"/>
+<label x="147.32" y="182.88" size="1.778" layer="95"/>
 </segment>
 </net>
 </nets>
@@ -10404,7 +10428,11 @@ improves reliability in both the current controller and the LEDs.</text>
 (3528RGB4C-CA), R and B have similar luminous intensity
 at the same forward current so they can be driven from the
 same driver. Ideally each color would have an independent
-current setpoint.</text>
+current setpoint, however that would require an extra drive
+IC</text>
+<text x="109.22" y="22.86" size="1.778" layer="91">Note: The primary purpose for the MUX is to boost the
+IO signals to 5V. A secondary benefit is to reduce the
+number of I/O lines needed on the ARM processor.</text>
 </plain>
 <instances>
 <instance part="FRAME4" gate="G$1" x="0" y="0"/>
@@ -10525,10 +10553,6 @@ current setpoint.</text>
 <pinref part="GND6" gate="1" pin="GND"/>
 <wire x1="50.8" y1="33.02" x2="48.26" y2="33.02" width="0.1524" layer="91"/>
 <wire x1="48.26" y1="33.02" x2="48.26" y2="30.48" width="0.1524" layer="91"/>
-<pinref part="U3" gate="A" pin="G2A"/>
-<wire x1="50.8" y1="35.56" x2="48.26" y2="35.56" width="0.1524" layer="91"/>
-<wire x1="48.26" y1="35.56" x2="48.26" y2="33.02" width="0.1524" layer="91"/>
-<junction x="48.26" y="33.02"/>
 </segment>
 <segment>
 <pinref part="GND8" gate="1" pin="GND"/>
@@ -10617,6 +10641,11 @@ current setpoint.</text>
 <pinref part="R6" gate="G$1" pin="1"/>
 <wire x1="17.78" y1="175.26" x2="17.78" y2="165.1" width="0.1524" layer="91"/>
 <label x="17.78" y="165.1" size="1.778" layer="95" rot="R90"/>
+</segment>
+<segment>
+<pinref part="U3" gate="A" pin="G2A"/>
+<wire x1="50.8" y1="35.56" x2="33.02" y2="35.56" width="0.1524" layer="91"/>
+<label x="33.02" y="35.56" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="N$18" class="0">
@@ -12600,7 +12629,6 @@ current setpoint.</text>
 <errors>
 <approved hash="104,5,27.94,50.8,U3P,VCC,+5V,,,"/>
 <approved hash="104,2,30.48,129.54,U$2,VCC,ARM_3V3,,,"/>
-<approved hash="106,3,236.22,132.08,ACC_INT1,,,,,"/>
 <approved hash="113,2,193.571,130.071,FRAME2,,,,,"/>
 <approved hash="113,4,193.571,130.071,FRAME1,,,,,"/>
 <approved hash="113,6,193.571,130.071,FRAME3,,,,,"/>
