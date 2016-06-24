@@ -1,7 +1,7 @@
 #include "WProgram.h"
 #include "eightbyeight.h"
 #include "serialloop.h"
-#include "usb_serial.h"
+#include "HardwareSerial.h"
 #include "matrix.h"
 #include "dfu.h"
 #include <stdlib.h>
@@ -60,7 +60,7 @@ void serialLoop() {
 }
 
 void dataLoop() {
-    uint8_t c = usb_serial_getchar();
+    uint8_t c = serial2_getchar();
 
     // Pixel character
     if(c != 0xFF) {
@@ -129,7 +129,7 @@ Command commands[] = {
 
 
 void commandLoop() {
-    uint8_t c = usb_serial_getchar();
+    uint8_t c = serial2_getchar();
 
     // If we get extra 0xFF bytes before the command byte, ignore them
     if((controlBufferIndex == 0) && (c == 0xFF))
@@ -151,14 +151,14 @@ void commandLoop() {
         // Now we're on to something- have we gotten enough data though?
         if(controlBufferIndex >= command->length) {
             if(command->function(controlBuffer + 1)) {
-                usb_serial_putchar('P');
-                usb_serial_putchar((char)controlBuffer[1]);
-                usb_serial_write(controlBuffer + 2, controlBuffer[1] + 1);
+                serial2_putchar('P');
+                serial2_putchar((char)controlBuffer[1]);
+                serial2_write(controlBuffer + 2, controlBuffer[1] + 1);
             }
             else {
-                usb_serial_putchar('F');
-                usb_serial_putchar((char)controlBuffer[1]);
-                usb_serial_write(controlBuffer + 2, controlBuffer[1] + 1);
+                serial2_putchar('F');
+                serial2_putchar((char)controlBuffer[1]);
+                serial2_write(controlBuffer + 2, controlBuffer[1] + 1);
             }
 
             serialReset();

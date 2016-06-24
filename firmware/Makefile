@@ -34,7 +34,8 @@ C_FILES = \
 	usb_serial.c \
 	dfu.c \
 	yield.c \
-	serial1.c
+	serial1.c \
+	serial2.c
 
 CPP_FILES = \
 	main.cpp \

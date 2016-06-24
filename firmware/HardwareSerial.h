@@ -110,6 +110,18 @@ void serial_phex(uint32_t n);
 void serial_phex16(uint32_t n);
 void serial_phex32(uint32_t n);
 
+void serial2_begin(uint32_t divisor);
+void serial2_format(uint32_t format);
+void serial2_end(void);
+void serial2_set_transmit_pin(uint8_t pin);
+void serial2_putchar(uint32_t c);
+void serial2_write(const void *buf, unsigned int count);
+void serial2_flush(void);
+int serial2_available(void);
+int serial2_getchar(void);
+int serial2_peek(void);
+void serial2_clear(void);
+void serial2_print(const char *p);
 
 #ifdef __cplusplus
 }

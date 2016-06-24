@@ -100,11 +100,21 @@ extern "C" int main()
     serial_begin(BAUD2DIV(460800));
     serial_format(SERIAL_8N1);
 
+    serial2_begin(BAUD2DIV(230400));
+    serial2_format(SERIAL_8N1);
+
     matrix.setBrightness(1);
     matrix.begin();
 
+    //colorSwirl();
+    //matrix.show();
+
     bool streamingMode = false;
 
+//    // Echo RX1 onto TMS
+//    pinMode(9, INPUT);  // PTC3 / ARM_RX1
+    pinMode(3, OUTPUT); // PTA3 / ARM_TMS
+    digitalWrite(3, LOW);
 
     // Application main loop
     while (usb_dfu_state == DFU_appIDLE) {
@@ -125,6 +135,8 @@ extern "C" int main()
         char buff[MAX_SERIAL_TRANSFER];
 
         while(usb_serial_available()) {
+            streamingMode = true;
+
             int bytesToTransfer = usb_serial_available();
             if(bytesToTransfer > MAX_SERIAL_TRANSFER) {
                 bytesToTransfer = MAX_SERIAL_TRANSFER;
@@ -134,6 +146,7 @@ extern "C" int main()
         }
 
         while(serial_available()) {
+
             int bytesToTransfer = serial_available();
             if(bytesToTransfer > MAX_SERIAL_TRANSFER) {
                 bytesToTransfer = MAX_SERIAL_TRANSFER;
@@ -144,6 +157,15 @@ extern "C" int main()
             }
             usb_serial_write(buff, bytesToTransfer);
         }
+
+        if(serial2_available()) {
+            digitalWrite(3, HIGH);
+            streamingMode = true;
+            serialLoop();
+        }
+
+//        // Echo the RX1 pin state onto TMS
+//        digitalWrite(3, digitalRead(9));
     }
 
     // Reboot into DFU bootloader
