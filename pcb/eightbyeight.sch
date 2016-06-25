@@ -9057,7 +9057,6 @@ new: Attribute TP_SIGNAL_NAME&lt;br&gt;
 <part name="GND5" library="supply1" deviceset="GND" device=""/>
 <part name="SW2" library="blinkinlabs" deviceset="BUTTON_MOMENTARY_GROUND" device="" value="BRIGHTNESS"/>
 <part name="U3" library="blinkinlabs" deviceset="74*138" device=""/>
-<part name="P+7" library="supply1" deviceset="+5V" device=""/>
 <part name="GND6" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="GND1" library="supply1" deviceset="GND" device=""/>
 <part name="L2" library="blinkinlabs" deviceset="FB" device="0805/NO-OUTLINE" value="130ohm @100MHz"/>
@@ -9241,6 +9240,8 @@ new: Attribute TP_SIGNAL_NAME&lt;br&gt;
 <part name="3V3" library="supply1" deviceset="+3V3" device=""/>
 <part name="R12" library="adafruit" deviceset="R-US_" device="R0402" value="10k"/>
 <part name="TP16" library="testpad" deviceset="PTR1" device="B1,27"/>
+<part name="R21" library="adafruit" deviceset="R-US_" device="R0402" value="2k 1%"/>
+<part name="GND35" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -9263,7 +9264,8 @@ Revision B:
 TODO:
 -Break out some IO on ESP for expansion
 -Will smaller diode sizes work?
--Cosmetic: ESP8266 GPIO 18mislabeled, should be 16</text>
+-Cosmetic: ESP8266 GPIO 18mislabeled, should be 16
+-With LED_HS_EN, should LED_OE still be connected to the mux?</text>
 <text x="129.54" y="358.14" size="10.16" layer="91" align="bottom-center">EightByEight Blinky Badge</text>
 <text x="129.54" y="345.44" size="6.4516" layer="91" align="bottom-center">Copyright 2016 Blinkinlabs, LLC</text>
 </plain>
@@ -9703,6 +9705,13 @@ firmware.</text>
 <label x="147.32" y="182.88" size="1.778" layer="95"/>
 </segment>
 </net>
+<net name="LED_HS_EN" class="0">
+<segment>
+<pinref part="U1" gate="G$1" pin="PTC1"/>
+<wire x1="144.78" y1="190.5" x2="162.56" y2="190.5" width="0.1524" layer="91"/>
+<label x="147.32" y="190.5" size="1.778" layer="95"/>
+</segment>
+</net>
 </nets>
 </sheet>
 <sheet>
@@ -10070,7 +10079,7 @@ Connected to ESP and ARM</text>
 <label x="266.7" y="226.06" size="1.778" layer="95"/>
 </segment>
 </net>
-<net name="ESP_EXP_3" class="0">
+<net name="ESP_EXP_2" class="0">
 <segment>
 <pinref part="U6" gate="G$1" pin="IO18"/>
 <wire x1="86.36" y1="200.66" x2="104.14" y2="200.66" width="0.1524" layer="91"/>
@@ -10409,7 +10418,7 @@ rapid on/off power cycles</text>
 <wire x1="7.62" y1="101.6" x2="276.86" y2="101.6" width="0.4064" layer="94"/>
 <text x="12.7" y="71.12" size="1.778" layer="91">P channel MOSFETs with gate drive capability</text>
 <text x="12.7" y="76.2" size="2.54" layer="94">High side (column) drivers</text>
-<wire x1="7.62" y1="83.82" x2="231.14" y2="83.82" width="0.4064" layer="94"/>
+<wire x1="7.62" y1="83.82" x2="274.32" y2="83.82" width="0.4064" layer="94"/>
 <wire x1="7.62" y1="7.62" x2="7.62" y2="83.82" width="0.4064" layer="94"/>
 <text x="287.02" y="238.76" size="1.778" layer="91">Reduces ghosting by draining row capacitance</text>
 <text x="287.02" y="243.84" size="2.54" layer="94">Ghostbusting resistors</text>
@@ -10417,8 +10426,8 @@ rapid on/off power cycles</text>
 <wire x1="281.94" y1="198.12" x2="281.94" y2="251.46" width="0.4064" layer="94"/>
 <wire x1="358.14" y1="198.12" x2="358.14" y2="251.46" width="0.4064" layer="94"/>
 <wire x1="281.94" y1="198.12" x2="358.14" y2="198.12" width="0.4064" layer="94"/>
-<wire x1="7.62" y1="7.62" x2="231.14" y2="7.62" width="0.4064" layer="94"/>
-<wire x1="231.14" y1="7.62" x2="231.14" y2="83.82" width="0.4064" layer="94"/>
+<wire x1="7.62" y1="7.62" x2="274.32" y2="7.62" width="0.4064" layer="94"/>
+<wire x1="274.32" y1="7.62" x2="274.32" y2="83.82" width="0.4064" layer="94"/>
 <text x="149.86" y="220.98" size="1.778" layer="91">Voltage drop resistors:
 Because the forward voltage of red LEDs is much lower than 5v,
 the initial surge of power when the current controller is enabled
@@ -10430,9 +10439,11 @@ at the same forward current so they can be driven from the
 same driver. Ideally each color would have an independent
 current setpoint, however that would require an extra drive
 IC</text>
-<text x="109.22" y="22.86" size="1.778" layer="91">Note: The primary purpose for the MUX is to boost the
+<text x="152.4" y="22.86" size="1.778" layer="91">Note: The primary purpose for the MUX is to boost the
 IO signals to 5V. A secondary benefit is to reduce the
-number of I/O lines needed on the ARM processor.</text>
+number of I/O lines needed on the ARM processor.
+Note: LED_HS_EN prevents the first row of LEDs from
+flashing briefly during poweron.</text>
 </plain>
 <instances>
 <instance part="FRAME4" gate="G$1" x="0" y="0"/>
@@ -10454,14 +10465,11 @@ number of I/O lines needed on the ARM processor.</text>
 <instance part="P+8" gate="1" x="17.78" y="58.42" smashed="yes">
 <attribute name="VALUE" x="15.24" y="59.69" size="1.778" layer="96"/>
 </instance>
-<instance part="U3" gate="A" x="66.04" y="43.18" smashed="yes">
-<attribute name="NAME" x="55.88" y="53.975" size="1.778" layer="95"/>
-<attribute name="VALUE" x="55.88" y="27.94" size="1.778" layer="96"/>
+<instance part="U3" gate="A" x="109.22" y="43.18" smashed="yes">
+<attribute name="NAME" x="99.06" y="53.975" size="1.778" layer="95"/>
+<attribute name="VALUE" x="99.06" y="27.94" size="1.778" layer="96"/>
 </instance>
-<instance part="P+7" gate="1" x="48.26" y="58.42" smashed="yes">
-<attribute name="VALUE" x="45.72" y="59.69" size="1.778" layer="96"/>
-</instance>
-<instance part="GND6" gate="1" x="48.26" y="27.94"/>
+<instance part="GND6" gate="1" x="91.44" y="27.94"/>
 <instance part="U3" gate="P" x="27.94" y="40.64"/>
 <instance part="R2" gate="G$1" x="292.1" y="215.9" rot="R90"/>
 <instance part="R3" gate="G$1" x="299.72" y="215.9" rot="R90"/>
@@ -10479,22 +10487,22 @@ number of I/O lines needed on the ARM processor.</text>
 <instance part="GND28" gate="1" x="330.2" y="205.74"/>
 <instance part="GND29" gate="1" x="337.82" y="205.74"/>
 <instance part="GND30" gate="1" x="345.44" y="205.74"/>
-<instance part="U10" gate="G$1" x="109.22" y="66.04"/>
-<instance part="U10" gate="G$2" x="119.38" y="66.04"/>
-<instance part="P+15" gate="1" x="111.76" y="76.2"/>
-<instance part="P+16" gate="1" x="121.92" y="76.2"/>
-<instance part="U9" gate="G$1" x="129.54" y="66.04"/>
-<instance part="U9" gate="G$2" x="139.7" y="66.04"/>
-<instance part="P+2" gate="1" x="132.08" y="76.2"/>
-<instance part="P+4" gate="1" x="142.24" y="76.2"/>
-<instance part="U11" gate="G$1" x="149.86" y="66.04"/>
-<instance part="U11" gate="G$2" x="160.02" y="66.04"/>
-<instance part="P+9" gate="1" x="152.4" y="76.2"/>
-<instance part="P+10" gate="1" x="162.56" y="76.2"/>
-<instance part="U12" gate="G$1" x="170.18" y="66.04"/>
-<instance part="U12" gate="G$2" x="180.34" y="66.04"/>
-<instance part="P+11" gate="1" x="172.72" y="76.2"/>
-<instance part="P+12" gate="1" x="182.88" y="76.2"/>
+<instance part="U10" gate="G$1" x="152.4" y="66.04"/>
+<instance part="U10" gate="G$2" x="162.56" y="66.04"/>
+<instance part="P+15" gate="1" x="154.94" y="76.2"/>
+<instance part="P+16" gate="1" x="165.1" y="76.2"/>
+<instance part="U9" gate="G$1" x="172.72" y="66.04"/>
+<instance part="U9" gate="G$2" x="182.88" y="66.04"/>
+<instance part="P+2" gate="1" x="175.26" y="76.2"/>
+<instance part="P+4" gate="1" x="185.42" y="76.2"/>
+<instance part="U11" gate="G$1" x="193.04" y="66.04"/>
+<instance part="U11" gate="G$2" x="203.2" y="66.04"/>
+<instance part="P+9" gate="1" x="195.58" y="76.2"/>
+<instance part="P+10" gate="1" x="205.74" y="76.2"/>
+<instance part="U12" gate="G$1" x="213.36" y="66.04"/>
+<instance part="U12" gate="G$2" x="223.52" y="66.04"/>
+<instance part="P+11" gate="1" x="215.9" y="76.2"/>
+<instance part="P+12" gate="1" x="226.06" y="76.2"/>
 <instance part="R19" gate="A" x="152.4" y="205.74"/>
 <instance part="R19" gate="B" x="152.4" y="208.28"/>
 <instance part="R19" gate="C" x="152.4" y="210.82"/>
@@ -10503,6 +10511,8 @@ number of I/O lines needed on the ARM processor.</text>
 <instance part="R20" gate="B" x="152.4" y="198.12"/>
 <instance part="R20" gate="C" x="152.4" y="200.66"/>
 <instance part="R20" gate="D" x="152.4" y="203.2"/>
+<instance part="R21" gate="G$1" x="48.26" y="43.18" rot="R90"/>
+<instance part="GND35" gate="1" x="48.26" y="30.48"/>
 </instances>
 <busses>
 </busses>
@@ -10551,8 +10561,8 @@ number of I/O lines needed on the ARM processor.</text>
 <segment>
 <pinref part="U3" gate="A" pin="G2B"/>
 <pinref part="GND6" gate="1" pin="GND"/>
-<wire x1="50.8" y1="33.02" x2="48.26" y2="33.02" width="0.1524" layer="91"/>
-<wire x1="48.26" y1="33.02" x2="48.26" y2="30.48" width="0.1524" layer="91"/>
+<wire x1="93.98" y1="33.02" x2="91.44" y2="33.02" width="0.1524" layer="91"/>
+<wire x1="91.44" y1="33.02" x2="91.44" y2="30.48" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="GND8" gate="1" pin="GND"/>
@@ -10593,6 +10603,11 @@ number of I/O lines needed on the ARM processor.</text>
 <pinref part="R16" gate="G$1" pin="1"/>
 <wire x1="345.44" y1="210.82" x2="345.44" y2="208.28" width="0.1524" layer="91"/>
 <pinref part="GND30" gate="1" pin="GND"/>
+</segment>
+<segment>
+<pinref part="R21" gate="G$1" pin="1"/>
+<pinref part="GND35" gate="1" pin="GND"/>
+<wire x1="48.26" y1="38.1" x2="48.26" y2="33.02" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="LED_STB" class="0">
@@ -10644,8 +10659,8 @@ number of I/O lines needed on the ARM processor.</text>
 </segment>
 <segment>
 <pinref part="U3" gate="A" pin="G2A"/>
-<wire x1="50.8" y1="35.56" x2="33.02" y2="35.56" width="0.1524" layer="91"/>
-<label x="33.02" y="35.56" size="1.778" layer="95"/>
+<wire x1="93.98" y1="35.56" x2="76.2" y2="35.56" width="0.1524" layer="91"/>
+<label x="76.2" y="35.56" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="N$18" class="0">
@@ -10823,15 +10838,15 @@ number of I/O lines needed on the ARM processor.</text>
 </segment>
 <segment>
 <pinref part="U10" gate="G$1" pin="D"/>
-<wire x1="111.76" y1="60.96" x2="111.76" y2="45.72" width="0.1524" layer="91"/>
-<label x="111.76" y="45.72" size="1.778" layer="95" rot="R90"/>
+<wire x1="154.94" y1="60.96" x2="154.94" y2="45.72" width="0.1524" layer="91"/>
+<label x="154.94" y="45.72" size="1.778" layer="95" rot="R90"/>
 </segment>
 </net>
 <net name="1ROW1" class="0">
 <segment>
 <pinref part="U10" gate="G$2" pin="D"/>
-<wire x1="121.92" y1="60.96" x2="121.92" y2="45.72" width="0.1524" layer="91"/>
-<label x="121.92" y="45.72" size="1.778" layer="95" rot="R90"/>
+<wire x1="165.1" y1="60.96" x2="165.1" y2="45.72" width="0.1524" layer="91"/>
+<label x="165.1" y="45.72" size="1.778" layer="95" rot="R90"/>
 </segment>
 <segment>
 <wire x1="299.72" y1="228.6" x2="299.72" y2="220.98" width="0.1524" layer="91"/>
@@ -10847,8 +10862,8 @@ number of I/O lines needed on the ARM processor.</text>
 </segment>
 <segment>
 <pinref part="U9" gate="G$1" pin="D"/>
-<wire x1="132.08" y1="60.96" x2="132.08" y2="45.72" width="0.1524" layer="91"/>
-<label x="132.08" y="45.72" size="1.778" layer="95" rot="R90"/>
+<wire x1="175.26" y1="60.96" x2="175.26" y2="45.72" width="0.1524" layer="91"/>
+<label x="175.26" y="45.72" size="1.778" layer="95" rot="R90"/>
 </segment>
 </net>
 <net name="1ROW3" class="0">
@@ -10859,8 +10874,8 @@ number of I/O lines needed on the ARM processor.</text>
 </segment>
 <segment>
 <pinref part="U9" gate="G$2" pin="D"/>
-<wire x1="142.24" y1="60.96" x2="142.24" y2="45.72" width="0.1524" layer="91"/>
-<label x="142.24" y="45.72" size="1.778" layer="95" rot="R90"/>
+<wire x1="185.42" y1="60.96" x2="185.42" y2="45.72" width="0.1524" layer="91"/>
+<label x="185.42" y="45.72" size="1.778" layer="95" rot="R90"/>
 </segment>
 </net>
 <net name="+5V" class="0">
@@ -10875,112 +10890,106 @@ number of I/O lines needed on the ARM processor.</text>
 <junction x="17.78" y="53.34"/>
 </segment>
 <segment>
-<pinref part="U3" gate="A" pin="G1"/>
-<pinref part="P+7" gate="1" pin="+5V"/>
-<wire x1="50.8" y1="38.1" x2="48.26" y2="38.1" width="0.1524" layer="91"/>
-<wire x1="48.26" y1="38.1" x2="48.26" y2="55.88" width="0.1524" layer="91"/>
-</segment>
-<segment>
 <pinref part="U10" gate="G$1" pin="S"/>
-<wire x1="111.76" y1="71.12" x2="111.76" y2="73.66" width="0.1524" layer="91"/>
+<wire x1="154.94" y1="71.12" x2="154.94" y2="73.66" width="0.1524" layer="91"/>
 <pinref part="P+15" gate="1" pin="+5V"/>
 </segment>
 <segment>
 <pinref part="U10" gate="G$2" pin="S"/>
-<wire x1="121.92" y1="71.12" x2="121.92" y2="73.66" width="0.1524" layer="91"/>
+<wire x1="165.1" y1="71.12" x2="165.1" y2="73.66" width="0.1524" layer="91"/>
 <pinref part="P+16" gate="1" pin="+5V"/>
 </segment>
 <segment>
 <pinref part="U9" gate="G$1" pin="S"/>
-<wire x1="132.08" y1="71.12" x2="132.08" y2="73.66" width="0.1524" layer="91"/>
+<wire x1="175.26" y1="71.12" x2="175.26" y2="73.66" width="0.1524" layer="91"/>
 <pinref part="P+2" gate="1" pin="+5V"/>
 </segment>
 <segment>
 <pinref part="U9" gate="G$2" pin="S"/>
-<wire x1="142.24" y1="71.12" x2="142.24" y2="73.66" width="0.1524" layer="91"/>
+<wire x1="185.42" y1="71.12" x2="185.42" y2="73.66" width="0.1524" layer="91"/>
 <pinref part="P+4" gate="1" pin="+5V"/>
 </segment>
 <segment>
 <pinref part="U11" gate="G$1" pin="S"/>
-<wire x1="152.4" y1="71.12" x2="152.4" y2="73.66" width="0.1524" layer="91"/>
+<wire x1="195.58" y1="71.12" x2="195.58" y2="73.66" width="0.1524" layer="91"/>
 <pinref part="P+9" gate="1" pin="+5V"/>
 </segment>
 <segment>
 <pinref part="U11" gate="G$2" pin="S"/>
-<wire x1="162.56" y1="71.12" x2="162.56" y2="73.66" width="0.1524" layer="91"/>
+<wire x1="205.74" y1="71.12" x2="205.74" y2="73.66" width="0.1524" layer="91"/>
 <pinref part="P+10" gate="1" pin="+5V"/>
 </segment>
 <segment>
 <pinref part="U12" gate="G$1" pin="S"/>
-<wire x1="172.72" y1="71.12" x2="172.72" y2="73.66" width="0.1524" layer="91"/>
+<wire x1="215.9" y1="71.12" x2="215.9" y2="73.66" width="0.1524" layer="91"/>
 <pinref part="P+11" gate="1" pin="+5V"/>
 </segment>
 <segment>
 <pinref part="U12" gate="G$2" pin="S"/>
-<wire x1="182.88" y1="71.12" x2="182.88" y2="73.66" width="0.1524" layer="91"/>
+<wire x1="226.06" y1="71.12" x2="226.06" y2="73.66" width="0.1524" layer="91"/>
 <pinref part="P+12" gate="1" pin="+5V"/>
 </segment>
 </net>
 <net name="LED_S0" class="0">
 <segment>
 <pinref part="U3" gate="A" pin="Y0"/>
-<wire x1="78.74" y1="50.8" x2="93.98" y2="50.8" width="0.1524" layer="91"/>
-<label x="81.28" y="50.8" size="1.778" layer="95"/>
+<wire x1="121.92" y1="50.8" x2="137.16" y2="50.8" width="0.1524" layer="91"/>
+<label x="124.46" y="50.8" size="1.778" layer="95"/>
 </segment>
 <segment>
 <pinref part="U10" gate="G$1" pin="G"/>
-<wire x1="106.68" y1="68.58" x2="106.68" y2="45.72" width="0.1524" layer="91"/>
-<label x="106.68" y="45.72" size="1.778" layer="95" rot="R90"/>
+<wire x1="149.86" y1="68.58" x2="149.86" y2="45.72" width="0.1524" layer="91"/>
+<label x="149.86" y="45.72" size="1.778" layer="95" rot="R90"/>
 </segment>
 </net>
 <net name="LED_S1" class="0">
 <segment>
 <pinref part="U3" gate="A" pin="Y1"/>
-<wire x1="78.74" y1="48.26" x2="93.98" y2="48.26" width="0.1524" layer="91"/>
-<label x="81.28" y="48.26" size="1.778" layer="95"/>
+<wire x1="121.92" y1="48.26" x2="137.16" y2="48.26" width="0.1524" layer="91"/>
+<label x="124.46" y="48.26" size="1.778" layer="95"/>
 </segment>
 <segment>
 <pinref part="U10" gate="G$2" pin="G"/>
-<wire x1="116.84" y1="68.58" x2="116.84" y2="45.72" width="0.1524" layer="91"/>
-<label x="116.84" y="45.72" size="1.778" layer="95" rot="R90"/>
+<wire x1="160.02" y1="68.58" x2="160.02" y2="45.72" width="0.1524" layer="91"/>
+<label x="160.02" y="45.72" size="1.778" layer="95" rot="R90"/>
 </segment>
 </net>
 <net name="LED_S2" class="0">
 <segment>
 <pinref part="U3" gate="A" pin="Y2"/>
-<wire x1="78.74" y1="45.72" x2="93.98" y2="45.72" width="0.1524" layer="91"/>
-<label x="81.28" y="45.72" size="1.778" layer="95"/>
+<wire x1="121.92" y1="45.72" x2="137.16" y2="45.72" width="0.1524" layer="91"/>
+<label x="124.46" y="45.72" size="1.778" layer="95"/>
 </segment>
 <segment>
 <pinref part="U9" gate="G$1" pin="G"/>
-<wire x1="127" y1="68.58" x2="127" y2="45.72" width="0.1524" layer="91"/>
-<label x="127" y="45.72" size="1.778" layer="95" rot="R90"/>
+<wire x1="170.18" y1="68.58" x2="170.18" y2="45.72" width="0.1524" layer="91"/>
+<label x="170.18" y="45.72" size="1.778" layer="95" rot="R90"/>
 </segment>
 </net>
 <net name="LED_S3" class="0">
 <segment>
 <pinref part="U3" gate="A" pin="Y3"/>
-<wire x1="78.74" y1="43.18" x2="93.98" y2="43.18" width="0.1524" layer="91"/>
-<label x="81.28" y="43.18" size="1.778" layer="95"/>
+<wire x1="121.92" y1="43.18" x2="137.16" y2="43.18" width="0.1524" layer="91"/>
+<label x="124.46" y="43.18" size="1.778" layer="95"/>
 </segment>
 <segment>
 <pinref part="U9" gate="G$2" pin="G"/>
-<wire x1="137.16" y1="68.58" x2="137.16" y2="45.72" width="0.1524" layer="91"/>
-<label x="137.16" y="45.72" size="1.778" layer="95" rot="R90"/>
+<wire x1="180.34" y1="68.58" x2="180.34" y2="45.72" width="0.1524" layer="91"/>
+<label x="180.34" y="45.72" size="1.778" layer="95" rot="R90"/>
 </segment>
 </net>
 <net name="LED_ROW_A" class="0">
 <segment>
 <pinref part="U3" gate="A" pin="A"/>
-<wire x1="50.8" y1="50.8" x2="33.02" y2="50.8" width="0.1524" layer="91"/>
-<label x="33.02" y="50.8" size="1.778" layer="95"/>
+<wire x1="93.98" y1="50.8" x2="76.2" y2="50.8" width="0.1524" layer="91"/>
+<label x="76.2" y="50.8" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="LED_ROW_B" class="0">
 <segment>
 <pinref part="U3" gate="A" pin="B"/>
-<wire x1="50.8" y1="48.26" x2="33.02" y2="48.26" width="0.1524" layer="91"/>
-<label x="33.02" y="48.26" size="1.778" layer="95"/>
+<wire x1="93.98" y1="48.26" x2="76.2" y2="48.26" width="0.1524" layer="91"/>
+<label x="76.2" y="48.26" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="1ROW6" class="0">
@@ -10991,8 +11000,8 @@ number of I/O lines needed on the ARM processor.</text>
 </segment>
 <segment>
 <pinref part="U12" gate="G$1" pin="D"/>
-<wire x1="172.72" y1="60.96" x2="172.72" y2="45.72" width="0.1524" layer="91"/>
-<label x="172.72" y="45.72" size="1.778" layer="95" rot="R90"/>
+<wire x1="215.9" y1="60.96" x2="215.9" y2="45.72" width="0.1524" layer="91"/>
+<label x="215.9" y="45.72" size="1.778" layer="95" rot="R90"/>
 </segment>
 </net>
 <net name="1ROW5" class="0">
@@ -11003,8 +11012,8 @@ number of I/O lines needed on the ARM processor.</text>
 </segment>
 <segment>
 <pinref part="U11" gate="G$2" pin="D"/>
-<wire x1="162.56" y1="60.96" x2="162.56" y2="45.72" width="0.1524" layer="91"/>
-<label x="162.56" y="45.72" size="1.778" layer="95" rot="R90"/>
+<wire x1="205.74" y1="60.96" x2="205.74" y2="45.72" width="0.1524" layer="91"/>
+<label x="205.74" y="45.72" size="1.778" layer="95" rot="R90"/>
 </segment>
 </net>
 <net name="1ROW4" class="0">
@@ -11015,8 +11024,8 @@ number of I/O lines needed on the ARM processor.</text>
 </segment>
 <segment>
 <pinref part="U11" gate="G$1" pin="D"/>
-<wire x1="152.4" y1="60.96" x2="152.4" y2="45.72" width="0.1524" layer="91"/>
-<label x="152.4" y="45.72" size="1.778" layer="95" rot="R90"/>
+<wire x1="195.58" y1="60.96" x2="195.58" y2="45.72" width="0.1524" layer="91"/>
+<label x="195.58" y="45.72" size="1.778" layer="95" rot="R90"/>
 </segment>
 </net>
 <net name="1ROW7" class="0">
@@ -11027,63 +11036,63 @@ number of I/O lines needed on the ARM processor.</text>
 </segment>
 <segment>
 <pinref part="U12" gate="G$2" pin="D"/>
-<wire x1="182.88" y1="60.96" x2="182.88" y2="45.72" width="0.1524" layer="91"/>
-<label x="182.88" y="45.72" size="1.778" layer="95" rot="R90"/>
+<wire x1="226.06" y1="60.96" x2="226.06" y2="45.72" width="0.1524" layer="91"/>
+<label x="226.06" y="45.72" size="1.778" layer="95" rot="R90"/>
 </segment>
 </net>
 <net name="LED_S4" class="0">
 <segment>
 <pinref part="U3" gate="A" pin="Y4"/>
-<wire x1="78.74" y1="40.64" x2="93.98" y2="40.64" width="0.1524" layer="91"/>
-<label x="81.28" y="40.64" size="1.778" layer="95"/>
+<wire x1="121.92" y1="40.64" x2="137.16" y2="40.64" width="0.1524" layer="91"/>
+<label x="124.46" y="40.64" size="1.778" layer="95"/>
 </segment>
 <segment>
 <pinref part="U11" gate="G$1" pin="G"/>
-<wire x1="147.32" y1="68.58" x2="147.32" y2="45.72" width="0.1524" layer="91"/>
-<label x="147.32" y="45.72" size="1.778" layer="95" rot="R90"/>
+<wire x1="190.5" y1="68.58" x2="190.5" y2="45.72" width="0.1524" layer="91"/>
+<label x="190.5" y="45.72" size="1.778" layer="95" rot="R90"/>
 </segment>
 </net>
 <net name="LED_S5" class="0">
 <segment>
 <pinref part="U3" gate="A" pin="Y5"/>
-<wire x1="93.98" y1="38.1" x2="78.74" y2="38.1" width="0.1524" layer="91"/>
-<label x="81.28" y="38.1" size="1.778" layer="95"/>
+<wire x1="137.16" y1="38.1" x2="121.92" y2="38.1" width="0.1524" layer="91"/>
+<label x="124.46" y="38.1" size="1.778" layer="95"/>
 </segment>
 <segment>
 <pinref part="U11" gate="G$2" pin="G"/>
-<wire x1="157.48" y1="68.58" x2="157.48" y2="45.72" width="0.1524" layer="91"/>
-<label x="157.48" y="45.72" size="1.778" layer="95" rot="R90"/>
+<wire x1="200.66" y1="68.58" x2="200.66" y2="45.72" width="0.1524" layer="91"/>
+<label x="200.66" y="45.72" size="1.778" layer="95" rot="R90"/>
 </segment>
 </net>
 <net name="LED_S6" class="0">
 <segment>
 <pinref part="U3" gate="A" pin="Y6"/>
-<wire x1="78.74" y1="35.56" x2="93.98" y2="35.56" width="0.1524" layer="91"/>
-<label x="81.28" y="35.56" size="1.778" layer="95"/>
+<wire x1="121.92" y1="35.56" x2="137.16" y2="35.56" width="0.1524" layer="91"/>
+<label x="124.46" y="35.56" size="1.778" layer="95"/>
 </segment>
 <segment>
 <pinref part="U12" gate="G$1" pin="G"/>
-<wire x1="167.64" y1="68.58" x2="167.64" y2="45.72" width="0.1524" layer="91"/>
-<label x="167.64" y="45.72" size="1.778" layer="95" rot="R90"/>
+<wire x1="210.82" y1="68.58" x2="210.82" y2="45.72" width="0.1524" layer="91"/>
+<label x="210.82" y="45.72" size="1.778" layer="95" rot="R90"/>
 </segment>
 </net>
 <net name="LED_S7" class="0">
 <segment>
 <pinref part="U3" gate="A" pin="Y7"/>
-<wire x1="93.98" y1="33.02" x2="78.74" y2="33.02" width="0.1524" layer="91"/>
-<label x="81.28" y="33.02" size="1.778" layer="95"/>
+<wire x1="137.16" y1="33.02" x2="121.92" y2="33.02" width="0.1524" layer="91"/>
+<label x="124.46" y="33.02" size="1.778" layer="95"/>
 </segment>
 <segment>
 <pinref part="U12" gate="G$2" pin="G"/>
-<wire x1="177.8" y1="68.58" x2="177.8" y2="45.72" width="0.1524" layer="91"/>
-<label x="177.8" y="45.72" size="1.778" layer="95" rot="R90"/>
+<wire x1="220.98" y1="68.58" x2="220.98" y2="45.72" width="0.1524" layer="91"/>
+<label x="220.98" y="45.72" size="1.778" layer="95" rot="R90"/>
 </segment>
 </net>
 <net name="LED_ROW_C" class="0">
 <segment>
 <pinref part="U3" gate="A" pin="C"/>
-<wire x1="50.8" y1="45.72" x2="33.02" y2="45.72" width="0.1524" layer="91"/>
-<label x="33.02" y="45.72" size="1.778" layer="95"/>
+<wire x1="93.98" y1="45.72" x2="76.2" y2="45.72" width="0.1524" layer="91"/>
+<label x="76.2" y="45.72" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="RCOL7" class="0">
@@ -11196,6 +11205,18 @@ number of I/O lines needed on the ARM processor.</text>
 <pinref part="U2" gate="G$1" pin="OUT7"/>
 <wire x1="127" y1="195.58" x2="147.32" y2="195.58" width="0.1524" layer="91"/>
 <pinref part="R20" gate="A" pin="1"/>
+</segment>
+</net>
+<net name="LED_HS_EN" class="0">
+<segment>
+<pinref part="R21" gate="G$1" pin="2"/>
+<wire x1="48.26" y1="48.26" x2="48.26" y2="63.5" width="0.1524" layer="91"/>
+<label x="48.26" y="50.8" size="1.778" layer="95" rot="R90"/>
+</segment>
+<segment>
+<pinref part="U3" gate="A" pin="G1"/>
+<wire x1="93.98" y1="38.1" x2="76.2" y2="38.1" width="0.1524" layer="91"/>
+<label x="76.2" y="38.1" size="1.778" layer="95"/>
 </segment>
 </net>
 </nets>
