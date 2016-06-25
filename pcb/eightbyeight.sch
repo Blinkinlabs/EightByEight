@@ -9246,6 +9246,8 @@ new: Attribute TP_SIGNAL_NAME&lt;br&gt;
 <part name="GROUND" library="testpad" deviceset="PTR1" device="B2,54"/>
 <part name="3V7" library="supply1" deviceset="+3V3" device=""/>
 <part name="GND44" library="supply1" deviceset="GND" device=""/>
+<part name="D4" library="adafruit" deviceset="LED" device="CHIP-LED0603" value="BLUE"/>
+<part name="GND45" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -10183,9 +10185,9 @@ rapid on/off power cycles</text>
 <instance part="GND10" gate="1" x="76.2" y="187.96"/>
 <instance part="GND12" gate="1" x="109.22" y="187.96"/>
 <instance part="P+13" gate="1" x="63.5" y="129.54"/>
-<instance part="GND15" gate="1" x="129.54" y="187.96"/>
-<instance part="D1" gate="G$1" x="121.92" y="200.66"/>
-<instance part="GND20" gate="1" x="121.92" y="187.96"/>
+<instance part="GND15" gate="1" x="134.62" y="187.96"/>
+<instance part="D1" gate="G$1" x="127" y="198.12"/>
+<instance part="GND20" gate="1" x="127" y="187.96"/>
 <instance part="GND36" gate="1" x="45.72" y="187.96"/>
 <instance part="R10" gate="G$1" x="88.9" y="226.06" smashed="yes">
 <attribute name="NAME" x="83.312" y="227.0506" size="1.778" layer="95"/>
@@ -10194,7 +10196,7 @@ rapid on/off power cycles</text>
 <instance part="GND37" gate="1" x="106.68" y="220.98"/>
 <instance part="C10" gate="G$1" x="99.06" y="226.06" rot="R90"/>
 <instance part="C12" gate="G$1" x="45.72" y="198.12"/>
-<instance part="C9" gate="G$1" x="129.54" y="205.74"/>
+<instance part="C9" gate="G$1" x="134.62" y="205.74"/>
 <instance part="C6" gate="G$1" x="248.92" y="205.74"/>
 <instance part="GND38" gate="1" x="248.92" y="195.58"/>
 <instance part="GND39" gate="1" x="208.28" y="195.58"/>
@@ -10213,6 +10215,8 @@ rapid on/off power cycles</text>
 <instance part="D3" gate="G$1" x="38.1" y="121.92"/>
 <instance part="R11" gate="G$1" x="48.26" y="99.06" rot="R90"/>
 <instance part="GND43" gate="1" x="48.26" y="86.36"/>
+<instance part="D4" gate="G$1" x="116.84" y="198.12"/>
+<instance part="GND45" gate="1" x="116.84" y="187.96"/>
 </instances>
 <busses>
 </busses>
@@ -10236,14 +10240,14 @@ rapid on/off power cycles</text>
 <pinref part="GND12" gate="1" pin="GND"/>
 </segment>
 <segment>
-<wire x1="129.54" y1="200.66" x2="129.54" y2="190.5" width="0.1524" layer="91"/>
+<wire x1="134.62" y1="200.66" x2="134.62" y2="190.5" width="0.1524" layer="91"/>
 <pinref part="GND15" gate="1" pin="GND"/>
 <pinref part="C9" gate="G$1" pin="2"/>
 </segment>
 <segment>
 <pinref part="GND20" gate="1" pin="GND"/>
 <pinref part="D1" gate="G$1" pin="C"/>
-<wire x1="121.92" y1="190.5" x2="121.92" y2="195.58" width="0.1524" layer="91"/>
+<wire x1="127" y1="190.5" x2="127" y2="193.04" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="GND36" gate="1" pin="GND"/>
@@ -10287,6 +10291,11 @@ rapid on/off power cycles</text>
 <wire x1="48.26" y1="93.98" x2="48.26" y2="88.9" width="0.1524" layer="91"/>
 <pinref part="GND43" gate="1" pin="GND"/>
 </segment>
+<segment>
+<pinref part="D4" gate="G$1" pin="C"/>
+<wire x1="116.84" y1="193.04" x2="116.84" y2="190.5" width="0.1524" layer="91"/>
+<pinref part="GND45" gate="1" pin="GND"/>
+</segment>
 </net>
 <net name="USB_5V" class="0">
 <segment>
@@ -10308,8 +10317,8 @@ rapid on/off power cycles</text>
 <segment>
 <pinref part="U$8" gate="G$1" pin="LED2"/>
 <pinref part="D1" gate="G$1" pin="A"/>
-<wire x1="106.68" y1="205.74" x2="121.92" y2="205.74" width="0.1524" layer="91"/>
-<wire x1="121.92" y1="205.74" x2="121.92" y2="203.2" width="0.1524" layer="91"/>
+<wire x1="106.68" y1="205.74" x2="127" y2="205.74" width="0.1524" layer="91"/>
+<wire x1="127" y1="205.74" x2="127" y2="200.66" width="0.1524" layer="91"/>
 <label x="111.76" y="205.74" size="1.778" layer="95"/>
 </segment>
 </net>
@@ -10346,12 +10355,12 @@ rapid on/off power cycles</text>
 <net name="BOOST_5V" class="0">
 <segment>
 <pinref part="U$8" gate="G$1" pin="OUT"/>
-<wire x1="106.68" y1="210.82" x2="129.54" y2="210.82" width="0.1524" layer="91"/>
-<wire x1="129.54" y1="210.82" x2="129.54" y2="208.28" width="0.1524" layer="91"/>
+<wire x1="106.68" y1="210.82" x2="134.62" y2="210.82" width="0.1524" layer="91"/>
+<wire x1="134.62" y1="210.82" x2="134.62" y2="208.28" width="0.1524" layer="91"/>
 <pinref part="C9" gate="G$1" pin="1"/>
-<label x="129.54" y="213.36" size="1.778" layer="95" rot="R90"/>
-<wire x1="129.54" y1="210.82" x2="129.54" y2="228.6" width="0.1524" layer="91"/>
-<junction x="129.54" y="210.82"/>
+<label x="134.62" y="213.36" size="1.778" layer="95" rot="R90"/>
+<wire x1="134.62" y1="210.82" x2="134.62" y2="228.6" width="0.1524" layer="91"/>
+<junction x="134.62" y="210.82"/>
 </segment>
 <segment>
 <pinref part="D2" gate="G$1" pin="A"/>
@@ -10425,6 +10434,15 @@ rapid on/off power cycles</text>
 <wire x1="50.8" y1="109.22" x2="48.26" y2="109.22" width="0.1524" layer="91"/>
 <wire x1="48.26" y1="109.22" x2="48.26" y2="104.14" width="0.1524" layer="91"/>
 <pinref part="R11" gate="G$1" pin="2"/>
+</segment>
+</net>
+<net name="DISCHARGE" class="0">
+<segment>
+<pinref part="U$8" gate="G$1" pin="LED1"/>
+<pinref part="D4" gate="G$1" pin="A"/>
+<wire x1="106.68" y1="203.2" x2="116.84" y2="203.2" width="0.1524" layer="91"/>
+<wire x1="116.84" y1="203.2" x2="116.84" y2="200.66" width="0.1524" layer="91"/>
+<label x="111.76" y="203.2" size="1.778" layer="95"/>
 </segment>
 </net>
 </nets>
