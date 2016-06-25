@@ -9234,14 +9234,18 @@ new: Attribute TP_SIGNAL_NAME&lt;br&gt;
 <part name="D3" library="adafruit" deviceset="DIODE" device="SOD-123" value="RB161M-20"/>
 <part name="R11" library="adafruit" deviceset="R-US_" device="R0805" value="50"/>
 <part name="GND43" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
-<part name="TP1" library="testpad" deviceset="PTR1" device="B2,54"/>
-<part name="TP3" library="testpad" deviceset="PTR1" device="B2,54"/>
+<part name="16" library="testpad" deviceset="PTR1" device="B2,54"/>
+<part name="5" library="testpad" deviceset="PTR1" device="B2,54"/>
 <part name="ANALOG_IN" library="testpad" deviceset="PTR1" device="B2,54"/>
 <part name="3V3" library="supply1" deviceset="+3V3" device=""/>
 <part name="R12" library="adafruit" deviceset="R-US_" device="R0402" value="10k"/>
 <part name="TP16" library="testpad" deviceset="PTR1" device="B1,27"/>
 <part name="R21" library="adafruit" deviceset="R-US_" device="R0402" value="2k 1%"/>
 <part name="GND35" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
+<part name="3.3V" library="testpad" deviceset="PTR1" device="B2,54"/>
+<part name="GROUND" library="testpad" deviceset="PTR1" device="B2,54"/>
+<part name="3V7" library="supply1" deviceset="+3V3" device=""/>
+<part name="GND44" library="supply1" deviceset="GND" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -9260,12 +9264,13 @@ Revision B:
 -Remove ground planes under ESP8266 antenna area
 -Add jumper pad for entering boot mode on ARM processor
 -Hook LED_OE or similar to the row driver MUX
+-Bring unused ESP pins to pads
 
 TODO:
--Break out some IO on ESP for expansion
--Will smaller diode sizes work?
+-Implement more user friendly expansion pads for the ESP
 -Cosmetic: ESP8266 GPIO 18mislabeled, should be 16
--With LED_HS_EN, should LED_OE still be connected to the mux?</text>
+-With LED_HS_EN, should LED_OE still be connected to the mux?
+-Characterize the power situation</text>
 <text x="129.54" y="358.14" size="10.16" layer="91" align="bottom-center">EightByEight Blinky Badge</text>
 <text x="129.54" y="345.44" size="6.4516" layer="91" align="bottom-center">Copyright 2016 Blinkinlabs, LLC</text>
 </plain>
@@ -9818,8 +9823,8 @@ Connected to ESP and ARM</text>
 <instance part="3V12" gate="G$1" x="20.32" y="147.32" smashed="yes">
 <attribute name="VALUE" x="17.78" y="148.59" size="1.778" layer="96"/>
 </instance>
-<instance part="TP1" gate="G$1" x="287.02" y="215.9" rot="R90"/>
-<instance part="TP3" gate="G$1" x="287.02" y="226.06" rot="R90"/>
+<instance part="16" gate="G$1" x="287.02" y="215.9" rot="R90"/>
+<instance part="5" gate="G$1" x="287.02" y="226.06" rot="R90"/>
 <instance part="ANALOG_IN" gate="G$1" x="287.02" y="210.82" rot="R90"/>
 <instance part="3V3" gate="G$1" x="180.34" y="218.44" smashed="yes">
 <attribute name="VALUE" x="177.8" y="219.71" size="1.778" layer="96"/>
@@ -9828,6 +9833,12 @@ Connected to ESP and ARM</text>
 <attribute name="NAME" x="179.3494" y="202.692" size="1.778" layer="95" rot="R90"/>
 <attribute name="VALUE" x="179.324" y="211.328" size="1.778" layer="96" rot="R90"/>
 </instance>
+<instance part="3.3V" gate="G$1" x="287.02" y="198.12" rot="R90"/>
+<instance part="GROUND" gate="G$1" x="287.02" y="193.04" rot="R90"/>
+<instance part="3V7" gate="G$1" x="281.94" y="203.2" smashed="yes">
+<attribute name="VALUE" x="279.4" y="204.47" size="1.778" layer="96"/>
+</instance>
+<instance part="GND44" gate="1" x="281.94" y="187.96"/>
 </instances>
 <busses>
 </busses>
@@ -9875,6 +9886,12 @@ Connected to ESP and ARM</text>
 <wire x1="205.74" y1="127" x2="203.2" y2="127" width="0.1524" layer="91"/>
 <wire x1="203.2" y1="127" x2="203.2" y2="119.38" width="0.1524" layer="91"/>
 <pinref part="GND31" gate="1" pin="GND"/>
+</segment>
+<segment>
+<pinref part="GROUND" gate="G$1" pin="TP"/>
+<wire x1="284.48" y1="193.04" x2="281.94" y2="193.04" width="0.1524" layer="91"/>
+<wire x1="281.94" y1="193.04" x2="281.94" y2="190.5" width="0.1524" layer="91"/>
+<pinref part="GND44" gate="1" pin="GND"/>
 </segment>
 </net>
 <net name="+3V3" class="0">
@@ -9938,6 +9955,12 @@ Connected to ESP and ARM</text>
 <pinref part="3V3" gate="G$1" pin="+3V3"/>
 <pinref part="R12" gate="G$1" pin="2"/>
 <wire x1="180.34" y1="215.9" x2="180.34" y2="213.36" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="3.3V" gate="G$1" pin="TP"/>
+<wire x1="284.48" y1="198.12" x2="281.94" y2="198.12" width="0.1524" layer="91"/>
+<wire x1="281.94" y1="198.12" x2="281.94" y2="200.66" width="0.1524" layer="91"/>
+<pinref part="3V7" gate="G$1" pin="+3V3"/>
 </segment>
 </net>
 <net name="ARM_TX" class="0">
@@ -10067,26 +10090,26 @@ Connected to ESP and ARM</text>
 <label x="121.92" y="223.52" size="1.778" layer="95"/>
 </segment>
 </net>
-<net name="ESP_EXP_1" class="0">
+<net name="EXP_GPIO5" class="0">
 <segment>
 <pinref part="U6" gate="G$1" pin="IO5"/>
 <wire x1="86.36" y1="213.36" x2="104.14" y2="213.36" width="0.1524" layer="91"/>
 <label x="91.44" y="213.36" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="TP3" gate="G$1" pin="TP"/>
+<pinref part="5" gate="G$1" pin="TP"/>
 <wire x1="284.48" y1="226.06" x2="264.16" y2="226.06" width="0.1524" layer="91"/>
 <label x="266.7" y="226.06" size="1.778" layer="95"/>
 </segment>
 </net>
-<net name="ESP_EXP_2" class="0">
+<net name="ESP_GPIO16" class="0">
 <segment>
 <pinref part="U6" gate="G$1" pin="IO18"/>
 <wire x1="86.36" y1="200.66" x2="104.14" y2="200.66" width="0.1524" layer="91"/>
 <label x="91.44" y="200.66" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="TP1" gate="G$1" pin="TP"/>
+<pinref part="16" gate="G$1" pin="TP"/>
 <wire x1="284.48" y1="215.9" x2="264.16" y2="215.9" width="0.1524" layer="91"/>
 <label x="266.7" y="215.9" size="1.778" layer="95"/>
 </segment>
@@ -10384,7 +10407,7 @@ rapid on/off power cycles</text>
 <junction x="248.92" y="220.98"/>
 </segment>
 </net>
-<net name="N$1" class="0">
+<net name="+5V_SWITCH" class="0">
 <segment>
 <pinref part="D2" gate="G$1" pin="C"/>
 <pinref part="SW1" gate="G$1" pin="S"/>
@@ -10396,7 +10419,7 @@ rapid on/off power cycles</text>
 <junction x="48.26" y="114.3"/>
 </segment>
 </net>
-<net name="N$4" class="0">
+<net name="+5V_BLEED" class="0">
 <segment>
 <pinref part="SW1" gate="G$1" pin="O"/>
 <wire x1="50.8" y1="109.22" x2="48.26" y2="109.22" width="0.1524" layer="91"/>
