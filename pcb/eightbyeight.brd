@@ -8,7 +8,7 @@
 </settings>
 <grid distance="0.1" unitdist="mm" unit="mm" style="lines" multiple="1" display="no" altdistance="0.05" altunitdist="mm" altunit="mm"/>
 <layers>
-<layer number="1" name="Top" color="12" fill="1" visible="no" active="yes"/>
+<layer number="1" name="Top" color="12" fill="1" visible="yes" active="yes"/>
 <layer number="2" name="GND" color="1" fill="1" visible="no" active="yes"/>
 <layer number="3" name="Route3" color="4" fill="3" visible="no" active="no"/>
 <layer number="4" name="Route4" color="1" fill="4" visible="no" active="no"/>
@@ -183,6 +183,13 @@
 <wire x1="60" y1="0" x2="0" y2="0" width="0.254" layer="20"/>
 <text x="9" y="1.2" size="1.778" layer="21">Off</text>
 <text x="1.3" y="11.5" size="1.778" layer="21" rot="SR270">On</text>
+<text x="52" y="31.1" size="1.016" layer="21" rot="R90">Charge</text>
+<text x="53.9" y="31.1" size="1.016" layer="21" rot="R90">Power</text>
+<text x="55.5" y="39.3" size="1.016" layer="21" rot="R90">16</text>
+<text x="55.7" y="35.3" size="1.016" layer="21" rot="R90">AIN</text>
+<text x="55.9" y="32.2" size="1.016" layer="21" rot="R90">5</text>
+<text x="32.9" y="54.5" size="1.016" layer="21">GND</text>
+<text x="37.4" y="54.5" size="1.016" layer="21">+3V</text>
 </plain>
 <libraries>
 <library name="adafruit">
@@ -1352,9 +1359,9 @@ Modified from Laen's PCB Order Design Rules</description>
 <attribute name="NAME" x="20.82" y="4.74" size="1.016" layer="25" rot="R270"/>
 <attribute name="VALUE" x="20.615" y="5.94" size="1.016" layer="27" rot="R270"/>
 </element>
-<element name="D1" library="adafruit" package="CHIP-LED0603" value="BLUE" x="52.8" y="28.9" smashed="yes" rot="R270">
-<attribute name="NAME" x="54.065" y="28.435" size="1.016" layer="25"/>
-<attribute name="VALUE" x="54.065" y="28.395" size="1.016" layer="27"/>
+<element name="D1" library="adafruit" package="CHIP-LED0603" value="BLUE" x="51.55" y="29.7" smashed="yes" rot="R180">
+<attribute name="NAME" x="51.085" y="28.435" size="1.016" layer="25" rot="R270"/>
+<attribute name="VALUE" x="51.045" y="28.435" size="1.016" layer="27" rot="R270"/>
 </element>
 <element name="R10" library="adafruit" package="R0603" value="1" x="17.5" y="5.7" smashed="yes" rot="R270">
 <attribute name="NAME" x="16.889" y="4.489" size="1.016" layer="25" rot="R270"/>
@@ -1416,7 +1423,7 @@ Modified from Laen's PCB Order Design Rules</description>
 <element name="GROUND" library="testpad" package="B2,54" value="PTR1B2,54" x="34.1" y="57">
 <attribute name="TP_SIGNAL_NAME" value="" x="34.1" y="57" size="1.778" layer="27" display="off"/>
 </element>
-<element name="D4" library="adafruit" package="CHIP-LED0603" value="BLUE" x="52.8" y="31" rot="R270"/>
+<element name="D4" library="adafruit" package="CHIP-LED0603" value="BLUE" x="53.45" y="29.75" rot="R180"/>
 </elements>
 <signals>
 <signal name="1ROW0">
@@ -4785,8 +4792,10 @@ Modified from Laen's PCB Order Design Rules</description>
 <wire x1="43.35" y1="4.75" x2="43.55" y2="4.55" width="0.254" layer="15"/>
 <wire x1="10.7266" y1="11.335" x2="10.065" y2="11.335" width="0.254" layer="1"/>
 <wire x1="10.065" y1="11.335" x2="10" y2="11.1" width="0.254" layer="1"/>
-<wire x1="52.05" y1="28.9" x2="51" y2="28.9" width="0.254" layer="1"/>
-<wire x1="51" y1="28.9" x2="50.5" y2="29.4" width="0.254" layer="1"/>
+<wire x1="51.55" y1="30.45" x2="51" y2="30.45" width="0.254" layer="1"/>
+<wire x1="51" y1="30.45" x2="50.8" y2="30.25" width="0.254" layer="1"/>
+<wire x1="50.8" y1="30.25" x2="50.8" y2="29.7" width="0.254" layer="1"/>
+<wire x1="50.8" y1="29.7" x2="50.5" y2="29.4" width="0.254" layer="1"/>
 <via x="50.5" y="29.4" extent="1-16" drill="0.3"/>
 <wire x1="50.5" y1="29.4" x2="46.8" y2="29.4" width="0.254" layer="15"/>
 <wire x1="46.8" y1="29.4" x2="46.6" y2="29.2" width="0.254" layer="15"/>
@@ -5050,8 +5059,8 @@ Modified from Laen's PCB Order Design Rules</description>
 <wire x1="36.95" y1="4.05" x2="42.3" y2="4.05" width="0.254" layer="15"/>
 <wire x1="10.7266" y1="12.605" x2="10.005" y2="12.605" width="0.254" layer="1"/>
 <wire x1="10.005" y1="12.605" x2="10" y2="12.6" width="0.254" layer="1"/>
-<wire x1="52.05" y1="31" x2="52" y2="31" width="0.254" layer="1"/>
-<wire x1="52" y1="31" x2="52" y2="32.5" width="0.254" layer="1"/>
+<wire x1="53.45" y1="30.5" x2="53.45" y2="31.05" width="0.254" layer="1"/>
+<wire x1="53.45" y1="31.05" x2="52" y2="32.5" width="0.254" layer="1"/>
 <via x="52" y="32.5" extent="1-16" drill="0.3"/>
 <wire x1="52" y1="32.5" x2="50.5" y2="32.5" width="0.254" layer="15"/>
 <wire x1="50.5" y1="32.5" x2="49.4" y2="31.4" width="0.254" layer="15"/>
@@ -5347,8 +5356,8 @@ Modified from Laen's PCB Order Design Rules</description>
 <approved hash="3,1,6173627ab83ebef5"/>
 <approved hash="3,1,ae96ce22cec4ae70"/>
 <approved hash="3,1,fccdf40ac5cadb0d"/>
-<approved hash="19,1,33a009da0a223058"/>
 <approved hash="19,1,3ba401de1e622418"/>
+<approved hash="19,1,33a009da0a223058"/>
 <approved hash="19,1,a3a811d20e6abc10"/>
 <approved hash="19,1,943c7a467c1a9260"/>
 <approved hash="19,1,5429d2522ebba8c0"/>
@@ -5356,6 +5365,8 @@ Modified from Laen's PCB Order Design Rules</description>
 <approved hash="19,1,a5bff3c5f632a048"/>
 <approved hash="19,1,5848da32da40583a"/>
 <approved hash="19,1,943c52465c229a58"/>
+<approved hash="19,1,93391ac59e44bda9"/>
+<approved hash="19,1,a8d0dd18cabc10b2"/>
 <approved hash="19,1,03bce0f8e2beef5c"/>
 <approved hash="5,1,f0f2337fcda5f1dd"/>
 <approved hash="19,1,1457f22df24e1434"/>
@@ -5382,8 +5393,8 @@ Modified from Laen's PCB Order Design Rules</description>
 <approved hash="5,1,aeecbeab7fa20ad3"/>
 <approved hash="5,1,7f17ff46549dd9de"/>
 <approved hash="5,1,afefdaf299e74a53"/>
-<approved hash="5,1,614fce68e7a973aa"/>
 <approved hash="5,1,639d635cd649a93a"/>
+<approved hash="5,1,614fce68e7a973aa"/>
 <approved hash="5,1,7cfc405f8d4c7372"/>
 <approved hash="5,1,a944ce92a52dfb00"/>
 <approved hash="5,1,7dfc2be1f9a76df6"/>
@@ -5405,8 +5416,8 @@ Modified from Laen's PCB Order Design Rules</description>
 <approved hash="5,1,f6c53fc40e32817e"/>
 <approved hash="19,1,0471825e458a251e"/>
 <approved hash="19,1,3c2806520abe30c4"/>
-<approved hash="19,1,8e4ff7ac2c3c49d9"/>
 <approved hash="19,1,542bba51b6ba58c0"/>
+<approved hash="19,1,8e4ff7ac2c3c49d9"/>
 <approved hash="19,1,5000767a763a5040"/>
 <approved hash="19,1,0424765e7ab208c8"/>
 <approved hash="19,1,d451b22bb6ead090"/>
