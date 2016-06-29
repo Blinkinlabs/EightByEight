@@ -8870,7 +8870,7 @@ new: Attribute TP_SIGNAL_NAME&lt;br&gt;
 <part name="R20" library="SparkFun-Passives" deviceset="RESISTOR-ARRAY" device="0603-ARV" value="200"/>
 <part name="R17" library="adafruit" deviceset="R-US_" device="R0402" value="4.7k"/>
 <part name="R18" library="adafruit" deviceset="R-US_" device="R0402" value="4.7k"/>
-<part name="C14" library="adafruit" deviceset="C-US" device="C0402" value="100nF"/>
+<part name="C14" library="adafruit" deviceset="C-US" device="C0402" value="1uF"/>
 <part name="C15" library="adafruit" deviceset="C-US" device="C0402" value="100nF"/>
 <part name="GND32" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="R23" library="adafruit" deviceset="R-US_" device="R0402" value="10k"/>
@@ -8938,6 +8938,8 @@ new: Attribute TP_SIGNAL_NAME&lt;br&gt;
 <part name="GND6" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="3V8" library="supply1" deviceset="+3V3" device=""/>
 <part name="GND47" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
+<part name="3V1" library="supply1" deviceset="+3V3" device=""/>
+<part name="GND31" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -9449,13 +9451,15 @@ Connected to ESP and ARM</text>
 <wire x1="160.02" y1="91.44" x2="160.02" y2="170.18" width="0.4064" layer="94"/>
 <wire x1="160.02" y1="91.44" x2="274.32" y2="91.44" width="0.4064" layer="94"/>
 <wire x1="274.32" y1="91.44" x2="274.32" y2="170.18" width="0.4064" layer="94"/>
-<text x="170.18" y="116.84" size="1.778" layer="91">Place near 1,8</text>
+<text x="170.18" y="132.08" size="1.778" layer="91">Place near 3</text>
 <text x="256.54" y="238.76" size="1.778" layer="91">Unused pins from the ESP8266</text>
 <text x="256.54" y="243.84" size="2.54" layer="94">Extra IO</text>
 <wire x1="251.46" y1="251.46" x2="309.88" y2="251.46" width="0.4064" layer="94"/>
 <wire x1="251.46" y1="175.26" x2="251.46" y2="251.46" width="0.4064" layer="94"/>
 <wire x1="251.46" y1="175.26" x2="309.88" y2="175.26" width="0.4064" layer="94"/>
 <wire x1="309.88" y1="175.26" x2="309.88" y2="251.46" width="0.4064" layer="94"/>
+<text x="170.18" y="106.68" size="1.778" layer="91">Place near 7</text>
+<text x="167.64" y="96.52" size="1.778" layer="91">TODO: Update C14 in BOM</text>
 </plain>
 <instances>
 <instance part="FRAME5" gate="G$1" x="0" y="0"/>
@@ -9483,9 +9487,9 @@ Connected to ESP and ARM</text>
 <attribute name="NAME" x="115.57" y="121.92" size="1.778" layer="95" rot="MR270"/>
 <attribute name="VALUE" x="118.11" y="116.205" size="1.778" layer="96" rot="MR270"/>
 </instance>
-<instance part="C14" gate="G$1" x="172.72" y="129.54"/>
-<instance part="C15" gate="G$1" x="165.1" y="129.54"/>
-<instance part="GND32" gate="1" x="165.1" y="116.84"/>
+<instance part="C14" gate="G$1" x="165.1" y="116.84"/>
+<instance part="C15" gate="G$1" x="165.1" y="142.24"/>
+<instance part="GND32" gate="1" x="165.1" y="132.08"/>
 <instance part="R26" gate="G$1" x="43.18" y="220.98" smashed="yes" rot="R90">
 <attribute name="NAME" x="42.1894" y="215.392" size="1.778" layer="95" rot="R90"/>
 <attribute name="VALUE" x="42.164" y="224.028" size="1.778" layer="96" rot="R90"/>
@@ -9504,8 +9508,8 @@ Connected to ESP and ARM</text>
 <attribute name="NAME" x="120.9294" y="131.572" size="1.778" layer="95" rot="R90"/>
 <attribute name="VALUE" x="120.904" y="140.208" size="1.778" layer="96" rot="R90"/>
 </instance>
-<instance part="3V4" gate="G$1" x="165.1" y="144.78" smashed="yes">
-<attribute name="VALUE" x="162.56" y="146.05" size="1.778" layer="96"/>
+<instance part="3V4" gate="G$1" x="165.1" y="149.86" smashed="yes">
+<attribute name="VALUE" x="162.56" y="151.13" size="1.778" layer="96"/>
 </instance>
 <instance part="3V6" gate="G$1" x="121.92" y="147.32" smashed="yes">
 <attribute name="VALUE" x="119.38" y="148.59" size="1.778" layer="96"/>
@@ -9535,6 +9539,10 @@ Connected to ESP and ARM</text>
 <attribute name="VALUE" x="203.2" y="146.05" size="1.778" layer="96"/>
 </instance>
 <instance part="GND47" gate="1" x="238.76" y="119.38"/>
+<instance part="3V1" gate="G$1" x="165.1" y="124.46" smashed="yes">
+<attribute name="VALUE" x="162.56" y="125.73" size="1.778" layer="96"/>
+</instance>
+<instance part="GND31" gate="1" x="165.1" y="106.68"/>
 </instances>
 <busses>
 </busses>
@@ -9564,13 +9572,13 @@ Connected to ESP and ARM</text>
 </segment>
 <segment>
 <pinref part="C14" gate="G$1" pin="2"/>
-<wire x1="172.72" y1="121.92" x2="172.72" y2="124.46" width="0.1524" layer="91"/>
-<wire x1="165.1" y1="121.92" x2="172.72" y2="121.92" width="0.1524" layer="91"/>
+<wire x1="165.1" y1="109.22" x2="165.1" y2="111.76" width="0.1524" layer="91"/>
+<pinref part="GND31" gate="1" pin="GND"/>
+</segment>
+<segment>
 <pinref part="C15" gate="G$1" pin="2"/>
-<wire x1="165.1" y1="124.46" x2="165.1" y2="121.92" width="0.1524" layer="91"/>
-<junction x="165.1" y="121.92"/>
 <pinref part="GND32" gate="1" pin="GND"/>
-<wire x1="165.1" y1="119.38" x2="165.1" y2="121.92" width="0.1524" layer="91"/>
+<wire x1="165.1" y1="134.62" x2="165.1" y2="137.16" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="GROUND" gate="G$1" pin="TP"/>
@@ -9615,12 +9623,12 @@ Connected to ESP and ARM</text>
 </segment>
 <segment>
 <pinref part="C14" gate="G$1" pin="1"/>
-<wire x1="172.72" y1="139.7" x2="172.72" y2="132.08" width="0.1524" layer="91"/>
-<wire x1="172.72" y1="139.7" x2="165.1" y2="139.7" width="0.1524" layer="91"/>
+<pinref part="3V1" gate="G$1" pin="+3V3"/>
+<wire x1="165.1" y1="121.92" x2="165.1" y2="119.38" width="0.1524" layer="91"/>
+</segment>
+<segment>
 <pinref part="C15" gate="G$1" pin="1"/>
-<wire x1="165.1" y1="132.08" x2="165.1" y2="139.7" width="0.1524" layer="91"/>
-<wire x1="165.1" y1="142.24" x2="165.1" y2="139.7" width="0.1524" layer="91"/>
-<junction x="165.1" y="139.7"/>
+<wire x1="165.1" y1="144.78" x2="165.1" y2="147.32" width="0.1524" layer="91"/>
 <pinref part="3V4" gate="G$1" pin="+3V3"/>
 </segment>
 <segment>
