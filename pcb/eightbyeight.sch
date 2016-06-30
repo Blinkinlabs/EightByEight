@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="7.5.0">
+<eagle version="7.6.0">
 <drawing>
 <settings>
 <setting alwaysvectorfont="yes"/>
@@ -9267,6 +9267,7 @@ Revision B:
 -Add jumper pad for entering boot mode on ARM processor
 -Hook LED_OE or similar to the row driver MUX
 -Bring unused ESP pins to pads
+-Add TS silkscreen
 
 TODO:
 -Implement more user friendly expansion pads for the ESP
