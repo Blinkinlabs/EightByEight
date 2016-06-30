@@ -8970,7 +8970,9 @@ TODO:
 -Cosmetic: ESP8266 GPIO 18mislabeled, should be 16
 -With LED_HS_EN, should LED_OE still be connected to the mux?
 -Characterize the power situation
--Test a flush-mount USB connector</text>
+-Test a flush-mount USB connector
+-Choose either 3V or 3.3V regulator and make consistent
+-Add 5v test pad?</text>
 <text x="129.54" y="358.14" size="10.16" layer="91" align="bottom-center">EightByEight Blinky Badge</text>
 <text x="129.54" y="345.44" size="6.4516" layer="91" align="bottom-center">Copyright 2016 Blinkinlabs, LLC</text>
 </plain>
