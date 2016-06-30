@@ -352,7 +352,7 @@ void Matrix::buildTimerTables() {
         // TODO: What does this translate to, in time?
 
         // Shortest OE on interval; the shorter, the dimmer the lowest bit.
-        #define LOW_BIT_ENABLE_TIME     0x2             
+        #define LOW_BIT_ENABLE_TIME     0x1
         
         // The interval between OE cycle is set by one of the three cases:
         // 1. For low bits, where onTime is small, the interval is expanded to MIN_CYCLE_TIME. This is to give time for the next levels data to be shifted out
