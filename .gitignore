@@ -11,3 +11,4 @@ bootloader/*.hex
 bootloader/*.bin
 *.pyc
 driver/*crt
+arduino/*/secrets.h
