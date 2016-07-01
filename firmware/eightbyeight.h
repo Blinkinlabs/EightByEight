@@ -34,6 +34,7 @@
 // Output assignments
 // Note: These can't be changed arbitrarily- the GPIOs are actually
 // referred to in the library by their port assignments.
+#define LED_HS_EN_PIN   7   // PC1
 #define LED_CLOCK_PIN   11   // PC6
 #define LED_DATA_PIN    12   // PC5
 #define LED_STROBE_PIN  14  // PD4

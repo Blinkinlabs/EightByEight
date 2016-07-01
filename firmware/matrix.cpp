@@ -27,6 +27,7 @@
 Matrix matrix;
 
 // Offsets in the port C register (data)
+#define DMA_LED_HS_EN_SHIFT 1 // Location of the LED_HS_EN pin in the Port C register
 #define DMA_CLK_SHIFT 5 // Location of the clock pin in Port C register
 #define DMA_DAT_SHIFT 6 // Location of the data pin in Port C register
 
@@ -85,6 +86,9 @@ void Matrix::begin() {
     pinMode(LED_DATA_PIN, OUTPUT);
     pinMode(LED_CLOCK_PIN, OUTPUT);
     pinMode(LED_STROBE_PIN, OUTPUT);
+
+    pinMode(LED_HS_EN_PIN, OUTPUT);
+    digitalWrite(LED_HS_EN_PIN, HIGH);
 
     buildAddressTable();
     buildTimerTables();
@@ -201,12 +205,12 @@ void Matrix::pixelsToDmaBuffer(Pixel* pixelInput, uint8_t buffer[]) {
 
                     uint32_t offsetBase = row*ROW_DEPTH_SIZE + depth*ROW_BIT_SIZE;
                    
-                    buffer[offsetBase + offsetR*2 + 0] = outputR;
-                    buffer[offsetBase + offsetR*2 + 1] = outputR | (1 << DMA_CLK_SHIFT);
-                    buffer[offsetBase + offsetG*2 + 0] = outputG;
-                    buffer[offsetBase + offsetG*2 + 1] = outputG | (1 << DMA_CLK_SHIFT);
-                    buffer[offsetBase + offsetB*2 + 0] = outputB;
-                    buffer[offsetBase + offsetB*2 + 1] = outputB | (1 << DMA_CLK_SHIFT);
+                    buffer[offsetBase + offsetR*2 + 0] = outputR | (1 << DMA_LED_HS_EN_SHIFT);
+                    buffer[offsetBase + offsetR*2 + 1] = outputR | (1 << DMA_CLK_SHIFT) | (1 << DMA_LED_HS_EN_SHIFT);
+                    buffer[offsetBase + offsetG*2 + 0] = outputG | (1 << DMA_LED_HS_EN_SHIFT);
+                    buffer[offsetBase + offsetG*2 + 1] = outputG | (1 << DMA_CLK_SHIFT) | (1 << DMA_LED_HS_EN_SHIFT);
+                    buffer[offsetBase + offsetB*2 + 0] = outputB | (1 << DMA_LED_HS_EN_SHIFT);
+                    buffer[offsetBase + offsetB*2 + 1] = outputB | (1 << DMA_CLK_SHIFT) | (1 << DMA_LED_HS_EN_SHIFT);
                 }
             }
         }

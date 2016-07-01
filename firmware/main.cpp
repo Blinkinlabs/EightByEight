@@ -106,8 +106,8 @@ extern "C" int main()
     matrix.setBrightness(1);
     matrix.begin();
 
-    //colorSwirl();
-    //matrix.show();
+    colorSwirl();
+    matrix.show();
 
     bool streamingMode = false;
 
@@ -120,10 +120,10 @@ extern "C" int main()
     while (usb_dfu_state == DFU_appIDLE) {
 
         watchdog_refresh();
-//        if(!streamingMode) {
-//            colorSwirl();
-//            matrix.show();
-//        }
+        if(!streamingMode) {
+            countUpLoop();
+            matrix.show();
+        }
 
 //        if(usb_serial_available() > 0) {
 //            streamingMode = true;
