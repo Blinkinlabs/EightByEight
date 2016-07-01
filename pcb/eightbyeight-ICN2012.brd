@@ -5154,7 +5154,7 @@ Modified from Laen's PCB Order Design Rules</description>
 <attribute name="NAME" x="11.516" y="5.389" size="1.016" layer="25" rot="R270"/>
 <attribute name="VALUE" x="11.514" y="5.389" size="1.016" layer="27" rot="R270"/>
 </element>
-<element name="C6" library="adafruit" package="C0805" value="10uF" x="28.4" y="52.6" smashed="yes" rot="R270">
+<element name="C6" library="adafruit" package="C0805" value="20uF" x="28.4" y="52.6" smashed="yes" rot="R270">
 <attribute name="NAME" x="28.684" y="54.711" size="1.016" layer="25" rot="R90"/>
 <attribute name="VALUE" x="28.686" y="54.711" size="1.016" layer="27" rot="R90"/>
 </element>
@@ -5163,7 +5163,7 @@ Modified from Laen's PCB Order Design Rules</description>
 <attribute name="NAME" x="25.541" y="55.711" size="1.016" layer="25" rot="R90"/>
 <attribute name="VALUE" x="25.5905" y="55.7475" size="1.016" layer="27" rot="R90"/>
 </element>
-<element name="C16" library="adafruit" package="C0402" value="470pF" x="26.7" y="50.9" smashed="yes" rot="R270">
+<element name="C16" library="adafruit" package="C0402" value="47pF" x="26.7" y="50.9" smashed="yes" rot="R270">
 <attribute name="NAME" x="22.862" y="49.235" size="1.016" layer="25" rot="R270"/>
 <attribute name="VALUE" x="22.895" y="49.235" size="1.016" layer="27" rot="R270"/>
 </element>

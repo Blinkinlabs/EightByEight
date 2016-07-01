@@ -8900,11 +8900,11 @@ new: Attribute TP_SIGNAL_NAME&lt;br&gt;
 <part name="C10" library="adafruit" deviceset="C-US" device="C0603" value="2.2nF"/>
 <part name="C12" library="adafruit" deviceset="C-US" device="C0805" value="10uF"/>
 <part name="C9" library="adafruit" deviceset="C-US" device="C0805" value="10uF"/>
-<part name="C6" library="adafruit" deviceset="C-US" device="C0805" value="10uF"/>
+<part name="C6" library="adafruit" deviceset="C-US" device="C0805" value="20uF"/>
 <part name="GND38" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="GND39" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="U5" library="SparkFun-PowerIC" deviceset="V_REG_MIC5219" device="3.3V" value="MIC5219 3.3V"/>
-<part name="C16" library="adafruit" deviceset="C-US" device="C0402" value="470pF"/>
+<part name="C16" library="adafruit" deviceset="C-US" device="C0402" value="47pF"/>
 <part name="GND40" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="P+1" library="supply1" deviceset="+5V" device=""/>
 <part name="3V5" library="supply1" deviceset="+3V3" device=""/>
@@ -8972,7 +8972,8 @@ TODO:
 -Characterize the power situation
 -Test a flush-mount USB connector
 -Choose either 3V or 3.3V regulator and make consistent
--Add 5v test pad?</text>
+-Add 5v test pad?
+-Remove pullup resistor on button?</text>
 <text x="129.54" y="358.14" size="10.16" layer="91" align="bottom-center">EightByEight Blinky Badge</text>
 <text x="129.54" y="345.44" size="6.4516" layer="91" align="bottom-center">Copyright 2016 Blinkinlabs, LLC</text>
 </plain>

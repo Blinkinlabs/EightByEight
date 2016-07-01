@@ -9232,7 +9232,7 @@ new: Attribute TP_SIGNAL_NAME&lt;br&gt;
 <part name="FRAME6" library="frames" deviceset="A3P-LOC" device=""/>
 <part name="D2" library="adafruit" deviceset="DIODE" device="SOD-123" value="RB161M-20"/>
 <part name="D3" library="adafruit" deviceset="DIODE" device="SOD-123" value="RB161M-20"/>
-<part name="R11" library="adafruit" deviceset="R-US_" device="R0805" value="50"/>
+<part name="R11" library="adafruit" deviceset="R-US_" device="R0805" value="47"/>
 <part name="GND43" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="16" library="testpad" deviceset="PTR1" device="B2,54"/>
 <part name="5" library="testpad" deviceset="PTR1" device="B2,54"/>
