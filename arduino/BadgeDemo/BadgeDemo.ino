@@ -36,9 +36,8 @@
 #include <Wire.h>
 
 #include "mma8653.h"
-
-const char *ssid = "BLINKINLABS";
-const char *password = "***REMOVED***";
+#include "matrix.h"
+#include "secrets.h"
 
 ESP8266WebServer server ( 80 );
 
@@ -49,11 +48,18 @@ const int button = 4;
 
 MMA8653 mma8653;
 
-const int maxValueIndex = 100;
+Matrix matrix;
+
+const int maxValueIndex = 50;
 int valueIndex;
 float xValues[maxValueIndex];
 float yValues[maxValueIndex];
 float zValues[maxValueIndex];
+
+float xValue;
+float yValue;
+float zValue;
+
 
 bool buttonPressed = false;
 
@@ -140,8 +146,6 @@ void setup ( void ) {
   Wire.begin(i2c_sda, i2c_scl);
   mma8653.setup();
 
-  Serial1.begin( 230400 );
-
   valueIndex = 0;
   for(int i = 0; i < maxValueIndex; i++) {
     xValues[i] = 0;
@@ -149,39 +153,9 @@ void setup ( void ) {
     zValues[i] = 0;
   }
 
-  
+  matrix.setup();
 
   pinMode(button, INPUT_PULLUP);
-}
-
-#define LED_ROWS 8
-#define LED_COLS 8
-#define LED_BYTES_PER_PIXEL 3
-
-uint8_t colorData[LED_ROWS*LED_COLS*LED_BYTES_PER_PIXEL];
-
-void matrix_setPixelColor(int row, int col, uint8_t r, uint8_t g, uint8_t b) {
-  if(r == 255) {
-    r = 254;
-  }
-  if(g == 255) {
-    g = 254;
-  }
-  if(b == 255) {
-    b = 254;
-  }
-  
-  colorData[(row*LED_COLS + col)*3 + 0] = r;
-  colorData[(row*LED_COLS + col)*3 + 1] = g;
-  colorData[(row*LED_COLS + col)*3 + 2] = b;
-}
-
-void matrix_show() {
-  // LED control
-  for(int i = 0; i < LED_ROWS*LED_COLS*LED_BYTES_PER_PIXEL; i++) {
-    Serial1.print(char(colorData[i]));
-  }
-  Serial1.print(char(255));
 }
 
 void colorSwirl() {
@@ -189,15 +163,26 @@ void colorSwirl() {
   static float f = 0;
   static float k = 0;
 
+  float xValue = xValues[valueIndex]/2 + .5;
+  if(xValue > 1) { xValue = 1;}
+  if(xValue < 0) { xValue = 0;}
+  float yValue = -yValues[valueIndex]/2 + .5;
+  if(yValue > 1) { yValue = 1;}
+  if(yValue < 0) { yValue = 0;}
+  float zValue = -zValues[valueIndex]/2 + .5;
+  if(zValue > 1) { zValue = 1;}
+  if(zValue < 0) { zValue = 0;}
+
+  
   for (uint8_t row = 0; row < LED_ROWS; row++) {
     for (uint8_t col = 0; col < LED_COLS; col++) {
-      uint8_t r = 64*(1+sin(row/2.0 + -col/3.0 + j/4.0       ));
-      uint8_t g = 64*(1+sin(-row/1.0 + col/4.0 + f/9.0  + 2.1));
-      uint8_t b = 64*(1+sin(row/3.0 + -col/2.0 + k/14.0 + 4.2));
-      matrix_setPixelColor(row, col, r, g, b);
+      uint8_t r = xValue*64*(1+sin(row/2.0 + -col/3.0 + j/4.0       ));
+      uint8_t g = yValue*64*(1+sin(-row/1.0 + col/4.0 + f/9.0  + 2.1));
+      uint8_t b = zValue*64*(1+sin(row/3.0 + -col/2.0 + k/14.0 + 4.2));
+      matrix.setPixelColor(row, col, r, g, b);
     }
   }
-  matrix_show();
+  matrix.show();
 
   j = j + .3;
   f = f + .2;
@@ -212,14 +197,33 @@ void whitePulse() {
   for (uint8_t row = 0; row < LED_ROWS; row++) {
     for (uint8_t col = 0; col < LED_COLS; col++) {
       if(i >= counts/2) {
-        matrix_setPixelColor(row, col, 255, 0, 0);
+        matrix.setPixelColor(row, col, 255, 0, 0);
       }
       else {
-        matrix_setPixelColor(row, col, 0, 0, 255);
+        matrix.setPixelColor(row, col, 0, 0, 255);
       }
     }
   }
-  matrix_show();
+  matrix.show();
+    
+  i = (i + 1)%counts;
+}
+
+void bleedTest() {
+  static int i = 0;
+  const int counts = 2;
+
+  for (uint8_t row = 0; row < LED_ROWS; row++) {
+    for (uint8_t col = 0; col < LED_COLS; col++) {
+      if((row == 1) && (col == 2)) {
+        matrix.setPixelColor(row, col, 1,0,0);
+      }
+      else {
+        matrix.setPixelColor(row, col, 0, 0, 0);
+      }
+    }
+  }
+  matrix.show();
     
   i = (i + 1)%counts;
 }
@@ -229,8 +233,8 @@ void loop ( void ) {
 	server.handleClient();
 
   // read the accelerometer data
-  mma8653.getXYZ(xValues[valueIndex], yValues[valueIndex], zValues[valueIndex]);
   valueIndex = (valueIndex + 1) % maxValueIndex;
+  mma8653.getXYZ(xValues[valueIndex], yValues[valueIndex], zValues[valueIndex]);
 
   buttonPressed = !digitalRead(button);
 
