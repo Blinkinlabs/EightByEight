@@ -8729,7 +8729,7 @@ new: Attribute TP_SIGNAL_NAME&lt;br&gt;
 </class>
 </classes>
 <parts>
-<part name="U2" library="blinkinlabs" deviceset="ICN2026" device=""/>
+<part name="U2" library="blinkinlabs" deviceset="ICN2026" device="" value="ICN2027"/>
 <part name="GND2" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="C7" library="adafruit" deviceset="C-US" device="C0402" value="100nF"/>
 <part name="R1" library="adafruit" deviceset="R-US_" device="R0402" value="2k 1%"/>
@@ -8774,7 +8774,7 @@ new: Attribute TP_SIGNAL_NAME&lt;br&gt;
 <part name="R4" library="adafruit" deviceset="R-US_" device="R0402" value="2k"/>
 <part name="R5" library="adafruit" deviceset="R-US_" device="R0402" value="2k"/>
 <part name="GND8" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
-<part name="U4" library="blinkinlabs" deviceset="ICN2026" device=""/>
+<part name="U4" library="blinkinlabs" deviceset="ICN2026" device="" value="ICN2027"/>
 <part name="GND9" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="R9" library="adafruit" deviceset="R-US_" device="R0402" value="2k 1%"/>
 <part name="GND11" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
@@ -8964,6 +8964,7 @@ Revision B:
 Revision C:
 -Switch to ICN2012 high side driver
 -Switch to QMA6981 accelerometer
+-Change cap values for 3.3V circuit
 
 TODO:
 -Implement more user friendly expansion pads for the ESP
@@ -8973,7 +8974,10 @@ TODO:
 -Test a flush-mount USB connector
 -Choose either 3V or 3.3V regulator and make consistent
 -Add 5v test pad?
--Remove pullup resistor on button?</text>
+-Remove pullup resistor on button?
+-Check I2c pullup values
+-Switch 10K to 47K pullups?
+-Drop JTAJ connector and replace with test points</text>
 <text x="129.54" y="358.14" size="10.16" layer="91" align="bottom-center">EightByEight Blinky Badge</text>
 <text x="129.54" y="345.44" size="6.4516" layer="91" align="bottom-center">Copyright 2016 Blinkinlabs, LLC</text>
 </plain>
@@ -10156,7 +10160,7 @@ rapid on/off power cycles</text>
 <wire x1="276.86" y1="101.6" x2="276.86" y2="251.46" width="0.4064" layer="94"/>
 <wire x1="7.62" y1="101.6" x2="276.86" y2="101.6" width="0.4064" layer="94"/>
 <text x="12.7" y="71.12" size="1.778" layer="91">3 to 8 de-multiplexer with integrated P-MOSFETs</text>
-<text x="12.7" y="76.2" size="2.54" layer="94">High side (column) driver</text>
+<text x="12.7" y="76.2" size="2.54" layer="94">High side (row) driver</text>
 <wire x1="7.62" y1="83.82" x2="274.32" y2="83.82" width="0.4064" layer="94"/>
 <wire x1="7.62" y1="7.62" x2="7.62" y2="83.82" width="0.4064" layer="94"/>
 <text x="287.02" y="238.76" size="1.778" layer="91">Reduces ghosting by draining row capacitance</text>
@@ -10184,14 +10188,14 @@ flashing briefly during poweron.</text>
 </plain>
 <instances>
 <instance part="FRAME4" gate="G$1" x="0" y="0"/>
-<instance part="U2" gate="G$1" x="111.76" y="198.12"/>
+<instance part="U2" gate="G$1" x="111.76" y="198.12" smashed="yes"/>
 <instance part="GND2" gate="1" x="93.98" y="213.36"/>
 <instance part="C7" gate="G$1" x="17.78" y="220.98"/>
 <instance part="R1" gate="G$1" x="93.98" y="185.42" rot="R90"/>
 <instance part="GND3" gate="1" x="17.78" y="210.82"/>
 <instance part="GND4" gate="1" x="93.98" y="175.26"/>
 <instance part="R6" gate="G$1" x="17.78" y="180.34" rot="R90"/>
-<instance part="U4" gate="G$1" x="111.76" y="134.62"/>
+<instance part="U4" gate="G$1" x="111.76" y="134.62" smashed="yes"/>
 <instance part="GND9" gate="1" x="93.98" y="149.86"/>
 <instance part="R9" gate="G$1" x="93.98" y="121.92" rot="R90"/>
 <instance part="GND11" gate="1" x="93.98" y="111.76"/>

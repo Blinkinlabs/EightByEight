@@ -9,7 +9,7 @@
 <grid distance="0.1" unitdist="mm" unit="mm" style="lines" multiple="1" display="yes" altdistance="0.05" altunitdist="mm" altunit="mm"/>
 <layers>
 <layer number="1" name="Top" color="12" fill="1" visible="yes" active="yes"/>
-<layer number="2" name="GND" color="1" fill="1" visible="no" active="yes"/>
+<layer number="2" name="GND" color="1" fill="1" visible="yes" active="yes"/>
 <layer number="3" name="Route3" color="4" fill="3" visible="no" active="no"/>
 <layer number="4" name="Route4" color="1" fill="4" visible="no" active="no"/>
 <layer number="5" name="Route5" color="4" fill="4" visible="no" active="no"/>
@@ -4886,7 +4886,7 @@ Modified from Laen's PCB Order Design Rules</description>
 </pass>
 </autorouter>
 <elements>
-<element name="U2" library="blinkinlabs" package="SSOP24-150" value="ICN2026" x="17" y="19.9995" smashed="yes" rot="R180">
+<element name="U2" library="blinkinlabs" package="SSOP24-150" value="ICN2027" x="17" y="19.9995" smashed="yes" rot="R180">
 <attribute name="NAME" x="15.79033125" y="23.61224375" size="1.016" layer="25" rot="R270"/>
 <attribute name="VALUE" x="17.300503125" y="23.6" size="1.016" layer="27" rot="R270"/>
 </element>
@@ -4983,7 +4983,7 @@ Modified from Laen's PCB Order Design Rules</description>
 <attribute name="NAME" x="17.435" y="27.838" size="1.016" layer="25" rot="R180"/>
 <attribute name="VALUE" x="17.235" y="28.032" size="1.016" layer="27" rot="R180"/>
 </element>
-<element name="U4" library="blinkinlabs" package="SSOP24-150" value="ICN2026" x="9" y="20" smashed="yes" rot="R180">
+<element name="U4" library="blinkinlabs" package="SSOP24-150" value="ICN2027" x="9" y="20" smashed="yes" rot="R180">
 <attribute name="NAME" x="7.7" y="23.8" size="1.016" layer="25" rot="R270"/>
 <attribute name="VALUE" x="9.3" y="23.8" size="1.016" layer="27" rot="R270"/>
 </element>

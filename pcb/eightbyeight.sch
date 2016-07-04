@@ -10461,7 +10461,7 @@ rapid on/off power cycles</text>
 <wire x1="276.86" y1="101.6" x2="276.86" y2="251.46" width="0.4064" layer="94"/>
 <wire x1="7.62" y1="101.6" x2="276.86" y2="101.6" width="0.4064" layer="94"/>
 <text x="12.7" y="71.12" size="1.778" layer="91">P channel MOSFETs with gate drive capability</text>
-<text x="12.7" y="76.2" size="2.54" layer="94">High side (column) drivers</text>
+<text x="12.7" y="76.2" size="2.54" layer="94">High side (row) drivers</text>
 <wire x1="7.62" y1="83.82" x2="274.32" y2="83.82" width="0.4064" layer="94"/>
 <wire x1="7.62" y1="7.62" x2="7.62" y2="83.82" width="0.4064" layer="94"/>
 <text x="287.02" y="238.76" size="1.778" layer="91">Reduces ghosting by draining row capacitance</text>
