@@ -29,7 +29,7 @@
 #include "eightbyeight.h"
 
 //Display Geometry
-#define BIT_DEPTH 10 // Number of bits used to drive each LED
+#define BIT_DEPTH 13 // Number of bits used to drive each LED
 #define PAGES 1 // Dithered bits
 
 
@@ -59,15 +59,14 @@ public:
 // For each of these rows, there are then BIT_DEPTH separate inner loops
 // And each inner loop has LED_COLS * 2 bytes states (the data is LED_COLS long, plus the clock signal is baked in)
 
-// Number of bytes required to store a single row of 1-bit color data output
-#define ROW_BIT_SIZE (LED_COLS*BYTES_PER_PIXEL*2)
+// Number of bytes to write for each column refresh
+#define BYTES_PER_COLUMN_SPI 3
 
-// Number of bytes required to store a single row of full-color data output
-#define ROW_DEPTH_SIZE (ROW_BIT_SIZE*BIT_DEPTH)
+// Number of bytes required to store a single row of full-color data output, in SPI mode
+#define ROW_DEPTH_SPI_SIZE (BYTES_PER_COLUMN_SPI*BIT_DEPTH)
 
-// Number of bytes required to store an entire panel's worth of data output.
-#define PANEL_DEPTH_SIZE (ROW_DEPTH_SIZE*LED_ROWS)
-
+// Number of bytes required to store an entire panel's worth of data output, in SPI mode
+#define PANEL_DEPTH_SPI_SIZE (ROW_DEPTH_SPI_SIZE*LED_ROWS)
 
 // Address output repeat count
 // Note: We repeat the address output multiple times, to add a delay between OE deasserting and the address lines changing
@@ -127,9 +126,8 @@ private:
     // This is the bitstream that the DMA engine writes to the GPIO port
     // connected to the current-controlled shift registers, in order to create
     // the PWM waveforms to actually drive the display output.
-    // Note: Extra ROW_BIT_SIZE at end to account for extra DMA transfer
     // TODO: Trigger interrupt from last address and skip the extra data transfer?
-    uint8_t dmaBuffer[2][PANEL_DEPTH_SIZE*PAGES];
+    uint8_t dmaBufferSpi[2][PANEL_DEPTH_SPI_SIZE*PAGES];
 
     // Address output bitstream
     // This is the bitstream that the DMA engine writes out to the GPIO port
@@ -150,12 +148,12 @@ private:
     // true if there is already an update waiting.
     bool bufferWaiting() const;
 
-    void programTCDs();
     void setupTCD0(uint32_t* source, int minorLoopSize, int majorLoops);
     void setupTCD1(uint32_t* source, int minorLoopSize, int majorLoops);
     void setupTCD2(uint8_t* source, int minorLoopSize, int majorLoops);
     void setupTCD3(uint8_t* source, int minorLoopSize, int majorLoops);
     void setupFTM0();
+    void setupSPI0();
 
     void buildAddressTable();
     void buildTimerTables();

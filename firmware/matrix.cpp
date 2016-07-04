@@ -115,21 +115,23 @@ void Matrix::begin() {
     DMAMUX0_CHCFG0 = DMAMUX_SOURCE_FTM0_CH1 | DMAMUX_ENABLE;
  
     // FTM
-    SIM_SCGC6 |= SIM_SCGC6_FTM0;  // Enable FTM0 clock
     setupFTM0();
  
-    frontBuffer = dmaBuffer[0];
-    backBuffer = dmaBuffer[1];
+    // SPI
+    setupSPI0();
+    
+    frontBuffer = dmaBufferSpi[0];
+    backBuffer = dmaBufferSpi[1];
+
     swapBuffers = false;
     currentPage = 0;
- 
+
     // Clear the display and kick off transmission
-    //memset(frontBuffer, 0, LED_ROWS*LED_COLS*BYTES_PER_PIXEL*PAGES);
     memset(pixels, 0, LED_ROWS*LED_COLS*BYTES_PER_PIXEL);
     show();
 
     // Load this frame of data into the DMA engine
-    programTCDs();
+    refresh();
 }
 
 bool Matrix::bufferWaiting() const {
@@ -142,6 +144,7 @@ void Matrix::show() {
     }
     
     pixelsToDmaBuffer(pixels, backBuffer);
+
     // TODO: Atomic operation?
     swapBuffers = true;
 }
@@ -178,6 +181,9 @@ float Matrix::getBrightness() const {
 // Munge the data so it can be written out by the DMA engine
 // Note: buffer[][xxx] should have BIT_DEPTH as xxx
 void Matrix::pixelsToDmaBuffer(Pixel* pixelInput, uint8_t buffer[]) {
+    // First, clear the outputs
+    memset(buffer, 0, PANEL_DEPTH_SPI_SIZE*PAGES);
+
     for(uint8_t page = 0; page < PAGES; page++) {
         for(uint8_t row = 0; row < LED_ROWS; row++) {
             for(uint8_t col = 0; col < LED_COLS; col++) {
@@ -186,31 +192,21 @@ void Matrix::pixelsToDmaBuffer(Pixel* pixelInput, uint8_t buffer[]) {
                 uint16_t dataR = brightnessTable[(uint16_t)(brightness*(pixel->R))];
                 uint16_t dataG = brightnessTable[(uint16_t)(brightness*(pixel->G))];
                 uint16_t dataB = brightnessTable[(uint16_t)(brightness*(pixel->B))];
-                //uint16_t dataR = brightnessTable[((pixel->R))];
-                //uint16_t dataG = brightnessTable[((pixel->G))];
-                //uint16_t dataB = brightnessTable[((pixel->B))];
   
                 uint8_t offsetR = OUTPUT_ORDER[col*BYTES_PER_PIXEL + 0];
                 uint8_t offsetG = OUTPUT_ORDER[col*BYTES_PER_PIXEL + 1];
                 uint8_t offsetB = OUTPUT_ORDER[col*BYTES_PER_PIXEL + 2];
 
                 for(uint8_t depth = 0; depth < BIT_DEPTH; depth++) {
-                    uint8_t outputR =
-                        (((dataR >> (depth)) & 0x01) << DMA_DAT_SHIFT);
-                    uint8_t outputG =
-                        (((dataG >> (depth)) & 0x01) << DMA_DAT_SHIFT);
-                    uint8_t outputB =
-                        (((dataB >> (depth)) & 0x01) << DMA_DAT_SHIFT);
+                    uint8_t bitR = ((dataR >> (depth)) & 0x01);
+                    uint8_t bitG = ((dataG >> (depth)) & 0x01);
+                    uint8_t bitB = ((dataB >> (depth)) & 0x01);
                    
-
-                    uint32_t offsetBase = row*ROW_DEPTH_SIZE + depth*ROW_BIT_SIZE;
+                    uint32_t offsetBase = row*ROW_DEPTH_SPI_SIZE + depth*BYTES_PER_COLUMN_SPI;
                    
-                    buffer[offsetBase + offsetR*2 + 0] = outputR | (1 << DMA_LED_HS_EN_SHIFT);
-                    buffer[offsetBase + offsetR*2 + 1] = outputR | (1 << DMA_CLK_SHIFT) | (1 << DMA_LED_HS_EN_SHIFT);
-                    buffer[offsetBase + offsetG*2 + 0] = outputG | (1 << DMA_LED_HS_EN_SHIFT);
-                    buffer[offsetBase + offsetG*2 + 1] = outputG | (1 << DMA_CLK_SHIFT) | (1 << DMA_LED_HS_EN_SHIFT);
-                    buffer[offsetBase + offsetB*2 + 0] = outputB | (1 << DMA_LED_HS_EN_SHIFT);
-                    buffer[offsetBase + offsetB*2 + 1] = outputB | (1 << DMA_CLK_SHIFT) | (1 << DMA_LED_HS_EN_SHIFT);
+                    buffer[offsetBase + (offsetR/8)] |= (bitR << (offsetR % 8));
+                    buffer[offsetBase + (offsetG/8)] |= (bitG << (offsetG % 8));
+                    buffer[offsetBase + (offsetB/8)] |= (bitB << (offsetB % 8));
                 }
             }
         }
@@ -291,13 +287,29 @@ void Matrix::setupTCD2(uint8_t* source, int minorLoopSize, int majorLoops) {
     DMA_TCD2_CITER_ELINKYES = majorLoops;                           // Number of major loops to complete
     DMA_TCD2_BITER_ELINKYES = majorLoops;                           // Reset value for CITER (must be equal to CITER)
  
-    // Trigger DMA3 (address) after each minor loop
+    // Trigger DMA3 (data) after each minor loop
     DMA_TCD2_BITER_ELINKYES |= DMA_TCD_CITER_ELINK;
     DMA_TCD2_BITER_ELINKYES |= (0x03 << 9);  
     DMA_TCD2_CITER_ELINKYES |= DMA_TCD_CITER_ELINK;
     DMA_TCD2_CITER_ELINKYES |= (0x03 << 9);
 }
 
+
+// TCD3 writes bytes out to the SPI TX FIFO
+void Matrix::setupTCD3(uint8_t* source, int minorLoopSize, int majorLoops) {
+    DMA_TCD3_SADDR = source;                                        // Address to read from
+    DMA_TCD3_SOFF = 1;                                              // Bytes to increment source register between writes 
+    DMA_TCD3_ATTR = DMA_TCD_ATTR_SSIZE(0) | DMA_TCD_ATTR_DSIZE(0);  // 8-bit input and output
+    DMA_TCD3_NBYTES_MLNO = minorLoopSize;                           // Number of bytes to transfer in the minor loop
+    DMA_TCD3_SLAST = 0;                                             // Bytes to add after a major iteration count (N/A)
+    DMA_TCD3_DADDR = &SPI0_PUSHR;                                   // Address to write to
+    DMA_TCD3_DOFF = 0;                                              // Bytes to increment destination register between write
+    DMA_TCD3_CITER_ELINKNO = majorLoops;                            // Number of major loops to complete
+    DMA_TCD3_BITER_ELINKNO = majorLoops;                            // Reset value for CITER (must be equal to CITER)
+    DMA_TCD3_DLASTSGA = 0;                                          // Address of next TCD (N/A)
+}
+
+#if 0
 // TCD3 clocks and strobes the pixel data, which are on port C
 void Matrix::setupTCD3(uint8_t* source, int minorLoopSize, int majorLoops) {
     DMA_TCD3_SADDR = source;                                        // Address to read from
@@ -311,6 +323,8 @@ void Matrix::setupTCD3(uint8_t* source, int minorLoopSize, int majorLoops) {
     DMA_TCD3_BITER_ELINKNO = majorLoops;                            // Reset value for CITER (must be equal to CITER)
     DMA_TCD3_DLASTSGA = 0;                                          // Address of next TCD (N/A)
 }
+#endif
+
 
 void Matrix::buildAddressTable() {
     // Fill the address table
@@ -364,8 +378,8 @@ void Matrix::buildTimerTables() {
         // 3. For the last cycle of the last row, the cycle time is expanded to MIN_LAST_CYCLE_TIME to allow
         //    the display interrupt to update.
  
-        #define MIN_BLANKING_TIME       0x50        // Minimum time between OE assertions
-        #define MIN_CYCLE_TIME          0x05F       // 
+        #define MIN_BLANKING_TIME       0x30        // Minimum time between OE assertions
+        #define MIN_CYCLE_TIME          0x03F       // 
         #define MIN_LAST_CYCLE_TIME     0x0120      // Mininum number of cycles for the last cycle loop.
  
  
@@ -408,7 +422,16 @@ void Matrix::refresh() {
         swapBuffers = false;
     }
     
-    programTCDs();
+    setupTCD0(FTM0_MODStates, 4, BIT_DEPTH*LED_ROWS);
+    setupTCD1(FTM0_C1VStates, 4, BIT_DEPTH*LED_ROWS);
+    setupTCD2(Addresses, ADDRESS_REPEAT_COUNT, BIT_DEPTH*LED_ROWS);
+    //setupTCD3(frontBuffer+currentPage*PANEL_DEPTH_SIZE, ROW_BIT_SIZE, BIT_DEPTH*LED_ROWS);
+    setupTCD3(frontBuffer+currentPage*PANEL_DEPTH_SPI_SIZE, BYTES_PER_COLUMN_SPI, BIT_DEPTH*LED_ROWS);
+
+    currentPage=(currentPage+1)%PAGES;
+
+    // TODO: Does this need to be asserted here? 
+    //DMA_SSRT = DMA_SSRT_SSRT(3);
 }
 
 
@@ -420,36 +443,46 @@ void dma_ch2_isr(void) {
     matrix.refresh();
 }
 
-void Matrix::programTCDs() {
-    setupTCD0(FTM0_MODStates, 4, BIT_DEPTH*LED_ROWS);
-    setupTCD1(FTM0_C1VStates, 4, BIT_DEPTH*LED_ROWS);
-    setupTCD2(Addresses, ADDRESS_REPEAT_COUNT, BIT_DEPTH*LED_ROWS);
-    setupTCD3(frontBuffer+currentPage*PANEL_DEPTH_SIZE, ROW_BIT_SIZE, BIT_DEPTH*LED_ROWS);
- 
-    currentPage=(currentPage+1)%PAGES;
- 
-    DMA_SSRT = DMA_SSRT_SSRT(3);
-}
-
-
 // FTM0 drives our whole operation! We need to periodically update the
 // FTM0_MOD and FTM0_C1V registers to program the next cycle.
 void Matrix::setupFTM0(){
+    SIM_SCGC6 |= SIM_SCGC6_FTM0;  // Enable FTM0 clock
+
     FTM0_MODE = FTM_MODE_WPDIS;    // Disable Write Protect
  
-    FTM0_SC = 0;                   // Turn off the clock so we can update CNTIN and MODULO?
-    FTM0_MOD = 0x02FF;             // Period register
-    FTM0_SC |= FTM_SC_CLKS(1) | FTM_SC_PS(1);
+    //FTM0_SC = 0;                   // Turn off the clock so we can update CNTIN and MODULO?
+    //FTM0_MOD = 0x02FF;             // Period register
+    FTM0_SC |= FTM_SC_CLKS(1) | FTM_SC_PS(1);   // TODO: Can we work in PS(0) mode?
  
-    FTM0_MODE |= FTM_MODE_INIT;         // Enable FTM0
+    //FTM0_MODE |= FTM_MODE_INIT;         // Enable FTM0
  
-    FTM0_C1SC = 0x40                    // Enable interrupt
-    | 0x20                    // Mode select: Edge-aligned PWM 
-    | 0x04                    // Low-true pulses (inverted)
-    | 0x01;                   // Enable DMA out
-    FTM0_C1V = 0x0200;        // Duty cycle of PWM signal
-    FTM0_SYNC |= 0x80;        // set PWM value update
+    FTM0_C1SC = 0x40        // Enable interrupt
+        | 0x20              // Mode select: Edge-aligned PWM 
+        | 0x04              // Low-true pulses (inverted)
+        | 0x01;             // Enable DMA out
+    FTM0_C1V = 0x0200;      // Duty cycle of PWM signal
+    FTM0_SYNC |= 0x80;      // set PWM value update
  
     // Configure LED_OE_PIN pinmux (LED_OE_PIN is on PORTA-4 / FTM0_CH1)
     PORTA_PCR4 = PORT_PCR_MUX(3) | PORT_PCR_DSE | PORT_PCR_SRE; 
+}
+
+// SPI is used to program the column drivers
+void Matrix::setupSPI0() {
+    SIM_SCGC6 |= SIM_SCGC6_SPI0;    // Enable SPI0 clock
+
+    // Configure SCK and SOUT pins for SPI use (SIN is not used)
+    PORTC_PCR5 = PORT_PCR_DSE | PORT_PCR_MUX(2);
+    PORTC_PCR6 = PORT_PCR_DSE | PORT_PCR_MUX(2);
+
+    SPI0_MCR = SPI_MCR_MSTR;    // Master mode
+    SPI0_MCR |= SPI_MCR_CLR_RXF | SPI_MCR_CLR_TXF;  // Clear the FIFOs
+
+    SPI0_CTAR0 = SPI_CTAR_DBR   // Double baud rate
+        | SPI_CTAR_FMSZ(7);     // 8 bit mode TODO: Can this be 16 bit?
+
+    // And write some stuff out
+//    SPI0_PUSHR = SPI_PUSHR_CONT | 0x000A;
+//    SPI0_PUSHR = SPI_PUSHR_CONT | 0x000B;
+//    SPI0_PUSHR =  0x000C;
 }

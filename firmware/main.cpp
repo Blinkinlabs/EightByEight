@@ -103,7 +103,7 @@ extern "C" int main()
     serial2_begin(BAUD2DIV(230400));
     serial2_format(SERIAL_8N1);
 
-    matrix.setBrightness(1);
+    matrix.setBrightness(.1);
     matrix.begin();
 
     colorSwirl();
@@ -111,19 +111,14 @@ extern "C" int main()
 
     bool streamingMode = false;
 
-//    // Echo RX1 onto TMS
-//    pinMode(9, INPUT);  // PTC3 / ARM_RX1
-    pinMode(3, OUTPUT); // PTA3 / ARM_TMS
-    digitalWrite(3, LOW);
-
     // Application main loop
     while (usb_dfu_state == DFU_appIDLE) {
 
         watchdog_refresh();
-        if(!streamingMode) {
-            colorSwirl();
-            matrix.show();
-        }
+//        if(!streamingMode) {
+//            colorSwirl();
+//            matrix.show();
+//`        }
 
 //        if(usb_serial_available() > 0) {
 //            streamingMode = true;
@@ -159,13 +154,9 @@ extern "C" int main()
         }
 
         if(serial2_available()) {
-            digitalWrite(3, HIGH);
             streamingMode = true;
             serialLoop();
         }
-
-//        // Echo the RX1 pin state onto TMS
-//        digitalWrite(3, digitalRead(9));
     }
 
     // Reboot into DFU bootloader
