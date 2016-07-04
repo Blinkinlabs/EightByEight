@@ -3,6 +3,8 @@
 *.o
 *.d
 *.swp
+*.lck
+*.?##
 firmware/*.dfu
 firmware/*.hex
 firmware/*.elf
