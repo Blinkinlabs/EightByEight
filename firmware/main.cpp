@@ -103,7 +103,7 @@ extern "C" int main()
     serial2_begin(BAUD2DIV(230400));
     serial2_format(SERIAL_8N1);
 
-    matrix.setBrightness(.1);
+    matrix.setBrightness(1);
     matrix.begin();
 
     colorSwirl();

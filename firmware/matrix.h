@@ -60,10 +60,13 @@ public:
 // And each inner loop has LED_COLS * 2 bytes states (the data is LED_COLS long, plus the clock signal is baked in)
 
 // Number of bytes to write for each column refresh
-#define BYTES_PER_COLUMN_SPI 3
+#define BITS_PER_COLUMN_SPI 24
+#define WRITES_PER_COLUMN_SPI 3
+
+#define BITS_PER_WRITE_SPI (BITS_PER_COLUMN_SPI / WRITES_PER_COLUMN_SPI)
 
 // Number of bytes required to store a single row of full-color data output, in SPI mode
-#define ROW_DEPTH_SPI_SIZE (BYTES_PER_COLUMN_SPI*BIT_DEPTH)
+#define ROW_DEPTH_SPI_SIZE (WRITES_PER_COLUMN_SPI*BIT_DEPTH)
 
 // Number of bytes required to store an entire panel's worth of data output, in SPI mode
 #define PANEL_DEPTH_SPI_SIZE (ROW_DEPTH_SPI_SIZE*LED_ROWS)
@@ -151,7 +154,7 @@ private:
     void setupTCD0(uint32_t* source, int minorLoopSize, int majorLoops);
     void setupTCD1(uint32_t* source, int minorLoopSize, int majorLoops);
     void setupTCD2(uint8_t* source, int minorLoopSize, int majorLoops);
-    void setupTCD3(uint8_t* source, int minorLoopSize, int majorLoops);
+    void setupTCD3(void* source, int minorLoopSize, int majorLoops);
     void setupFTM0();
     void setupSPI0();
 

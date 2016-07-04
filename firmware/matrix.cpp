@@ -202,11 +202,11 @@ void Matrix::pixelsToDmaBuffer(Pixel* pixelInput, uint8_t buffer[]) {
                     uint8_t bitG = ((dataG >> (depth)) & 0x01);
                     uint8_t bitB = ((dataB >> (depth)) & 0x01);
                    
-                    uint32_t offsetBase = row*ROW_DEPTH_SPI_SIZE + depth*BYTES_PER_COLUMN_SPI;
+                    uint32_t offsetBase = row*ROW_DEPTH_SPI_SIZE + depth*WRITES_PER_COLUMN_SPI;
                    
-                    buffer[offsetBase + (offsetR/8)] |= (bitR << (offsetR % 8));
-                    buffer[offsetBase + (offsetG/8)] |= (bitG << (offsetG % 8));
-                    buffer[offsetBase + (offsetB/8)] |= (bitB << (offsetB % 8));
+                    buffer[offsetBase + (offsetR/BITS_PER_WRITE_SPI)] |= (bitR << (offsetR % BITS_PER_WRITE_SPI));
+                    buffer[offsetBase + (offsetG/BITS_PER_WRITE_SPI)] |= (bitG << (offsetG % BITS_PER_WRITE_SPI));
+                    buffer[offsetBase + (offsetB/BITS_PER_WRITE_SPI)] |= (bitB << (offsetB % BITS_PER_WRITE_SPI));
                 }
             }
         }
@@ -296,10 +296,10 @@ void Matrix::setupTCD2(uint8_t* source, int minorLoopSize, int majorLoops) {
 
 
 // TCD3 writes bytes out to the SPI TX FIFO
-void Matrix::setupTCD3(uint8_t* source, int minorLoopSize, int majorLoops) {
+void Matrix::setupTCD3(void* source, int minorLoopSize, int majorLoops) {
     DMA_TCD3_SADDR = source;                                        // Address to read from
     DMA_TCD3_SOFF = 1;                                              // Bytes to increment source register between writes 
-    DMA_TCD3_ATTR = DMA_TCD_ATTR_SSIZE(0) | DMA_TCD_ATTR_DSIZE(0);  // 8-bit input and output
+    DMA_TCD3_ATTR = DMA_TCD_ATTR_SSIZE(0) | DMA_TCD_ATTR_DSIZE(0);  // 16-bit input and output
     DMA_TCD3_NBYTES_MLNO = minorLoopSize;                           // Number of bytes to transfer in the minor loop
     DMA_TCD3_SLAST = 0;                                             // Bytes to add after a major iteration count (N/A)
     DMA_TCD3_DADDR = &SPI0_PUSHR;                                   // Address to write to
@@ -425,8 +425,7 @@ void Matrix::refresh() {
     setupTCD0(FTM0_MODStates, 4, BIT_DEPTH*LED_ROWS);
     setupTCD1(FTM0_C1VStates, 4, BIT_DEPTH*LED_ROWS);
     setupTCD2(Addresses, ADDRESS_REPEAT_COUNT, BIT_DEPTH*LED_ROWS);
-    //setupTCD3(frontBuffer+currentPage*PANEL_DEPTH_SIZE, ROW_BIT_SIZE, BIT_DEPTH*LED_ROWS);
-    setupTCD3(frontBuffer+currentPage*PANEL_DEPTH_SPI_SIZE, BYTES_PER_COLUMN_SPI, BIT_DEPTH*LED_ROWS);
+    setupTCD3(frontBuffer+currentPage*PANEL_DEPTH_SPI_SIZE, WRITES_PER_COLUMN_SPI, BIT_DEPTH*LED_ROWS);
 
     currentPage=(currentPage+1)%PAGES;
 
@@ -452,7 +451,7 @@ void Matrix::setupFTM0(){
  
     //FTM0_SC = 0;                   // Turn off the clock so we can update CNTIN and MODULO?
     //FTM0_MOD = 0x02FF;             // Period register
-    FTM0_SC |= FTM_SC_CLKS(1) | FTM_SC_PS(1);   // TODO: Can we work in PS(0) mode?
+    FTM0_SC |= FTM_SC_CLKS(1) | FTM_SC_PS(0);   // TODO: Can we work in PS(0) mode?
  
     //FTM0_MODE |= FTM_MODE_INIT;         // Enable FTM0
  
@@ -479,7 +478,7 @@ void Matrix::setupSPI0() {
     SPI0_MCR |= SPI_MCR_CLR_RXF | SPI_MCR_CLR_TXF;  // Clear the FIFOs
 
     SPI0_CTAR0 = SPI_CTAR_DBR   // Double baud rate
-        | SPI_CTAR_FMSZ(7);     // 8 bit mode TODO: Can this be 16 bit?
+        | SPI_CTAR_FMSZ(BITS_PER_WRITE_SPI - 1);     // 12 bit mode
 
     // And write some stuff out
 //    SPI0_PUSHR = SPI_PUSHR_CONT | 0x000A;
