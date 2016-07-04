@@ -121,7 +121,7 @@ extern "C" int main()
 
         watchdog_refresh();
         if(!streamingMode) {
-            countUpLoop();
+            colorSwirl();
             matrix.show();
         }
 
