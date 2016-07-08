@@ -4,9 +4,17 @@
 # Uses a square based table, so just an approximation!
 
 import math
+import argparse
 
-inputBitDepth = 8
-outputBitDepth = 13
+parser = argparse.ArgumentParser()
+parser.add_argument("-i", type=int, default=8, help="Input bit depth")
+parser.add_argument("-o", type=int, default=10, help="Output bit depth")
+parser.add_argument("-p", type=float, default=2, help="Power")
+
+args = parser.parse_args()
+
+inputBitDepth = args.i
+outputBitDepth = args.o
 
 inputScale = (1 << inputBitDepth)       # Number of input steps
 outputScale = (1 << outputBitDepth)     # Number of output steps
@@ -25,9 +33,11 @@ out.write("\n")
 out.write("const uint16_t brightnessTable[BRIGHTNESS_STEPS] = {\n")
 
 for i in range(0, inputScale):
-    brightness = max(i>0,int(math.pow(float(i)/inputScale,2) * outputScale))
+    brightness = max(i>0,int(math.pow(float(i)/inputScale,args.p) * outputScale))
     out.write("    % 6i, // %i\n" % (brightness, i));
 
 out.write("};\n")
 out.write("\n")
 out.write("#endif\n")
+
+
