@@ -32,7 +32,6 @@ C_FILES = \
 	usb_dev.c \
 	usb_mem.c \
 	usb_serial.c \
-	dfu.c \
 	yield.c \
 	serial1.c \
 	serial2.c
@@ -49,7 +48,7 @@ INCLUDES = -I.
 
 # CPPFLAGS = compiler options for C and C++
 CPPFLAGS = -Wall -Wno-sign-compare -Wno-strict-aliasing -g -Os -mcpu=cortex-m4 \
-	-mthumb -MMD $(OPTIONS) $(INCLUDES)
+	-mthumb -nostdlib -MMD $(OPTIONS) $(INCLUDES)
 
 # compiler options for C++ only
 CXXFLAGS = -std=gnu++0x -felide-constructors -fno-exceptions -fno-rtti
@@ -59,9 +58,11 @@ CFLAGS =
 
 # linker script
 LDSCRIPT = fcb-app-mk20dn64.ld
+#LDSCRIPT = fcb-app-mk20dn32.ld
+
 
 # linker options
-LDFLAGS = -Os -Wl,--gc-sections -mcpu=cortex-m4 -mthumb -T$(LDSCRIPT)
+LDFLAGS = -Os -Wl,--gc-sections -mcpu=cortex-m4 -mthumb -nostdlib -T$(LDSCRIPT)
 
 # additional libraries to link
 LIBS = -lgcc -lc -lm
@@ -98,4 +99,4 @@ disassemble: $(TARGET).elf
 symbols: $(TARGET).elf
 	$(OBJDUMP) -t $< | sort | less
 
-.PHONY: all clean install disassemble symbols benchmark
+.PHONY: all clean install disassemble symbols 

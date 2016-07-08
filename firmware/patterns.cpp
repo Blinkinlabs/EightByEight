@@ -45,9 +45,9 @@ void colorSwirl() {
     
     for (uint8_t row = 0; row < LED_ROWS; row++) {
     	for (uint8_t col = 0; col < LED_COLS; col++) {
-            uint8_t r = 64*(1+sin(row/2.0 + -col/3.0 + j/4.0       ));
-            uint8_t g = 64*(1+sin(-row/1.0 + col/4.0 + f/9.0  + 2.1));
-            uint8_t b = 64*(1+sin(row/3.0 + -col/2.0 + k/14.0 + 4.2));
+            uint8_t r = 1;//64*(1+sin(row/2.0 + -col/3.0 + j/4.0       ));
+            uint8_t g = 1;//64*(1+sin(-row/1.0 + col/4.0 + f/9.0  + 2.1));
+            uint8_t b = 1;//64*(1+sin(row/3.0 + -col/2.0 + k/14.0 + 4.2));
             matrix.setPixelColor(row, col, r, g, b);
         }
     }
