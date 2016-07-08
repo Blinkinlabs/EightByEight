@@ -50,7 +50,7 @@ MMA8653 mma8653;
 
 Matrix matrix;
 
-const int maxValueIndex = 50;
+const int maxValueIndex = 10;
 int valueIndex;
 float xValues[maxValueIndex];
 float yValues[maxValueIndex];
@@ -118,11 +118,11 @@ void setup ( void ) {
 	WiFi.begin ( ssid, password );  
 	Serial.println ( "" );
 
-	// Wait for connection
-	while ( WiFi.status() != WL_CONNECTED ) {
-		delay ( 500 );
-		Serial.print ( "." );
-	}
+//	// Wait for connection
+//	while ( WiFi.status() != WL_CONNECTED ) {
+//		delay ( 500 );
+//		Serial.print ( "." );
+//	}
 
 	Serial.println ( "" );
 	Serial.print ( "Connected to " );
@@ -158,18 +158,26 @@ void setup ( void ) {
   pinMode(button, INPUT_PULLUP);
 }
 
+float getAveraged(float* data, int count) {
+  float value = 0;
+  for(int i = 0; i < count; i++) {
+    value += (data[i]);
+  }
+  return (value / count);
+}
+
 void colorSwirl() {
   static float j = 0;
   static float f = 0;
   static float k = 0;
 
-  float xValue = xValues[valueIndex]/2 + .5;
+  float xValue = getAveraged(xValues, maxValueIndex)/2 + .5;
   if(xValue > 1) { xValue = 1;}
   if(xValue < 0) { xValue = 0;}
-  float yValue = -yValues[valueIndex]/2 + .5;
+  float yValue = -getAveraged(yValues, maxValueIndex)/2 + .5;
   if(yValue > 1) { yValue = 1;}
   if(yValue < 0) { yValue = 0;}
-  float zValue = -zValues[valueIndex]/2 + .5;
+  float zValue = -getAveraged(zValues, maxValueIndex)/2 + .5;
   if(zValue > 1) { zValue = 1;}
   if(zValue < 0) { zValue = 0;}
 
@@ -216,7 +224,7 @@ void bleedTest() {
   for (uint8_t row = 0; row < LED_ROWS; row++) {
     for (uint8_t col = 0; col < LED_COLS; col++) {
       if((row == 1) && (col == 2)) {
-        matrix.setPixelColor(row, col, 1,0,0);
+        matrix.setPixelColor(row, col, 2,0,0);
       }
       else {
         matrix.setPixelColor(row, col, 0, 0, 0);
@@ -239,6 +247,7 @@ void loop ( void ) {
   buttonPressed = !digitalRead(button);
 
   colorSwirl();
+//  bleedTest();
 }
 
 void drawGraph() {
