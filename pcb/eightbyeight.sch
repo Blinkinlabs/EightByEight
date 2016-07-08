@@ -9283,7 +9283,6 @@ Revision D:
 -Replace ARM JTAG connector with test points for automated programming
 -Change value of pullup resistors from 10k to 47k
 -Update filter caps for 3.3V regulator
--Add limiting resistor for status LEDs to make them less bright (TODO: Test me)
 -Add test pads for production
 
 TODO:

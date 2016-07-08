@@ -5935,6 +5935,16 @@ Modified from Laen's PCB Order Design Rules</description>
 <via x="55.7" y="18.3" extent="1-16" drill="0.3"/>
 <via x="58.9" y="28.3" extent="1-16" drill="0.3"/>
 <via x="55.1" y="28.2" extent="1-16" drill="0.3"/>
+<via x="17.2" y="37.8" extent="1-16" drill="0.3"/>
+<via x="23.6" y="44.8" extent="1-16" drill="0.3"/>
+<via x="32.7" y="37.4" extent="1-16" drill="0.3"/>
+<via x="36.2" y="44.6" extent="1-16" drill="0.3"/>
+<via x="49.2" y="40" extent="1-16" drill="0.3"/>
+<via x="36" y="31.9" extent="1-16" drill="0.3"/>
+<via x="26.1" y="26.2" extent="1-16" drill="0.3"/>
+<via x="36.7" y="19.9" extent="1-16" drill="0.3"/>
+<via x="39.1" y="11.8" extent="1-16" drill="0.3"/>
+<via x="45.5" y="11.2" extent="1-16" drill="0.3"/>
 </signal>
 <signal name="LED_STB">
 <contactref element="U2" pad="4"/>
