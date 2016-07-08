@@ -8964,7 +8964,7 @@ Revision B:
 Revision C:
 -Switch to ICN2012 high side driver
 -Switch to QMA6981 accelerometer
--Change cap values for 3.3V circuit
+-Change cap values for 3.3V linear regulator
 
 TODO:
 -Implement more user friendly expansion pads for the ESP
@@ -8972,12 +8972,11 @@ TODO:
 -With LED_HS_EN, should LED_OE still be connected to the mux?
 -Characterize the power situation
 -Test a flush-mount USB connector
--Choose either 3V or 3.3V regulator and make consistent
 -Add 5v test pad?
 -Remove pullup resistor on button?
--Check I2c pullup values
 -Switch 10K to 47K pullups?
--Drop JTAJ connector and replace with test points</text>
+-Drop JTAJ connector and replace with test points
+-Can the ICN2012 work with 3.3v IO?</text>
 <text x="129.54" y="358.14" size="10.16" layer="91" align="bottom-center">EightByEight Blinky Badge</text>
 <text x="129.54" y="345.44" size="6.4516" layer="91" align="bottom-center">Copyright 2016 Blinkinlabs, LLC</text>
 </plain>
@@ -8992,7 +8991,7 @@ TODO:
 <sheet>
 <plain>
 <text x="76.2" y="101.6" size="1.778" layer="91">Pin assignments for matrix output:
-LED_DAT + LED_CLK need to be together on a unique port
+LED_DAT + LED_CLK use ESPI0
 LED_ROW_* and LED_STB need to be together on a unique port
 LED_OE needs to be on a pin with FTM capability</text>
 <text x="15.24" y="101.6" size="1.778" layer="91">ARM 10pin JTAG/SWD</text>
