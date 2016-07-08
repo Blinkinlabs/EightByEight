@@ -151,10 +151,17 @@ private:
     // true if there is already an update waiting.
     bool bufferWaiting() const;
 
-    void setupTCD0(uint32_t* source, int minorLoopSize, int majorLoops);
-    void setupTCD1(uint32_t* source, int minorLoopSize, int majorLoops);
-    void setupTCD2(uint8_t* source, int minorLoopSize, int majorLoops);
-    void setupTCD3(void* source, int minorLoopSize, int majorLoops);
+    void setupTCD0();
+    void setupTCD1();
+    void setupTCD2();
+    void setupTCD3();
+
+    void armTCD0(void* source, int majorLoops);
+    void armTCD1(void* source, int majorLoops);
+    void armTCD2(void* source, int majorLoops);
+    void armTCD3(void* source, int majorLoops);
+
+
     void setupFTM0();
     void setupSPI0();
 

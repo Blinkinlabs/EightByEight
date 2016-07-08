@@ -84,15 +84,6 @@ extern "C" int main()
 {
     setupWatchdog();
 
-    // Delay here for some time, in case we mess up the firmware.
-    for(uint64_t timeout = 0; timeout < 5000000; timeout++) {
-        watchdog_refresh();
-
-        if (usb_dfu_state != DFU_appIDLE) {
-            dfu_reboot();
-        }
-    }
-        
     initBoard();
     serialReset();
 

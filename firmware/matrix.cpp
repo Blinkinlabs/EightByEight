@@ -101,6 +101,15 @@ void Matrix::begin() {
     // Configure the DMA request input for DMA0
     DMA_SERQ = DMA_SERQ_SERQ(0);
  
+    // Configure the DMA request input for DMA1
+//    DMA_SERQ = DMA_SERQ_SERQ(1);
+
+    // Enable channel pre-emption for each DMA channel
+//    DMA_DCHPRI0 = DMA_DCHPRI_ECP | DMA_DCHPRI_CHPRI(3);
+//    DMA_DCHPRI1 = DMA_DCHPRI_ECP | DMA_DCHPRI_CHPRI(2);
+//    DMA_DCHPRI2 = DMA_DCHPRI_ECP | DMA_DCHPRI_CHPRI(1);
+//    DMA_DCHPRI3 = DMA_DCHPRI_ECP | DMA_DCHPRI_CHPRI(0);
+
     // Enable interrupt on major completion for DMA channel 2 (address)
     DMA_TCD2_CSR = DMA_TCD_CSR_INTMAJOR;  // Enable interrupt on major complete
     NVIC_ENABLE_IRQ(IRQ_DMA_CH2);         // Enable interrupt request
@@ -113,6 +122,10 @@ void Matrix::begin() {
     // Configure DMAMUX to trigger DMA0 from FTM0_CH1
     DMAMUX0_CHCFG0 = DMAMUX_DISABLE;
     DMAMUX0_CHCFG0 = DMAMUX_SOURCE_FTM0_CH1 | DMAMUX_ENABLE;
+
+    // Configure DMAMUX to trigger DMA1 from FTM0_CH1
+//    DMAMUX0_CHCFG1 = DMAMUX_DISABLE;
+//    DMAMUX0_CHCFG1 = DMAMUX_SOURCE_FTM0_CH1 | DMAMUX_ENABLE;
  
     // FTM
     setupFTM0();
@@ -129,6 +142,11 @@ void Matrix::begin() {
     // Clear the display and kick off transmission
     memset(pixels, 0, LED_ROWS*LED_COLS*BYTES_PER_PIXEL);
     show();
+
+    setupTCD0();
+    setupTCD1();
+    setupTCD2();
+    setupTCD3();
 
     // Load this frame of data into the DMA engine
     refresh();
@@ -213,20 +231,91 @@ void Matrix::pixelsToDmaBuffer(Pixel* pixelInput, uint8_t buffer[]) {
     }
 }
 
-
-// TCD0 updates the timer values for FTM0
-void Matrix::setupTCD0(uint32_t* source, int minorLoopSize, int majorLoops) {
-    DMA_TCD0_SADDR = source;                                        // Address to read from
+void Matrix::setupTCD0() {
+//    DMA_TCD0_SADDR = source;                                      // Address to read from
     DMA_TCD0_SOFF = 4;                                              // Bytes to increment source register between writes 
     DMA_TCD0_ATTR = DMA_TCD_ATTR_SSIZE(2) | DMA_TCD_ATTR_DSIZE(2);  // 32-bit input and output
-    DMA_TCD0_NBYTES_MLNO = minorLoopSize;                           // Number of bytes to transfer in the minor loop
+    DMA_TCD0_NBYTES_MLNO = 4;                                       // Number of bytes to transfer in the minor loop
     DMA_TCD0_SLAST = 0;                                             // Bytes to add after a major iteration count (N/A)
-    //  DMA_TCD0_DADDR = TimerStatesDump;                               // Address to write to
-    DMA_TCD0_DADDR = &FTM0_MOD;                                      // Address to write to
+    DMA_TCD0_DADDR = &FTM0_MOD;                                     // Address to write to
     DMA_TCD0_DOFF = 0;                                              // Bytes to increment destination register between write
-    //  DMA_TCD0_CITER_ELINKNO = majorLoops;                            // Number of major loops to complete
-    //  DMA_TCD0_BITER_ELINKNO = majorLoops;                            // Reset value for CITER (must be equal to CITER)
     DMA_TCD0_DLASTSGA = 0;                                          // Address of next TCD (N/A)
+
+ 
+    // Workaround for DMA majorelink unreliability: increase the minor loop count by one
+    // Note that the final transfer doesn't end up happening.
+//    DMA_TCD0_CITER_ELINKYES = majorLoops + 1;                           // Number of major loops to complete
+//    DMA_TCD0_BITER_ELINKYES = majorLoops + 1;                           // Reset value for CITER (must be equal to CITER)
+ 
+    // Trigger DMA1 (timer) after each minor loop
+//    DMA_TCD0_BITER_ELINKYES |= DMA_TCD_CITER_ELINK;
+//    DMA_TCD0_BITER_ELINKYES |= (0x01 << 9);  
+//    DMA_TCD0_CITER_ELINKYES |= DMA_TCD_CITER_ELINK;
+//    DMA_TCD0_CITER_ELINKYES |= (0x01 << 9);
+}
+
+void Matrix::setupTCD1() {
+
+
+//    DMA_TCD1_SADDR = source;                                        // Address to read from
+    DMA_TCD1_SOFF = 4;                                              // Bytes to increment source register between writes 
+    DMA_TCD1_ATTR = DMA_TCD_ATTR_SSIZE(2) | DMA_TCD_ATTR_DSIZE(2);  // 32-bit input and output
+    DMA_TCD1_NBYTES_MLNO = 4;                                       // Number of bytes to transfer in the minor loop
+    DMA_TCD1_SLAST = 0;                                             // Bytes to add after a major iteration count (N/A)
+    DMA_TCD1_DADDR = &FTM0_C1V;                                     // Address to write to
+    DMA_TCD1_DOFF = 0;                                              // Bytes to increment destination register between write
+    DMA_TCD1_DLASTSGA = 0;                                          // Address of next TCD (N/A)
+ 
+    // Workaround for DMA majorelink unreliability: increase the minor loop count by one
+    // Note that the final transfer doesn't end up happening, because 
+//    DMA_TCD1_CITER_ELINKYES = majorLoops + 1;                           // Number of major loops to complete
+//    DMA_TCD1_BITER_ELINKYES = majorLoops + 1;                           // Reset value for CITER (must be equal to CITER)
+ 
+    // Trigger DMA2 (address) after each minor loop
+//    DMA_TCD1_BITER_ELINKYES |= DMA_TCD_CITER_ELINK;
+//    DMA_TCD1_BITER_ELINKYES |= (0x02 << 9);  
+//    DMA_TCD1_CITER_ELINKYES |= DMA_TCD_CITER_ELINK;
+//    DMA_TCD1_CITER_ELINKYES |= (0x02 << 9);
+}
+
+void Matrix::setupTCD2() {
+
+//    DMA_TCD2_SADDR = source;                                        // Address to read from
+    DMA_TCD2_SOFF = 1;                                              // Bytes to increment source register between writes 
+    DMA_TCD2_ATTR = DMA_TCD_ATTR_SSIZE(0) | DMA_TCD_ATTR_DSIZE(0);  // 8-bit input and output
+    DMA_TCD2_NBYTES_MLNO = ADDRESS_REPEAT_COUNT;                           // Number of bytes to transfer in the minor loop
+    DMA_TCD2_SLAST = 0;                                             // Bytes to add after a major iteration count (N/A)
+    DMA_TCD2_DADDR = &GPIOD_PDOR;                                   // Address to write to
+    DMA_TCD2_DOFF = 0;                                              // Bytes to increment destination register between write
+//    DMA_TCD2_CITER_ELINKYES = majorLoops;                           // Number of major loops to complete
+//    DMA_TCD2_BITER_ELINKYES = majorLoops;                           // Reset value for CITER (must be equal to CITER)
+    DMA_TCD2_DLASTSGA = 0;                                          // Address of next TCD (N/A)
+    
+    // Trigger DMA3 (data) after each minor loop
+//    DMA_TCD2_BITER_ELINKYES |= DMA_TCD_CITER_ELINK;
+//    DMA_TCD2_BITER_ELINKYES |= (0x03 << 9);  
+//    DMA_TCD2_CITER_ELINKYES |= DMA_TCD_CITER_ELINK;
+//    DMA_TCD2_CITER_ELINKYES |= (0x03 << 9);
+}
+
+void Matrix::setupTCD3() {
+
+//    DMA_TCD3_SADDR = source;                                      // Address to read from
+    DMA_TCD3_SOFF = 1;                                              // Bytes to increment source register between writes 
+    DMA_TCD3_ATTR = DMA_TCD_ATTR_SSIZE(0) | DMA_TCD_ATTR_DSIZE(0);  // 16-bit input and output
+    DMA_TCD3_NBYTES_MLNO = WRITES_PER_COLUMN_SPI;                   // Number of bytes to transfer in the minor loop
+    DMA_TCD3_SLAST = 0;                                             // Bytes to add after a major iteration count (N/A)
+    DMA_TCD3_DADDR = &SPI0_PUSHR;                                   // Address to write to
+    DMA_TCD3_DOFF = 0;                                              // Bytes to increment destination register between write
+//    DMA_TCD3_CITER_ELINKNO = majorLoops;                            // Number of major loops to complete
+//    DMA_TCD3_BITER_ELINKNO = majorLoops;                            // Reset value for CITER (must be equal to CITER)
+    DMA_TCD3_DLASTSGA = 0;                                          // Address of next TCD (N/A)
+}
+
+
+// TCD0 updates the timer values for FTM0
+void Matrix::armTCD0(void* source, int majorLoops) {
+    DMA_TCD0_SADDR = source;                                        // Address to read from
  
     // Workaround for DMA majorelink unreliability: increase the minor loop count by one
     // Note that the final transfer doesn't end up happening.
@@ -241,18 +330,8 @@ void Matrix::setupTCD0(uint32_t* source, int minorLoopSize, int majorLoops) {
 }
 
 // TCD1 updates the timer values for FTM0
-void Matrix::setupTCD1(uint32_t* source, int minorLoopSize, int majorLoops) {
+void Matrix::armTCD1(void* source, int majorLoops) {
     DMA_TCD1_SADDR = source;                                        // Address to read from
-    DMA_TCD1_SOFF = 4;                                              // Bytes to increment source register between writes 
-    DMA_TCD1_ATTR = DMA_TCD_ATTR_SSIZE(2) | DMA_TCD_ATTR_DSIZE(2);  // 32-bit input and output
-    DMA_TCD1_NBYTES_MLNO = minorLoopSize;                           // Number of bytes to transfer in the minor loop
-    DMA_TCD1_SLAST = 0;                                             // Bytes to add after a major iteration count (N/A)
-    //  DMA_TCD0_DADDR = TimerStatesDump;                               // Address to write to
-    DMA_TCD1_DADDR = &FTM0_C1V;                                      // Address to write to
-    DMA_TCD1_DOFF = 0;                                              // Bytes to increment destination register between write
-    //  DMA_TCD1_CITER_ELINKNO = majorLoops;                            // Number of major loops to complete
-    //  DMA_TCD1_BITER_ELINKNO = majorLoops;                            // Reset value for CITER (must be equal to CITER)
-    DMA_TCD1_DLASTSGA = 0;                                          // Address of next TCD (N/A)
  
     // Workaround for DMA majorelink unreliability: increase the minor loop count by one
     // Note that the final transfer doesn't end up happening, because 
@@ -267,23 +346,9 @@ void Matrix::setupTCD1(uint32_t* source, int minorLoopSize, int majorLoops) {
 }
 
 
-
-
 // TCD2 writes out the address select lines, which are on port D
-void Matrix::setupTCD2(uint8_t* source, int minorLoopSize, int majorLoops) {
+void Matrix::armTCD2(void* source, int majorLoops) {
     DMA_TCD2_SADDR = source;                                        // Address to read from
-    DMA_TCD2_SOFF = 1;                                              // Bytes to increment source register between writes 
-    DMA_TCD2_ATTR = DMA_TCD_ATTR_SSIZE(0) | DMA_TCD_ATTR_DSIZE(0);  // 8-bit input and output
-    DMA_TCD2_NBYTES_MLNO = minorLoopSize;                           // Number of bytes to transfer in the minor loop
-    DMA_TCD2_SLAST = 0;                                             // Bytes to add after a major iteration count (N/A)
-    DMA_TCD2_DADDR = &GPIOD_PDOR;                                   // Address to write to
-    DMA_TCD2_DOFF = 0;                                              // Bytes to increment destination register between write
-    DMA_TCD2_CITER_ELINKYES = majorLoops;                           // Number of major loops to complete
-    DMA_TCD2_BITER_ELINKYES = majorLoops;                           // Reset value for CITER (must be equal to CITER)
-    DMA_TCD2_DLASTSGA = 0;                                          // Address of next TCD (N/A)
-    
-    // Workaround for DMA majorelink unreliability: increase the minor loop count by one
-    // Note that the final transfer doesn't end up happening, because 
     DMA_TCD2_CITER_ELINKYES = majorLoops;                           // Number of major loops to complete
     DMA_TCD2_BITER_ELINKYES = majorLoops;                           // Reset value for CITER (must be equal to CITER)
  
@@ -296,34 +361,11 @@ void Matrix::setupTCD2(uint8_t* source, int minorLoopSize, int majorLoops) {
 
 
 // TCD3 writes bytes out to the SPI TX FIFO
-void Matrix::setupTCD3(void* source, int minorLoopSize, int majorLoops) {
+void Matrix::armTCD3(void* source, int majorLoops) {
     DMA_TCD3_SADDR = source;                                        // Address to read from
-    DMA_TCD3_SOFF = 1;                                              // Bytes to increment source register between writes 
-    DMA_TCD3_ATTR = DMA_TCD_ATTR_SSIZE(0) | DMA_TCD_ATTR_DSIZE(0);  // 16-bit input and output
-    DMA_TCD3_NBYTES_MLNO = minorLoopSize;                           // Number of bytes to transfer in the minor loop
-    DMA_TCD3_SLAST = 0;                                             // Bytes to add after a major iteration count (N/A)
-    DMA_TCD3_DADDR = &SPI0_PUSHR;                                   // Address to write to
-    DMA_TCD3_DOFF = 0;                                              // Bytes to increment destination register between write
     DMA_TCD3_CITER_ELINKNO = majorLoops;                            // Number of major loops to complete
     DMA_TCD3_BITER_ELINKNO = majorLoops;                            // Reset value for CITER (must be equal to CITER)
-    DMA_TCD3_DLASTSGA = 0;                                          // Address of next TCD (N/A)
 }
-
-#if 0
-// TCD3 clocks and strobes the pixel data, which are on port C
-void Matrix::setupTCD3(uint8_t* source, int minorLoopSize, int majorLoops) {
-    DMA_TCD3_SADDR = source;                                        // Address to read from
-    DMA_TCD3_SOFF = 1;                                              // Bytes to increment source register between writes 
-    DMA_TCD3_ATTR = DMA_TCD_ATTR_SSIZE(0) | DMA_TCD_ATTR_DSIZE(0);  // 8-bit input and output
-    DMA_TCD3_NBYTES_MLNO = minorLoopSize;                           // Number of bytes to transfer in the minor loop
-    DMA_TCD3_SLAST = 0;                                             // Bytes to add after a major iteration count (N/A)
-    DMA_TCD3_DADDR = &GPIOC_PDOR;                                   // Address to write to
-    DMA_TCD3_DOFF = 0;                                              // Bytes to increment destination register between write
-    DMA_TCD3_CITER_ELINKNO = majorLoops;                            // Number of major loops to complete
-    DMA_TCD3_BITER_ELINKNO = majorLoops;                            // Reset value for CITER (must be equal to CITER)
-    DMA_TCD3_DLASTSGA = 0;                                          // Address of next TCD (N/A)
-}
-#endif
 
 
 void Matrix::buildAddressTable() {
@@ -422,10 +464,10 @@ void Matrix::refresh() {
         swapBuffers = false;
     }
     
-    setupTCD0(FTM0_MODStates, 4, BIT_DEPTH*LED_ROWS);
-    setupTCD1(FTM0_C1VStates, 4, BIT_DEPTH*LED_ROWS);
-    setupTCD2(Addresses, ADDRESS_REPEAT_COUNT, BIT_DEPTH*LED_ROWS);
-    setupTCD3(frontBuffer+currentPage*PANEL_DEPTH_SPI_SIZE, WRITES_PER_COLUMN_SPI, BIT_DEPTH*LED_ROWS);
+    armTCD0(FTM0_MODStates, BIT_DEPTH*LED_ROWS);
+    armTCD1(FTM0_C1VStates, BIT_DEPTH*LED_ROWS);
+    armTCD2(Addresses, BIT_DEPTH*LED_ROWS);
+    armTCD3(frontBuffer+currentPage*PANEL_DEPTH_SPI_SIZE, BIT_DEPTH*LED_ROWS);
 
     currentPage=(currentPage+1)%PAGES;
 
@@ -479,9 +521,4 @@ void Matrix::setupSPI0() {
 
     SPI0_CTAR0 = SPI_CTAR_DBR   // Double baud rate
         | SPI_CTAR_FMSZ(BITS_PER_WRITE_SPI - 1);     // 12 bit mode
-
-    // And write some stuff out
-//    SPI0_PUSHR = SPI_PUSHR_CONT | 0x000A;
-//    SPI0_PUSHR = SPI_PUSHR_CONT | 0x000B;
-//    SPI0_PUSHR =  0x000C;
 }
