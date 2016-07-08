@@ -6586,25 +6586,6 @@ Source: http://www.osram.convergy.de/</description>
 </polygon>
 <text x="-7.5" y="-12" size="1.27" layer="25">&gt;NAME</text>
 </package>
-<package name="2X05-1.27MM-SMD">
-<smd name="P$1" x="2.54" y="1.905" dx="2.4" dy="0.74" layer="1" rot="R90"/>
-<smd name="P$3" x="1.27" y="1.905" dx="2.4" dy="0.74" layer="1" rot="R90"/>
-<smd name="P$5" x="0" y="1.905" dx="2.4" dy="0.74" layer="1" rot="R90"/>
-<smd name="P$7" x="-1.27" y="1.905" dx="2.4" dy="0.74" layer="1" rot="R90"/>
-<smd name="P$9" x="-2.54" y="1.905" dx="2.4" dy="0.74" layer="1" rot="R90"/>
-<smd name="P$10" x="-2.54" y="-1.905" dx="2.4" dy="0.74" layer="1" rot="R90"/>
-<smd name="P$8" x="-1.27" y="-1.905" dx="2.4" dy="0.74" layer="1" rot="R90"/>
-<smd name="P$6" x="0" y="-1.905" dx="2.4" dy="0.74" layer="1" rot="R90"/>
-<smd name="P$4" x="1.27" y="-1.905" dx="2.4" dy="0.74" layer="1" rot="R90"/>
-<smd name="P$2" x="2.54" y="-1.905" dx="2.4" dy="0.74" layer="1" rot="R90"/>
-<wire x1="-3.175" y1="1.7" x2="3.175" y2="1.7" width="0.127" layer="51"/>
-<wire x1="3.175" y1="1.7" x2="3.175" y2="-1.7" width="0.127" layer="51"/>
-<wire x1="3.175" y1="-1.7" x2="-3.175" y2="-1.7" width="0.127" layer="51"/>
-<wire x1="-3.175" y1="-1.7" x2="-3.175" y2="1.7" width="0.127" layer="51"/>
-<wire x1="-3.175" y1="-1.7" x2="-3.175" y2="1.7" width="0.127" layer="21"/>
-<wire x1="3.175" y1="1.7" x2="3.175" y2="-1.7" width="0.127" layer="21"/>
-<circle x="2.54" y="3.8" radius="0.33015" width="0.127" layer="21"/>
-</package>
 <package name="LED_3528">
 <circle x="-0.5" y="1" radius="0.2236" width="0.127" layer="21"/>
 <smd name="1" x="-1.35" y="0.7" dx="1" dy="0.8" layer="1"/>
@@ -6910,21 +6891,6 @@ Source: http://www.osram.convergy.de/</description>
 <wire x1="30.48" y1="20.32" x2="30.48" y2="-12.7" width="0.254" layer="94"/>
 <wire x1="30.48" y1="-12.7" x2="7.62" y2="-12.7" width="0.254" layer="94"/>
 <wire x1="7.62" y1="-12.7" x2="7.62" y2="20.32" width="0.254" layer="94"/>
-</symbol>
-<symbol name="JTAG_ARM_10PIN">
-<pin name="VCC" x="10.16" y="7.62" length="middle" direction="pwr" rot="R180"/>
-<pin name="GND" x="10.16" y="-7.62" length="middle" direction="pwr" rot="R180"/>
-<pin name="RESET" x="10.16" y="-5.08" length="middle" rot="R180"/>
-<pin name="TDI" x="10.16" y="-2.54" length="middle" rot="R180"/>
-<pin name="TDO" x="10.16" y="0" length="middle" rot="R180"/>
-<pin name="TCK" x="10.16" y="2.54" length="middle" rot="R180"/>
-<pin name="TMS" x="10.16" y="5.08" length="middle" rot="R180"/>
-<wire x1="5.08" y1="10.16" x2="5.08" y2="-10.16" width="0.254" layer="94"/>
-<wire x1="5.08" y1="-10.16" x2="-5.08" y2="-10.16" width="0.254" layer="94"/>
-<wire x1="-5.08" y1="-10.16" x2="-5.08" y2="10.16" width="0.254" layer="94"/>
-<wire x1="-5.08" y1="10.16" x2="5.08" y2="10.16" width="0.254" layer="94"/>
-<text x="-5.08" y="10.922" size="1.27" layer="95">&gt;NAME</text>
-<text x="-5.08" y="-12.192" size="1.27" layer="96">&gt;VALUE</text>
 </symbol>
 <symbol name="RGBLED_CA">
 <wire x1="1.27" y1="5.08" x2="-5.08" y2="5.08" width="0.254" layer="94"/>
@@ -7379,27 +7345,6 @@ Source: http://www.osram.convergy.de/</description>
 <connect gate="G$1" pin="RXD" pad="RXD"/>
 <connect gate="G$1" pin="TOUT" pad="TOUT"/>
 <connect gate="G$1" pin="TXD" pad="TXD"/>
-</connects>
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-</devices>
-</deviceset>
-<deviceset name="JTAG_ARM_10PIN">
-<gates>
-<gate name="G$1" symbol="JTAG_ARM_10PIN" x="0" y="0"/>
-</gates>
-<devices>
-<device name="" package="2X05-1.27MM-SMD">
-<connects>
-<connect gate="G$1" pin="GND" pad="P$3 P$5 P$9"/>
-<connect gate="G$1" pin="RESET" pad="P$10"/>
-<connect gate="G$1" pin="TCK" pad="P$4"/>
-<connect gate="G$1" pin="TDI" pad="P$8"/>
-<connect gate="G$1" pin="TDO" pad="P$6"/>
-<connect gate="G$1" pin="TMS" pad="P$2"/>
-<connect gate="G$1" pin="VCC" pad="P$1"/>
 </connects>
 <technologies>
 <technology name=""/>
@@ -9038,7 +8983,7 @@ new: Attribute TP_SIGNAL_NAME&lt;br&gt;
 <part name="GND7" library="supply1" deviceset="GND" device=""/>
 <part name="CON1" library="blinkinlabs" deviceset="USB_MICRO" device="SMT+THRUHULE"/>
 <part name="GND17" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
-<part name="R6" library="adafruit" deviceset="R-US_" device="R0402" value="10k"/>
+<part name="R6" library="adafruit" deviceset="R-US_" device="R0402" value="47k"/>
 <part name="C8" library="adafruit" deviceset="C-US" device="C0402" value="100nF"/>
 <part name="GND13" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="P+8" library="supply1" deviceset="+5V" device=""/>
@@ -9081,8 +9026,6 @@ new: Attribute TP_SIGNAL_NAME&lt;br&gt;
 <part name="C11" library="adafruit" deviceset="C-US" device="C0402" value="100nF"/>
 <part name="GND19" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="U6" library="blinkinlabs" deviceset="ESP_WROOM_02" device=""/>
-<part name="U$2" library="blinkinlabs" deviceset="JTAG_ARM_10PIN" device=""/>
-<part name="GND22" library="supply1" deviceset="GND" device=""/>
 <part name="3V2" library="supply1" deviceset="+3V3" device=""/>
 <part name="GND23" library="supply1" deviceset="GND" device=""/>
 <part name="LED_1" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
@@ -9189,16 +9132,16 @@ new: Attribute TP_SIGNAL_NAME&lt;br&gt;
 <part name="C15" library="adafruit" deviceset="C-US" device="C0402" value="100nF"/>
 <part name="GND32" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="GND33" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
-<part name="R23" library="adafruit" deviceset="R-US_" device="R0402" value="10k"/>
-<part name="R25" library="adafruit" deviceset="R-US_" device="R0402" value="10k"/>
+<part name="R23" library="adafruit" deviceset="R-US_" device="R0402" value="47k"/>
+<part name="R25" library="adafruit" deviceset="R-US_" device="R0402" value="47k"/>
 <part name="3V16" library="supply1" deviceset="+3V3" device=""/>
 <part name="GND34" library="supply1" deviceset="GND" device=""/>
 <part name="FRAME5" library="frames" deviceset="A3L-LOC" device=""/>
-<part name="R26" library="adafruit" deviceset="R-US_" device="R0402" value="10k"/>
-<part name="R27" library="adafruit" deviceset="R-US_" device="R0402" value="10k"/>
+<part name="R26" library="adafruit" deviceset="R-US_" device="R0402" value="47k"/>
+<part name="R27" library="adafruit" deviceset="R-US_" device="R0402" value="47k"/>
 <part name="3V17" library="supply1" deviceset="+3V3" device=""/>
 <part name="3V18" library="supply1" deviceset="+3V3" device=""/>
-<part name="R28" library="adafruit" deviceset="R-US_" device="R0402" value="10k"/>
+<part name="R28" library="adafruit" deviceset="R-US_" device="R0402" value="DNP"/>
 <part name="3V1" library="supply1" deviceset="+3V3" device=""/>
 <part name="3V4" library="supply1" deviceset="+3V3" device=""/>
 <part name="3V6" library="supply1" deviceset="+3V3" device=""/>
@@ -9209,8 +9152,7 @@ new: Attribute TP_SIGNAL_NAME&lt;br&gt;
 <part name="GND12" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="P+13" library="supply1" deviceset="+5V" device=""/>
 <part name="GND15" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
-<part name="D1" library="adafruit" deviceset="LED" device="CHIP-LED0603" value="BLUE"/>
-<part name="GND20" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
+<part name="D1" library="adafruit" deviceset="LED" device="CHIP-LED0603" value="ORANGE"/>
 <part name="GND36" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="R10" library="adafruit" deviceset="R-US_" device="R0603" value="1"/>
 <part name="GND37" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
@@ -9221,7 +9163,7 @@ new: Attribute TP_SIGNAL_NAME&lt;br&gt;
 <part name="GND38" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="GND39" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="U5" library="SparkFun-PowerIC" deviceset="V_REG_MIC5219" device="3.3V" value="MIC5219 3.3V"/>
-<part name="C16" library="adafruit" deviceset="C-US" device="C0402" value="470pF"/>
+<part name="C16" library="adafruit" deviceset="C-US" device="C0402" value="47pF"/>
 <part name="GND40" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="P+1" library="supply1" deviceset="+5V" device=""/>
 <part name="3V5" library="supply1" deviceset="+3V3" device=""/>
@@ -9238,16 +9180,42 @@ new: Attribute TP_SIGNAL_NAME&lt;br&gt;
 <part name="5" library="testpad" deviceset="PTR1" device="B2,54"/>
 <part name="ANALOG_IN" library="testpad" deviceset="PTR1" device="B2,54"/>
 <part name="3V3" library="supply1" deviceset="+3V3" device=""/>
-<part name="R12" library="adafruit" deviceset="R-US_" device="R0402" value="10k"/>
+<part name="R12" library="adafruit" deviceset="R-US_" device="R0402" value="47k"/>
 <part name="TP16" library="testpad" deviceset="PTR1" device="B1,27"/>
-<part name="R21" library="adafruit" deviceset="R-US_" device="R0402" value="2k 1%"/>
+<part name="R21" library="adafruit" deviceset="R-US_" device="R0402" value="47k"/>
 <part name="GND35" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="3.3V" library="testpad" deviceset="PTR1" device="B2,54"/>
 <part name="GROUND" library="testpad" deviceset="PTR1" device="B2,54"/>
 <part name="3V7" library="supply1" deviceset="+3V3" device=""/>
 <part name="GND44" library="supply1" deviceset="GND" device=""/>
-<part name="D4" library="adafruit" deviceset="LED" device="CHIP-LED0603" value="BLUE"/>
-<part name="GND45" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
+<part name="D4" library="adafruit" deviceset="LED" device="CHIP-LED0603" value="PURPLE"/>
+<part name="TP1" library="testpad" deviceset="PTR1" device="B1,27"/>
+<part name="TP2" library="testpad" deviceset="PTR1" device="B1,27"/>
+<part name="TP3" library="testpad" deviceset="PTR1" device="B1,27"/>
+<part name="TP4" library="testpad" deviceset="PTR1" device="B1,27"/>
+<part name="TP5" library="testpad" deviceset="PTR1" device="B1,27"/>
+<part name="TP6" library="testpad" deviceset="PTR1" device="B1,27"/>
+<part name="TP7" library="testpad" deviceset="PTR1" device="B1,27"/>
+<part name="TP8" library="testpad" deviceset="PTR1" device="B1,27"/>
+<part name="P+6" library="supply1" deviceset="+5V" device=""/>
+<part name="TP9" library="testpad" deviceset="PTR1" device="B1,27"/>
+<part name="TP10" library="testpad" deviceset="PTR1" device="B1,27"/>
+<part name="TP11" library="testpad" deviceset="PTR1" device="B1,27"/>
+<part name="TP12" library="testpad" deviceset="PTR1" device="B1,27"/>
+<part name="TP13" library="testpad" deviceset="PTR1" device="B1,27"/>
+<part name="TP14" library="testpad" deviceset="PTR1" device="B1,27"/>
+<part name="TP15" library="testpad" deviceset="PTR1" device="B1,27"/>
+<part name="TP17" library="testpad" deviceset="PTR1" device="B1,27"/>
+<part name="TP18" library="testpad" deviceset="PTR1" device="B1,27"/>
+<part name="GND22" library="supply1" deviceset="GND" device=""/>
+<part name="TP19" library="testpad" deviceset="PTR1" device="B1,27"/>
+<part name="TP20" library="testpad" deviceset="PTR1" device="B1,27"/>
+<part name="TP21" library="testpad" deviceset="PTR1" device="B1,27"/>
+<part name="TP22" library="testpad" deviceset="PTR1" device="B1,27"/>
+<part name="GND20" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
+<part name="R22" library="adafruit" deviceset="R-US_" device="R0402" value="100"/>
+<part name="TP23" library="testpad" deviceset="PTR1" device="B1,27"/>
+<part name="TP24" library="testpad" deviceset="PTR1" device="B1,27"/>
 </parts>
 <sheets>
 <sheet>
@@ -9269,13 +9237,19 @@ Revision B:
 -Bring unused ESP pins to pads
 -Add TS silkscreen
 
+Revision D:
+-Replace ARM JTAG connector with test points for automated programming
+-Change value of pullup resistors from 10k to 47k
+-Update filter caps for 3.3V regulator
+-Add limiting resistor for status LEDs to make them less bright (TODO: Test me)
+
 TODO:
 -Implement more user friendly expansion pads for the ESP
 -Cosmetic: ESP8266 GPIO 18mislabeled, should be 16
--With LED_HS_EN, should LED_OE still be connected to the mux?
 -Characterize the power situation
--Choose 3v or 3.3v regulator for ESP8266
--Consider a 5V test point</text>
+-test a flush-mount USB connector
+-remove pullup resistor on button?
+-Add test pads for production</text>
 <text x="129.54" y="358.14" size="10.16" layer="91" align="bottom-center">EightByEight Blinky Badge</text>
 <text x="129.54" y="345.44" size="6.4516" layer="91" align="bottom-center">Copyright 2016 Blinkinlabs, LLC</text>
 </plain>
@@ -9290,10 +9264,9 @@ TODO:
 <sheet>
 <plain>
 <text x="76.2" y="101.6" size="1.778" layer="91">Pin assignments for matrix output:
-LED_DAT + LED_CLK need to be together on a unique port
-LED_ROW_* and LED_STB need to be together on a unique port
-LED_OE needs to be on a pin with FTM capability</text>
-<text x="15.24" y="101.6" size="1.778" layer="91">ARM 10pin JTAG/SWD</text>
+LED_DAT + LED_CLK use ESPI hardware
+LED_OE needs to be on a pin with FTM capability
+LED_ROW_* and LED_STB are GPIO and need to be together on a unique port</text>
 <text x="12.7" y="238.76" size="1.778" layer="91">Provides LED drive signal, USB/Serial conversion</text>
 <text x="12.7" y="243.84" size="2.54" layer="94">ARM microcontroller</text>
 <wire x1="7.62" y1="251.46" x2="182.88" y2="251.46" width="0.4064" layer="94"/>
@@ -9323,6 +9296,12 @@ firmware.</text>
 <wire x1="187.96" y1="172.72" x2="187.96" y2="251.46" width="0.4064" layer="94"/>
 <wire x1="269.24" y1="172.72" x2="269.24" y2="251.46" width="0.4064" layer="94"/>
 <wire x1="187.96" y1="172.72" x2="269.24" y2="172.72" width="0.4064" layer="94"/>
+<text x="193.04" y="154.94" size="1.778" layer="91">Used for automated production testing</text>
+<text x="193.04" y="160.02" size="2.54" layer="94">JTAG interface for ARM</text>
+<wire x1="187.96" y1="167.64" x2="269.24" y2="167.64" width="0.4064" layer="94"/>
+<wire x1="187.96" y1="91.44" x2="187.96" y2="167.64" width="0.4064" layer="94"/>
+<wire x1="269.24" y1="91.44" x2="269.24" y2="167.64" width="0.4064" layer="94"/>
+<wire x1="187.96" y1="91.44" x2="269.24" y2="91.44" width="0.4064" layer="94"/>
 </plain>
 <instances>
 <instance part="R7" gate="G$1" x="73.66" y="55.88" smashed="yes">
@@ -9361,13 +9340,19 @@ firmware.</text>
 <attribute name="MPN" x="63.5" y="40.64" size="1.778" layer="96" rot="R90" display="off"/>
 <attribute name="MF" x="63.5" y="40.64" size="1.778" layer="96" rot="R90" display="off"/>
 </instance>
-<instance part="U$2" gate="G$1" x="20.32" y="121.92"/>
-<instance part="GND22" gate="1" x="33.02" y="109.22"/>
 <instance part="FRAME2" gate="G$1" x="0" y="0"/>
 <instance part="P+3" gate="1" x="91.44" y="226.06" smashed="yes">
 <attribute name="VALUE" x="91.44" y="227.33" size="1.778" layer="96"/>
 </instance>
 <instance part="TP16" gate="G$1" x="223.52" y="205.74" rot="R90"/>
+<instance part="TP9" gate="G$1" x="233.68" y="144.78" rot="R90"/>
+<instance part="TP10" gate="G$1" x="233.68" y="139.7" rot="R90"/>
+<instance part="TP11" gate="G$1" x="233.68" y="134.62" rot="R90"/>
+<instance part="TP12" gate="G$1" x="233.68" y="129.54" rot="R90"/>
+<instance part="TP13" gate="G$1" x="233.68" y="124.46" rot="R90"/>
+<instance part="TP14" gate="G$1" x="233.68" y="119.38" rot="R90"/>
+<instance part="TP18" gate="G$1" x="233.68" y="114.3" rot="R90"/>
+<instance part="GND22" gate="1" x="228.6" y="109.22"/>
 </instances>
 <busses>
 </busses>
@@ -9433,10 +9418,10 @@ firmware.</text>
 <junction x="35.56" y="27.94"/>
 </segment>
 <segment>
-<pinref part="U$2" gate="G$1" pin="GND"/>
+<pinref part="TP18" gate="G$1" pin="TP"/>
+<wire x1="231.14" y1="114.3" x2="228.6" y2="114.3" width="0.1524" layer="91"/>
+<wire x1="228.6" y1="114.3" x2="228.6" y2="111.76" width="0.1524" layer="91"/>
 <pinref part="GND22" gate="1" pin="GND"/>
-<wire x1="30.48" y1="114.3" x2="33.02" y2="114.3" width="0.1524" layer="91"/>
-<wire x1="33.02" y1="114.3" x2="33.02" y2="111.76" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="LED_STB" class="0">
@@ -9541,10 +9526,9 @@ firmware.</text>
 <label x="83.82" y="220.98" size="1.778" layer="95" rot="R90"/>
 </segment>
 <segment>
-<pinref part="U$2" gate="G$1" pin="VCC"/>
-<wire x1="33.02" y1="129.54" x2="30.48" y2="129.54" width="0.1524" layer="91"/>
-<wire x1="33.02" y1="129.54" x2="33.02" y2="144.78" width="0.1524" layer="91"/>
-<label x="33.02" y="132.08" size="1.778" layer="95" rot="R90"/>
+<pinref part="TP9" gate="G$1" pin="TP"/>
+<wire x1="231.14" y1="144.78" x2="208.28" y2="144.78" width="0.1524" layer="91"/>
+<label x="208.28" y="144.78" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="ARM_TCK" class="0">
@@ -9554,9 +9538,9 @@ firmware.</text>
 <label x="147.32" y="218.44" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="U$2" gate="G$1" pin="TCK"/>
-<wire x1="30.48" y1="124.46" x2="50.8" y2="124.46" width="0.1524" layer="91"/>
-<label x="38.1" y="124.46" size="1.778" layer="95"/>
+<pinref part="TP11" gate="G$1" pin="TP"/>
+<wire x1="231.14" y1="134.62" x2="208.28" y2="134.62" width="0.1524" layer="91"/>
+<label x="208.28" y="134.62" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="ARM_TMS" class="0">
@@ -9566,9 +9550,9 @@ firmware.</text>
 <label x="147.32" y="210.82" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="U$2" gate="G$1" pin="TMS"/>
-<wire x1="30.48" y1="127" x2="50.8" y2="127" width="0.1524" layer="91"/>
-<label x="38.1" y="127" size="1.778" layer="95"/>
+<pinref part="TP10" gate="G$1" pin="TP"/>
+<wire x1="231.14" y1="139.7" x2="208.28" y2="139.7" width="0.1524" layer="91"/>
+<label x="208.28" y="139.7" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="ARM_RESET" class="0">
@@ -9578,9 +9562,9 @@ firmware.</text>
 <wire x1="91.44" y1="160.02" x2="71.12" y2="160.02" width="0.1524" layer="91"/>
 </segment>
 <segment>
-<pinref part="U$2" gate="G$1" pin="RESET"/>
-<wire x1="30.48" y1="116.84" x2="50.8" y2="116.84" width="0.1524" layer="91"/>
-<label x="38.1" y="116.84" size="1.778" layer="95"/>
+<pinref part="TP14" gate="G$1" pin="TP"/>
+<wire x1="231.14" y1="119.38" x2="208.28" y2="119.38" width="0.1524" layer="91"/>
+<label x="208.28" y="119.38" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="N$6" class="0">
@@ -9646,26 +9630,26 @@ firmware.</text>
 </net>
 <net name="ARM_TX" class="0">
 <segment>
-<pinref part="U$2" gate="G$1" pin="TDO"/>
-<wire x1="30.48" y1="121.92" x2="50.8" y2="121.92" width="0.1524" layer="91"/>
-<label x="38.1" y="121.92" size="1.778" layer="95"/>
-</segment>
-<segment>
 <pinref part="U1" gate="G$1" pin="PTA2"/>
 <wire x1="162.56" y1="213.36" x2="144.78" y2="213.36" width="0.1524" layer="91"/>
 <label x="147.32" y="213.36" size="1.778" layer="95"/>
 </segment>
+<segment>
+<pinref part="TP12" gate="G$1" pin="TP"/>
+<wire x1="231.14" y1="129.54" x2="208.28" y2="129.54" width="0.1524" layer="91"/>
+<label x="208.28" y="129.54" size="1.778" layer="95"/>
+</segment>
 </net>
 <net name="ARM_RX" class="0">
-<segment>
-<pinref part="U$2" gate="G$1" pin="TDI"/>
-<wire x1="50.8" y1="119.38" x2="30.48" y2="119.38" width="0.1524" layer="91"/>
-<label x="38.1" y="119.38" size="1.778" layer="95"/>
-</segment>
 <segment>
 <pinref part="U1" gate="G$1" pin="PTA1"/>
 <wire x1="144.78" y1="215.9" x2="162.56" y2="215.9" width="0.1524" layer="91"/>
 <label x="147.32" y="215.9" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="TP13" gate="G$1" pin="TP"/>
+<wire x1="231.14" y1="124.46" x2="208.28" y2="124.46" width="0.1524" layer="91"/>
+<label x="208.28" y="124.46" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="LED_ROW_C" class="0">
@@ -9738,14 +9722,14 @@ GPIO15 Low, GPIO0 Low, GPIO2 High
 
 Flash Boot:
 GPIO15 Low, GPIO0 Hight, GPIO2 High</text>
-<text x="15.24" y="157.48" size="1.778" layer="91">Note: Check that these values are correct for 3.3V</text>
+<text x="15.24" y="157.48" size="1.778" layer="91">Note: The I2C bus runs at 100KHz</text>
 <text x="15.24" y="162.56" size="2.54" layer="94">I2C pullups</text>
 <wire x1="10.16" y1="170.18" x2="93.98" y2="170.18" width="0.4064" layer="94"/>
 <wire x1="10.16" y1="91.44" x2="10.16" y2="170.18" width="0.4064" layer="94"/>
 <wire x1="93.98" y1="91.44" x2="93.98" y2="170.18" width="0.4064" layer="94"/>
 <wire x1="10.16" y1="91.44" x2="93.98" y2="91.44" width="0.4064" layer="94"/>
 <text x="104.14" y="157.48" size="1.778" layer="91">Momentary, active low
-Connected to ESP and ARM</text>
+Connected to ESP</text>
 <text x="104.14" y="162.56" size="2.54" layer="94">Button input</text>
 <wire x1="99.06" y1="170.18" x2="154.94" y2="170.18" width="0.4064" layer="94"/>
 <wire x1="99.06" y1="91.44" x2="99.06" y2="170.18" width="0.4064" layer="94"/>
@@ -9764,6 +9748,14 @@ Connected to ESP and ARM</text>
 <wire x1="251.46" y1="175.26" x2="251.46" y2="251.46" width="0.4064" layer="94"/>
 <wire x1="251.46" y1="175.26" x2="309.88" y2="175.26" width="0.4064" layer="94"/>
 <wire x1="309.88" y1="175.26" x2="309.88" y2="251.46" width="0.4064" layer="94"/>
+<text x="287.02" y="152.4" size="1.778" layer="91">Used during automated production testing
+Note: RX and TX are available on
+the ARM JTAG pins</text>
+<text x="287.02" y="162.56" size="2.54" layer="94">ESP test pins</text>
+<wire x1="281.94" y1="170.18" x2="358.14" y2="170.18" width="0.4064" layer="94"/>
+<wire x1="281.94" y1="91.44" x2="281.94" y2="170.18" width="0.4064" layer="94"/>
+<wire x1="358.14" y1="91.44" x2="358.14" y2="170.18" width="0.4064" layer="94"/>
+<wire x1="281.94" y1="91.44" x2="358.14" y2="91.44" width="0.4064" layer="94"/>
 </plain>
 <instances>
 <instance part="FRAME5" gate="G$1" x="0" y="0"/>
@@ -9844,6 +9836,11 @@ Connected to ESP and ARM</text>
 <attribute name="VALUE" x="279.4" y="204.47" size="1.778" layer="96"/>
 </instance>
 <instance part="GND44" gate="1" x="281.94" y="187.96"/>
+<instance part="TP5" gate="G$1" x="307.34" y="132.08" rot="R90"/>
+<instance part="TP6" gate="G$1" x="307.34" y="127" rot="R90"/>
+<instance part="TP15" gate="G$1" x="307.34" y="142.24" rot="R90"/>
+<instance part="TP17" gate="G$1" x="307.34" y="137.16" rot="R90"/>
+<instance part="TP23" gate="G$1" x="307.34" y="121.92" rot="R90"/>
 </instances>
 <busses>
 </busses>
@@ -9998,6 +9995,11 @@ Connected to ESP and ARM</text>
 <wire x1="236.22" y1="137.16" x2="254" y2="137.16" width="0.1524" layer="91"/>
 <label x="241.3" y="137.16" size="1.778" layer="95"/>
 </segment>
+<segment>
+<pinref part="TP6" gate="G$1" pin="TP"/>
+<wire x1="289.56" y1="127" x2="304.8" y2="127" width="0.1524" layer="91"/>
+<label x="289.56" y="127" size="1.778" layer="95"/>
+</segment>
 </net>
 <net name="ARM_RX1" class="0">
 <segment>
@@ -10011,6 +10013,11 @@ Connected to ESP and ARM</text>
 <wire x1="180.34" y1="203.2" x2="180.34" y2="200.66" width="0.1524" layer="91"/>
 <label x="162.56" y="200.66" size="1.778" layer="95"/>
 </segment>
+<segment>
+<pinref part="TP23" gate="G$1" pin="TP"/>
+<wire x1="304.8" y1="121.92" x2="289.56" y2="121.92" width="0.1524" layer="91"/>
+<label x="289.56" y="121.92" size="1.778" layer="95"/>
+</segment>
 </net>
 <net name="ESP_GPIO0" class="0">
 <segment>
@@ -10023,6 +10030,11 @@ Connected to ESP and ARM</text>
 <wire x1="226.06" y1="203.2" x2="226.06" y2="200.66" width="0.1524" layer="91"/>
 <wire x1="226.06" y1="200.66" x2="210.82" y2="200.66" width="0.1524" layer="91"/>
 <label x="210.82" y="200.66" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="TP15" gate="G$1" pin="TP"/>
+<wire x1="304.8" y1="142.24" x2="289.56" y2="142.24" width="0.1524" layer="91"/>
+<label x="289.56" y="142.24" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="ESP_GPIO15" class="0">
@@ -10094,6 +10106,11 @@ Connected to ESP and ARM</text>
 <wire x1="121.92" y1="223.52" x2="139.7" y2="223.52" width="0.1524" layer="91"/>
 <label x="121.92" y="223.52" size="1.778" layer="95"/>
 </segment>
+<segment>
+<pinref part="TP17" gate="G$1" pin="TP"/>
+<wire x1="304.8" y1="137.16" x2="289.56" y2="137.16" width="0.1524" layer="91"/>
+<label x="289.56" y="137.16" size="1.778" layer="95"/>
+</segment>
 </net>
 <net name="EXP_GPIO5" class="0">
 <segment>
@@ -10147,6 +10164,11 @@ Connected to ESP and ARM</text>
 <wire x1="236.22" y1="139.7" x2="254" y2="139.7" width="0.1524" layer="91"/>
 <label x="241.3" y="139.7" size="1.778" layer="95"/>
 </segment>
+<segment>
+<pinref part="TP5" gate="G$1" pin="TP"/>
+<wire x1="304.8" y1="132.08" x2="289.56" y2="132.08" width="0.1524" layer="91"/>
+<label x="289.56" y="132.08" size="1.778" layer="95"/>
+</segment>
 </net>
 </nets>
 </sheet>
@@ -10174,6 +10196,12 @@ rapid on/off power cycles</text>
 <wire x1="7.62" y1="76.2" x2="7.62" y2="149.86" width="0.4064" layer="94"/>
 <wire x1="111.76" y1="76.2" x2="111.76" y2="149.86" width="0.4064" layer="94"/>
 <wire x1="7.62" y1="76.2" x2="111.76" y2="76.2" width="0.4064" layer="94"/>
+<text x="279.4" y="238.76" size="1.778" layer="91">Used for automated production testing</text>
+<text x="279.4" y="243.84" size="2.54" layer="94">Power supply Test points</text>
+<wire x1="274.32" y1="251.46" x2="350.52" y2="251.46" width="0.4064" layer="94"/>
+<wire x1="274.32" y1="198.12" x2="274.32" y2="251.46" width="0.4064" layer="94"/>
+<wire x1="350.52" y1="198.12" x2="350.52" y2="251.46" width="0.4064" layer="94"/>
+<wire x1="274.32" y1="198.12" x2="350.52" y2="198.12" width="0.4064" layer="94"/>
 </plain>
 <instances>
 <instance part="FRAME1" gate="G$1" x="0" y="0"/>
@@ -10190,7 +10218,6 @@ rapid on/off power cycles</text>
 <instance part="P+13" gate="1" x="63.5" y="129.54"/>
 <instance part="GND15" gate="1" x="134.62" y="187.96"/>
 <instance part="D1" gate="G$1" x="127" y="198.12"/>
-<instance part="GND20" gate="1" x="127" y="187.96"/>
 <instance part="GND36" gate="1" x="45.72" y="187.96"/>
 <instance part="R10" gate="G$1" x="88.9" y="226.06" smashed="yes">
 <attribute name="NAME" x="83.312" y="227.0506" size="1.778" layer="95"/>
@@ -10219,7 +10246,15 @@ rapid on/off power cycles</text>
 <instance part="R11" gate="G$1" x="48.26" y="99.06" rot="R90"/>
 <instance part="GND43" gate="1" x="48.26" y="86.36"/>
 <instance part="D4" gate="G$1" x="116.84" y="198.12"/>
-<instance part="GND45" gate="1" x="116.84" y="187.96"/>
+<instance part="TP7" gate="G$1" x="299.72" y="228.6" rot="R90"/>
+<instance part="TP8" gate="G$1" x="299.72" y="223.52" rot="R90"/>
+<instance part="P+6" gate="1" x="292.1" y="233.68"/>
+<instance part="GND20" gate="1" x="116.84" y="170.18"/>
+<instance part="R22" gate="G$1" x="116.84" y="182.88" smashed="yes" rot="R90">
+<attribute name="NAME" x="115.8494" y="177.292" size="1.778" layer="95" rot="R90"/>
+<attribute name="VALUE" x="115.824" y="185.928" size="1.778" layer="96" rot="R90"/>
+</instance>
+<instance part="TP24" gate="G$1" x="299.72" y="218.44" rot="R90"/>
 </instances>
 <busses>
 </busses>
@@ -10246,11 +10281,6 @@ rapid on/off power cycles</text>
 <wire x1="134.62" y1="200.66" x2="134.62" y2="190.5" width="0.1524" layer="91"/>
 <pinref part="GND15" gate="1" pin="GND"/>
 <pinref part="C9" gate="G$1" pin="2"/>
-</segment>
-<segment>
-<pinref part="GND20" gate="1" pin="GND"/>
-<pinref part="D1" gate="G$1" pin="C"/>
-<wire x1="127" y1="190.5" x2="127" y2="193.04" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="GND36" gate="1" pin="GND"/>
@@ -10295,9 +10325,9 @@ rapid on/off power cycles</text>
 <pinref part="GND43" gate="1" pin="GND"/>
 </segment>
 <segment>
-<pinref part="D4" gate="G$1" pin="C"/>
-<wire x1="116.84" y1="193.04" x2="116.84" y2="190.5" width="0.1524" layer="91"/>
-<pinref part="GND45" gate="1" pin="GND"/>
+<pinref part="GND20" gate="1" pin="GND"/>
+<pinref part="R22" gate="G$1" pin="1"/>
+<wire x1="116.84" y1="172.72" x2="116.84" y2="177.8" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="USB_5V" class="0">
@@ -10318,11 +10348,13 @@ rapid on/off power cycles</text>
 </net>
 <net name="CHARGE" class="0">
 <segment>
-<pinref part="U$8" gate="G$1" pin="LED2"/>
 <pinref part="D1" gate="G$1" pin="A"/>
-<wire x1="106.68" y1="205.74" x2="127" y2="205.74" width="0.1524" layer="91"/>
 <wire x1="127" y1="205.74" x2="127" y2="200.66" width="0.1524" layer="91"/>
 <label x="111.76" y="205.74" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="U$8" gate="G$1" pin="LED2"/>
+<wire x1="106.68" y1="205.74" x2="127" y2="205.74" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$3" class="0">
@@ -10354,6 +10386,11 @@ rapid on/off power cycles</text>
 <wire x1="25.4" y1="205.74" x2="25.4" y2="218.44" width="0.1524" layer="91"/>
 <junction x="25.4" y="205.74"/>
 </segment>
+<segment>
+<pinref part="TP8" gate="G$1" pin="TP"/>
+<wire x1="297.18" y1="223.52" x2="281.94" y2="223.52" width="0.1524" layer="91"/>
+<label x="281.94" y="223.52" size="1.778" layer="95"/>
+</segment>
 </net>
 <net name="BOOST_5V" class="0">
 <segment>
@@ -10369,6 +10406,11 @@ rapid on/off power cycles</text>
 <pinref part="D2" gate="G$1" pin="A"/>
 <wire x1="35.56" y1="114.3" x2="17.78" y2="114.3" width="0.1524" layer="91"/>
 <label x="20.32" y="114.3" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="TP24" gate="G$1" pin="TP"/>
+<wire x1="297.18" y1="218.44" x2="281.94" y2="218.44" width="0.1524" layer="91"/>
+<label x="281.94" y="218.44" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="+5V" class="0">
@@ -10391,6 +10433,12 @@ rapid on/off power cycles</text>
 <pinref part="C18" gate="G$1" pin="1"/>
 <wire x1="195.58" y1="208.28" x2="195.58" y2="220.98" width="0.1524" layer="91"/>
 <junction x="195.58" y="220.98"/>
+</segment>
+<segment>
+<pinref part="TP7" gate="G$1" pin="TP"/>
+<wire x1="297.18" y1="228.6" x2="292.1" y2="228.6" width="0.1524" layer="91"/>
+<wire x1="292.1" y1="228.6" x2="292.1" y2="231.14" width="0.1524" layer="91"/>
+<pinref part="P+6" gate="1" pin="+5V"/>
 </segment>
 </net>
 <net name="N$7" class="0">
@@ -10441,11 +10489,25 @@ rapid on/off power cycles</text>
 </net>
 <net name="DISCHARGE" class="0">
 <segment>
-<pinref part="U$8" gate="G$1" pin="LED1"/>
 <pinref part="D4" gate="G$1" pin="A"/>
-<wire x1="106.68" y1="203.2" x2="116.84" y2="203.2" width="0.1524" layer="91"/>
 <wire x1="116.84" y1="203.2" x2="116.84" y2="200.66" width="0.1524" layer="91"/>
 <label x="111.76" y="203.2" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="U$8" gate="G$1" pin="LED1"/>
+<wire x1="106.68" y1="203.2" x2="116.84" y2="203.2" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$1" class="0">
+<segment>
+<pinref part="D4" gate="G$1" pin="C"/>
+<wire x1="116.84" y1="193.04" x2="116.84" y2="190.5" width="0.1524" layer="91"/>
+<wire x1="116.84" y1="190.5" x2="127" y2="190.5" width="0.1524" layer="91"/>
+<pinref part="D1" gate="G$1" pin="C"/>
+<wire x1="127" y1="190.5" x2="127" y2="193.04" width="0.1524" layer="91"/>
+<pinref part="R22" gate="G$1" pin="2"/>
+<wire x1="116.84" y1="187.96" x2="116.84" y2="190.5" width="0.1524" layer="91"/>
+<junction x="116.84" y="190.5"/>
 </segment>
 </net>
 </nets>
@@ -10488,6 +10550,12 @@ IO signals to 5V. A secondary benefit is to reduce the
 number of I/O lines needed on the ARM processor.
 Note: LED_HS_EN prevents the first row of LEDs from
 flashing briefly during poweron.</text>
+<text x="287.02" y="180.34" size="1.778" layer="91">Used for automated production testing</text>
+<text x="287.02" y="185.42" size="2.54" layer="94">LED Test points</text>
+<wire x1="281.94" y1="193.04" x2="358.14" y2="193.04" width="0.4064" layer="94"/>
+<wire x1="281.94" y1="114.3" x2="281.94" y2="193.04" width="0.4064" layer="94"/>
+<wire x1="358.14" y1="114.3" x2="358.14" y2="193.04" width="0.4064" layer="94"/>
+<wire x1="281.94" y1="114.3" x2="358.14" y2="114.3" width="0.4064" layer="94"/>
 </plain>
 <instances>
 <instance part="FRAME4" gate="G$1" x="0" y="0"/>
@@ -10557,6 +10625,14 @@ flashing briefly during poweron.</text>
 <instance part="R20" gate="D" x="152.4" y="203.2"/>
 <instance part="R21" gate="G$1" x="48.26" y="43.18" rot="R90"/>
 <instance part="GND35" gate="1" x="48.26" y="30.48"/>
+<instance part="TP1" gate="G$1" x="307.34" y="170.18" rot="R90"/>
+<instance part="TP2" gate="G$1" x="307.34" y="165.1" rot="R90"/>
+<instance part="TP3" gate="G$1" x="307.34" y="160.02" rot="R90"/>
+<instance part="TP4" gate="G$1" x="307.34" y="154.94" rot="R90"/>
+<instance part="TP19" gate="G$1" x="307.34" y="149.86" rot="R90"/>
+<instance part="TP20" gate="G$1" x="307.34" y="144.78" rot="R90"/>
+<instance part="TP21" gate="G$1" x="307.34" y="139.7" rot="R90"/>
+<instance part="TP22" gate="G$1" x="307.34" y="134.62" rot="R90"/>
 </instances>
 <busses>
 </busses>
@@ -10665,6 +10741,11 @@ flashing briefly during poweron.</text>
 <wire x1="96.52" y1="139.7" x2="83.82" y2="139.7" width="0.1524" layer="91"/>
 <label x="83.82" y="139.7" size="1.778" layer="95"/>
 </segment>
+<segment>
+<pinref part="TP3" gate="G$1" pin="TP"/>
+<wire x1="304.8" y1="160.02" x2="289.56" y2="160.02" width="0.1524" layer="91"/>
+<label x="289.56" y="160.02" size="1.778" layer="95"/>
+</segment>
 </net>
 <net name="LED_CLK" class="0">
 <segment>
@@ -10677,12 +10758,22 @@ flashing briefly during poweron.</text>
 <wire x1="96.52" y1="142.24" x2="83.82" y2="142.24" width="0.1524" layer="91"/>
 <label x="83.82" y="142.24" size="1.778" layer="95"/>
 </segment>
+<segment>
+<pinref part="TP2" gate="G$1" pin="TP"/>
+<wire x1="304.8" y1="165.1" x2="289.56" y2="165.1" width="0.1524" layer="91"/>
+<label x="289.56" y="165.1" size="1.778" layer="95"/>
+</segment>
 </net>
 <net name="LED_DAT_0" class="0">
 <segment>
 <pinref part="U2" gate="G$1" pin="DIN"/>
 <wire x1="96.52" y1="208.28" x2="83.82" y2="208.28" width="0.1524" layer="91"/>
 <label x="83.82" y="208.28" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="TP1" gate="G$1" pin="TP"/>
+<wire x1="304.8" y1="170.18" x2="289.56" y2="170.18" width="0.1524" layer="91"/>
+<label x="289.56" y="170.18" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="LED_OE" class="0">
@@ -10705,6 +10796,11 @@ flashing briefly during poweron.</text>
 <pinref part="U3" gate="A" pin="G2A"/>
 <wire x1="93.98" y1="35.56" x2="76.2" y2="35.56" width="0.1524" layer="91"/>
 <label x="76.2" y="35.56" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="TP4" gate="G$1" pin="TP"/>
+<wire x1="304.8" y1="154.94" x2="289.56" y2="154.94" width="0.1524" layer="91"/>
+<label x="289.56" y="154.94" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="N$18" class="0">
@@ -11028,12 +11124,22 @@ flashing briefly during poweron.</text>
 <wire x1="93.98" y1="50.8" x2="76.2" y2="50.8" width="0.1524" layer="91"/>
 <label x="76.2" y="50.8" size="1.778" layer="95"/>
 </segment>
+<segment>
+<pinref part="TP19" gate="G$1" pin="TP"/>
+<wire x1="304.8" y1="149.86" x2="289.56" y2="149.86" width="0.1524" layer="91"/>
+<label x="289.56" y="149.86" size="1.778" layer="95"/>
+</segment>
 </net>
 <net name="LED_ROW_B" class="0">
 <segment>
 <pinref part="U3" gate="A" pin="B"/>
 <wire x1="93.98" y1="48.26" x2="76.2" y2="48.26" width="0.1524" layer="91"/>
 <label x="76.2" y="48.26" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="TP20" gate="G$1" pin="TP"/>
+<wire x1="289.56" y1="144.78" x2="304.8" y2="144.78" width="0.1524" layer="91"/>
+<label x="289.56" y="144.78" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="1ROW6" class="0">
@@ -11137,6 +11243,11 @@ flashing briefly during poweron.</text>
 <pinref part="U3" gate="A" pin="C"/>
 <wire x1="93.98" y1="45.72" x2="76.2" y2="45.72" width="0.1524" layer="91"/>
 <label x="76.2" y="45.72" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="TP21" gate="G$1" pin="TP"/>
+<wire x1="304.8" y1="139.7" x2="289.56" y2="139.7" width="0.1524" layer="91"/>
+<label x="289.56" y="139.7" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="RCOL7" class="0">
@@ -11261,6 +11372,11 @@ flashing briefly during poweron.</text>
 <pinref part="U3" gate="A" pin="G1"/>
 <wire x1="93.98" y1="38.1" x2="76.2" y2="38.1" width="0.1524" layer="91"/>
 <label x="76.2" y="38.1" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="TP22" gate="G$1" pin="TP"/>
+<wire x1="289.56" y1="134.62" x2="304.8" y2="134.62" width="0.1524" layer="91"/>
+<label x="289.56" y="134.62" size="1.778" layer="95"/>
 </segment>
 </net>
 </nets>
@@ -12693,7 +12809,6 @@ flashing briefly during poweron.</text>
 </sheets>
 <errors>
 <approved hash="104,5,27.94,50.8,U3P,VCC,+5V,,,"/>
-<approved hash="104,2,30.48,129.54,U$2,VCC,ARM_3V3,,,"/>
 <approved hash="113,2,193.571,130.071,FRAME2,,,,,"/>
 <approved hash="113,4,193.571,130.071,FRAME1,,,,,"/>
 <approved hash="113,6,193.571,130.071,FRAME3,,,,,"/>
