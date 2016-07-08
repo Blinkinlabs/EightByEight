@@ -77,11 +77,13 @@ static bool test_user_buttons() {
      * application firmware that prevents DFU mode.
      */
 
-    // Recover pin is on port C, pin 4
-    PORTC_PCR4 = PORT_PCR_MUX(1) | PORT_PCR_PS | PORT_PCR_PE | PORT_PCR_SRE;
+    // Recovery pin is on port C, pin 4
+    PORTC_PCR4 = PORT_PCR_MUX(1) | PORT_PCR_PS | PORT_PCR_PE | PORT_PCR_PFE;
 
-    GPIOC_PDDR = GPIOC_PDDR & ~(1 << 4);
-    uint32_t status = GPIOD_PDIR & (1 << 4);
+    const uint32_t recovery_pin_bit = (1 << 4);
+
+    GPIOC_PDDR = GPIOC_PDDR & (~recovery_pin_bit);
+    uint32_t status = GPIOC_PDIR & recovery_pin_bit;
 
     return status == 0;
 }
@@ -109,7 +111,6 @@ static void app_launch()
 
 int main()
 {
-//    if (test_banner_echo() || test_app_missing() || test_boot_token()) {
     if (test_user_buttons() || test_app_missing() || test_boot_token()) {
         unsigned i, j;
 
