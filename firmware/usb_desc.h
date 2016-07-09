@@ -83,8 +83,48 @@ If these instructions are missing steps or could be improved, please
 let me know?  http://forum.pjrc.com/forums/4-Suggestions-amp-Bug-Reports
 */
 
+#if defined(USB_SERIAL_DFU)
+  #define VENDOR_ID		0x1d50
+  #define PRODUCT_ID		0x8888
+  #define DEVICE_VER		0x0200
 
-#if defined(USB_SERIAL_FC_DFU)
+  #define DEVICE_CLASS          0xEF  // Miscellaneous
+  #define DEVICE_SUBCLASS       0x02  // Common class
+  #define DEVICE_PROTOCOL       0x01  // Interface association descriptor
+
+  #define MANUFACTURER_NAME	{'B','l','i','n','k','i','n','l','a','b','s'}
+  #define MANUFACTURER_NAME_LEN	11
+  #define PRODUCT_NAME		{'E','i','g','h','t','B','y','E','i','g','h','t'}
+  #define PRODUCT_NAME_LEN	12
+  #define SERIAL_NAME           {'E','i','g','h','t','B','y','E','i','g','h','t',' ','S','e','r','i','a','l'}
+  #define SERIAL_NAME_LEN       19
+  #define DFU_NAME              {'E','i','g','h','t','B','y','E','i','g','h','t',' ','D','F','U'}
+  #define DFU_NAME_LEN          16
+  #define EP0_SIZE		64
+  #define NUM_ENDPOINTS		4       // 1=dfu 2,3,4=serial
+  #define NUM_USB_BUFFERS	25      // TODO: How many do we need?
+  #define NUM_INTERFACE		3       // 0=cdc_status, 1=cdc_data, 2=dfu
+  #define CDC_IAD_DESCRIPTOR	1
+  #define CDC_STATUS_INTERFACE	0
+  #define CDC_DATA_INTERFACE	1	// Serial
+  #define CDC_ACM_ENDPOINT	2
+  #define CDC_RX_ENDPOINT       3
+  #define CDC_TX_ENDPOINT       4
+  #define CDC_ACM_SIZE          16
+  #define CDC_RX_SIZE           64
+  #define CDC_TX_SIZE           64
+
+  #define DFU_INTERFACE         2
+  #define DFU_DETACH_TIMEOUT    10000     // 10 seconds
+  #define DFU_TRANSFER_SIZE     1024      // Flash sector size
+
+  #define CONFIG_DESC_SIZE	(9+8 + 9+5+5+4+5+7+9+7+7 + 9+7 + 9+9)  // TODO: Re-calculate me
+  #define ENDPOINT1_CONFIG	ENDPOINT_RECEIVE_ONLY       // DFU
+  #define ENDPOINT2_CONFIG	ENDPOINT_TRANSIMIT_ONLY     // CDC ACM endpoint
+  #define ENDPOINT3_CONFIG	ENDPOINT_RECEIVE_ONLY       // CDC RX endpoint
+  #define ENDPOINT4_CONFIG	ENDPOINT_TRANSIMIT_ONLY     // CDC TX endpoint
+
+#elif defined(USB_SERIAL_FC_DFU)
 //  #define VENDOR_ID		0x1209
   #define VENDOR_ID		0x1d50
   #define PRODUCT_ID		0x8888

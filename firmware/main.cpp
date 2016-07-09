@@ -97,7 +97,7 @@ extern "C" int main()
     matrix.setBrightness(1);
     matrix.begin();
 
-    colorSwirl();
+    bleedTest();
     matrix.show();
 
     bool streamingMode = false;

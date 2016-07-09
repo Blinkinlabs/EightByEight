@@ -33,7 +33,16 @@ out.write("\n")
 out.write("const uint16_t brightnessTable[BRIGHTNESS_STEPS] = {\n")
 
 for i in range(0, inputScale):
-    brightness = max(i>0,int(math.pow(float(i)/inputScale,args.p) * outputScale))
+    brightness = int(math.pow(float(i)/inputScale,args.p) * outputScale)
+
+    # Compress the low end of the scale to 1, so that we never show darkness when something is expecte
+    if i > 0 and brightness == 0:
+        brightness = 1
+
+    # And force the last entry to be full brightness
+    if i == inputScale - 1:
+        brightness = (1 << outputBitDepth) - 1
+
     out.write("    % 6i, // %i\n" % (brightness, i));
 
 out.write("};\n")

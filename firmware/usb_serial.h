@@ -31,7 +31,7 @@
 #ifndef USBserial_h_
 #define USBserial_h_
 
-#if defined(USB_SERIAL) || defined(USB_SERIAL_HID) || defined(USB_SERIAL_FC_DFU)
+#if defined(USB_SERIAL) || defined(USB_SERIAL_DFU) || defined(USB_SERIAL_FC_DFU)
 
 #include <inttypes.h>
 
@@ -139,6 +139,6 @@ extern usb_serial_class Serial;
 
 #endif // F_CPU
 
-#endif // USB_SERIAL || USB_SERIAL_HID
+#endif // USB_SERIAL
 
 #endif // USBserial_h_
