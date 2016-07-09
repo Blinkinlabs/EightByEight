@@ -9011,7 +9011,7 @@ new: Attribute TP_SIGNAL_NAME&lt;br&gt;
 <part name="U2" library="blinkinlabs" deviceset="ICN2026" device=""/>
 <part name="GND2" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="C7" library="adafruit" deviceset="C-US" device="C0402" value="100nF"/>
-<part name="R1" library="adafruit" deviceset="R-US_" device="R0402" value="2k 1%"/>
+<part name="R1" library="adafruit" deviceset="R-US_" device="R0402" value="1.8k 1%"/>
 <part name="GND3" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="GND4" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="R7" library="adafruit" deviceset="R-US_" device="R0402" value="33"/>

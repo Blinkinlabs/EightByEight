@@ -8,8 +8,8 @@
 </settings>
 <grid distance="0.1" unitdist="mm" unit="mm" style="lines" multiple="1" display="no" altdistance="0.05" altunitdist="mm" altunit="mm"/>
 <layers>
-<layer number="1" name="Top" color="12" fill="1" visible="yes" active="yes"/>
-<layer number="2" name="GND" color="1" fill="1" visible="yes" active="yes"/>
+<layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
+<layer number="2" name="GND" color="1" fill="1" visible="no" active="yes"/>
 <layer number="3" name="Route3" color="4" fill="3" visible="no" active="no"/>
 <layer number="4" name="Route4" color="1" fill="4" visible="no" active="no"/>
 <layer number="5" name="Route5" color="4" fill="4" visible="no" active="no"/>
@@ -22,11 +22,11 @@
 <layer number="12" name="Route12" color="1" fill="5" visible="no" active="no"/>
 <layer number="13" name="Route13" color="4" fill="5" visible="no" active="no"/>
 <layer number="14" name="Route14" color="1" fill="6" visible="no" active="no"/>
-<layer number="15" name="Route" color="5" fill="1" visible="yes" active="yes"/>
-<layer number="16" name="Bottom" color="1" fill="1" visible="yes" active="yes"/>
-<layer number="17" name="Pads" color="10" fill="1" visible="yes" active="yes"/>
-<layer number="18" name="Vias" color="10" fill="1" visible="yes" active="yes"/>
-<layer number="19" name="Unrouted" color="6" fill="1" visible="yes" active="yes"/>
+<layer number="15" name="Route" color="5" fill="1" visible="no" active="yes"/>
+<layer number="16" name="Bottom" color="1" fill="1" visible="no" active="yes"/>
+<layer number="17" name="Pads" color="10" fill="1" visible="no" active="yes"/>
+<layer number="18" name="Vias" color="10" fill="1" visible="no" active="yes"/>
+<layer number="19" name="Unrouted" color="6" fill="1" visible="no" active="yes"/>
 <layer number="20" name="Dimension" color="15" fill="1" visible="yes" active="yes"/>
 <layer number="21" name="tPlace" color="6" fill="1" visible="yes" active="yes"/>
 <layer number="22" name="bPlace" color="3" fill="1" visible="no" active="yes"/>
@@ -34,7 +34,7 @@
 <layer number="24" name="bOrigins" color="15" fill="1" visible="no" active="yes"/>
 <layer number="25" name="tNames" color="11" fill="1" visible="no" active="yes"/>
 <layer number="26" name="bNames" color="7" fill="1" visible="no" active="yes"/>
-<layer number="27" name="tValues" color="15" fill="1" visible="no" active="yes"/>
+<layer number="27" name="tValues" color="11" fill="1" visible="yes" active="yes"/>
 <layer number="28" name="bValues" color="7" fill="1" visible="no" active="yes"/>
 <layer number="29" name="tStop" color="7" fill="3" visible="no" active="yes"/>
 <layer number="30" name="bStop" color="7" fill="6" visible="no" active="yes"/>
@@ -46,14 +46,14 @@
 <layer number="36" name="bGlue" color="7" fill="5" visible="no" active="yes"/>
 <layer number="37" name="tTest" color="7" fill="1" visible="no" active="yes"/>
 <layer number="38" name="bTest" color="7" fill="1" visible="no" active="yes"/>
-<layer number="39" name="tKeepout" color="4" fill="11" visible="yes" active="yes"/>
+<layer number="39" name="tKeepout" color="4" fill="11" visible="no" active="yes"/>
 <layer number="40" name="bKeepout" color="1" fill="11" visible="no" active="yes"/>
-<layer number="41" name="tRestrict" color="4" fill="10" visible="yes" active="yes"/>
-<layer number="42" name="bRestrict" color="1" fill="10" visible="yes" active="yes"/>
-<layer number="43" name="vRestrict" color="2" fill="10" visible="yes" active="yes"/>
+<layer number="41" name="tRestrict" color="4" fill="10" visible="no" active="yes"/>
+<layer number="42" name="bRestrict" color="1" fill="10" visible="no" active="yes"/>
+<layer number="43" name="vRestrict" color="2" fill="10" visible="no" active="yes"/>
 <layer number="44" name="Drills" color="7" fill="1" visible="no" active="yes"/>
 <layer number="45" name="Holes" color="7" fill="1" visible="no" active="yes"/>
-<layer number="46" name="Milling" color="3" fill="1" visible="yes" active="yes"/>
+<layer number="46" name="Milling" color="3" fill="1" visible="no" active="yes"/>
 <layer number="47" name="Measures" color="7" fill="1" visible="no" active="yes"/>
 <layer number="48" name="Document" color="7" fill="1" visible="no" active="yes"/>
 <layer number="49" name="Reference" color="7" fill="1" visible="no" active="yes"/>
@@ -189,7 +189,7 @@
 <text x="55.7" y="35.3" size="1.016" layer="21" rot="R90">AIN</text>
 <text x="55.9" y="32.2" size="1.016" layer="21" rot="R90">5</text>
 <text x="32.9" y="54.5" size="1.016" layer="21">GND</text>
-<text x="37.4" y="54.5" size="1.016" layer="21">+3V</text>
+<text x="36.6" y="54.5" size="1.016" layer="21">3.3V</text>
 <rectangle x1="35.663328125" y1="4.127471875" x2="35.747146875" y2="4.169890625" layer="200"/>
 <rectangle x1="35.620146875" y1="4.169890625" x2="35.790328125" y2="4.212053125" layer="200"/>
 <rectangle x1="35.579509375" y1="4.212053125" x2="35.833509375" y2="4.254471875" layer="200"/>
@@ -4907,29 +4907,29 @@ Modified from Laen's PCB Order Design Rules</description>
 <attribute name="NAME" x="5.235" y="15.638" size="1.016" layer="25" rot="R180"/>
 <attribute name="VALUE" x="5.235" y="15.605" size="1.016" layer="27" rot="R180"/>
 </element>
-<element name="R1" library="adafruit" package="R0402" value="2k 1%" x="16.3" y="14.7" smashed="yes" rot="R180">
-<attribute name="NAME" x="17.162" y="13.835" size="1.016" layer="25" rot="R270"/>
+<element name="R1" library="adafruit" package="R0402" value="1.8k 1%" x="16.3" y="14.7" smashed="yes" rot="R180">
+<attribute name="NAME" x="16.065" y="13.062" size="1.016" layer="25"/>
 <attribute name="VALUE" x="17.168" y="13.835" size="1.016" layer="27" rot="R270"/>
 </element>
 <element name="R7" library="adafruit" package="R0402" value="33" x="48.2" y="27.1" smashed="yes" rot="R180">
-<attribute name="NAME" x="44.865" y="26.162003125" size="1.016" layer="25"/>
+<attribute name="NAME" x="49.365" y="26.462003125" size="1.016" layer="25"/>
 <attribute name="VALUE" x="44.865" y="26.168" size="1.016" layer="27"/>
 </element>
 <element name="R8" library="adafruit" package="R0402" value="33" x="48.2" y="28.25" smashed="yes" rot="R180">
-<attribute name="NAME" x="44.864996875" y="27.612003125" size="1.016" layer="25"/>
+<attribute name="NAME" x="49.264996875" y="27.712003125" size="1.016" layer="25"/>
 <attribute name="VALUE" x="44.865" y="27.618" size="1.016" layer="27"/>
 </element>
 <element name="CON1" library="blinkinlabs" package="USB_MICRO_THRUHOLE" value="USB_MICROSMT+THRUHULE" x="58.36" y="23.2" smashed="yes" rot="R90">
 <attribute name="VALUE" x="63.36" y="19.39" size="1.27" layer="27" rot="R90"/>
-<attribute name="NAME" x="57.85" y="18.01" size="1.27" layer="25" rot="R270"/>
+<attribute name="NAME" x="57.85" y="18.01" size="1.016" layer="25" rot="R270"/>
 </element>
 <element name="R6" library="adafruit" package="R0402" value="47k" x="6.5" y="13.5" smashed="yes">
 <attribute name="NAME" x="5.235" y="14.238" size="1.016" layer="25" rot="R180"/>
 <attribute name="VALUE" x="5.235" y="14.232" size="1.016" layer="27" rot="R180"/>
 </element>
 <element name="C8" library="adafruit" package="C0402" value="100nF" x="12.6" y="25.3" smashed="yes">
-<attribute name="NAME" x="14.065" y="24.862" size="1.016" layer="25"/>
-<attribute name="VALUE" x="14.065" y="24.795" size="1.016" layer="27"/>
+<attribute name="NAME" x="12.065" y="23.662" size="1.016" layer="25"/>
+<attribute name="VALUE" x="11.265" y="23.695" size="1.016" layer="27"/>
 </element>
 <element name="SW1" library="blinkinlabs" package="SWITCH_6P-2POS" value="SWITCH_SPDT" x="5" y="5" smashed="yes" rot="R135"/>
 <element name="C2" library="adafruit" package="C0402" value="100nF" x="29.9" y="5.5" smashed="yes" rot="R270">
@@ -4937,7 +4937,7 @@ Modified from Laen's PCB Order Design Rules</description>
 <attribute name="VALUE" x="29.695" y="4.035" size="1.016" layer="27" rot="R270"/>
 </element>
 <element name="C5" library="adafruit" package="C0402" value="2.2uF" x="26.35" y="5.5" smashed="yes" rot="R270">
-<attribute name="NAME" x="25.612" y="3.735" size="1.016" layer="25" rot="R270"/>
+<attribute name="NAME" x="25.312" y="3.935" size="1.016" layer="25" rot="R270"/>
 <attribute name="VALUE" x="25.345" y="4.035" size="1.016" layer="27" rot="R270"/>
 </element>
 <element name="C1" library="adafruit" package="C0402" value="100nF" x="28.7" y="5.5" smashed="yes" rot="R270">
@@ -4950,7 +4950,7 @@ Modified from Laen's PCB Order Design Rules</description>
 </element>
 <element name="U1" library="blinkinlabs" package="QFN32_5X5_LONGLEADS" value="MK20DN64VFM5" x="30.2" y="11.2" smashed="yes" rot="R45">
 <attribute name="NAME" x="33.131546875" y="13.328246875" size="1.016" layer="25" rot="R45"/>
-<attribute name="VALUE" x="33.14905" y="13.335515625" size="1.016" layer="27" rot="R45"/>
+<attribute name="VALUE" x="33.735515625" y="13.15095" size="1.016" layer="27"/>
 </element>
 <element name="C3" library="adafruit" package="C0402" value="100nF" x="25.65" y="10.25" smashed="yes" rot="R270">
 <attribute name="NAME" x="25.888" y="11.615" size="1.016" layer="25" rot="R90"/>
@@ -4971,26 +4971,26 @@ Modified from Laen's PCB Order Design Rules</description>
 <element name="Z1" library="PaxInstrument-T400" package="SPARKFUN-RESISTORS_0603-RES" value="PGB1010603" x="53.1" y="23.6" smashed="yes" rot="R270">
 <attribute name="MPN" value="PGB1010603NRHF" x="57.1" y="27.6" size="1.8" layer="27" font="vector" rot="R270" display="off"/>
 <attribute name="MF" value="Littelfuse" x="57.1" y="27.6" size="1.8" layer="27" font="vector" rot="R270" display="off"/>
-<attribute name="NAME" x="52.462" y="22.189" size="1.016" layer="25" font="vector" rot="R270"/>
-<attribute name="VALUE" x="52.457" y="22.216" size="1.016" layer="27" font="vector" rot="R270"/>
+<attribute name="NAME" x="52.611" y="24.762" size="1.016" layer="25" font="vector"/>
+<attribute name="VALUE" x="51.416" y="22.343" size="1.016" layer="27" font="vector" rot="R180"/>
 </element>
 <element name="Z2" library="PaxInstrument-T400" package="SPARKFUN-RESISTORS_0603-RES" value="PGB1010603" x="50.95" y="24.45" smashed="yes" rot="R270">
 <attribute name="MPN" value="PGB1010603NRHF" x="57.95" y="31.45" size="1.8" layer="27" font="vector" rot="R270" display="off"/>
 <attribute name="MF" value="Littelfuse" x="57.95" y="31.45" size="1.8" layer="27" font="vector" rot="R270" display="off"/>
-<attribute name="NAME" x="50.412" y="22.739" size="1.016" layer="25" font="vector" rot="R270"/>
-<attribute name="VALUE" x="50.407" y="22.766" size="1.016" layer="27" font="vector" rot="R270"/>
+<attribute name="NAME" x="50.139" y="24.788" size="1.016" layer="25" font="vector" rot="R180"/>
+<attribute name="VALUE" x="50.166" y="24.393" size="1.016" layer="27" font="vector" rot="R180"/>
 </element>
 <element name="R2" library="adafruit" package="R0402" value="2k" x="6.6" y="25.3" smashed="yes" rot="R180">
-<attribute name="NAME" x="7.865" y="25.362" size="1.016" layer="25"/>
-<attribute name="VALUE" x="7.865" y="25.368" size="1.016" layer="27"/>
+<attribute name="NAME" x="5.765" y="25.862" size="1.016" layer="25"/>
+<attribute name="VALUE" x="5.265" y="25.868" size="1.016" layer="27"/>
 </element>
 <element name="R3" library="adafruit" package="R0402" value="2k" x="9.6" y="25.3" smashed="yes">
-<attribute name="NAME" x="8.335" y="25.538" size="1.016" layer="25" rot="R180"/>
-<attribute name="VALUE" x="8.335" y="25.532" size="1.016" layer="27" rot="R180"/>
+<attribute name="NAME" x="8.265" y="25.862" size="1.016" layer="25"/>
+<attribute name="VALUE" x="8.465" y="25.868" size="1.016" layer="27"/>
 </element>
 <element name="R4" library="adafruit" package="R0402" value="2k" x="18.7" y="25.3" smashed="yes">
-<attribute name="NAME" x="17.435" y="25.738" size="1.016" layer="25" rot="R180"/>
-<attribute name="VALUE" x="17.135" y="26.632" size="1.016" layer="27" rot="R180"/>
+<attribute name="NAME" x="19.065" y="25.962" size="1.016" layer="25"/>
+<attribute name="VALUE" x="21.535" y="26.232" size="1.016" layer="27" rot="R180"/>
 </element>
 <element name="R5" library="adafruit" package="R0402" value="2k" x="6.2" y="32.9" smashed="yes">
 <attribute name="NAME" x="4.935" y="33.238" size="1.016" layer="25" rot="R180"/>
@@ -5001,11 +5001,11 @@ Modified from Laen's PCB Order Design Rules</description>
 <attribute name="VALUE" x="9.3" y="23.8" size="1.016" layer="27" rot="R270"/>
 </element>
 <element name="R9" library="adafruit" package="R0402" value="2k 1%" x="9.7" y="14.7" smashed="yes" rot="R180">
-<attribute name="NAME" x="8.062" y="14.235" size="1.016" layer="25" rot="R270"/>
+<attribute name="NAME" x="10.235" y="14.038" size="1.016" layer="25" rot="R180"/>
 <attribute name="VALUE" x="8.068" y="14.235" size="1.016" layer="27" rot="R270"/>
 </element>
 <element name="C11" library="adafruit" package="C0402" value="100nF" x="13.2" y="14.7" smashed="yes" rot="R180">
-<attribute name="NAME" x="13.538" y="15.565" size="1.016" layer="25" rot="R90"/>
+<attribute name="NAME" x="11.865" y="13.362" size="1.016" layer="25"/>
 <attribute name="VALUE" x="13.605" y="15.465" size="1.016" layer="27" rot="R90"/>
 </element>
 <element name="U6" library="blinkinlabs" package="ESP_WROOM_02" value="ESP_WROOM_02" x="44" y="44" smashed="yes" rot="R315">
@@ -5092,15 +5092,15 @@ Modified from Laen's PCB Order Design Rules</description>
 <attribute name="VALUE" x="4.835" y="39.332" size="1.016" layer="27" rot="R180"/>
 </element>
 <element name="BAT" library="blinkinlabs" package="BATTERY_AA_SMD" value="BATTERY" x="30" y="30" smashed="yes" rot="R315">
-<attribute name="NAME" x="25.509871875" y="32.694075" size="1.016" layer="25" font="vector" rot="R315"/>
+<attribute name="NAME" x="30.509871875" y="28.694075" size="1.016" layer="25" font="vector" rot="R315"/>
 </element>
 <element name="U10" library="teensy_adapter" package="SC70-6L" value="FDG6316P" x="7" y="28" smashed="yes" rot="R90">
 <attribute name="NAME" x="5.1" y="28.75" size="1.016" layer="25" rot="R180"/>
-<attribute name="VALUE" x="3.9" y="28.65" size="1.016" layer="27" rot="R180"/>
+<attribute name="VALUE" x="5.2" y="28.45" size="1.016" layer="27" rot="R180"/>
 </element>
 <element name="U9" library="teensy_adapter" package="SC70-6L" value="FDG6316P" x="7" y="30.8" smashed="yes" rot="R90">
 <attribute name="NAME" x="4.8" y="31.25" size="1.016" layer="25" rot="R180"/>
-<attribute name="VALUE" x="4.6" y="30.95" size="1.016" layer="27" rot="R180"/>
+<attribute name="VALUE" x="5.2" y="30.85" size="1.016" layer="27" rot="R180"/>
 </element>
 <element name="U11" library="teensy_adapter" package="SC70-6L" value="FDG6316P" x="8.9" y="34" smashed="yes">
 <attribute name="NAME" x="9.85" y="35.5" size="1.016" layer="25" rot="R90"/>
@@ -5152,23 +5152,23 @@ Modified from Laen's PCB Order Design Rules</description>
 <attribute name="VALUE" x="37.532" y="54.665" size="1.016" layer="27" rot="R90"/>
 </element>
 <element name="R27" library="adafruit" package="R0402" value="47k" x="48.2" y="30.55" smashed="yes">
-<attribute name="NAME" x="48.635" y="29.888" size="1.016" layer="25" rot="R180"/>
+<attribute name="NAME" x="49.835" y="32.188" size="1.016" layer="25" rot="R180"/>
 <attribute name="VALUE" x="44.465" y="30.118" size="1.016" layer="27"/>
 </element>
 <element name="R28" library="adafruit" package="R0402" value="DNP" x="48.2" y="29.4" smashed="yes">
-<attribute name="NAME" x="49.565" y="28.462" size="1.016" layer="25"/>
+<attribute name="NAME" x="47.435" y="29.938" size="1.016" layer="25" rot="R180"/>
 <attribute name="VALUE" x="44.465" y="28.868" size="1.016" layer="27"/>
 </element>
 <element name="U$8" library="blinkinlabs" package="SO08-150" value="MP3401A" x="13.8" y="10.7" smashed="yes" rot="R90">
 <attribute name="VALUE" x="12.255" y="14.34" size="1.016" layer="27" rot="R270"/>
-<attribute name="NAME" x="12.275" y="12.405" size="1.016" layer="25" ratio="10" rot="R270"/>
+<attribute name="NAME" x="12.395" y="11.775" size="1.016" layer="25"/>
 </element>
 <element name="L1" library="blinkinlabs" package="INDUCTOR_CD43" value="2.2uH" x="21" y="8.9" smashed="yes" rot="R270">
 <attribute name="NAME" x="20.82" y="4.74" size="1.016" layer="25" rot="R270"/>
 <attribute name="VALUE" x="20.615" y="5.94" size="1.016" layer="27" rot="R270"/>
 </element>
 <element name="D1" library="adafruit" package="CHIP-LED0603" value="ORANGE" x="51.55" y="29.9" smashed="yes" rot="R180">
-<attribute name="NAME" x="51.085" y="28.635" size="1.016" layer="25" rot="R270"/>
+<attribute name="NAME" x="51.885" y="30.835" size="1.016" layer="25" rot="R270"/>
 <attribute name="VALUE" x="52.255" y="31.265" size="1.016" layer="27" rot="R90"/>
 </element>
 <element name="R10" library="adafruit" package="R0603" value="1" x="17.5" y="5.7" smashed="yes" rot="R270">
@@ -5184,7 +5184,7 @@ Modified from Laen's PCB Order Design Rules</description>
 <attribute name="VALUE" x="23.786" y="14.761" size="1.016" layer="27" rot="R90"/>
 </element>
 <element name="C9" library="adafruit" package="C0805" value="10uF" x="12" y="6.9" smashed="yes">
-<attribute name="NAME" x="11.516" y="5.389" size="1.016" layer="25" rot="R270"/>
+<attribute name="NAME" x="13.411" y="6.516" size="1.016" layer="25"/>
 <attribute name="VALUE" x="10.389" y="7.086" size="1.016" layer="27" rot="R180"/>
 </element>
 <element name="C6" library="adafruit" package="C0805" value="10uF" x="28.4" y="52.6" smashed="yes" rot="R270">
@@ -5209,117 +5209,163 @@ Modified from Laen's PCB Order Design Rules</description>
 <attribute name="VALUE" x="21.886" y="55.411" size="1.016" layer="27" rot="R90"/>
 </element>
 <element name="D2" library="adafruit" package="SOD-123" value="RB161M-20" x="6.8" y="10.3" smashed="yes">
-<attribute name="NAME" x="5.7" y="11.3" size="0.4064" layer="25"/>
+<attribute name="NAME" x="5" y="10.7" size="1.016" layer="25" rot="R180"/>
 <attribute name="VALUE" x="4.3" y="10.484" size="1.016" layer="27" rot="R180"/>
 </element>
 <element name="D3" library="adafruit" package="SOD-123" value="RB161M-20" x="6.8" y="12.1" smashed="yes">
-<attribute name="NAME" x="5.7" y="13.1" size="0.4064" layer="25"/>
+<attribute name="NAME" x="4.9" y="12.4" size="1.016" layer="25" rot="R180"/>
 <attribute name="VALUE" x="4.2" y="12.284" size="1.016" layer="27" rot="R180"/>
 </element>
 <element name="R11" library="adafruit" package="R0805" value="47" x="12" y="4.8" smashed="yes" rot="R180">
-<attribute name="NAME" x="12.762" y="3.784" size="1.27" layer="25" rot="R180"/>
-<attribute name="VALUE" x="10.262" y="5.386" size="1.27" layer="27" rot="R180"/>
+<attribute name="NAME" x="12.716" y="3.962" size="1.016" layer="25" rot="R270"/>
+<attribute name="VALUE" x="10.262" y="5.386" size="1.016" layer="27" rot="R180"/>
 </element>
-<element name="16" library="testpad" package="B2,54" value="PTR1B2,54" x="57.1" y="40">
-<attribute name="TP_SIGNAL_NAME" value="" x="57.1" y="40" size="1.778" layer="27" display="off"/>
+<element name="16" library="testpad" package="B2,54" value="PTR1B2,54" x="57.1" y="40" smashed="yes">
+<attribute name="TP_SIGNAL_NAME" value="" x="55.83" y="36.825" size="1" layer="37"/>
+<attribute name="NAME" x="59.03" y="39.951" size="1.016" layer="25"/>
 </element>
-<element name="5" library="testpad" package="B2,54" value="PTR1B2,54" x="57.1" y="33.8">
-<attribute name="TP_SIGNAL_NAME" value="" x="57.1" y="33.8" size="1.778" layer="27" display="off"/>
+<element name="5" library="testpad" package="B2,54" value="PTR1B2,54" x="57.1" y="33.8" smashed="yes">
+<attribute name="TP_SIGNAL_NAME" value="" x="55.83" y="30.625" size="1" layer="37"/>
+<attribute name="NAME" x="59.33" y="33.251" size="1.016" layer="25"/>
 </element>
-<element name="ANALOG_IN" library="testpad" package="B2,54" value="PTR1B2,54" x="57.1" y="36.9">
-<attribute name="TP_SIGNAL_NAME" value="" x="57.1" y="36.9" size="1.778" layer="27" display="off"/>
+<element name="ANALOG_IN" library="testpad" package="B2,54" value="PTR1B2,54" x="57.1" y="36.9" smashed="yes">
+<attribute name="TP_SIGNAL_NAME" value="" x="55.83" y="33.725" size="1" layer="37"/>
+<attribute name="NAME" x="59.03" y="36.551" size="1.016" layer="25"/>
 </element>
-<element name="R12" library="adafruit" package="R0402" value="47k" x="33.7" y="52.6" rot="R90"/>
-<element name="TP16" library="testpad" package="B1,27" value="PTR1B1,27" x="29.7" y="16.2">
-<attribute name="TP_SIGNAL_NAME" value="" x="29.7" y="16.2" size="1.778" layer="27" display="off"/>
+<element name="R12" library="adafruit" package="R0402" value="47k" x="33.7" y="52.6" smashed="yes" rot="R90">
+<attribute name="NAME" x="34.438" y="54.665" size="1.016" layer="25" rot="R90"/>
+<attribute name="VALUE" x="34.632" y="54.665" size="1.016" layer="27" rot="R90"/>
 </element>
-<element name="R21" library="adafruit" package="R0402" value="47k" x="15.6" y="25.3" rot="R180"/>
-<element name="3.3V" library="testpad" package="B2,54" value="PTR1B2,54" x="38.1" y="57.1">
-<attribute name="TP_SIGNAL_NAME" value="" x="38.1" y="57.1" size="1.778" layer="27" display="off"/>
+<element name="TP16" library="testpad" package="B1,27" value="PTR1B1,27" x="29.7" y="16.2" smashed="yes">
+<attribute name="TP_SIGNAL_NAME" value="" x="29.065" y="14.295" size="1" layer="37"/>
+<attribute name="NAME" x="30.284" y="16.865" size="1.016" layer="25" rot="R90"/>
 </element>
-<element name="GROUND" library="testpad" package="B2,54" value="PTR1B2,54" x="34.1" y="57">
-<attribute name="TP_SIGNAL_NAME" value="" x="34.1" y="57" size="1.778" layer="27" display="off"/>
+<element name="R21" library="adafruit" package="R0402" value="47k" x="15.6" y="25.3" smashed="yes" rot="R180">
+<attribute name="NAME" x="16.065" y="25.962" size="1.016" layer="25"/>
+<attribute name="VALUE" x="16.865" y="26.268" size="1.016" layer="27"/>
+</element>
+<element name="3.3V" library="testpad" package="B2,54" value="PTR1B2,54" x="38.1" y="57.1" smashed="yes">
+<attribute name="TP_SIGNAL_NAME" value="" x="36.83" y="53.925" size="1" layer="37"/>
+<attribute name="NAME" x="38.549" y="58.93" size="1.016" layer="25" rot="R90"/>
+<attribute name="VALUE" x="36.83" y="55.703" size="0.0254" layer="27"/>
+</element>
+<element name="GROUND" library="testpad" package="B2,54" value="PTR1B2,54" x="34.1" y="57" smashed="yes">
+<attribute name="TP_SIGNAL_NAME" value="" x="32.83" y="53.825" size="1" layer="37"/>
+<attribute name="NAME" x="34.549" y="58.63" size="1.016" layer="25" rot="R90"/>
+<attribute name="VALUE" x="32.83" y="55.603" size="0.0254" layer="27"/>
 </element>
 <element name="D4" library="adafruit" package="CHIP-LED0603" value="PURPLE" x="53.45" y="29.95" smashed="yes" rot="R180">
-<attribute name="NAME" x="54.085" y="30.585" size="1.27" layer="25" rot="R270"/>
-<attribute name="VALUE" x="54.155" y="31.515" size="1.27" layer="27" rot="R90"/>
+<attribute name="NAME" x="54.085" y="30.585" size="1.016" layer="25" rot="R270"/>
+<attribute name="VALUE" x="54.155" y="31.515" size="1.016" layer="27" rot="R90"/>
 </element>
-<element name="TP1" library="testpad" package="B1,27" value="PTR1B1,27" x="23.7" y="16.2">
-<attribute name="TP_SIGNAL_NAME" value="" x="23.7" y="16.2" size="1.778" layer="27" display="off"/>
+<element name="TP1" library="testpad" package="B1,27" value="PTR1B1,27" x="23.7" y="16.2" smashed="yes">
+<attribute name="TP_SIGNAL_NAME" value="" x="23.065" y="14.295" size="1" layer="37"/>
+<attribute name="NAME" x="24.484" y="16.865" size="1.016" layer="25" rot="R90"/>
 </element>
-<element name="TP2" library="testpad" package="B1,27" value="PTR1B1,27" x="27.7" y="16.2">
-<attribute name="TP_SIGNAL_NAME" value="" x="27.7" y="16.2" size="1.778" layer="27" display="off"/>
+<element name="TP2" library="testpad" package="B1,27" value="PTR1B1,27" x="27.7" y="16.2" smashed="yes">
+<attribute name="TP_SIGNAL_NAME" value="" x="27.065" y="14.295" size="1" layer="37"/>
+<attribute name="NAME" x="28.384" y="16.865" size="1.016" layer="25" rot="R90"/>
 </element>
-<element name="TP3" library="testpad" package="B1,27" value="PTR1B1,27" x="25.7" y="14.2">
-<attribute name="TP_SIGNAL_NAME" value="" x="25.7" y="14.2" size="1.778" layer="27" display="off"/>
+<element name="TP3" library="testpad" package="B1,27" value="PTR1B1,27" x="25.7" y="14.2" smashed="yes">
+<attribute name="TP_SIGNAL_NAME" value="" x="25.065" y="12.295" size="1" layer="37"/>
+<attribute name="NAME" x="24.784" y="12.165" size="1.016" layer="25" rot="R90"/>
+<attribute name="VALUE" x="25.065" y="13.438" size="0.0254" layer="27"/>
 </element>
-<element name="TP4" library="testpad" package="B1,27" value="PTR1B1,27" x="25.7" y="16.2">
-<attribute name="TP_SIGNAL_NAME" value="" x="25.7" y="16.2" size="1.778" layer="27" display="off"/>
+<element name="TP4" library="testpad" package="B1,27" value="PTR1B1,27" x="25.7" y="16.2" smashed="yes">
+<attribute name="TP_SIGNAL_NAME" value="" x="25.065" y="14.295" size="1" layer="37"/>
+<attribute name="NAME" x="26.184" y="16.865" size="1.016" layer="25" rot="R90"/>
 </element>
-<element name="TP5" library="testpad" package="B1,27" value="PTR1B1,27" x="29.8" y="50.3">
-<attribute name="TP_SIGNAL_NAME" value="" x="29.8" y="50.3" size="1.778" layer="27" display="off"/>
+<element name="TP5" library="testpad" package="B1,27" value="PTR1B1,27" x="29.8" y="50.3" smashed="yes">
+<attribute name="TP_SIGNAL_NAME" value="" x="29.165" y="48.395" size="1" layer="37"/>
+<attribute name="NAME" x="28.784" y="48.465" size="1.016" layer="25" rot="R90"/>
 </element>
-<element name="TP6" library="testpad" package="B1,27" value="PTR1B1,27" x="31.8" y="50.3">
-<attribute name="TP_SIGNAL_NAME" value="" x="31.8" y="50.3" size="1.778" layer="27" display="off"/>
+<element name="TP6" library="testpad" package="B1,27" value="PTR1B1,27" x="31.8" y="50.3" smashed="yes">
+<attribute name="TP_SIGNAL_NAME" value="" x="31.165" y="48.395" size="1" layer="37"/>
+<attribute name="NAME" x="32.465" y="49.816" size="1.016" layer="25"/>
 </element>
-<element name="TP7" library="testpad" package="B1,27" value="PTR1B1,27" x="19.6" y="54.5">
-<attribute name="TP_SIGNAL_NAME" value="" x="19.6" y="58.5" size="1.778" layer="27" display="off"/>
+<element name="TP7" library="testpad" package="B1,27" value="PTR1B1,27" x="19.6" y="54.5" smashed="yes">
+<attribute name="TP_SIGNAL_NAME" value="" x="18.965" y="52.595" size="1" layer="37"/>
+<attribute name="NAME" x="19.884" y="55.265" size="1.016" layer="25" rot="R90"/>
+<attribute name="VALUE" x="18.965" y="53.738" size="0.0254" layer="27"/>
 </element>
-<element name="TP8" library="testpad" package="B1,27" value="PTR1B1,27" x="38" y="4.5">
-<attribute name="TP_SIGNAL_NAME" value="" x="38" y="8.5" size="1.778" layer="27" display="off"/>
+<element name="TP8" library="testpad" package="B1,27" value="PTR1B1,27" x="38" y="4.5" smashed="yes">
+<attribute name="TP_SIGNAL_NAME" value="" x="37.365" y="2.595" size="1" layer="37"/>
+<attribute name="NAME" x="38.584" y="0.765" size="1.016" layer="25" rot="R90"/>
 </element>
-<element name="TP9" library="testpad" package="B1,27" value="PTR1B1,27" x="32" y="6.5">
-<attribute name="TP_SIGNAL_NAME" value="" x="32" y="10.5" size="1.778" layer="27" display="off"/>
+<element name="TP9" library="testpad" package="B1,27" value="PTR1B1,27" x="32" y="6.5" smashed="yes">
+<attribute name="TP_SIGNAL_NAME" value="" x="31.365" y="4.595" size="1" layer="37"/>
+<attribute name="NAME" x="32.584" y="7.065" size="1.016" layer="25" rot="R90"/>
 </element>
-<element name="TP10" library="testpad" package="B1,27" value="PTR1B1,27" x="32" y="4.5">
-<attribute name="TP_SIGNAL_NAME" value="" x="32" y="0.5" size="1.778" layer="27" display="off"/>
+<element name="TP10" library="testpad" package="B1,27" value="PTR1B1,27" x="32" y="4.5" smashed="yes">
+<attribute name="TP_SIGNAL_NAME" value="" x="31.365" y="2.595" size="1" layer="37"/>
+<attribute name="NAME" x="32.584" y="0.265" size="1.016" layer="25" rot="R90"/>
 </element>
-<element name="TP11" library="testpad" package="B1,27" value="PTR1B1,27" x="34" y="4.5">
-<attribute name="TP_SIGNAL_NAME" value="" x="34" y="4.5" size="1.778" layer="27" display="off"/>
+<element name="TP11" library="testpad" package="B1,27" value="PTR1B1,27" x="34" y="4.5" smashed="yes">
+<attribute name="TP_SIGNAL_NAME" value="" x="33.365" y="2.595" size="1" layer="37"/>
+<attribute name="NAME" x="34.484" y="0.365" size="1.016" layer="25" rot="R90"/>
 </element>
-<element name="TP12" library="testpad" package="B1,27" value="PTR1B1,27" x="36" y="6.5">
-<attribute name="TP_SIGNAL_NAME" value="" x="36" y="6.5" size="1.778" layer="27" display="off"/>
+<element name="TP12" library="testpad" package="B1,27" value="PTR1B1,27" x="36" y="6.5" smashed="yes">
+<attribute name="TP_SIGNAL_NAME" value="" x="35.365" y="4.595" size="1" layer="37"/>
+<attribute name="NAME" x="36.384" y="7.265" size="1.016" layer="25" rot="R90"/>
 </element>
-<element name="TP13" library="testpad" package="B1,27" value="PTR1B1,27" x="34" y="6.5">
-<attribute name="TP_SIGNAL_NAME" value="" x="34" y="6.5" size="1.778" layer="27" display="off"/>
+<element name="TP13" library="testpad" package="B1,27" value="PTR1B1,27" x="34" y="6.5" smashed="yes">
+<attribute name="TP_SIGNAL_NAME" value="" x="33.365" y="4.595" size="1" layer="37"/>
+<attribute name="NAME" x="34.384" y="7.365" size="1.016" layer="25" rot="R90"/>
 </element>
-<element name="TP14" library="testpad" package="B1,27" value="PTR1B1,27" x="38" y="6.5">
-<attribute name="TP_SIGNAL_NAME" value="" x="38" y="6.5" size="1.778" layer="27" display="off"/>
+<element name="TP14" library="testpad" package="B1,27" value="PTR1B1,27" x="38" y="6.5" smashed="yes">
+<attribute name="TP_SIGNAL_NAME" value="" x="37.365" y="4.595" size="1" layer="37"/>
+<attribute name="NAME" x="39.065" y="6.116" size="1.016" layer="25"/>
 </element>
-<element name="TP15" library="testpad" package="B1,27" value="PTR1B1,27" x="29.8" y="48.3">
-<attribute name="TP_SIGNAL_NAME" value="" x="29.8" y="48.3" size="1.778" layer="27" display="off"/>
+<element name="TP15" library="testpad" package="B1,27" value="PTR1B1,27" x="29.8" y="48.3" smashed="yes">
+<attribute name="TP_SIGNAL_NAME" value="" x="29.165" y="46.395" size="1" layer="37"/>
+<attribute name="NAME" x="29.165" y="46.316" size="1.016" layer="25"/>
 </element>
-<element name="TP17" library="testpad" package="B1,27" value="PTR1B1,27" x="46" y="30.5">
-<attribute name="TP_SIGNAL_NAME" value="" x="46" y="30.5" size="1.778" layer="27" display="off"/>
+<element name="TP17" library="testpad" package="B1,27" value="PTR1B1,27" x="46" y="30.5" smashed="yes">
+<attribute name="TP_SIGNAL_NAME" value="" x="45.365" y="28.595" size="1" layer="37"/>
+<attribute name="NAME" x="45.235" y="31.084" size="1.016" layer="25" rot="R180"/>
+<attribute name="VALUE" x="45.365" y="29.738" size="0.0254" layer="27"/>
 </element>
-<element name="TP18" library="testpad" package="B1,27" value="PTR1B1,27" x="36" y="4.5">
-<attribute name="TP_SIGNAL_NAME" value="" x="36" y="4.5" size="1.778" layer="27" display="off"/>
+<element name="TP18" library="testpad" package="B1,27" value="PTR1B1,27" x="36" y="4.5" smashed="yes">
+<attribute name="TP_SIGNAL_NAME" value="" x="35.365" y="2.595" size="1" layer="37"/>
+<attribute name="NAME" x="36.484" y="0.265" size="1.016" layer="25" rot="R90"/>
 </element>
-<element name="TP19" library="testpad" package="B1,27" value="PTR1B1,27" x="26" y="31.5">
-<attribute name="TP_SIGNAL_NAME" value="" x="26" y="31.5" size="1.778" layer="27" display="off"/>
+<element name="TP19" library="testpad" package="B1,27" value="PTR1B1,27" x="26" y="31.5" smashed="yes">
+<attribute name="TP_SIGNAL_NAME" value="" x="25.365" y="29.595" size="1" layer="37"/>
+<attribute name="NAME" x="26.484" y="32.465" size="1.016" layer="25" rot="R90"/>
 </element>
-<element name="TP20" library="testpad" package="B1,27" value="PTR1B1,27" x="24" y="31.5">
-<attribute name="TP_SIGNAL_NAME" value="" x="24" y="31.5" size="1.778" layer="27" display="off"/>
+<element name="TP20" library="testpad" package="B1,27" value="PTR1B1,27" x="24" y="31.5" smashed="yes">
+<attribute name="TP_SIGNAL_NAME" value="" x="23.365" y="29.595" size="1" layer="37"/>
+<attribute name="NAME" x="24.484" y="32.465" size="1.016" layer="25" rot="R90"/>
 </element>
-<element name="TP21" library="testpad" package="B1,27" value="PTR1B1,27" x="22" y="31.5">
-<attribute name="TP_SIGNAL_NAME" value="" x="22" y="31.5" size="1.778" layer="27" display="off"/>
+<element name="TP21" library="testpad" package="B1,27" value="PTR1B1,27" x="22" y="31.5" smashed="yes">
+<attribute name="TP_SIGNAL_NAME" value="" x="21.365" y="29.595" size="1" layer="37"/>
+<attribute name="NAME" x="22.384" y="32.465" size="1.016" layer="25" rot="R90"/>
 </element>
-<element name="TP22" library="testpad" package="B1,27" value="PTR1B1,27" x="20" y="31.5">
-<attribute name="TP_SIGNAL_NAME" value="" x="20" y="31.5" size="1.778" layer="27" display="off"/>
+<element name="TP22" library="testpad" package="B1,27" value="PTR1B1,27" x="20" y="31.5" smashed="yes">
+<attribute name="TP_SIGNAL_NAME" value="" x="19.365" y="29.595" size="1" layer="37"/>
+<attribute name="NAME" x="20.484" y="32.465" size="1.016" layer="25" rot="R90"/>
 </element>
-<element name="TP23" library="testpad" package="B1,27" value="PTR1B1,27" x="31.8" y="48.3">
-<attribute name="TP_SIGNAL_NAME" value="" x="31.8" y="48.3" size="1.778" layer="27" display="off"/>
+<element name="TP23" library="testpad" package="B1,27" value="PTR1B1,27" x="31.8" y="48.3" smashed="yes">
+<attribute name="TP_SIGNAL_NAME" value="" x="31.165" y="46.395" size="1" layer="37"/>
+<attribute name="NAME" x="32.665" y="47.916" size="1.016" layer="25"/>
 </element>
-<element name="TP24" library="testpad" package="B1,27" value="PTR1B1,27" x="8.8" y="8.5">
-<attribute name="TP_SIGNAL_NAME" value="" x="8.8" y="8.5" size="1.778" layer="27" display="off"/>
+<element name="TP24" library="testpad" package="B1,27" value="PTR1B1,27" x="8.8" y="8.5" smashed="yes">
+<attribute name="TP_SIGNAL_NAME" value="" x="8.165" y="6.595" size="1" layer="37"/>
+<attribute name="NAME" x="7.165" y="6.516" size="1.016" layer="25"/>
 </element>
-<element name="TP25" library="testpad" package="B1,27" value="PTR1B1,27" x="46" y="28.5">
-<attribute name="TP_SIGNAL_NAME" value="" x="46" y="28.5" size="1.778" layer="27" display="off"/>
+<element name="TP25" library="testpad" package="B1,27" value="PTR1B1,27" x="46" y="28.5" smashed="yes">
+<attribute name="TP_SIGNAL_NAME" value="" x="45.365" y="26.595" size="1" layer="37"/>
+<attribute name="NAME" x="45.135" y="28.284" size="1.016" layer="25" rot="R180"/>
+<attribute name="VALUE" x="45.365" y="27.738" size="0.0254" layer="27"/>
 </element>
-<element name="SJ1" library="SparkFun-Passives" package="SJ_2S-TRACE" value="SOLDERJUMPERTRACE" x="51.8" y="27.6" rot="R90"/>
-<element name="Z3" library="PaxInstrument-T400" package="SPARKFUN-RESISTORS_0603-RES" value="PGB1010603" x="52.8" y="21.4">
+<element name="SJ1" library="SparkFun-Passives" package="SJ_2S-TRACE" value="SOLDERJUMPERTRACE" x="51.8" y="27.6" smashed="yes" rot="R90">
+<attribute name="NAME" x="53.2475" y="26.87" size="1.016" layer="25"/>
+</element>
+<element name="Z3" library="PaxInstrument-T400" package="SPARKFUN-RESISTORS_0603-RES" value="PGB1010603" x="52.8" y="21.4" smashed="yes">
 <attribute name="MPN" value="PGB1010603NRHF" x="52.8" y="21.4" size="1.778" layer="27" display="off"/>
 <attribute name="MF" value="Littelfuse" x="52.8" y="21.4" size="1.778" layer="27" display="off"/>
+<attribute name="NAME" x="52.311" y="19.262" size="1.016" layer="25" font="vector"/>
+<attribute name="VALUE" x="51.916" y="20.143" size="1.016" layer="27" font="vector" rot="R180"/>
 </element>
 </elements>
 <signals>
@@ -5680,7 +5726,6 @@ Modified from Laen's PCB Order Design Rules</description>
 <wire x1="16.3178" y1="29.25" x2="17.35" y2="29.25" width="0.254" layer="1"/>
 <via x="16.3" y="31.9" extent="1-16" drill="0.3"/>
 <via x="30.3" y="7.6" extent="1-16" drill="0.3"/>
-<wire x1="29.9" y1="4" x2="30.3" y2="4" width="0.254" layer="1"/>
 <via x="22.25" y="3.9" extent="1-16" drill="0.3"/>
 <contactref element="U8" pad="P$7"/>
 <contactref element="U8" pad="P$9"/>
