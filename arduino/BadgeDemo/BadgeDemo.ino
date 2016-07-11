@@ -29,6 +29,7 @@
  */
 
 #include <ESP8266WiFi.h>
+#include <WiFiUDP.h>
 #include <WiFiClient.h>
 #include <ESP8266WebServer.h>
 #include <ESP8266mDNS.h>
@@ -38,6 +39,12 @@
 #include "mma8653.h"
 #include "matrix.h"
 #include "secrets.h"
+
+const int listen_port = 6454;
+
+byte buffer[512]; //buffer to hold incoming and outgoing UDP packets
+
+WiFiUDP Udp;
 
 ESP8266WebServer server ( 80 );
 
@@ -116,7 +123,7 @@ void setup ( void ) {
   // USB communication to PC
 	Serial.begin ( 460800 );
 	WiFi.begin ( ssid, password );  
-	Serial.println ( "" );
+//	Serial.println ( "" );
 
 //	// Wait for connection
 //	while ( WiFi.status() != WL_CONNECTED ) {
@@ -124,11 +131,13 @@ void setup ( void ) {
 //		Serial.print ( "." );
 //	}
 
-	Serial.println ( "" );
-	Serial.print ( "Connected to " );
-	Serial.println ( ssid );
-	Serial.print ( "IP address: " );
-	Serial.println ( WiFi.localIP() );
+//	Serial.println ( "" );
+//	Serial.print ( "Connected to " );
+//	Serial.println ( ssid );
+//	Serial.print ( "IP address: " );
+//	Serial.println ( WiFi.localIP() );
+
+  Udp.begin(listen_port);
 
 	if ( MDNS.begin ( "badge" ) ) {
 		Serial.println ( "MDNS responder started" );
@@ -237,6 +246,40 @@ void bleedTest() {
 }
 
 
+void handleUdpPacket(int noBytes) {
+//    Serial.print(millis() / 1000);
+//    Serial.print(":Packet of ");
+//    Serial.print(noBytes);
+//    Serial.print(" received from ");
+//    Serial.print(Udp.remoteIP());
+//    Serial.print(":");
+//    Serial.println(Udp.remotePort());
+    // We've received a packet, read the data from it
+    Udp.read(buffer,noBytes); // read the packet into the buffer
+  
+//    // display the packet contents in HEX
+//    for (int i=1;i<=noBytes;i++){
+//      Serial.print(buffer[i-1],HEX);
+//      if (i % 32 == 0){
+//        Serial.println();
+//      }
+//      else Serial.print(' ');
+//    } // end for
+  
+  // Todo: check for a valid art-net frame here
+  uint8_t* matrixData = matrix.getPixels();
+  uint8_t* udpData = &buffer[18];
+  memcpy(matrixData, udpData, LED_ROWS*LED_COLS*LED_BYTES_PER_PIXEL);
+  
+  for(int i = 0; i < LED_ROWS*LED_COLS*LED_BYTES_PER_PIXEL; i++) {
+    if(matrixData[i] == 255) {
+      matrixData[i] = 254;
+    }
+  }
+
+  matrix.show();
+}
+
 void loop ( void ) {
 	server.handleClient();
 
@@ -246,8 +289,17 @@ void loop ( void ) {
 
   buttonPressed = !digitalRead(button);
 
-  colorSwirl();
+  static bool streaming = false;
+  if(!streaming) {
+    colorSwirl();
 //  bleedTest();
+  }
+
+  int noBytes = Udp.parsePacket();
+  if ( noBytes ) {
+    streaming = true;
+    handleUdpPacket(noBytes);
+  }
 }
 
 void drawGraph() {
