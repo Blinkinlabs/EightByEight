@@ -94,13 +94,12 @@ void serial_begin(uint32_t divisor)
 	// Software RTS and DTR signals
 	CORE_PIN5_CONFIG = PORT_PCR_DSE | PORT_PCR_SRE | PORT_PCR_MUX(1);
 	CORE_PIN6_CONFIG = PORT_PCR_DSE | PORT_PCR_SRE | PORT_PCR_MUX(1);
-	GPIOB_PDDR |= 0x0003;
-	GPIOB_PSOR = 0x0003;
+	GPIOB_PDDR |= 0x03;
+	GPIOB_PSOR  = 0x03;
 
 	UART0_BDH = (divisor >> 13) & 0x1F;
 	UART0_BDL = (divisor >> 5) & 0xFF;
 	UART0_C4 = divisor & 0x1F;
-	//UART0_C1 = 0;
 	UART0_C1 = UART_C1_ILT;
 	UART0_TWFIFO = 2; // tx watermark, causes S1_TDRE to set
 	UART0_RWFIFO = 4; // rx watermark, causes S1_RDRF to set

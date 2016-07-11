@@ -335,12 +335,12 @@ static void usb_setup(void)
                 // NodeMCU style DTR/RTS handling
 		// TODO: Make this happen elsewhere?
 		if(rts() && !dtr()) {
-			GPIOB_PCOR = 0x1;
-			GPIOB_PSOR = 0x2;
+			GPIOB_PCOR = 0x01;
+			GPIOB_PSOR = 0x02;
 		}
 		else if(!rts() && dtr()) {
-			GPIOB_PCOR = 0x2;
-			GPIOB_PSOR = 0x1;
+			GPIOB_PCOR = 0x02;
+			GPIOB_PSOR = 0x01;
 		}
                 else {
                     GPIOB_PSOR = 0x3;
