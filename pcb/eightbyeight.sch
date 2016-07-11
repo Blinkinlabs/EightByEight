@@ -9011,7 +9011,7 @@ new: Attribute TP_SIGNAL_NAME&lt;br&gt;
 <part name="U2" library="blinkinlabs" deviceset="ICN2026" device=""/>
 <part name="GND2" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="C7" library="adafruit" deviceset="C-US" device="C0402" value="100nF"/>
-<part name="R1" library="adafruit" deviceset="R-US_" device="R0402" value="1.8k 1%"/>
+<part name="R1" library="adafruit" deviceset="R-US_" device="R0402" value="1.6k 1%"/>
 <part name="GND3" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="GND4" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="R7" library="adafruit" deviceset="R-US_" device="R0402" value="33"/>
@@ -9167,13 +9167,13 @@ new: Attribute TP_SIGNAL_NAME&lt;br&gt;
 <part name="C15" library="adafruit" deviceset="C-US" device="C0402" value="100nF"/>
 <part name="GND32" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="GND33" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
-<part name="R23" library="adafruit" deviceset="R-US_" device="R0402" value="47k"/>
-<part name="R25" library="adafruit" deviceset="R-US_" device="R0402" value="47k"/>
+<part name="R23" library="adafruit" deviceset="R-US_" device="R0402" value="10k"/>
+<part name="R25" library="adafruit" deviceset="R-US_" device="R0402" value="10k"/>
 <part name="3V16" library="supply1" deviceset="+3V3" device=""/>
 <part name="GND34" library="supply1" deviceset="GND" device=""/>
 <part name="FRAME5" library="frames" deviceset="A3L-LOC" device=""/>
-<part name="R26" library="adafruit" deviceset="R-US_" device="R0402" value="47k"/>
-<part name="R27" library="adafruit" deviceset="R-US_" device="R0402" value="47k"/>
+<part name="R26" library="adafruit" deviceset="R-US_" device="R0402" value="10k"/>
+<part name="R27" library="adafruit" deviceset="R-US_" device="R0402" value="10k"/>
 <part name="3V17" library="supply1" deviceset="+3V3" device=""/>
 <part name="3V18" library="supply1" deviceset="+3V3" device=""/>
 <part name="R28" library="adafruit" deviceset="R-US_" device="R0402" value="DNP"/>
@@ -9215,7 +9215,7 @@ new: Attribute TP_SIGNAL_NAME&lt;br&gt;
 <part name="5" library="testpad" deviceset="PTR1" device="B2,54"/>
 <part name="ANALOG_IN" library="testpad" deviceset="PTR1" device="B2,54"/>
 <part name="3V3" library="supply1" deviceset="+3V3" device=""/>
-<part name="R12" library="adafruit" deviceset="R-US_" device="R0402" value="47k"/>
+<part name="R12" library="adafruit" deviceset="R-US_" device="R0402" value="10k"/>
 <part name="TP16" library="testpad" deviceset="PTR1" device="B1,27"/>
 <part name="R21" library="adafruit" deviceset="R-US_" device="R0402" value="47k"/>
 <part name="GND35" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
@@ -9281,7 +9281,6 @@ Revision B:
 
 Revision D:
 -Replace ARM JTAG connector with test points for automated programming
--Change value of pullup resistors from 10k to 47k
 -Update filter caps for 3.3V regulator
 -Add test pads for production
 
@@ -9763,12 +9762,16 @@ firmware.</text>
 <wire x1="10.16" y1="175.26" x2="10.16" y2="251.46" width="0.4064" layer="94"/>
 <wire x1="246.38" y1="175.26" x2="246.38" y2="251.46" width="0.4064" layer="94"/>
 <wire x1="10.16" y1="175.26" x2="246.38" y2="175.26" width="0.4064" layer="94"/>
-<text x="160.02" y="228.6" size="1.778" layer="91">ESP826 Boot Select
+<text x="157.48" y="223.52" size="1.778" layer="91">ESP826 Boot Select
 UART Download:
 GPIO15 Low, GPIO0 Low, GPIO2 High
 
 Flash Boot:
-GPIO15 Low, GPIO0 Hight, GPIO2 High</text>
+GPIO15 Low, GPIO0 Hight, GPIO2 High
+
+Note: The ESP8266 needs strong pullup/down resistors
+on the boot select lines. 10k is stable, 47k is marginal,
+and 100k is unreliable.</text>
 <text x="15.24" y="157.48" size="1.778" layer="91">Note: The I2C bus runs at 100KHz</text>
 <text x="15.24" y="162.56" size="2.54" layer="94">I2C pullups</text>
 <wire x1="10.16" y1="170.18" x2="93.98" y2="170.18" width="0.4064" layer="94"/>
@@ -9811,18 +9814,18 @@ the ARM JTAG pins</text>
 <attribute name="VALUE" x="48.26" y="232.41" size="1.778" layer="96"/>
 </instance>
 <instance part="GND23" gate="1" x="50.8" y="185.42"/>
-<instance part="R23" gate="G$1" x="226.06" y="208.28" smashed="yes" rot="R90">
-<attribute name="NAME" x="225.0694" y="202.692" size="1.778" layer="95" rot="R90"/>
-<attribute name="VALUE" x="225.044" y="211.328" size="1.778" layer="96" rot="R90"/>
+<instance part="R23" gate="G$1" x="226.06" y="205.74" smashed="yes" rot="R90">
+<attribute name="NAME" x="225.0694" y="200.152" size="1.778" layer="95" rot="R90"/>
+<attribute name="VALUE" x="225.044" y="208.788" size="1.778" layer="96" rot="R90"/>
 </instance>
-<instance part="R25" gate="G$1" x="203.2" y="193.04" smashed="yes" rot="R90">
-<attribute name="NAME" x="202.2094" y="187.452" size="1.778" layer="95" rot="R90"/>
-<attribute name="VALUE" x="202.184" y="196.088" size="1.778" layer="96" rot="R90"/>
+<instance part="R25" gate="G$1" x="203.2" y="190.5" smashed="yes" rot="R90">
+<attribute name="NAME" x="202.2094" y="184.912" size="1.778" layer="95" rot="R90"/>
+<attribute name="VALUE" x="202.184" y="193.548" size="1.778" layer="96" rot="R90"/>
 </instance>
-<instance part="3V16" gate="G$1" x="226.06" y="218.44" smashed="yes">
-<attribute name="VALUE" x="223.52" y="219.71" size="1.778" layer="96"/>
+<instance part="3V16" gate="G$1" x="226.06" y="215.9" smashed="yes">
+<attribute name="VALUE" x="223.52" y="217.17" size="1.778" layer="96"/>
 </instance>
-<instance part="GND34" gate="1" x="203.2" y="182.88"/>
+<instance part="GND34" gate="1" x="203.2" y="180.34"/>
 <instance part="R17" gate="G$1" x="20.32" y="134.62" rot="R90"/>
 <instance part="R18" gate="G$1" x="25.4" y="134.62" rot="R90"/>
 <instance part="GND5" gate="1" x="121.92" y="109.22"/>
@@ -9870,12 +9873,12 @@ the ARM JTAG pins</text>
 <instance part="16" gate="G$1" x="287.02" y="215.9" rot="R90"/>
 <instance part="5" gate="G$1" x="287.02" y="226.06" rot="R90"/>
 <instance part="ANALOG_IN" gate="G$1" x="287.02" y="210.82" rot="R90"/>
-<instance part="3V3" gate="G$1" x="180.34" y="218.44" smashed="yes">
-<attribute name="VALUE" x="177.8" y="219.71" size="1.778" layer="96"/>
+<instance part="3V3" gate="G$1" x="180.34" y="215.9" smashed="yes">
+<attribute name="VALUE" x="177.8" y="217.17" size="1.778" layer="96"/>
 </instance>
-<instance part="R12" gate="G$1" x="180.34" y="208.28" smashed="yes" rot="R90">
-<attribute name="NAME" x="179.3494" y="202.692" size="1.778" layer="95" rot="R90"/>
-<attribute name="VALUE" x="179.324" y="211.328" size="1.778" layer="96" rot="R90"/>
+<instance part="R12" gate="G$1" x="180.34" y="205.74" smashed="yes" rot="R90">
+<attribute name="NAME" x="179.3494" y="200.152" size="1.778" layer="95" rot="R90"/>
+<attribute name="VALUE" x="179.324" y="208.788" size="1.778" layer="96" rot="R90"/>
 </instance>
 <instance part="3.3V" gate="G$1" x="287.02" y="198.12" rot="R90"/>
 <instance part="GROUND" gate="G$1" x="287.02" y="193.04" rot="R90"/>
@@ -9903,7 +9906,7 @@ the ARM JTAG pins</text>
 <segment>
 <pinref part="R25" gate="G$1" pin="1"/>
 <pinref part="GND34" gate="1" pin="GND"/>
-<wire x1="203.2" y1="187.96" x2="203.2" y2="185.42" width="0.1524" layer="91"/>
+<wire x1="203.2" y1="185.42" x2="203.2" y2="182.88" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="GND5" gate="1" pin="GND"/>
@@ -9954,7 +9957,7 @@ the ARM JTAG pins</text>
 <segment>
 <pinref part="3V16" gate="G$1" pin="+3V3"/>
 <pinref part="R23" gate="G$1" pin="2"/>
-<wire x1="226.06" y1="215.9" x2="226.06" y2="213.36" width="0.1524" layer="91"/>
+<wire x1="226.06" y1="213.36" x2="226.06" y2="210.82" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="R26" gate="G$1" pin="2"/>
@@ -10004,7 +10007,7 @@ the ARM JTAG pins</text>
 <segment>
 <pinref part="3V3" gate="G$1" pin="+3V3"/>
 <pinref part="R12" gate="G$1" pin="2"/>
-<wire x1="180.34" y1="215.9" x2="180.34" y2="213.36" width="0.1524" layer="91"/>
+<wire x1="180.34" y1="213.36" x2="180.34" y2="210.82" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="3.3V" gate="G$1" pin="TP"/>
@@ -10056,10 +10059,10 @@ the ARM JTAG pins</text>
 <label x="91.44" y="218.44" size="1.778" layer="95"/>
 </segment>
 <segment>
-<wire x1="180.34" y1="200.66" x2="162.56" y2="200.66" width="0.1524" layer="91"/>
+<wire x1="180.34" y1="198.12" x2="162.56" y2="198.12" width="0.1524" layer="91"/>
 <pinref part="R12" gate="G$1" pin="1"/>
-<wire x1="180.34" y1="203.2" x2="180.34" y2="200.66" width="0.1524" layer="91"/>
-<label x="162.56" y="200.66" size="1.778" layer="95"/>
+<wire x1="180.34" y1="200.66" x2="180.34" y2="198.12" width="0.1524" layer="91"/>
+<label x="162.56" y="198.12" size="1.778" layer="95"/>
 </segment>
 <segment>
 <pinref part="TP23" gate="G$1" pin="TP"/>
@@ -10075,9 +10078,9 @@ the ARM JTAG pins</text>
 </segment>
 <segment>
 <pinref part="R23" gate="G$1" pin="1"/>
-<wire x1="226.06" y1="203.2" x2="226.06" y2="200.66" width="0.1524" layer="91"/>
-<wire x1="226.06" y1="200.66" x2="210.82" y2="200.66" width="0.1524" layer="91"/>
-<label x="210.82" y="200.66" size="1.778" layer="95"/>
+<wire x1="226.06" y1="200.66" x2="226.06" y2="198.12" width="0.1524" layer="91"/>
+<wire x1="226.06" y1="198.12" x2="210.82" y2="198.12" width="0.1524" layer="91"/>
+<label x="210.82" y="198.12" size="1.778" layer="95"/>
 </segment>
 <segment>
 <pinref part="TP15" gate="G$1" pin="TP"/>
@@ -10093,9 +10096,9 @@ the ARM JTAG pins</text>
 </segment>
 <segment>
 <pinref part="R25" gate="G$1" pin="2"/>
-<wire x1="187.96" y1="200.66" x2="203.2" y2="200.66" width="0.1524" layer="91"/>
-<wire x1="203.2" y1="200.66" x2="203.2" y2="198.12" width="0.1524" layer="91"/>
-<label x="187.96" y="200.66" size="1.778" layer="95"/>
+<wire x1="187.96" y1="198.12" x2="203.2" y2="198.12" width="0.1524" layer="91"/>
+<wire x1="203.2" y1="198.12" x2="203.2" y2="195.58" width="0.1524" layer="91"/>
+<label x="187.96" y="198.12" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="BUTTON" class="0">

@@ -22,10 +22,10 @@
 <layer number="12" name="Route12" color="1" fill="5" visible="no" active="no"/>
 <layer number="13" name="Route13" color="4" fill="5" visible="no" active="no"/>
 <layer number="14" name="Route14" color="1" fill="6" visible="no" active="no"/>
-<layer number="15" name="Route" color="5" fill="1" visible="no" active="yes"/>
-<layer number="16" name="Bottom" color="1" fill="1" visible="no" active="yes"/>
-<layer number="17" name="Pads" color="10" fill="1" visible="no" active="yes"/>
-<layer number="18" name="Vias" color="10" fill="1" visible="no" active="yes"/>
+<layer number="15" name="Route" color="5" fill="1" visible="yes" active="yes"/>
+<layer number="16" name="Bottom" color="1" fill="1" visible="yes" active="yes"/>
+<layer number="17" name="Pads" color="10" fill="1" visible="yes" active="yes"/>
+<layer number="18" name="Vias" color="10" fill="1" visible="yes" active="yes"/>
 <layer number="19" name="Unrouted" color="6" fill="1" visible="no" active="yes"/>
 <layer number="20" name="Dimension" color="15" fill="1" visible="yes" active="yes"/>
 <layer number="21" name="tPlace" color="6" fill="1" visible="yes" active="yes"/>
@@ -34,9 +34,9 @@
 <layer number="24" name="bOrigins" color="15" fill="1" visible="no" active="yes"/>
 <layer number="25" name="tNames" color="11" fill="1" visible="no" active="yes"/>
 <layer number="26" name="bNames" color="7" fill="1" visible="no" active="yes"/>
-<layer number="27" name="tValues" color="11" fill="1" visible="yes" active="yes"/>
+<layer number="27" name="tValues" color="11" fill="1" visible="no" active="yes"/>
 <layer number="28" name="bValues" color="7" fill="1" visible="no" active="yes"/>
-<layer number="29" name="tStop" color="7" fill="3" visible="no" active="yes"/>
+<layer number="29" name="tStop" color="7" fill="3" visible="yes" active="yes"/>
 <layer number="30" name="bStop" color="7" fill="6" visible="no" active="yes"/>
 <layer number="31" name="tCream" color="7" fill="4" visible="no" active="yes"/>
 <layer number="32" name="bCream" color="7" fill="5" visible="no" active="yes"/>
@@ -4907,7 +4907,7 @@ Modified from Laen's PCB Order Design Rules</description>
 <attribute name="NAME" x="5.235" y="15.638" size="1.016" layer="25" rot="R180"/>
 <attribute name="VALUE" x="5.235" y="15.605" size="1.016" layer="27" rot="R180"/>
 </element>
-<element name="R1" library="adafruit" package="R0402" value="1.8k 1%" x="16.3" y="14.7" smashed="yes" rot="R180">
+<element name="R1" library="adafruit" package="R0402" value="1.6k 1%" x="16.3" y="14.7" smashed="yes" rot="R180">
 <attribute name="NAME" x="16.065" y="13.062" size="1.016" layer="25"/>
 <attribute name="VALUE" x="17.168" y="13.835" size="1.016" layer="27" rot="R270"/>
 </element>
@@ -5139,19 +5139,19 @@ Modified from Laen's PCB Order Design Rules</description>
 <attribute name="NAME" x="21.162" y="49.335" size="1.016" layer="25" rot="R270"/>
 <attribute name="VALUE" x="21.195" y="49.335" size="1.016" layer="27" rot="R270"/>
 </element>
-<element name="R23" library="adafruit" package="R0402" value="47k" x="32.5" y="52.6" smashed="yes" rot="R90">
+<element name="R23" library="adafruit" package="R0402" value="10k" x="32.5" y="52.6" smashed="yes" rot="R90">
 <attribute name="NAME" x="33.138" y="54.665" size="1.016" layer="25" rot="R90"/>
 <attribute name="VALUE" x="33.132" y="54.665" size="1.016" layer="27" rot="R90"/>
 </element>
-<element name="R25" library="adafruit" package="R0402" value="47k" x="34.9" y="52.6" smashed="yes" rot="R270">
+<element name="R25" library="adafruit" package="R0402" value="10k" x="34.9" y="52.6" smashed="yes" rot="R270">
 <attribute name="NAME" x="36.038" y="54.665" size="1.016" layer="25" rot="R90"/>
 <attribute name="VALUE" x="36.032" y="54.765" size="1.016" layer="27" rot="R90"/>
 </element>
-<element name="R26" library="adafruit" package="R0402" value="47k" x="36.1" y="52.6" smashed="yes" rot="R90">
+<element name="R26" library="adafruit" package="R0402" value="10k" x="36.1" y="52.6" smashed="yes" rot="R90">
 <attribute name="NAME" x="37.538" y="54.665" size="1.016" layer="25" rot="R90"/>
 <attribute name="VALUE" x="37.532" y="54.665" size="1.016" layer="27" rot="R90"/>
 </element>
-<element name="R27" library="adafruit" package="R0402" value="47k" x="48.2" y="30.55" smashed="yes">
+<element name="R27" library="adafruit" package="R0402" value="10k" x="48.2" y="30.55" smashed="yes">
 <attribute name="NAME" x="49.835" y="32.188" size="1.016" layer="25" rot="R180"/>
 <attribute name="VALUE" x="44.465" y="30.118" size="1.016" layer="27"/>
 </element>
@@ -5232,7 +5232,7 @@ Modified from Laen's PCB Order Design Rules</description>
 <attribute name="TP_SIGNAL_NAME" value="" x="55.83" y="33.725" size="1" layer="37"/>
 <attribute name="NAME" x="59.03" y="36.551" size="1.016" layer="25"/>
 </element>
-<element name="R12" library="adafruit" package="R0402" value="47k" x="33.7" y="52.6" smashed="yes" rot="R90">
+<element name="R12" library="adafruit" package="R0402" value="10k" x="33.7" y="52.6" smashed="yes" rot="R90">
 <attribute name="NAME" x="34.438" y="54.665" size="1.016" layer="25" rot="R90"/>
 <attribute name="VALUE" x="34.632" y="54.665" size="1.016" layer="27" rot="R90"/>
 </element>
