@@ -8996,6 +8996,39 @@ new: Attribute TP_SIGNAL_NAME&lt;br&gt;
 </deviceset>
 </devicesets>
 </library>
+<library name="DevicesToMerge">
+<packages>
+<package name="IO_HOLE_3MM">
+<pad name="1" x="0" y="0" drill="3" diameter="5" thermals="no"/>
+</package>
+</packages>
+<symbols>
+<symbol name="TEST_POINT">
+<pin name="P$1" x="-5.08" y="0" length="middle"/>
+<wire x1="0" y1="1.27" x2="7.62" y2="1.27" width="0.254" layer="94"/>
+<wire x1="7.62" y1="1.27" x2="7.62" y2="-1.27" width="0.254" layer="94"/>
+<wire x1="7.62" y1="-1.27" x2="0" y2="-1.27" width="0.254" layer="94"/>
+<wire x1="0" y1="-1.27" x2="0" y2="1.27" width="0.254" layer="94"/>
+</symbol>
+</symbols>
+<devicesets>
+<deviceset name="TEST_POINT">
+<gates>
+<gate name="G$1" symbol="TEST_POINT" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="IO_HOLE_3MM">
+<connects>
+<connect gate="G$1" pin="P$1" pad="1"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+</devicesets>
+</library>
 </libraries>
 <attributes>
 </attributes>
@@ -9017,9 +9050,9 @@ new: Attribute TP_SIGNAL_NAME&lt;br&gt;
 <part name="R7" library="adafruit" deviceset="R-US_" device="R0402" value="33"/>
 <part name="R8" library="adafruit" deviceset="R-US_" device="R0402" value="33"/>
 <part name="GND7" library="supply1" deviceset="GND" device=""/>
-<part name="CON1" library="blinkinlabs" deviceset="USB_MICRO" device="SMT+THRUHULE"/>
+<part name="J1" library="blinkinlabs" deviceset="USB_MICRO" device="SMT+THRUHULE"/>
 <part name="GND17" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
-<part name="R6" library="adafruit" deviceset="R-US_" device="R0402" value="47k"/>
+<part name="R6" library="adafruit" deviceset="R-US_" device="R0402" value="10k"/>
 <part name="C8" library="adafruit" deviceset="C-US" device="C0402" value="100nF"/>
 <part name="GND13" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="P+8" library="supply1" deviceset="+5V" device=""/>
@@ -9049,10 +9082,10 @@ new: Attribute TP_SIGNAL_NAME&lt;br&gt;
 <attribute name="MF" value="Littelfuse"/>
 <attribute name="MPN" value="PGB1010603NRHF"/>
 </part>
-<part name="R2" library="adafruit" deviceset="R-US_" device="R0402" value="2k"/>
-<part name="R3" library="adafruit" deviceset="R-US_" device="R0402" value="2k"/>
-<part name="R4" library="adafruit" deviceset="R-US_" device="R0402" value="2k"/>
-<part name="R5" library="adafruit" deviceset="R-US_" device="R0402" value="2k"/>
+<part name="R2" library="adafruit" deviceset="R-US_" device="R0402" value="4.7k"/>
+<part name="R3" library="adafruit" deviceset="R-US_" device="R0402" value="4.7k"/>
+<part name="R4" library="adafruit" deviceset="R-US_" device="R0402" value="4.7k"/>
+<part name="R5" library="adafruit" deviceset="R-US_" device="R0402" value="4.7k"/>
 <part name="GND8" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="U4" library="blinkinlabs" deviceset="ICN2026" device=""/>
 <part name="GND9" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
@@ -9135,15 +9168,15 @@ new: Attribute TP_SIGNAL_NAME&lt;br&gt;
 <part name="GND24" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="GND25" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="GND26" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
-<part name="R13" library="adafruit" deviceset="R-US_" device="R0402" value="2k"/>
-<part name="R14" library="adafruit" deviceset="R-US_" device="R0402" value="2k"/>
-<part name="R15" library="adafruit" deviceset="R-US_" device="R0402" value="2k"/>
-<part name="R16" library="adafruit" deviceset="R-US_" device="R0402" value="2k"/>
+<part name="R13" library="adafruit" deviceset="R-US_" device="R0402" value="4.7k"/>
+<part name="R14" library="adafruit" deviceset="R-US_" device="R0402" value="4.7k"/>
+<part name="R15" library="adafruit" deviceset="R-US_" device="R0402" value="4.7k"/>
+<part name="R16" library="adafruit" deviceset="R-US_" device="R0402" value="4.7k"/>
 <part name="GND27" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="GND28" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="GND29" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="GND30" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
-<part name="BAT" library="blinkinlabs" deviceset="BATTERY" device=""/>
+<part name="J2" library="blinkinlabs" deviceset="BATTERY" device=""/>
 <part name="U10" library="teensy_adapter" deviceset="FDG6316P" device=""/>
 <part name="P+15" library="supply1" deviceset="+5V" device=""/>
 <part name="P+16" library="supply1" deviceset="+5V" device=""/>
@@ -9181,7 +9214,7 @@ new: Attribute TP_SIGNAL_NAME&lt;br&gt;
 <part name="3V4" library="supply1" deviceset="+3V3" device=""/>
 <part name="3V6" library="supply1" deviceset="+3V3" device=""/>
 <part name="3V12" library="supply1" deviceset="+3V3" device=""/>
-<part name="U$8" library="blinkinlabs" deviceset="MP3401A" device=""/>
+<part name="U7" library="blinkinlabs" deviceset="MP3401A" device=""/>
 <part name="L1" library="blinkinlabs" deviceset="L" device="CD43" value="2.2uH"/>
 <part name="GND10" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="GND12" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
@@ -9211,16 +9244,11 @@ new: Attribute TP_SIGNAL_NAME&lt;br&gt;
 <part name="D3" library="adafruit" deviceset="DIODE" device="SOD-123" value="RB161M-20"/>
 <part name="R11" library="adafruit" deviceset="R-US_" device="R0805" value="47"/>
 <part name="GND43" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
-<part name="16" library="testpad" deviceset="PTR1" device="B2,54"/>
-<part name="5" library="testpad" deviceset="PTR1" device="B2,54"/>
-<part name="ANALOG_IN" library="testpad" deviceset="PTR1" device="B2,54"/>
 <part name="3V3" library="supply1" deviceset="+3V3" device=""/>
 <part name="R12" library="adafruit" deviceset="R-US_" device="R0402" value="10k"/>
 <part name="TP16" library="testpad" deviceset="PTR1" device="B1,27"/>
-<part name="R21" library="adafruit" deviceset="R-US_" device="R0402" value="47k"/>
+<part name="R21" library="adafruit" deviceset="R-US_" device="R0402" value="10k"/>
 <part name="GND35" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
-<part name="3.3V" library="testpad" deviceset="PTR1" device="B2,54"/>
-<part name="GROUND" library="testpad" deviceset="PTR1" device="B2,54"/>
 <part name="3V7" library="supply1" deviceset="+3V3" device=""/>
 <part name="GND44" library="supply1" deviceset="GND" device=""/>
 <part name="D4" library="adafruit" deviceset="LED" device="CHIP-LED0603" value="PURPLE"/>
@@ -9258,6 +9286,10 @@ new: Attribute TP_SIGNAL_NAME&lt;br&gt;
 </part>
 <part name="GND45" library="supply1" deviceset="GND" device=""/>
 <part name="GND46" library="supply1" deviceset="GND" device=""/>
+<part name="U$2" library="DevicesToMerge" deviceset="TEST_POINT" device=""/>
+<part name="U$6" library="DevicesToMerge" deviceset="TEST_POINT" device=""/>
+<part name="U$9" library="DevicesToMerge" deviceset="TEST_POINT" device=""/>
+<part name="U$10" library="DevicesToMerge" deviceset="TEST_POINT" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -9284,11 +9316,11 @@ Revision D:
 -Update filter caps for 3.3V regulator
 -Add test pads for production
 
-TODO:
+Revision E:
 -Implement more user friendly expansion pads for the ESP
--Cosmetic: ESP8266 GPIO 18mislabeled, should be 16
--Characterize the power situation
--test a flush-mount USB connector</text>
+
+TODO:
+-Cosmetic: ESP8266 GPIO 18mislabeled, should be 16</text>
 <text x="129.54" y="358.14" size="10.16" layer="91" align="bottom-center">EightByEight Blinky Badge</text>
 <text x="129.54" y="345.44" size="6.4516" layer="91" align="bottom-center">Copyright 2016 Blinkinlabs, LLC</text>
 </plain>
@@ -9352,7 +9384,7 @@ firmware.</text>
 <attribute name="VALUE" x="76.962" y="50.546" size="1.778" layer="96"/>
 </instance>
 <instance part="GND7" gate="1" x="40.64" y="22.86"/>
-<instance part="CON1" gate="G$1" x="27.94" y="53.34"/>
+<instance part="J1" gate="G$1" x="27.94" y="53.34"/>
 <instance part="C2" gate="G$1" x="30.48" y="215.9"/>
 <instance part="C5" gate="G$1" x="15.24" y="187.96"/>
 <instance part="GND14" gate="1" x="15.24" y="177.8"/>
@@ -9453,10 +9485,10 @@ firmware.</text>
 </segment>
 <segment>
 <pinref part="GND7" gate="1" pin="GND"/>
-<pinref part="CON1" gate="G$1" pin="GND"/>
+<pinref part="J1" gate="G$1" pin="GND"/>
 <wire x1="40.64" y1="48.26" x2="35.56" y2="48.26" width="0.1524" layer="91"/>
 <wire x1="40.64" y1="48.26" x2="40.64" y2="43.18" width="0.1524" layer="91"/>
-<pinref part="CON1" gate="G$1" pin="SHIELD"/>
+<pinref part="J1" gate="G$1" pin="SHIELD"/>
 <wire x1="40.64" y1="43.18" x2="40.64" y2="25.4" width="0.1524" layer="91"/>
 <wire x1="35.56" y1="43.18" x2="40.64" y2="43.18" width="0.1524" layer="91"/>
 <junction x="40.64" y="43.18"/>
@@ -9505,7 +9537,7 @@ firmware.</text>
 <segment>
 <pinref part="R7" gate="G$1" pin="1"/>
 <wire x1="35.56" y1="55.88" x2="55.88" y2="55.88" width="0.1524" layer="91"/>
-<pinref part="CON1" gate="G$1" pin="D-"/>
+<pinref part="J1" gate="G$1" pin="D-"/>
 <wire x1="55.88" y1="55.88" x2="68.58" y2="55.88" width="0.1524" layer="91"/>
 <wire x1="55.88" y1="55.88" x2="55.88" y2="45.72" width="0.1524" layer="91"/>
 <junction x="55.88" y="55.88"/>
@@ -9516,7 +9548,7 @@ firmware.</text>
 <segment>
 <pinref part="R8" gate="G$1" pin="1"/>
 <wire x1="68.58" y1="53.34" x2="63.5" y2="53.34" width="0.1524" layer="91"/>
-<pinref part="CON1" gate="G$1" pin="D+"/>
+<pinref part="J1" gate="G$1" pin="D+"/>
 <wire x1="63.5" y1="53.34" x2="35.56" y2="53.34" width="0.1524" layer="91"/>
 <wire x1="63.5" y1="53.34" x2="63.5" y2="45.72" width="0.1524" layer="91"/>
 <junction x="63.5" y="53.34"/>
@@ -9704,7 +9736,7 @@ firmware.</text>
 <net name="USB_5V" class="0">
 <segment>
 <label x="50.8" y="58.42" size="1.778" layer="95"/>
-<pinref part="CON1" gate="G$1" pin="VCC"/>
+<pinref part="J1" gate="G$1" pin="VCC"/>
 <wire x1="58.42" y1="58.42" x2="48.26" y2="58.42" width="0.1524" layer="91"/>
 <pinref part="Z3" gate="G$1" pin="2"/>
 <wire x1="48.26" y1="58.42" x2="35.56" y2="58.42" width="0.1524" layer="91"/>
@@ -9870,9 +9902,6 @@ the ARM JTAG pins</text>
 <instance part="3V12" gate="G$1" x="20.32" y="147.32" smashed="yes">
 <attribute name="VALUE" x="17.78" y="148.59" size="1.778" layer="96"/>
 </instance>
-<instance part="16" gate="G$1" x="287.02" y="215.9" rot="R90"/>
-<instance part="5" gate="G$1" x="287.02" y="226.06" rot="R90"/>
-<instance part="ANALOG_IN" gate="G$1" x="287.02" y="210.82" rot="R90"/>
 <instance part="3V3" gate="G$1" x="180.34" y="215.9" smashed="yes">
 <attribute name="VALUE" x="177.8" y="217.17" size="1.778" layer="96"/>
 </instance>
@@ -9880,8 +9909,6 @@ the ARM JTAG pins</text>
 <attribute name="NAME" x="179.3494" y="200.152" size="1.778" layer="95" rot="R90"/>
 <attribute name="VALUE" x="179.324" y="208.788" size="1.778" layer="96" rot="R90"/>
 </instance>
-<instance part="3.3V" gate="G$1" x="287.02" y="198.12" rot="R90"/>
-<instance part="GROUND" gate="G$1" x="287.02" y="193.04" rot="R90"/>
 <instance part="3V7" gate="G$1" x="281.94" y="203.2" smashed="yes">
 <attribute name="VALUE" x="279.4" y="204.47" size="1.778" layer="96"/>
 </instance>
@@ -9892,6 +9919,10 @@ the ARM JTAG pins</text>
 <instance part="TP17" gate="G$1" x="307.34" y="137.16" rot="R90"/>
 <instance part="TP23" gate="G$1" x="307.34" y="121.92" rot="R90"/>
 <instance part="TP25" gate="G$1" x="307.34" y="116.84" rot="R90"/>
+<instance part="U$2" gate="G$1" x="292.1" y="193.04"/>
+<instance part="U$6" gate="G$1" x="292.1" y="226.06"/>
+<instance part="U$9" gate="G$1" x="292.1" y="215.9"/>
+<instance part="U$10" gate="G$1" x="292.1" y="198.12"/>
 </instances>
 <busses>
 </busses>
@@ -9941,10 +9972,10 @@ the ARM JTAG pins</text>
 <pinref part="GND31" gate="1" pin="GND"/>
 </segment>
 <segment>
-<pinref part="GROUND" gate="G$1" pin="TP"/>
-<wire x1="284.48" y1="193.04" x2="281.94" y2="193.04" width="0.1524" layer="91"/>
 <wire x1="281.94" y1="193.04" x2="281.94" y2="190.5" width="0.1524" layer="91"/>
 <pinref part="GND44" gate="1" pin="GND"/>
+<pinref part="U$2" gate="G$1" pin="P$1"/>
+<wire x1="287.02" y1="193.04" x2="281.94" y2="193.04" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="+3V3" class="0">
@@ -10010,10 +10041,10 @@ the ARM JTAG pins</text>
 <wire x1="180.34" y1="213.36" x2="180.34" y2="210.82" width="0.1524" layer="91"/>
 </segment>
 <segment>
-<pinref part="3.3V" gate="G$1" pin="TP"/>
-<wire x1="284.48" y1="198.12" x2="281.94" y2="198.12" width="0.1524" layer="91"/>
 <wire x1="281.94" y1="198.12" x2="281.94" y2="200.66" width="0.1524" layer="91"/>
 <pinref part="3V7" gate="G$1" pin="+3V3"/>
+<pinref part="U$10" gate="G$1" pin="P$1"/>
+<wire x1="287.02" y1="198.12" x2="281.94" y2="198.12" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="ARM_TX" class="0">
@@ -10175,9 +10206,9 @@ the ARM JTAG pins</text>
 <label x="91.44" y="213.36" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="5" gate="G$1" pin="TP"/>
-<wire x1="284.48" y1="226.06" x2="264.16" y2="226.06" width="0.1524" layer="91"/>
 <label x="266.7" y="226.06" size="1.778" layer="95"/>
+<pinref part="U$6" gate="G$1" pin="P$1"/>
+<wire x1="287.02" y1="226.06" x2="264.16" y2="226.06" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="ESP_GPIO16" class="0">
@@ -10187,17 +10218,12 @@ the ARM JTAG pins</text>
 <label x="91.44" y="200.66" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="16" gate="G$1" pin="TP"/>
-<wire x1="284.48" y1="215.9" x2="264.16" y2="215.9" width="0.1524" layer="91"/>
+<wire x1="287.02" y1="215.9" x2="264.16" y2="215.9" width="0.1524" layer="91"/>
 <label x="266.7" y="215.9" size="1.778" layer="95"/>
+<pinref part="U$9" gate="G$1" pin="P$1"/>
 </segment>
 </net>
 <net name="ESP_TOUT" class="0">
-<segment>
-<pinref part="ANALOG_IN" gate="G$1" pin="TP"/>
-<wire x1="284.48" y1="210.82" x2="264.16" y2="210.82" width="0.1524" layer="91"/>
-<label x="266.7" y="210.82" size="1.778" layer="95"/>
-</segment>
 <segment>
 <pinref part="U6" gate="G$1" pin="TOUT"/>
 <wire x1="53.34" y1="205.74" x2="25.4" y2="205.74" width="0.1524" layer="91"/>
@@ -10266,8 +10292,8 @@ rapid on/off power cycles</text>
 <attribute name="NAME" x="57.785" y="118.11" size="1.778" layer="95" rot="R180"/>
 <attribute name="VALUE" x="55.88" y="107.95" size="1.778" layer="96"/>
 </instance>
-<instance part="BAT" gate="G$1" x="25.4" y="193.04" rot="R270"/>
-<instance part="U$8" gate="G$1" x="91.44" y="208.28"/>
+<instance part="J2" gate="G$1" x="25.4" y="193.04" rot="R270"/>
+<instance part="U7" gate="G$1" x="91.44" y="208.28"/>
 <instance part="L1" gate="G$1" x="45.72" y="215.9" rot="R180"/>
 <instance part="GND10" gate="1" x="76.2" y="187.96"/>
 <instance part="GND12" gate="1" x="109.22" y="187.96"/>
@@ -10315,17 +10341,17 @@ rapid on/off power cycles</text>
 <net name="GND" class="0">
 <segment>
 <pinref part="GND17" gate="1" pin="GND"/>
-<pinref part="BAT" gate="G$1" pin="-"/>
+<pinref part="J2" gate="G$1" pin="-"/>
 <wire x1="25.4" y1="185.42" x2="25.4" y2="180.34" width="0.1524" layer="91"/>
 </segment>
 <segment>
-<pinref part="U$8" gate="G$1" pin="PGND"/>
+<pinref part="U7" gate="G$1" pin="PGND"/>
 <wire x1="78.74" y1="208.28" x2="76.2" y2="208.28" width="0.1524" layer="91"/>
 <wire x1="76.2" y1="208.28" x2="76.2" y2="190.5" width="0.1524" layer="91"/>
 <pinref part="GND10" gate="1" pin="GND"/>
 </segment>
 <segment>
-<pinref part="U$8" gate="G$1" pin="GND"/>
+<pinref part="U7" gate="G$1" pin="GND"/>
 <wire x1="106.68" y1="208.28" x2="109.22" y2="208.28" width="0.1524" layer="91"/>
 <wire x1="109.22" y1="208.28" x2="109.22" y2="190.5" width="0.1524" layer="91"/>
 <pinref part="GND12" gate="1" pin="GND"/>
@@ -10385,7 +10411,7 @@ rapid on/off power cycles</text>
 </net>
 <net name="USB_5V" class="0">
 <segment>
-<pinref part="U$8" gate="G$1" pin="VCC"/>
+<pinref part="U7" gate="G$1" pin="VCC"/>
 <wire x1="53.34" y1="203.2" x2="66.04" y2="203.2" width="0.1524" layer="91"/>
 <label x="53.34" y="203.2" size="1.778" layer="95"/>
 <pinref part="C17" gate="G$1" pin="1"/>
@@ -10406,13 +10432,13 @@ rapid on/off power cycles</text>
 <label x="111.76" y="205.74" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="U$8" gate="G$1" pin="LED2"/>
+<pinref part="U7" gate="G$1" pin="LED2"/>
 <wire x1="106.68" y1="205.74" x2="127" y2="205.74" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$3" class="0">
 <segment>
-<pinref part="U$8" gate="G$1" pin="LX"/>
+<pinref part="U7" gate="G$1" pin="LX"/>
 <wire x1="78.74" y1="210.82" x2="76.2" y2="210.82" width="0.1524" layer="91"/>
 <wire x1="76.2" y1="210.82" x2="76.2" y2="226.06" width="0.1524" layer="91"/>
 <pinref part="L1" gate="G$1" pin="2"/>
@@ -10425,12 +10451,12 @@ rapid on/off power cycles</text>
 </net>
 <net name="VBAT" class="0">
 <segment>
-<pinref part="U$8" gate="G$1" pin="BAT"/>
+<pinref part="U7" gate="G$1" pin="BAT"/>
 <wire x1="78.74" y1="205.74" x2="45.72" y2="205.74" width="0.1524" layer="91"/>
 <pinref part="L1" gate="G$1" pin="1"/>
 <wire x1="45.72" y1="205.74" x2="25.4" y2="205.74" width="0.1524" layer="91"/>
 <wire x1="45.72" y1="200.66" x2="45.72" y2="205.74" width="0.1524" layer="91"/>
-<pinref part="BAT" gate="G$1" pin="+"/>
+<pinref part="J2" gate="G$1" pin="+"/>
 <wire x1="45.72" y1="205.74" x2="45.72" y2="208.28" width="0.1524" layer="91"/>
 <wire x1="25.4" y1="205.74" x2="25.4" y2="198.12" width="0.1524" layer="91"/>
 <label x="25.4" y="210.82" size="1.778" layer="95" rot="R90"/>
@@ -10447,7 +10473,7 @@ rapid on/off power cycles</text>
 </net>
 <net name="BOOST_5V" class="0">
 <segment>
-<pinref part="U$8" gate="G$1" pin="OUT"/>
+<pinref part="U7" gate="G$1" pin="OUT"/>
 <wire x1="106.68" y1="210.82" x2="134.62" y2="210.82" width="0.1524" layer="91"/>
 <wire x1="134.62" y1="210.82" x2="134.62" y2="208.28" width="0.1524" layer="91"/>
 <pinref part="C9" gate="G$1" pin="1"/>
@@ -10547,7 +10573,7 @@ rapid on/off power cycles</text>
 <label x="111.76" y="203.2" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="U$8" gate="G$1" pin="LED1"/>
+<pinref part="U7" gate="G$1" pin="LED1"/>
 <wire x1="106.68" y1="203.2" x2="116.84" y2="203.2" width="0.1524" layer="91"/>
 </segment>
 </net>
