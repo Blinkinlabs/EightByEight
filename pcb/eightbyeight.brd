@@ -5960,11 +5960,12 @@ Modified from Laen's PCB Order Design Rules</description>
 <via x="39.1" y="11.8" extent="1-16" drill="0.3"/>
 <via x="45.5" y="11.2" extent="1-16" drill="0.3"/>
 <contactref element="U$2" pad="1"/>
-<wire x1="50.5" y1="55.95" x2="50.45" y2="55.95" width="0.254" layer="2"/>
-<wire x1="50.45" y1="55.95" x2="50" y2="55.5" width="0.254" layer="2"/>
-<wire x1="50" y1="55.5" x2="50" y2="41.3" width="0.254" layer="2"/>
-<wire x1="50" y1="41.3" x2="50.2" y2="41.1" width="0.254" layer="2"/>
 <via x="32.6" y="26.2" extent="1-16" drill="0.3"/>
+<wire x1="50.5" y1="55.95" x2="50.2" y2="55.65" width="0.254" layer="16"/>
+<wire x1="50.2" y1="55.65" x2="50" y2="55.45" width="0.254" layer="16"/>
+<wire x1="50" y1="55.45" x2="50" y2="53.1" width="0.254" layer="16"/>
+<wire x1="50" y1="53.1" x2="50.2" y2="52.9" width="0.254" layer="16"/>
+<wire x1="50.2" y1="52.9" x2="50.2" y2="41.1" width="0.254" layer="16"/>
 </signal>
 <signal name="LED_STB">
 <contactref element="U2" pad="4"/>
@@ -9336,8 +9337,8 @@ Modified from Laen's PCB Order Design Rules</description>
 <approved hash="5,1,e26af92dc512ce55"/>
 <approved hash="5,1,d11be0a01b47bd7f"/>
 <approved hash="5,1,c44649b1b837fd4c"/>
-<approved hash="5,1,c12c33133416c0b1"/>
 <approved hash="19,1,3fc87080989d8ee3"/>
+<approved hash="5,1,c12c33133416c0b1"/>
 <approved hash="5,1,121b15ccdc49a162"/>
 <approved hash="5,1,97507c618d01a046"/>
 <approved hash="5,1,e268359029adce55"/>
@@ -9387,38 +9388,38 @@ Modified from Laen's PCB Order Design Rules</description>
 <approved hash="19,1,14f3da89d47e1a04"/>
 <approved hash="19,1,e9e686a4e9c5d1e6"/>
 <approved hash="5,1,ddda684359ef07a2"/>
-<approved hash="19,1,3f24aa62f831be89"/>
 <approved hash="19,1,2adfc6f88713b8ca"/>
+<approved hash="19,1,3f24aa62f831be89"/>
 <approved hash="19,1,d970af6d01a4658a"/>
 <approved hash="19,1,10eae9941a878813"/>
 <approved hash="19,1,c390257348111ec2"/>
 <approved hash="4,1,9f6ff48005689660"/>
 <approved hash="4,1,bd99f1800528b052"/>
-<approved hash="6,1,f2ef7903fde67f1f"/>
 <approved hash="6,1,ccb6907fec077218"/>
-<approved hash="6,1,d50c909fed976ce2"/>
+<approved hash="6,1,f2ef7903fde67f1f"/>
 <approved hash="6,1,15b576b3f3069681"/>
-<approved hash="6,1,f8720201be302baa"/>
-<approved hash="6,1,fd2016a5c72781e9"/>
-<approved hash="6,1,f2b018a136f396a7"/>
+<approved hash="6,1,d50c909fed976ce2"/>
 <approved hash="6,1,f9460381b88033e4"/>
+<approved hash="6,1,f2b018a136f396a7"/>
+<approved hash="6,1,fd2016a5c72781e9"/>
+<approved hash="6,1,f8720201be302baa"/>
 <approved hash="4,16,bff14c835f6b4be1"/>
 <approved hash="4,16,69d3ba82bb6b0bc3"/>
 <approved hash="19,16,c7d8ede52db1d462"/>
 <approved hash="5,16,66996a79697e8802"/>
-<approved hash="4,16,9f6ff48005689660"/>
 <approved hash="4,16,bd99f1800528b052"/>
-<approved hash="6,16,15b576b3f3069681"/>
-<approved hash="6,16,d50c909fed976ce2"/>
+<approved hash="4,16,9f6ff48005689660"/>
 <approved hash="6,16,f2ef7903fde67f1f"/>
 <approved hash="6,16,ccb6907fec077218"/>
-<approved hash="6,16,f8720201be302baa"/>
+<approved hash="6,16,d50c909fed976ce2"/>
+<approved hash="6,16,15b576b3f3069681"/>
 <approved hash="6,16,fd2016a5c72781e9"/>
+<approved hash="6,16,f8720201be302baa"/>
 <approved hash="6,16,f2b018a136f396a7"/>
 <approved hash="6,16,f9460381b88033e4"/>
+<approved hash="6,16,96cc0278c0c4bee8"/>
 <approved hash="6,16,4b1bde5b1fe96231"/>
 <approved hash="6,16,8374ff68029caa98"/>
-<approved hash="6,16,96cc0278c0c4bee8"/>
 <approved hash="6,16,63491f9de2a74beb"/>
 <approved hash="6,16,29ad9413f8bdb099"/>
 <approved hash="6,16,b0eff84194e114d5"/>

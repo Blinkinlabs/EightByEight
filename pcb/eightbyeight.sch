@@ -10427,13 +10427,11 @@ rapid on/off power cycles</text>
 </net>
 <net name="CHARGE" class="0">
 <segment>
+<pinref part="U7" gate="G$1" pin="LED2"/>
+<wire x1="106.68" y1="205.74" x2="127" y2="205.74" width="0.1524" layer="91"/>
 <pinref part="D1" gate="G$1" pin="A"/>
 <wire x1="127" y1="205.74" x2="127" y2="200.66" width="0.1524" layer="91"/>
 <label x="111.76" y="205.74" size="1.778" layer="95"/>
-</segment>
-<segment>
-<pinref part="U7" gate="G$1" pin="LED2"/>
-<wire x1="106.68" y1="205.74" x2="127" y2="205.74" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$3" class="0">
@@ -10568,13 +10566,11 @@ rapid on/off power cycles</text>
 </net>
 <net name="DISCHARGE" class="0">
 <segment>
+<pinref part="U7" gate="G$1" pin="LED1"/>
+<wire x1="106.68" y1="203.2" x2="116.84" y2="203.2" width="0.1524" layer="91"/>
 <pinref part="D4" gate="G$1" pin="A"/>
 <wire x1="116.84" y1="203.2" x2="116.84" y2="200.66" width="0.1524" layer="91"/>
 <label x="111.76" y="203.2" size="1.778" layer="95"/>
-</segment>
-<segment>
-<pinref part="U7" gate="G$1" pin="LED1"/>
-<wire x1="106.68" y1="203.2" x2="116.84" y2="203.2" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$1" class="0">
@@ -12888,11 +12884,13 @@ flashing briefly during poweron.</text>
 </sheets>
 <errors>
 <approved hash="104,5,27.94,50.8,U3P,VCC,+5V,,,"/>
+<approved hash="106,3,53.34,205.74,ESP_TOUT,,,,,"/>
 <approved hash="113,2,193.571,130.071,FRAME2,,,,,"/>
 <approved hash="113,4,193.571,130.071,FRAME1,,,,,"/>
 <approved hash="113,6,193.571,130.071,FRAME3,,,,,"/>
 <approved hash="113,5,193.571,130.071,FRAME4,,,,,"/>
 <approved hash="113,3,193.571,130.071,FRAME5,,,,,"/>
+<approved hash="113,1,130.071,193.571,FRAME6,,,,,"/>
 </errors>
 </schematic>
 </drawing>
