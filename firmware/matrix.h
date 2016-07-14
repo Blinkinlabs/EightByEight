@@ -141,8 +141,8 @@ private:
     uint8_t Addresses[BIT_DEPTH*LED_ROWS*ADDRESS_REPEAT_COUNT];
 
     // Timer output buffers (these are DMAd to the FTM0_MOD and FTM0_C1V registers)
-    uint32_t FTM0_MODStates[BIT_DEPTH*LED_ROWS];
-    uint32_t FTM0_C1VStates[BIT_DEPTH*LED_ROWS];
+    uint16_t FTM0_MODStates[BIT_DEPTH*LED_ROWS];
+    uint16_t FTM0_C1VStates[BIT_DEPTH*LED_ROWS];
 
     volatile bool swapBuffers;
     uint8_t currentPage;

@@ -233,34 +233,23 @@ void Matrix::pixelsToDmaBuffer(Pixel* pixelInput, uint8_t buffer[]) {
 
 void Matrix::setupTCD0() {
 //    DMA_TCD0_SADDR = source;                                      // Address to read from
-    DMA_TCD0_SOFF = 4;                                              // Bytes to increment source register between writes 
-    DMA_TCD0_ATTR = DMA_TCD_ATTR_SSIZE(2) | DMA_TCD_ATTR_DSIZE(2);  // 32-bit input and output
-    DMA_TCD0_NBYTES_MLNO = 4;                                       // Number of bytes to transfer in the minor loop
+    DMA_TCD0_SOFF = 2;                                              // Bytes to increment source register between writes 
+    DMA_TCD0_ATTR = DMA_TCD_ATTR_SSIZE(1) | DMA_TCD_ATTR_DSIZE(1);  // 16-bit input and output
+    DMA_TCD0_NBYTES_MLNO = 2;                                       // Number of bytes to transfer in the minor loop
     DMA_TCD0_SLAST = 0;                                             // Bytes to add after a major iteration count (N/A)
     DMA_TCD0_DADDR = &FTM0_MOD;                                     // Address to write to
     DMA_TCD0_DOFF = 0;                                              // Bytes to increment destination register between write
     DMA_TCD0_DLASTSGA = 0;                                          // Address of next TCD (N/A)
 
- 
-    // Workaround for DMA majorelink unreliability: increase the minor loop count by one
-    // Note that the final transfer doesn't end up happening.
-//    DMA_TCD0_CITER_ELINKYES = majorLoops + 1;                           // Number of major loops to complete
-//    DMA_TCD0_BITER_ELINKYES = majorLoops + 1;                           // Reset value for CITER (must be equal to CITER)
- 
-    // Trigger DMA1 (timer) after each minor loop
-//    DMA_TCD0_BITER_ELINKYES |= DMA_TCD_CITER_ELINK;
-//    DMA_TCD0_BITER_ELINKYES |= (0x01 << 9);  
-//    DMA_TCD0_CITER_ELINKYES |= DMA_TCD_CITER_ELINK;
-//    DMA_TCD0_CITER_ELINKYES |= (0x01 << 9);
 }
 
 void Matrix::setupTCD1() {
 
 
 //    DMA_TCD1_SADDR = source;                                        // Address to read from
-    DMA_TCD1_SOFF = 4;                                              // Bytes to increment source register between writes 
-    DMA_TCD1_ATTR = DMA_TCD_ATTR_SSIZE(2) | DMA_TCD_ATTR_DSIZE(2);  // 32-bit input and output
-    DMA_TCD1_NBYTES_MLNO = 4;                                       // Number of bytes to transfer in the minor loop
+    DMA_TCD1_SOFF = 2;                                              // Bytes to increment source register between writes 
+    DMA_TCD1_ATTR = DMA_TCD_ATTR_SSIZE(1) | DMA_TCD_ATTR_DSIZE(1);  // 16-bit input and output
+    DMA_TCD1_NBYTES_MLNO = 2;                                       // Number of bytes to transfer in the minor loop
     DMA_TCD1_SLAST = 0;                                             // Bytes to add after a major iteration count (N/A)
     DMA_TCD1_DADDR = &FTM0_C1V;                                     // Address to write to
     DMA_TCD1_DOFF = 0;                                              // Bytes to increment destination register between write
@@ -420,9 +409,9 @@ void Matrix::buildTimerTables() {
         // 3. For the last cycle of the last row, the cycle time is expanded to MIN_LAST_CYCLE_TIME to allow
         //    the display interrupt to update.
  
-        #define MIN_BLANKING_TIME       0x30        // Minimum time between OE assertions
-        #define MIN_CYCLE_TIME          0x03F       // 
-        #define MIN_LAST_CYCLE_TIME     0x0120      // Mininum number of cycles for the last cycle loop.
+        #define MIN_CYCLE_TIME          0x003F      // 
+        #define MIN_BLANKING_TIME       0x0030      // Minimum time between OE assertions
+        #define MIN_LAST_CYCLE_TIME     0x01F0      // Mininum number of cycles for the last cycle loop.
  
  
         int onTime = LOW_BIT_ENABLE_TIME;               
