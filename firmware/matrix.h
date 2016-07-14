@@ -59,11 +59,11 @@ public:
 // For each of these rows, there are then BIT_DEPTH separate inner loops
 // And each inner loop has LED_COLS * 2 bytes states (the data is LED_COLS long, plus the clock signal is baked in)
 
-// Number of bytes to write for each column refresh
-#define BITS_PER_COLUMN_SPI 24
-#define WRITES_PER_COLUMN_SPI 3
+#define BITS_PER_COLUMN_SPI 24      // Number of bits that need to be written out on each PWM cycle
+#define BITS_PER_WRITE_SPI  8      // Number of bits written out on each SPI transfer
 
-#define BITS_PER_WRITE_SPI (BITS_PER_COLUMN_SPI / WRITES_PER_COLUMN_SPI)
+// Number of SPI transactions per PWM cycle
+#define WRITES_PER_COLUMN_SPI (BITS_PER_COLUMN_SPI/BITS_PER_WRITE_SPI)
 
 // Number of bytes required to store a single row of full-color data output, in SPI mode
 #define ROW_DEPTH_SPI_SIZE (WRITES_PER_COLUMN_SPI*BIT_DEPTH)
@@ -118,8 +118,9 @@ public:
 private:
     float brightness;
 
-    uint8_t* frontBuffer;
-    uint8_t* backBuffer;
+    typedef uint16_t dmaBuffer_t;
+    dmaBuffer_t* frontBuffer;
+    dmaBuffer_t* backBuffer;
 
     // Display memory
     // These are stored as RGB triplets, and are what the user writes into
@@ -130,7 +131,7 @@ private:
     // connected to the current-controlled shift registers, in order to create
     // the PWM waveforms to actually drive the display output.
     // TODO: Trigger interrupt from last address and skip the extra data transfer?
-    uint8_t dmaBufferSpi[2][PANEL_DEPTH_SPI_SIZE*PAGES];
+    dmaBuffer_t dmaBufferSpi[2][PANEL_DEPTH_SPI_SIZE*PAGES];
 
     // Address output bitstream
     // This is the bitstream that the DMA engine writes out to the GPIO port
@@ -168,7 +169,7 @@ private:
     void buildAddressTable();
     void buildTimerTables();
 
-    void pixelsToDmaBuffer(Pixel* pixelInput, uint8_t bufferOutput[]);
+    void pixelsToDmaBuffer(Pixel* pixelInput, dmaBuffer_t buffer[]);
 };
 
 extern Matrix matrix;

@@ -42,30 +42,30 @@ Matrix matrix;
 // to the output bitstream (which is hardware dependent). This is required to
 // maintain flexibility in the hardware design.
 uint8_t OUTPUT_ORDER[] = {
-    23, // R0
-    7, // G0
-    15, // B0
-    22, // R1
-    6, // G1
-    14, // B1
-    21, // R2
-    5, // G2
-    13, // B2
-    20, // R3
-    4, // G3
-    12, // B3
-    19, // R4
-    3, // G4
-    11, // B4
-    18, // R5
-    2, // G5
-    10, // B5
-    17, // R6
-    1, // G6
-    9, // B6
-    16, // R7
-    0, // G7
-    8, // B7
+    16, // R0
+    0, // G0
+    8, // B0
+    17, // R1
+    1, // G1
+    9, // B1
+    18, // R2
+    2, // G2
+    10, // B2
+    19, // R3
+    3, // G3
+    11, // B3
+    20, // R4
+    4, // G4
+    12, // B4
+    21, // R5
+    5, // G5
+    13, // B5
+    22, // R6
+    6, // G6
+    14, // B6
+    23, // R7
+    7, // G7
+    15, // B7
 };
 
 void dma_ch2_isr(void);
@@ -198,9 +198,9 @@ float Matrix::getBrightness() const {
 
 // Munge the data so it can be written out by the DMA engine
 // Note: buffer[][xxx] should have BIT_DEPTH as xxx
-void Matrix::pixelsToDmaBuffer(Pixel* pixelInput, uint8_t buffer[]) {
+void Matrix::pixelsToDmaBuffer(Pixel* pixelInput, dmaBuffer_t buffer[]) {
     // First, clear the outputs
-    memset(buffer, 0, PANEL_DEPTH_SPI_SIZE*PAGES);
+    memset(buffer, 0, PANEL_DEPTH_SPI_SIZE*PAGES*sizeof(dmaBuffer_t));
 
     for(uint8_t page = 0; page < PAGES; page++) {
         for(uint8_t row = 0; row < LED_ROWS; row++) {
@@ -254,17 +254,6 @@ void Matrix::setupTCD1() {
     DMA_TCD1_DADDR = &FTM0_C1V;                                     // Address to write to
     DMA_TCD1_DOFF = 0;                                              // Bytes to increment destination register between write
     DMA_TCD1_DLASTSGA = 0;                                          // Address of next TCD (N/A)
- 
-    // Workaround for DMA majorelink unreliability: increase the minor loop count by one
-    // Note that the final transfer doesn't end up happening, because 
-//    DMA_TCD1_CITER_ELINKYES = majorLoops + 1;                           // Number of major loops to complete
-//    DMA_TCD1_BITER_ELINKYES = majorLoops + 1;                           // Reset value for CITER (must be equal to CITER)
- 
-    // Trigger DMA2 (address) after each minor loop
-//    DMA_TCD1_BITER_ELINKYES |= DMA_TCD_CITER_ELINK;
-//    DMA_TCD1_BITER_ELINKYES |= (0x02 << 9);  
-//    DMA_TCD1_CITER_ELINKYES |= DMA_TCD_CITER_ELINK;
-//    DMA_TCD1_CITER_ELINKYES |= (0x02 << 9);
 }
 
 void Matrix::setupTCD2() {
@@ -290,9 +279,9 @@ void Matrix::setupTCD2() {
 void Matrix::setupTCD3() {
 
 //    DMA_TCD3_SADDR = source;                                      // Address to read from
-    DMA_TCD3_SOFF = 1;                                              // Bytes to increment source register between writes 
-    DMA_TCD3_ATTR = DMA_TCD_ATTR_SSIZE(0) | DMA_TCD_ATTR_DSIZE(0);  // 16-bit input and output
-    DMA_TCD3_NBYTES_MLNO = WRITES_PER_COLUMN_SPI;                   // Number of bytes to transfer in the minor loop
+    DMA_TCD3_SOFF = 2;                                              // Bytes to increment source register between writes 
+    DMA_TCD3_ATTR = DMA_TCD_ATTR_SSIZE(1) | DMA_TCD_ATTR_DSIZE(1);  // 16-bit input and output
+    DMA_TCD3_NBYTES_MLNO = WRITES_PER_COLUMN_SPI*2;                 // Number of bytes to transfer in the minor loop
     DMA_TCD3_SLAST = 0;                                             // Bytes to add after a major iteration count (N/A)
     DMA_TCD3_DADDR = &SPI0_PUSHR;                                   // Address to write to
     DMA_TCD3_DOFF = 0;                                              // Bytes to increment destination register between write
@@ -409,8 +398,8 @@ void Matrix::buildTimerTables() {
         // 3. For the last cycle of the last row, the cycle time is expanded to MIN_LAST_CYCLE_TIME to allow
         //    the display interrupt to update.
  
-        #define MIN_CYCLE_TIME          0x003F      // 
-        #define MIN_BLANKING_TIME       0x0030      // Minimum time between OE assertions
+        #define MIN_CYCLE_TIME          0x0035      // 
+        #define MIN_BLANKING_TIME       0x0035      // Minimum time between OE assertions
         #define MIN_LAST_CYCLE_TIME     0x01F0      // Mininum number of cycles for the last cycle loop.
  
  
@@ -447,7 +436,7 @@ void Matrix::buildTimerTables() {
 
 void Matrix::refresh() {
     if(swapBuffers) {
-        uint8_t* lastBuffer = frontBuffer;
+        dmaBuffer_t* lastBuffer = frontBuffer;
         frontBuffer = backBuffer;
         backBuffer = lastBuffer;
         swapBuffers = false;
@@ -459,7 +448,8 @@ void Matrix::refresh() {
     armTCD3(frontBuffer+currentPage*PANEL_DEPTH_SPI_SIZE, BIT_DEPTH*LED_ROWS);
 
     currentPage=(currentPage+1)%PAGES;
-    // Write the first 
+
+    // Write out the first bit state
     DMA_SSRT = DMA_SSRT_SSRT(3);
 }
 
@@ -508,5 +498,8 @@ void Matrix::setupSPI0() {
     SPI0_MCR |= SPI_MCR_CLR_RXF | SPI_MCR_CLR_TXF;  // Clear the FIFOs
 
     SPI0_CTAR0 = SPI_CTAR_DBR   // Double baud rate
-        | SPI_CTAR_FMSZ(BITS_PER_WRITE_SPI - 1);     // 12 bit mode
+        | SPI_CTAR_FMSZ(BITS_PER_WRITE_SPI - 1)     // n-bit mode
+        | SPI_CTAR_LSBFE;                          // least significant bit first
+
+    SPI0_PUSHR = 0x8000;
 }
