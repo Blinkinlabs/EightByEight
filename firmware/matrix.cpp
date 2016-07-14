@@ -470,9 +470,8 @@ void Matrix::refresh() {
     armTCD3(frontBuffer+currentPage*PANEL_DEPTH_SPI_SIZE, BIT_DEPTH*LED_ROWS);
 
     currentPage=(currentPage+1)%PAGES;
-
-    // TODO: Does this need to be asserted here? 
-    //DMA_SSRT = DMA_SSRT_SSRT(3);
+    // Write the first 
+    DMA_SSRT = DMA_SSRT_SSRT(3);
 }
 
 

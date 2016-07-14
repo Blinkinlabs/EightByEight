@@ -73,7 +73,7 @@ public:
 
 // Address output repeat count
 // Note: We repeat the address output multiple times, to add a delay between OE deasserting and the address lines changing
-#define ADDRESS_REPEAT_COUNT 10
+#define ADDRESS_REPEAT_COUNT 2  // Minimum value 2
 
 
 class Matrix {
