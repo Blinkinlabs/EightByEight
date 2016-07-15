@@ -114,6 +114,7 @@ public:
 
     // ISR loop. TODO: make this friends only?
     void refresh();
+    void setupFTM0();
 
 private:
     float brightness;
@@ -163,7 +164,6 @@ private:
     void armTCD3(void* source, int majorLoops);
 
 
-    void setupFTM0();
     void setupSPI0();
 
     void buildAddressTable();

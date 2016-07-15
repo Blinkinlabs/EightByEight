@@ -113,8 +113,6 @@ void Matrix::begin() {
     DMAMUX0_CHCFG0 = DMAMUX_DISABLE;
     DMAMUX0_CHCFG0 = DMAMUX_SOURCE_FTM0_CH0 | DMAMUX_ENABLE;
 
-    // FTM
-    setupFTM0();
  
     // SPI
     setupSPI0();
@@ -136,6 +134,9 @@ void Matrix::begin() {
 
     // Load this frame of data into the DMA engine
     refresh();
+
+    // FTM
+    setupFTM0();
 }
 
 bool Matrix::bufferWaiting() const {
@@ -268,8 +269,8 @@ void Matrix::armTCD0(void* source, int majorLoops) {
     // Workaround for DMA majorelink unreliability: increase the minor loop count by one
     // Note that the final transfer doesn't end up happening, since this descriptor will be
     // overwritten by the interrupt routine.
-    DMA_TCD0_CITER_ELINKYES = majorLoops + 1;                           // Number of major loops to complete
-    DMA_TCD0_BITER_ELINKYES = majorLoops + 1;                           // Reset value for CITER (must be equal to CITER)
+    DMA_TCD0_CITER_ELINKYES = majorLoops;                           // Number of major loops to complete
+    DMA_TCD0_BITER_ELINKYES = majorLoops;                           // Reset value for CITER (must be equal to CITER)
 
     // Trigger DMA1 (timer) after each minor loop
     DMA_TCD0_BITER_ELINKYES |= DMA_TCD_CITER_ELINK;
@@ -285,8 +286,8 @@ void Matrix::armTCD1(void* source, int majorLoops) {
     // Workaround for DMA majorelink unreliability: increase the minor loop count by one
     // Note that the final transfer doesn't end up happening, since this descriptor will be
     // overwritten by the interrupt routine.
-    DMA_TCD1_CITER_ELINKYES = majorLoops + 1;                           // Number of major loops to complete
-    DMA_TCD1_BITER_ELINKYES = majorLoops + 1;                           // Reset value for CITER (must be equal to CITER)
+    DMA_TCD1_CITER_ELINKYES = majorLoops;                           // Number of major loops to complete
+    DMA_TCD1_BITER_ELINKYES = majorLoops;                           // Reset value for CITER (must be equal to CITER)
  
     // Trigger DMA2 (address) after each minor loop
     DMA_TCD1_BITER_ELINKYES |= DMA_TCD_CITER_ELINK | (0x02 << 9);  
@@ -363,21 +364,18 @@ void Matrix::buildTimerTables() {
         // 3. For the last cycle of the last row, the cycle time is expanded to MIN_LAST_CYCLE_TIME to allow
         //    the display interrupt to update.
  
-        #define MIN_CYCLE_TIME          0x0039      // Minimum time between OE assertions
-        #define MIN_BLANKING_TIME       0x0019      // Minimum time OE must be unasserted
-        #define MIN_LAST_CYCLE_TIME     0x00DF      // Mininum number of cycles for the last cycle loop.
+        #define MIN_CYCLE_TIME          0x0059      // Minimum time between OE assertions
+        #define MIN_BLANKING_TIME       0x0030      // Minimum time OE must be unasserted
+        #define MIN_LAST_CYCLE_TIME     0x0059      // Mininum number of cycles for the last cycle loop.
  
  
         int onTime = 0;
  
         for(int depth= 0; depth< BIT_DEPTH; depth++) {
 
-            if((address == 0)
-                 && (depth == 0)
+            if((address == LED_ROWS -1)
+                 && (depth == BIT_DEPTH - 1)
                  && ((onTime + MIN_BLANKING_TIME) < MIN_LAST_CYCLE_TIME)) {
-            //if((address == LED_ROWS -1)
-            //     && (depth == BIT_DEPTH - 1)
-            //     && ((onTime + MIN_BLANKING_TIME) < MIN_LAST_CYCLE_TIME)) {
                 // On the last cycle, we need enough time to flush the DMA engines and handle the
                 // interrupt to reset the DMA engines. If the combination of blanking time and
                 // on time don't meet this, increase the timer cycle count to an acceptable length.
@@ -415,16 +413,15 @@ void Matrix::refresh() {
         swapBuffers = false;
     }
     
-    armTCD1(FTM0_C1VStates, BIT_DEPTH*LED_ROWS);
-    armTCD0(FTM0_MODStates, BIT_DEPTH*LED_ROWS);
+    armTCD1(FTM0_C1VStates+1, BIT_DEPTH*LED_ROWS);
+    armTCD0(FTM0_MODStates+1, BIT_DEPTH*LED_ROWS);
     armTCD2(Addresses, BIT_DEPTH*LED_ROWS);
     armTCD3(frontBuffer+currentPage*PANEL_DEPTH_SPI_SIZE, BIT_DEPTH*LED_ROWS);
 
     //currentPage=(currentPage+1)%PAGES;
 
     // Write out the first bit state
-    //DMA_SSRT = DMA_SSRT_SSRT(3);
-    //FTM0_CNT = 0;
+//    DMA_SSRT = DMA_SSRT_SSRT(0);
 }
 
 
@@ -433,7 +430,13 @@ void Matrix::refresh() {
 void dma_ch2_isr(void) {
     DMA_CINT = DMA_CINT_CINT(2);
 
+    // Stop the timer, just to see what happens
+    FTM0_SC = 0;
+
     matrix.refresh();
+
+    // TODO
+    matrix.setupFTM0();
 }
 
 // FTM0 drives our whole operation! We need to periodically update the
@@ -442,10 +445,15 @@ void Matrix::setupFTM0(){
     SIM_SCGC6 |= SIM_SCGC6_FTM0;  // Enable FTM0 clock
 
     FTM0_MODE = FTM_MODE_WPDIS;    // Disable Write Protect
- 
-    FTM0_SC |=
-        FTM_SC_CLKS(1)    // Use system clock source
-        | FTM_SC_PS(0);     // Divide by 1 prescaler
+
+    FTM0_SC = 0;        // Make sure the clock is stopped
+
+    // pre-set the clock
+    FTM0_CNTIN = 0;         // Start at 0
+    FTM0_CNT = 0;
+    FTM0_MOD = 200;         // Set the mod to something high so that it can be rewritten
+    FTM0_C1V = FTM0_MOD;    // and C1V to something larger than MOD so it will not be reached
+
 
     // FTM0_CH0 triggers timer update/address/strobe writes
     FTM0_C0SC = 0x40        // Enable interrupt
@@ -463,9 +471,16 @@ void Matrix::setupFTM0(){
         | 0x08              // High-true pulses
         | 0x01;             // Enable DMA out
     FTM0_SYNC |= 0x80;      // set PWM value update
- 
+
+
+    // And start the clock
+    FTM0_SC |=
+        FTM_SC_CLKS(1)    // Use system clock source
+        | FTM_SC_PS(0);     // Divide by 1 prescaler
+
     // Configure LED_OE_PIN pinmux (LED_OE_PIN is on PORTA-4 / FTM0_CH1)
     PORTA_PCR4 = PORT_PCR_MUX(3) | PORT_PCR_DSE | PORT_PCR_SRE; 
+ 
 }
 
 // SPI is used to program the column drivers
