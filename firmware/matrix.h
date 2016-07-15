@@ -60,7 +60,7 @@ public:
 // And each inner loop has LED_COLS * 2 bytes states (the data is LED_COLS long, plus the clock signal is baked in)
 
 #define BITS_PER_COLUMN_SPI 24      // Number of bits that need to be written out on each PWM cycle
-#define BITS_PER_WRITE_SPI  8      // Number of bits written out on each SPI transfer
+#define BITS_PER_WRITE_SPI  12      // Number of bits written out on each SPI transfer
 
 // Number of SPI transactions per PWM cycle
 #define WRITES_PER_COLUMN_SPI (BITS_PER_COLUMN_SPI/BITS_PER_WRITE_SPI)

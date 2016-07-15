@@ -101,16 +101,7 @@ void Matrix::begin() {
     // Configure the DMA request input for DMA0
     DMA_SERQ = DMA_SERQ_SERQ(0);
  
-    // Configure the DMA request input for DMA1
-//    DMA_SERQ = DMA_SERQ_SERQ(1);
-
-    // Enable channel pre-emption for each DMA channel
-//    DMA_DCHPRI0 = DMA_DCHPRI_ECP | DMA_DCHPRI_CHPRI(3);
-//    DMA_DCHPRI1 = DMA_DCHPRI_ECP | DMA_DCHPRI_CHPRI(2);
-//    DMA_DCHPRI2 = DMA_DCHPRI_ECP | DMA_DCHPRI_CHPRI(1);
-//    DMA_DCHPRI3 = DMA_DCHPRI_ECP | DMA_DCHPRI_CHPRI(0);
-
-    // Enable interrupt on major completion for DMA channel 2 (address)
+    // Enable interrupt on major completion for DMA channel 3 (address)
     DMA_TCD2_CSR = DMA_TCD_CSR_INTMAJOR;  // Enable interrupt on major complete
     NVIC_ENABLE_IRQ(IRQ_DMA_CH2);         // Enable interrupt request
  
@@ -118,15 +109,10 @@ void Matrix::begin() {
     // Configure the DMAMUX
     SIM_SCGC6 |= SIM_SCGC6_DMAMUX; // Enable DMAMUX clock
  
-    // Timer DMA channel:
-    // Configure DMAMUX to trigger DMA0 from FTM0_CH1
+    // Configure DMAMUX to trigger DMA0 from FTM0_CH0
     DMAMUX0_CHCFG0 = DMAMUX_DISABLE;
-    DMAMUX0_CHCFG0 = DMAMUX_SOURCE_FTM0_CH1 | DMAMUX_ENABLE;
+    DMAMUX0_CHCFG0 = DMAMUX_SOURCE_FTM0_CH0 | DMAMUX_ENABLE;
 
-    // Configure DMAMUX to trigger DMA1 from FTM0_CH1
-//    DMAMUX0_CHCFG1 = DMAMUX_DISABLE;
-//    DMAMUX0_CHCFG1 = DMAMUX_SOURCE_FTM0_CH1 | DMAMUX_ENABLE;
- 
     // FTM
     setupFTM0();
  
@@ -244,8 +230,6 @@ void Matrix::setupTCD0() {
 }
 
 void Matrix::setupTCD1() {
-
-
 //    DMA_TCD1_SADDR = source;                                        // Address to read from
     DMA_TCD1_SOFF = 2;                                              // Bytes to increment source register between writes 
     DMA_TCD1_ATTR = DMA_TCD_ATTR_SSIZE(1) | DMA_TCD_ATTR_DSIZE(1);  // 16-bit input and output
@@ -257,36 +241,22 @@ void Matrix::setupTCD1() {
 }
 
 void Matrix::setupTCD2() {
-
-//    DMA_TCD2_SADDR = source;                                        // Address to read from
     DMA_TCD2_SOFF = 1;                                              // Bytes to increment source register between writes 
     DMA_TCD2_ATTR = DMA_TCD_ATTR_SSIZE(0) | DMA_TCD_ATTR_DSIZE(0);  // 8-bit input and output
     DMA_TCD2_NBYTES_MLNO = ADDRESS_REPEAT_COUNT;                           // Number of bytes to transfer in the minor loop
     DMA_TCD2_SLAST = 0;                                             // Bytes to add after a major iteration count (N/A)
     DMA_TCD2_DADDR = &GPIOD_PDOR;                                   // Address to write to
     DMA_TCD2_DOFF = 0;                                              // Bytes to increment destination register between write
-//    DMA_TCD2_CITER_ELINKYES = majorLoops;                           // Number of major loops to complete
-//    DMA_TCD2_BITER_ELINKYES = majorLoops;                           // Reset value for CITER (must be equal to CITER)
     DMA_TCD2_DLASTSGA = 0;                                          // Address of next TCD (N/A)
-    
-    // Trigger DMA3 (data) after each minor loop
-//    DMA_TCD2_BITER_ELINKYES |= DMA_TCD_CITER_ELINK;
-//    DMA_TCD2_BITER_ELINKYES |= (0x03 << 9);  
-//    DMA_TCD2_CITER_ELINKYES |= DMA_TCD_CITER_ELINK;
-//    DMA_TCD2_CITER_ELINKYES |= (0x03 << 9);
 }
 
 void Matrix::setupTCD3() {
-
-//    DMA_TCD3_SADDR = source;                                      // Address to read from
     DMA_TCD3_SOFF = 2;                                              // Bytes to increment source register between writes 
     DMA_TCD3_ATTR = DMA_TCD_ATTR_SSIZE(1) | DMA_TCD_ATTR_DSIZE(1);  // 16-bit input and output
     DMA_TCD3_NBYTES_MLNO = WRITES_PER_COLUMN_SPI*2;                 // Number of bytes to transfer in the minor loop
     DMA_TCD3_SLAST = 0;                                             // Bytes to add after a major iteration count (N/A)
     DMA_TCD3_DADDR = &SPI0_PUSHR;                                   // Address to write to
     DMA_TCD3_DOFF = 0;                                              // Bytes to increment destination register between write
-//    DMA_TCD3_CITER_ELINKNO = majorLoops;                            // Number of major loops to complete
-//    DMA_TCD3_BITER_ELINKNO = majorLoops;                            // Reset value for CITER (must be equal to CITER)
     DMA_TCD3_DLASTSGA = 0;                                          // Address of next TCD (N/A)
 }
 
@@ -296,10 +266,11 @@ void Matrix::armTCD0(void* source, int majorLoops) {
     DMA_TCD0_SADDR = source;                                        // Address to read from
  
     // Workaround for DMA majorelink unreliability: increase the minor loop count by one
-    // Note that the final transfer doesn't end up happening.
+    // Note that the final transfer doesn't end up happening, since this descriptor will be
+    // overwritten by the interrupt routine.
     DMA_TCD0_CITER_ELINKYES = majorLoops + 1;                           // Number of major loops to complete
     DMA_TCD0_BITER_ELINKYES = majorLoops + 1;                           // Reset value for CITER (must be equal to CITER)
- 
+
     // Trigger DMA1 (timer) after each minor loop
     DMA_TCD0_BITER_ELINKYES |= DMA_TCD_CITER_ELINK;
     DMA_TCD0_BITER_ELINKYES |= (0x01 << 9);  
@@ -312,15 +283,14 @@ void Matrix::armTCD1(void* source, int majorLoops) {
     DMA_TCD1_SADDR = source;                                        // Address to read from
  
     // Workaround for DMA majorelink unreliability: increase the minor loop count by one
-    // Note that the final transfer doesn't end up happening, because 
+    // Note that the final transfer doesn't end up happening, since this descriptor will be
+    // overwritten by the interrupt routine.
     DMA_TCD1_CITER_ELINKYES = majorLoops + 1;                           // Number of major loops to complete
     DMA_TCD1_BITER_ELINKYES = majorLoops + 1;                           // Reset value for CITER (must be equal to CITER)
  
     // Trigger DMA2 (address) after each minor loop
-    DMA_TCD1_BITER_ELINKYES |= DMA_TCD_CITER_ELINK;
-    DMA_TCD1_BITER_ELINKYES |= (0x02 << 9);  
-    DMA_TCD1_CITER_ELINKYES |= DMA_TCD_CITER_ELINK;
-    DMA_TCD1_CITER_ELINKYES |= (0x02 << 9);
+    DMA_TCD1_BITER_ELINKYES |= DMA_TCD_CITER_ELINK | (0x02 << 9);  
+    DMA_TCD1_CITER_ELINKYES |= DMA_TCD_CITER_ELINK | (0x02 << 9);
 }
 
 
@@ -329,12 +299,10 @@ void Matrix::armTCD2(void* source, int majorLoops) {
     DMA_TCD2_SADDR = source;                                        // Address to read from
     DMA_TCD2_CITER_ELINKYES = majorLoops;                           // Number of major loops to complete
     DMA_TCD2_BITER_ELINKYES = majorLoops;                           // Reset value for CITER (must be equal to CITER)
- 
+
     // Trigger DMA3 (data) after each minor loop
-    DMA_TCD2_BITER_ELINKYES |= DMA_TCD_CITER_ELINK;
-    DMA_TCD2_BITER_ELINKYES |= (0x03 << 9);  
-    DMA_TCD2_CITER_ELINKYES |= DMA_TCD_CITER_ELINK;
-    DMA_TCD2_CITER_ELINKYES |= (0x03 << 9);
+    DMA_TCD2_BITER_ELINKYES |= DMA_TCD_CITER_ELINK | (0x03 << 9);  
+    DMA_TCD2_CITER_ELINKYES |= DMA_TCD_CITER_ELINK | (0x03 << 9);
 }
 
 
@@ -384,54 +352,59 @@ void Matrix::buildTimerTables() {
     // Fill the timer states table
     for(int address = 0; address < LED_ROWS; address++) {
 
+        // TODO: These comments need to be updated.
         // Each row update consists of BIT_DEPTH cycles. The length of the 'on' time
         // (when OE is asserted) on each cycle is set by onTime; it begins with
         // ON_TIME_MIN and doubles every cycle after that to create a binary progression.
-        // TODO: What does this translate to, in time?
 
-        // Shortest OE on interval; the shorter, the dimmer the lowest bit.
-        #define LOW_BIT_ENABLE_TIME     0x1
-        
         // The interval between OE cycle is set by one of the three cases:
         // 1. For low bits, where onTime is small, the interval is expanded to MIN_CYCLE_TIME. This is to give time for the next levels data to be shifted out
         // 2. For longer bits, where onTime is longer, the cycle time is calculated as onTime + MIN_BLANKING_TIME
         // 3. For the last cycle of the last row, the cycle time is expanded to MIN_LAST_CYCLE_TIME to allow
         //    the display interrupt to update.
  
-        #define MIN_CYCLE_TIME          0x0035      // 
-        #define MIN_BLANKING_TIME       0x0035      // Minimum time between OE assertions
-        #define MIN_LAST_CYCLE_TIME     0x01F0      // Mininum number of cycles for the last cycle loop.
+        #define MIN_CYCLE_TIME          0x0039      // Minimum time between OE assertions
+        #define MIN_BLANKING_TIME       0x0019      // Minimum time OE must be unasserted
+        #define MIN_LAST_CYCLE_TIME     0x00DF      // Mininum number of cycles for the last cycle loop.
  
  
-        int onTime = LOW_BIT_ENABLE_TIME;               
+        int onTime = 0;
  
         for(int depth= 0; depth< BIT_DEPTH; depth++) {
-            if((address == LED_ROWS -1)
-                 && (depth == BIT_DEPTH - 2)
+
+            if((address == 0)
+                 && (depth == 0)
                  && ((onTime + MIN_BLANKING_TIME) < MIN_LAST_CYCLE_TIME)) {
-                // On the second-to-last cycle, we need enough time to flush the DMA engines and handle the
+            //if((address == LED_ROWS -1)
+            //     && (depth == BIT_DEPTH - 1)
+            //     && ((onTime + MIN_BLANKING_TIME) < MIN_LAST_CYCLE_TIME)) {
+                // On the last cycle, we need enough time to flush the DMA engines and handle the
                 // interrupt to reset the DMA engines. If the combination of blanking time and
                 // on time don't meet this, increase the timer cycle count to an acceptable length.
-                FTM0_C1VStates[address*BIT_DEPTH + depth] = onTime;
-                FTM0_MODStates[address*BIT_DEPTH + depth] = MIN_LAST_CYCLE_TIME;        
+                FTM0_C1VStates[address*BIT_DEPTH + depth] = MIN_LAST_CYCLE_TIME - onTime;
+                FTM0_MODStates[address*BIT_DEPTH + depth] = MIN_LAST_CYCLE_TIME;
             }      
             else if((onTime + MIN_BLANKING_TIME) < MIN_CYCLE_TIME) {
                 // The DMA engines need enough time to write out the data after every cycle.
                 // WHen the on time is really low, the combination of blanking time and
                 // on time might not create a long enough delay to meet this, so we need to increase
                 // the timer cycle count to meet this requirement.
-                FTM0_C1VStates[address*BIT_DEPTH + depth] = onTime;
+                FTM0_C1VStates[address*BIT_DEPTH + depth] = MIN_CYCLE_TIME - onTime;
                 FTM0_MODStates[address*BIT_DEPTH + depth] = MIN_CYCLE_TIME;
             }
             else {
-                FTM0_C1VStates[address*BIT_DEPTH + depth] = onTime;      
-                FTM0_MODStates[address*BIT_DEPTH + depth] = onTime + MIN_BLANKING_TIME;
+                FTM0_C1VStates[address*BIT_DEPTH + depth] = MIN_BLANKING_TIME;
+                FTM0_MODStates[address*BIT_DEPTH + depth] = MIN_BLANKING_TIME + onTime;
             }
-           
-            onTime = onTime*2;
+            
+            if(onTime == 0) {
+                onTime = 1;
+            }
+            else {   
+                onTime *= 2;
+            }
         }
     }
-
 }
 
 void Matrix::refresh() {
@@ -442,15 +415,16 @@ void Matrix::refresh() {
         swapBuffers = false;
     }
     
-    armTCD0(FTM0_MODStates, BIT_DEPTH*LED_ROWS);
     armTCD1(FTM0_C1VStates, BIT_DEPTH*LED_ROWS);
+    armTCD0(FTM0_MODStates, BIT_DEPTH*LED_ROWS);
     armTCD2(Addresses, BIT_DEPTH*LED_ROWS);
     armTCD3(frontBuffer+currentPage*PANEL_DEPTH_SPI_SIZE, BIT_DEPTH*LED_ROWS);
 
-    currentPage=(currentPage+1)%PAGES;
+    //currentPage=(currentPage+1)%PAGES;
 
     // Write out the first bit state
-    DMA_SSRT = DMA_SSRT_SSRT(3);
+    //DMA_SSRT = DMA_SSRT_SSRT(3);
+    //FTM0_CNT = 0;
 }
 
 
@@ -469,17 +443,25 @@ void Matrix::setupFTM0(){
 
     FTM0_MODE = FTM_MODE_WPDIS;    // Disable Write Protect
  
-    //FTM0_SC = 0;                   // Turn off the clock so we can update CNTIN and MODULO?
-    //FTM0_MOD = 0x02FF;             // Period register
-    FTM0_SC |= FTM_SC_CLKS(1) | FTM_SC_PS(0);   // TODO: Can we work in PS(0) mode?
+    FTM0_SC |=
+        FTM_SC_CLKS(1)    // Use system clock source
+        | FTM_SC_PS(0);     // Divide by 1 prescaler
+
+    // FTM0_CH0 triggers timer update/address/strobe writes
+    FTM0_C0SC = 0x40        // Enable interrupt
+        | 0x20              // Mode select: Edge-aligned PWM 
+        | 0x08              // High-true pulses
+        | 0x01;             // Enable DMA out
+    FTM0_SYNC |= 0x80;      // set PWM value update
  
-    //FTM0_MODE |= FTM_MODE_INIT;         // Enable FTM0
+    FTM0_C0V = 0x001;      // Duty cycle of PWM signal
+
  
+    // FTM0_CH1 drives the LED_OE pin and triggers data write
     FTM0_C1SC = 0x40        // Enable interrupt
         | 0x20              // Mode select: Edge-aligned PWM 
-        | 0x04              // Low-true pulses (inverted)
+        | 0x08              // High-true pulses
         | 0x01;             // Enable DMA out
-    FTM0_C1V = 0x0200;      // Duty cycle of PWM signal
     FTM0_SYNC |= 0x80;      // set PWM value update
  
     // Configure LED_OE_PIN pinmux (LED_OE_PIN is on PORTA-4 / FTM0_CH1)
@@ -500,6 +482,4 @@ void Matrix::setupSPI0() {
     SPI0_CTAR0 = SPI_CTAR_DBR   // Double baud rate
         | SPI_CTAR_FMSZ(BITS_PER_WRITE_SPI - 1)     // n-bit mode
         | SPI_CTAR_LSBFE;                          // least significant bit first
-
-    SPI0_PUSHR = 0x8000;
 }
