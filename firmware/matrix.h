@@ -71,11 +71,6 @@ public:
 // Number of bytes required to store an entire panel's worth of data output, in SPI mode
 #define PANEL_DEPTH_SPI_SIZE (ROW_DEPTH_SPI_SIZE*LED_ROWS)
 
-// Address output repeat count
-// Note: We repeat the address output multiple times, to add a delay between OE deasserting and the address lines changing
-#define ADDRESS_REPEAT_COUNT 1
-
-
 class Matrix {
 public:
     Matrix();
@@ -138,13 +133,11 @@ private:
     // This is the bitstream that the DMA engine writes out to the GPIO port
     // connected to the address select mux, in order to enable the output rows
     // sequentially.
-    // Note: We repeat the address output multiple times, to add a delay
-    // between OE deasserting and the address lines changing
-    uint8_t Addresses[BIT_DEPTH*LED_ROWS*ADDRESS_REPEAT_COUNT];
+    uint8_t Addresses[BIT_DEPTH*LED_ROWS];
 
     // Timer output buffers (these are DMAd to the FTM0_MOD and FTM0_C1V registers)
-    uint16_t FTM0_MODStates[BIT_DEPTH*LED_ROWS];
-    uint16_t FTM0_C1VStates[BIT_DEPTH*LED_ROWS];
+    uint16_t FTM0_MODStates[BIT_DEPTH*LED_ROWS + 1];
+    uint16_t FTM0_C1VStates[BIT_DEPTH*LED_ROWS + 1];
 
     volatile bool swapBuffers;
     uint8_t currentPage;

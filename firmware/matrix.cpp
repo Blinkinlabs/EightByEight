@@ -68,8 +68,6 @@ uint8_t OUTPUT_ORDER[] = {
     15, // B7
 };
 
-void dma_ch2_isr(void);
-
 Matrix::Matrix() {
     brightness = 1;
 }
@@ -93,9 +91,9 @@ void Matrix::begin() {
     // Configure the DMA request input for DMA0
     DMA_SERQ = DMA_SERQ_SERQ(0);
  
-    // Enable interrupt on major completion for DMA channel 3 (address)
-    DMA_TCD2_CSR = DMA_TCD_CSR_INTMAJOR;  // Enable interrupt on major complete
-    NVIC_ENABLE_IRQ(IRQ_DMA_CH2);         // Enable interrupt request
+    // Enable interrupt on major completion for DMA channel 3 (data)
+    DMA_TCD3_CSR = DMA_TCD_CSR_INTMAJOR;  // Enable interrupt on major complete
+    NVIC_ENABLE_IRQ(IRQ_DMA_CH3);         // Enable interrupt request
  
     // DMAMUX
     // Configure the DMAMUX
@@ -109,6 +107,9 @@ void Matrix::begin() {
     // SPI
     setupSPI0();
     
+    // FTM
+    setupFTM0();
+
     frontBuffer = dmaBufferSpi[0];
     backBuffer = dmaBufferSpi[1];
 
@@ -126,9 +127,6 @@ void Matrix::begin() {
 
     // Load this frame of data into the DMA engine
     refresh();
-
-    // FTM
-    setupFTM0();
 }
 
 bool Matrix::bufferWaiting() const {
@@ -236,7 +234,7 @@ void Matrix::setupTCD1() {
 void Matrix::setupTCD2() {
     DMA_TCD2_SOFF = 1;                                              // Bytes to increment source register between writes 
     DMA_TCD2_ATTR = DMA_TCD_ATTR_SSIZE(0) | DMA_TCD_ATTR_DSIZE(0);  // 8-bit input and output
-    DMA_TCD2_NBYTES_MLNO = ADDRESS_REPEAT_COUNT;                           // Number of bytes to transfer in the minor loop
+    DMA_TCD2_NBYTES_MLNO = 1;                                       // Number of bytes to transfer in the minor loop
     DMA_TCD2_SLAST = 0;                                             // Bytes to add after a major iteration count (N/A)
     DMA_TCD2_DADDR = &GPIOD_PDOR;                                   // Address to write to
     DMA_TCD2_DOFF = 0;                                              // Bytes to increment destination register between write
@@ -311,24 +309,12 @@ void Matrix::buildAddressTable() {
     // Fill the address table
     // To make the DMA engine easier to program, we store a copy of the
     // address table for each output page.
+
     for(int address = 0; address < LED_ROWS; address++) {
         for(int depth = 0; depth < BIT_DEPTH; depth++) {
-            int last_address;
-            if(depth == 0) {
-                last_address = (address + LED_ROWS - 1)%(LED_ROWS);
-            }
-            else {
-                last_address = address;
-            }
-
             // Mux-based address select lines
-            #define addressBits(addr) (~((1<<DMA_STB_SHIFT) | ((addr)<<(DMA_S0_SHIFT))))
-
-            for(int i = 0; i < ADDRESS_REPEAT_COUNT; i++) {
-                // Note: We're actually pumping out the last address here, to avoid changing it too soon after
-                // deasserting enable.
-                Addresses[(address*BIT_DEPTH + depth)*ADDRESS_REPEAT_COUNT + i] = addressBits(last_address);
-            }
+            #define addressBits(addr) ((~(addr<<DMA_S0_SHIFT)) & (0x7 << DMA_S0_SHIFT))
+            Addresses[address*BIT_DEPTH + depth] = addressBits(address);
         }
     }
 }
@@ -350,13 +336,13 @@ void Matrix::buildTimerTables() {
  
         #define MIN_CYCLE_TIME          0x0072      // Minimum time between OE assertions
         #define MIN_BLANKING_TIME       0x0030      // Minimum time OE must be unasserted
-        #define MIN_LAST_CYCLE_TIME     0x0059      // Mininum number of cycles for the last cycle loop.
+        #define MIN_LAST_CYCLE_TIME     0x0072      // Mininum number of cycles for the last cycle loop.
  
  
         int onTime = 0;
+        //onTime = 60;
  
         for(int depth= 0; depth< BIT_DEPTH; depth++) {
-
             if((address == LED_ROWS -1)
                  && (depth == BIT_DEPTH - 1)
                  && ((onTime + MIN_BLANKING_TIME) < MIN_LAST_CYCLE_TIME)) {
@@ -385,8 +371,17 @@ void Matrix::buildTimerTables() {
             else {   
                 onTime *= 2;
             }
+/*
+            FTM0_C1VStates[address*BIT_DEPTH + depth] = onTime;
+            FTM0_MODStates[address*BIT_DEPTH + depth] = onTime*2;
+
+            onTime *= 2;
+*/
         }
     }
+
+    FTM0_C1VStates[BIT_DEPTH*LED_ROWS] = 901;
+    FTM0_MODStates[BIT_DEPTH*LED_ROWS] = 900;
 }
 
 void Matrix::refresh() {
@@ -397,30 +392,35 @@ void Matrix::refresh() {
         swapBuffers = false;
     }
     
-    armTCD1(FTM0_C1VStates+1, BIT_DEPTH*LED_ROWS);
-    armTCD0(FTM0_MODStates+1, BIT_DEPTH*LED_ROWS);
-    armTCD2(Addresses, BIT_DEPTH*LED_ROWS);
-    armTCD3(frontBuffer+currentPage*PANEL_DEPTH_SPI_SIZE, BIT_DEPTH*LED_ROWS);
-
-    //currentPage=(currentPage+1)%PAGES;
+    armTCD1(FTM0_C1VStates+1, BIT_DEPTH*LED_ROWS+1);
+    armTCD0(FTM0_MODStates+1, BIT_DEPTH*LED_ROWS+1);
+    armTCD2(Addresses, BIT_DEPTH*LED_ROWS + 1);
+    armTCD3(frontBuffer+currentPage*PANEL_DEPTH_SPI_SIZE, BIT_DEPTH*LED_ROWS + 1);
 
     // Write out the first bit state
-//    DMA_SSRT = DMA_SSRT_SSRT(0);
+    DMA_SSRT = DMA_SSRT_SSRT(3);
+
+    // Then arm FTM0 for the first bit display
+    FTM0_SC = 0;
+
+    FTM0_CNT = 0;
+    FTM0_MOD = FTM0_MODStates[0];   // Set the mod to something high so that it can be rewritten
+    FTM0_C1V = FTM0_C1VStates[0];   // and C1V to something larger than MOD so it will not be reached
+
+    FTM0_SC |=
+        FTM_SC_CLKS(1)    // Use system clock source
+        | FTM_SC_PS(0);     // Divide by 1 prescaler
 }
 
 
 // When the last address write has completed, that means we're at the end of the display refresh cycle
 // Set up the next display frame
-void dma_ch2_isr(void) {
-    DMA_CINT = DMA_CINT_CINT(2);
+void dma_ch3_isr(void) {
+    DMA_CINT = DMA_CINT_CINT(3);
 
-    // Stop the timer, just to see what happens
-    FTM0_SC = 0;
-
+    //digitalWrite(15, HIGH);
     matrix.refresh();
-
-    // TODO
-    matrix.setupFTM0();
+    //digitalWrite(15, LOW);
 }
 
 // FTM0 drives our whole operation! We need to periodically update the
@@ -432,12 +432,7 @@ void Matrix::setupFTM0(){
 
     FTM0_SC = 0;        // Make sure the clock is stopped
 
-    // pre-set the clock
     FTM0_CNTIN = 0;         // Start at 0
-    FTM0_CNT = 0;
-    FTM0_MOD = 200;         // Set the mod to something high so that it can be rewritten
-    FTM0_C1V = FTM0_MOD;    // and C1V to something larger than MOD so it will not be reached
-
 
     // FTM0_CH0 triggers timer update/address/strobe writes
     FTM0_C0SC = 0x40        // Enable interrupt
@@ -456,23 +451,19 @@ void Matrix::setupFTM0(){
         | 0x08              // High-true pulses
         | 0x01;             // Enable DMA out
 
-
     // FTM0_CH4 drives the LED_STROBE pin (LED_STROBE_PIN is on PORTD-4 / FTM0_CH4)
     FTM0_C4SC = 0x20        // Mode select: Edge-aligned PWM 
-        | 0x08              // High-true pulses
-        | 0x01;             // Enable DMA out
+        | 0x08;              // High-true pulses
 
     FTM0_C4V = 0x001;      // Duty cycle of PWM signal
-
 
     // Configure LED_OE_PIN pinmux (LED_OE_PIN is on PORTA-4 / FTM0_CH1)
     PORTD_PCR4 = PORT_PCR_MUX(4) | PORT_PCR_DSE | PORT_PCR_SRE; 
  
-
     // And start the clock
-    FTM0_SC |=
-        FTM_SC_CLKS(1)    // Use system clock source
-        | FTM_SC_PS(0);     // Divide by 1 prescaler
+//    FTM0_SC |=
+//        FTM_SC_CLKS(1)    // Use system clock source
+//        | FTM_SC_PS(0);     // Divide by 1 prescaler
 
 }
 
