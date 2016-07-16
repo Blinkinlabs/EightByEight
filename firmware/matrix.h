@@ -29,7 +29,7 @@
 #include "eightbyeight.h"
 
 //Display Geometry
-#define BIT_DEPTH 8 // Number of bits used to drive each LED
+#define BIT_DEPTH 12 // Number of bits used to drive each LED
 #define PAGES 1 // Dithered bits
 
 
@@ -133,11 +133,11 @@ private:
     // This is the bitstream that the DMA engine writes out to the GPIO port
     // connected to the address select mux, in order to enable the output rows
     // sequentially.
-    uint8_t Addresses[BIT_DEPTH*LED_ROWS];
+    uint8_t Addresses[BIT_DEPTH*LED_ROWS+1];
 
     // Timer output buffers (these are DMAd to the FTM0_MOD and FTM0_C1V registers)
-    uint16_t FTM0_MODStates[BIT_DEPTH*LED_ROWS + 1];
-    uint16_t FTM0_C1VStates[BIT_DEPTH*LED_ROWS + 1];
+    uint16_t FTM0_MODStates[BIT_DEPTH*LED_ROWS + 2];
+    uint16_t FTM0_C1VStates[BIT_DEPTH*LED_ROWS + 2];
 
     volatile bool swapBuffers;
     uint8_t currentPage;

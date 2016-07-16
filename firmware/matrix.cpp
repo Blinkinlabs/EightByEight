@@ -127,6 +127,11 @@ void Matrix::begin() {
 
     // Load this frame of data into the DMA engine
     refresh();
+
+
+    FTM0_SC |=
+        FTM_SC_CLKS(1)    // Use system clock source
+        | FTM_SC_PS(0);     // Divide by 1 prescaler
 }
 
 bool Matrix::bufferWaiting() const {
@@ -310,11 +315,13 @@ void Matrix::buildAddressTable() {
     // To make the DMA engine easier to program, we store a copy of the
     // address table for each output page.
 
+    #define addressBits(addr) ((~(addr<<DMA_S0_SHIFT)) & (0x7 << DMA_S0_SHIFT))
+    Addresses[0] = addressBits(0);
+
     for(int address = 0; address < LED_ROWS; address++) {
         for(int depth = 0; depth < BIT_DEPTH; depth++) {
             // Mux-based address select lines
-            #define addressBits(addr) ((~(addr<<DMA_S0_SHIFT)) & (0x7 << DMA_S0_SHIFT))
-            Addresses[address*BIT_DEPTH + depth] = addressBits(address);
+            Addresses[address*BIT_DEPTH + depth + 1] = addressBits(address);
         }
     }
 }
@@ -340,29 +347,30 @@ void Matrix::buildTimerTables() {
  
  
         int onTime = 0;
-        //onTime = 60;
  
         for(int depth= 0; depth< BIT_DEPTH; depth++) {
+            int offset = address*BIT_DEPTH + depth + 1;
+
             if((address == LED_ROWS -1)
                  && (depth == BIT_DEPTH - 1)
                  && ((onTime + MIN_BLANKING_TIME) < MIN_LAST_CYCLE_TIME)) {
                 // On the last cycle, we need enough time to flush the DMA engines and handle the
                 // interrupt to reset the DMA engines. If the combination of blanking time and
                 // on time don't meet this, increase the timer cycle count to an acceptable length.
-                FTM0_C1VStates[address*BIT_DEPTH + depth] = MIN_LAST_CYCLE_TIME - onTime;
-                FTM0_MODStates[address*BIT_DEPTH + depth] = MIN_LAST_CYCLE_TIME;
+                FTM0_C1VStates[offset] = MIN_LAST_CYCLE_TIME - onTime;
+                FTM0_MODStates[offset] = MIN_LAST_CYCLE_TIME;
             }      
             else if((onTime + MIN_BLANKING_TIME) < MIN_CYCLE_TIME) {
                 // The DMA engines need enough time to write out the data after every cycle.
                 // WHen the on time is really low, the combination of blanking time and
                 // on time might not create a long enough delay to meet this, so we need to increase
                 // the timer cycle count to meet this requirement.
-                FTM0_C1VStates[address*BIT_DEPTH + depth] = MIN_CYCLE_TIME - onTime;
-                FTM0_MODStates[address*BIT_DEPTH + depth] = MIN_CYCLE_TIME;
+                FTM0_C1VStates[offset] = MIN_CYCLE_TIME - onTime;
+                FTM0_MODStates[offset] = MIN_CYCLE_TIME;
             }
             else {
-                FTM0_C1VStates[address*BIT_DEPTH + depth] = MIN_BLANKING_TIME;
-                FTM0_MODStates[address*BIT_DEPTH + depth] = MIN_BLANKING_TIME + onTime;
+                FTM0_C1VStates[offset] = MIN_BLANKING_TIME;
+                FTM0_MODStates[offset] = MIN_BLANKING_TIME + onTime;
             }
             
             if(onTime == 0) {
@@ -371,17 +379,14 @@ void Matrix::buildTimerTables() {
             else {   
                 onTime *= 2;
             }
-/*
-            FTM0_C1VStates[address*BIT_DEPTH + depth] = onTime;
-            FTM0_MODStates[address*BIT_DEPTH + depth] = onTime*2;
-
-            onTime *= 2;
-*/
         }
     }
 
-    FTM0_C1VStates[BIT_DEPTH*LED_ROWS] = 901;
-    FTM0_MODStates[BIT_DEPTH*LED_ROWS] = 900;
+    FTM0_C1VStates[0] = MIN_CYCLE_TIME+1;
+    FTM0_MODStates[0] = MIN_CYCLE_TIME;
+
+    FTM0_C1VStates[BIT_DEPTH*LED_ROWS+1] = 401;
+    FTM0_MODStates[BIT_DEPTH*LED_ROWS+1] = 400;
 }
 
 void Matrix::refresh() {
@@ -392,14 +397,12 @@ void Matrix::refresh() {
         swapBuffers = false;
     }
     
-    armTCD1(FTM0_C1VStates+1, BIT_DEPTH*LED_ROWS+1);
-    armTCD0(FTM0_MODStates+1, BIT_DEPTH*LED_ROWS+1);
-    armTCD2(Addresses, BIT_DEPTH*LED_ROWS + 1);
+    armTCD1(FTM0_C1VStates+1, BIT_DEPTH*LED_ROWS+2);
+    armTCD0(FTM0_MODStates+1, BIT_DEPTH*LED_ROWS+2);
+    armTCD2(Addresses, BIT_DEPTH*LED_ROWS + 2);
     armTCD3(frontBuffer+currentPage*PANEL_DEPTH_SPI_SIZE, BIT_DEPTH*LED_ROWS + 1);
 
-    // Write out the first bit state
-    DMA_SSRT = DMA_SSRT_SSRT(3);
-
+/*
     // Then arm FTM0 for the first bit display
     FTM0_SC = 0;
 
@@ -410,6 +413,7 @@ void Matrix::refresh() {
     FTM0_SC |=
         FTM_SC_CLKS(1)    // Use system clock source
         | FTM_SC_PS(0);     // Divide by 1 prescaler
+*/
 }
 
 
@@ -418,9 +422,9 @@ void Matrix::refresh() {
 void dma_ch3_isr(void) {
     DMA_CINT = DMA_CINT_CINT(3);
 
-    //digitalWrite(15, HIGH);
+//    digitalWrite(15, HIGH);
     matrix.refresh();
-    //digitalWrite(15, LOW);
+//    digitalWrite(15, LOW);
 }
 
 // FTM0 drives our whole operation! We need to periodically update the
@@ -433,6 +437,7 @@ void Matrix::setupFTM0(){
     FTM0_SC = 0;        // Make sure the clock is stopped
 
     FTM0_CNTIN = 0;         // Start at 0
+    FTM0_CNT = 0;
 
     // FTM0_CH0 triggers timer update/address/strobe writes
     FTM0_C0SC = 0x40        // Enable interrupt
