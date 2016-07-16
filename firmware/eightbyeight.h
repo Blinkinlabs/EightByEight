@@ -35,13 +35,13 @@
 // Note: These can't be changed arbitrarily- the GPIOs are actually
 // referred to in the library by their port assignments.
 #define LED_HS_EN_PIN   7   // PC1
-#define LED_CLOCK_PIN   11   // PC6
-#define LED_DATA_PIN    12   // PC5
-#define LED_STROBE_PIN  14  // PD4
-#define LED_OE_PIN      4   // FTM0 channel 1 / PA4
+//#define LED_CLOCK_PIN   11  // SPI0 CLK / PC6
+//#define LED_DATA_PIN    12  // SPI0 MOSI / PC5
+//#define LED_STROBE_PIN  14  // FTM0 channel 4 / PD4
+//#define LED_OE_PIN      4   // FTM0 channel 1 / PA4
 #define S0              15  // PD5
 #define S1              16  // PD6
-#define S2              17  // PD7  TODO: Test me
+#define S2              17  // PD7
 
 // Fadecandy interface defines
 //#define LUT_CH_SIZE             257
@@ -54,11 +54,6 @@
 #define LUTENTRIES_PER_PACKET    1
 #define PACKETS_PER_FRAME        1  // 170 / 21
 #define PACKETS_PER_LUT          1  // originally 25
-
-
-// Start of animation data in flash.
-// TODO: Make this use the definition from the linker automatically.
-#define ANIMATION_DATA_START    0x5000
 
 // Initialize the board hardware
 extern void initBoard();
