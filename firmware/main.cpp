@@ -109,7 +109,7 @@ extern "C" int main()
 //        if(!streamingMode) {
 //            colorSwirl();
 //            matrix.show();
-//`        }
+//        }
 
 //        if(usb_serial_available() > 0) {
 //            streamingMode = true;
