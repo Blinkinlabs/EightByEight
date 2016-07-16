@@ -75,17 +75,9 @@ Matrix::Matrix() {
 }
 
 void Matrix::begin() {
-    // Set all the pins to outputs
-    digitalWrite(LED_OE_PIN, HIGH);
-    pinMode(LED_OE_PIN, OUTPUT);
-
     pinMode(S0, OUTPUT);
     pinMode(S1, OUTPUT);
     pinMode(S2, OUTPUT);
-
-    pinMode(LED_DATA_PIN, OUTPUT);
-    pinMode(LED_CLOCK_PIN, OUTPUT);
-    pinMode(LED_STROBE_PIN, OUTPUT);
 
     pinMode(LED_HS_EN_PIN, OUTPUT);
     digitalWrite(LED_HS_EN_PIN, HIGH);
@@ -329,22 +321,14 @@ void Matrix::buildAddressTable() {
                 last_address = address;
             }
 
-            // direct address select lines
-            //#define addressBits(addr) (~((1<<DMA_STB_SHIFT) | (1<<(DMA_S0_SHIFT + addr))))
-
             // Mux-based address select lines
             #define addressBits(addr) (~((1<<DMA_STB_SHIFT) | ((addr)<<(DMA_S0_SHIFT))))
 
             for(int i = 0; i < ADDRESS_REPEAT_COUNT; i++) {
                 // Note: We're actually pumping out the last address here, to avoid changing it too soon after
                 // deasserting enable.
-                //Addresses[(address*BIT_DEPTH + depth)*ADDRESS_REPEAT_COUNT + i] = (0x3F & ~(1 << last_address));
                 Addresses[(address*BIT_DEPTH + depth)*ADDRESS_REPEAT_COUNT + i] = addressBits(last_address);
             }
-      
-            // TODO: Inserted to cause extra delay between OE and address change.
-            Addresses[(address*BIT_DEPTH + depth)*ADDRESS_REPEAT_COUNT + ADDRESS_REPEAT_COUNT - 2] = addressBits(address) | (1 << DMA_STB_SHIFT);
-            Addresses[(address*BIT_DEPTH + depth)*ADDRESS_REPEAT_COUNT + ADDRESS_REPEAT_COUNT - 1] = addressBits(address);
         }
     }
 }
@@ -364,7 +348,7 @@ void Matrix::buildTimerTables() {
         // 3. For the last cycle of the last row, the cycle time is expanded to MIN_LAST_CYCLE_TIME to allow
         //    the display interrupt to update.
  
-        #define MIN_CYCLE_TIME          0x0059      // Minimum time between OE assertions
+        #define MIN_CYCLE_TIME          0x0072      // Minimum time between OE assertions
         #define MIN_BLANKING_TIME       0x0030      // Minimum time OE must be unasserted
         #define MIN_LAST_CYCLE_TIME     0x0059      // Mininum number of cycles for the last cycle loop.
  
@@ -464,23 +448,32 @@ void Matrix::setupFTM0(){
  
     FTM0_C0V = 0x001;      // Duty cycle of PWM signal
 
+    // Configure LED_OE_PIN pinmux (LED_OE_PIN is on PORTA-4 / FTM0_CH1)
+    PORTA_PCR4 = PORT_PCR_MUX(3) | PORT_PCR_DSE | PORT_PCR_SRE;
  
-    // FTM0_CH1 drives the LED_OE pin and triggers data write
-    FTM0_C1SC = 0x40        // Enable interrupt
-        | 0x20              // Mode select: Edge-aligned PWM 
+    // FTM0_CH1 drives the LED_OE pin
+    FTM0_C1SC = 0x20        // Mode select: Edge-aligned PWM 
         | 0x08              // High-true pulses
         | 0x01;             // Enable DMA out
-    FTM0_SYNC |= 0x80;      // set PWM value update
 
+
+    // FTM0_CH4 drives the LED_STROBE pin (LED_STROBE_PIN is on PORTD-4 / FTM0_CH4)
+    FTM0_C4SC = 0x20        // Mode select: Edge-aligned PWM 
+        | 0x08              // High-true pulses
+        | 0x01;             // Enable DMA out
+
+    FTM0_C4V = 0x001;      // Duty cycle of PWM signal
+
+
+    // Configure LED_OE_PIN pinmux (LED_OE_PIN is on PORTA-4 / FTM0_CH1)
+    PORTD_PCR4 = PORT_PCR_MUX(4) | PORT_PCR_DSE | PORT_PCR_SRE; 
+ 
 
     // And start the clock
     FTM0_SC |=
         FTM_SC_CLKS(1)    // Use system clock source
         | FTM_SC_PS(0);     // Divide by 1 prescaler
 
-    // Configure LED_OE_PIN pinmux (LED_OE_PIN is on PORTA-4 / FTM0_CH1)
-    PORTA_PCR4 = PORT_PCR_MUX(3) | PORT_PCR_DSE | PORT_PCR_SRE; 
- 
 }
 
 // SPI is used to program the column drivers
