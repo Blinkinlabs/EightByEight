@@ -11,12 +11,11 @@ void bleedTest() {
         for(int col = 0; col < LED_COLS; col++) {
             //uint8_t val = row*LED_COLS + col + i;
             uint8_t val = 0;
-            if(1 == 1) {
-                val = 255;//(1 << (row + 1)) - 1;
+            if(col == row) {
+                val = 254;
             }
 
-            //matrix.setPixelColor(row,col, val, val, val);
-            matrix.setPixelColor(row,col, 255, 255, 255);
+            matrix.setPixelColor(row,col, val, val, val);
         }
     }
 
