@@ -9209,7 +9209,7 @@ new: Attribute TP_SIGNAL_NAME&lt;br&gt;
 <part name="R27" library="adafruit" deviceset="R-US_" device="R0402" value="10k"/>
 <part name="3V17" library="supply1" deviceset="+3V3" device=""/>
 <part name="3V18" library="supply1" deviceset="+3V3" device=""/>
-<part name="R28" library="adafruit" deviceset="R-US_" device="R0402" value="DNP"/>
+<part name="R28" library="adafruit" deviceset="R-US_" device="R0402" value="10k"/>
 <part name="3V1" library="supply1" deviceset="+3V3" device=""/>
 <part name="3V4" library="supply1" deviceset="+3V3" device=""/>
 <part name="3V6" library="supply1" deviceset="+3V3" device=""/>
@@ -9319,8 +9319,13 @@ Revision D:
 Revision E:
 -Implement more user friendly expansion pads for the ESP
 
+Revision F:
+-Round badge corners slightly
+-Increase base brightness for LED resistors
+
 TODO:
--Cosmetic: ESP8266 GPIO 18mislabeled, should be 16</text>
+-Cosmetic: ESP8266 GPIO 18mislabeled, should be 16
+-Clean silkscreen for final release</text>
 <text x="129.54" y="358.14" size="10.16" layer="91" align="bottom-center">EightByEight Blinky Badge</text>
 <text x="129.54" y="345.44" size="6.4516" layer="91" align="bottom-center">Copyright 2016 Blinkinlabs, LLC</text>
 </plain>
