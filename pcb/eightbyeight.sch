@@ -9044,7 +9044,7 @@ new: Attribute TP_SIGNAL_NAME&lt;br&gt;
 <part name="U2" library="blinkinlabs" deviceset="ICN2026" device=""/>
 <part name="GND2" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="C7" library="adafruit" deviceset="C-US" device="C0402" value="100nF"/>
-<part name="R1" library="adafruit" deviceset="R-US_" device="R0402" value="1.6k 1%"/>
+<part name="R1" library="adafruit" deviceset="R-US_" device="R0402" value="1k 1%"/>
 <part name="GND3" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="GND4" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="R7" library="adafruit" deviceset="R-US_" device="R0402" value="33"/>
@@ -9089,7 +9089,7 @@ new: Attribute TP_SIGNAL_NAME&lt;br&gt;
 <part name="GND8" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="U4" library="blinkinlabs" deviceset="ICN2026" device=""/>
 <part name="GND9" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
-<part name="R9" library="adafruit" deviceset="R-US_" device="R0402" value="2k 1%"/>
+<part name="R9" library="adafruit" deviceset="R-US_" device="R0402" value="1k 1%"/>
 <part name="GND11" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="C11" library="adafruit" deviceset="C-US" device="C0402" value="100nF"/>
 <part name="GND19" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
@@ -9324,8 +9324,7 @@ Revision F:
 -Increase base brightness for LED resistors
 
 TODO:
--Cosmetic: ESP8266 GPIO 18mislabeled, should be 16
--Clean silkscreen for final release</text>
+-Cosmetic: ESP8266 GPIO 18mislabeled, should be 16</text>
 <text x="129.54" y="358.14" size="10.16" layer="91" align="bottom-center">EightByEight Blinky Badge</text>
 <text x="129.54" y="345.44" size="6.4516" layer="91" align="bottom-center">Copyright 2016 Blinkinlabs, LLC</text>
 </plain>
