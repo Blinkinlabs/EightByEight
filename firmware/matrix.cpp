@@ -57,7 +57,7 @@ uint8_t OUTPUT_ORDER[] = {
     20, // R4
     4, // G4
     12, // B4
-    21, // R5
+    21, // R5∫
     5, // G5
     13, // B5
     22, // R6
@@ -118,6 +118,8 @@ void Matrix::begin() {
 
     // Clear the display and kick off transmission
     memset(pixels, 0, LED_ROWS*LED_COLS*BYTES_PER_PIXEL);
+    pixelsToDmaBuffer(pixels, backBuffer);
+    pixelsToDmaBuffer(pixels, frontBuffer);
     show();
 
     setupTCD0();
@@ -345,8 +347,11 @@ void Matrix::buildTimerTables() {
         #define MIN_BLANKING_TIME       0x0030      // Minimum time OE must be unasserted
         #define MIN_LAST_CYCLE_TIME     0x0072      // Mininum number of cycles for the last cycle loop.
  
- 
-        int onTime = 0;
+        // The shortest timer period at 48MHz clock is 20us, by setting onTime to 0. Unfortunately,
+        // due to residual capacitance, the LED drivers need longer than this to power on the row/column
+        // drivers for the G and B channels, so the lowest usable period is actually 40uS, thus we set
+        // onTime to 1.
+        int onTime = 1; // Shortest
  
         for(int depth= 0; depth< BIT_DEPTH; depth++) {
             int offset = address*BIT_DEPTH + depth + 1;

@@ -58,7 +58,6 @@ CFLAGS =
 
 # linker script
 LDSCRIPT = fcb-app-mk20dn64.ld
-#LDSCRIPT = fcb-app-mk20dn32.ld
 
 
 # linker options

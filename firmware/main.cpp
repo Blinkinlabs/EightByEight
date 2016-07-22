@@ -34,7 +34,6 @@
 #include "patterns.h"
 
 #include "HardwareSerial.h"
-//#include "protocol.h"
 #include "serialloop.h"
 #include "usb_serial.h"
 
@@ -97,9 +96,6 @@ extern "C" int main()
     matrix.setBrightness(1);
     matrix.begin();
 
-    bleedTest();
-    matrix.show();
-
     bool streamingMode = false;
 
     // Application main loop
@@ -109,11 +105,6 @@ extern "C" int main()
 //        if(!streamingMode) {
 //            colorSwirl();
 //            matrix.show();
-//        }
-
-//        if(usb_serial_available() > 0) {
-//            streamingMode = true;
-//            serialLoop();
 //        }
 
         // TODO: Something more robust

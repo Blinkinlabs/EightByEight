@@ -29,7 +29,7 @@
 #include "eightbyeight.h"
 
 //Display Geometry
-#define BIT_DEPTH 12 // Number of bits used to drive each LED
+#define BIT_DEPTH 11 // Number of bits used to drive each LED
 #define PAGES 1 // Dithered bits
 
 
