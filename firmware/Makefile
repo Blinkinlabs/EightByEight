@@ -14,7 +14,7 @@ SIZE = arm-none-eabi-size
 BOOTLOADER_IMAGE = ../bin/blinky-boot-v100.hex
 
 # Configuration options
-OPTIONS += -DF_CPU=48000000 -D__MK20DN64__ -DUSB_SERIAL_FC_DFU
+OPTIONS += -DF_CPU=48000000 -D__MK20DN64__ -DUSB_SERIAL_DFU
 
 #######################################################
 
@@ -41,7 +41,7 @@ CPP_FILES = \
 	eightbyeight.cpp \
 	serialloop.cpp \
         matrix.cpp \
-        patterns.cpp \
+        #patterns.cpp \
 
 # Headers
 INCLUDES = -I.

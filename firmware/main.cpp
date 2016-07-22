@@ -31,7 +31,7 @@
 #include "usb_dev.h"
 
 #include "eightbyeight.h"
-#include "patterns.h"
+//#include "patterns.h"
 
 #include "HardwareSerial.h"
 #include "serialloop.h"
@@ -96,7 +96,7 @@ extern "C" int main()
     matrix.setBrightness(1);
     matrix.begin();
 
-    bool streamingMode = false;
+//    bool streamingMode = false;
 
     // Application main loop
     while (usb_dfu_state == DFU_appIDLE) {
@@ -112,8 +112,6 @@ extern "C" int main()
         char buff[MAX_SERIAL_TRANSFER];
 
         while(usb_serial_available()) {
-            streamingMode = true;
-
             int bytesToTransfer = usb_serial_available();
             if(bytesToTransfer > MAX_SERIAL_TRANSFER) {
                 bytesToTransfer = MAX_SERIAL_TRANSFER;
@@ -136,7 +134,7 @@ extern "C" int main()
         }
 
         if(serial2_available()) {
-            streamingMode = true;
+//            streamingMode = true;
             serialLoop();
         }
     }
