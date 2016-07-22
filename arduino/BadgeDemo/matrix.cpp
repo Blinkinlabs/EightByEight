@@ -12,7 +12,7 @@
  *   list of conditions and the following disclaimer in the documentation and/or
  *   other materials provided with the distribution.
  *
- * * Neither the name of Majenko Technologies nor the names of its
+ * * Neither the name of Blinkinlabs, LLC nor the names of its
  *   contributors may be used to endorse or promote products derived from
  *   this software without specific prior written permission.
  *
@@ -31,7 +31,6 @@
 #include "matrix.h"
 
 #include <Arduino.h>
-//#include <Serial.h>
 
 uint8_t colorData[LED_ROWS*LED_COLS*LED_BYTES_PER_PIXEL];
 
