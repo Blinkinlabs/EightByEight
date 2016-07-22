@@ -1,6 +1,5 @@
 brightness_table.h
 core_cm4_simd.h
-core_cmInstr.h
 core_pins.h
 eightbyeight.cpp
 eightbyeight.h
@@ -17,8 +16,6 @@ serial1.c
 serial2.c
 serialloop.cpp
 serialloop.h
-spi4teensy3.cpp
-spi4teensy3.h
 startup.c
 usb_desc.c
 usb_desc.h
