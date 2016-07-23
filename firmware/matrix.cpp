@@ -197,6 +197,10 @@ void Matrix::pixelsToDmaBuffer(Pixel* pixelInput, dmaBuffer_t buffer[]) {
                 uint16_t dataR = brightnessTable[(uint16_t)(brightness*(pixel->R))];
                 uint16_t dataG = brightnessTable[(uint16_t)(brightness*(pixel->G))];
                 uint16_t dataB = brightnessTable[(uint16_t)(brightness*(pixel->B))];
+
+                dataR = dataR >> (BRIGHTNESS_TABLE_BIT_DEPTH - BIT_DEPTH);
+                dataG = dataG >> (BRIGHTNESS_TABLE_BIT_DEPTH - BIT_DEPTH);
+                dataB = dataB >> (BRIGHTNESS_TABLE_BIT_DEPTH - BIT_DEPTH);
   
                 uint8_t offsetR = OUTPUT_ORDER[col*BYTES_PER_PIXEL + 0];
                 uint8_t offsetG = OUTPUT_ORDER[col*BYTES_PER_PIXEL + 1];
@@ -271,30 +275,20 @@ void Matrix::setupTCD3() {
 // TCD0 updates the timer values for FTM0
 void Matrix::armTCD0(void* source, int majorLoops) {
     DMA_TCD0_SADDR = source;                                        // Address to read from
- 
-    // Workaround for DMA majorelink unreliability: increase the minor loop count by one
-    // Note that the final transfer doesn't end up happening, since this descriptor will be
-    // overwritten by the interrupt routine.
     DMA_TCD0_CITER_ELINKYES = majorLoops;                           // Number of major loops to complete
     DMA_TCD0_BITER_ELINKYES = majorLoops;                           // Reset value for CITER (must be equal to CITER)
 
     // Trigger DMA1 (timer) after each minor loop
-//    DMA_TCD0_BITER_ELINKYES |= DMA_TCD_CITER_ELINK | (0x01 << 9);
     DMA_TCD0_CITER_ELINKYES |= DMA_TCD_CITER_ELINK | (0x01 << 9);
 }
 
 // TCD1 updates the timer values for FTM0
 void Matrix::armTCD1(void* source, int majorLoops) {
     DMA_TCD1_SADDR = source;                                        // Address to read from
- 
-    // Workaround for DMA majorelink unreliability: increase the minor loop count by one
-    // Note that the final transfer doesn't end up happening, since this descriptor will be
-    // overwritten by the interrupt routine.
     DMA_TCD1_CITER_ELINKYES = majorLoops;                           // Number of major loops to complete
     DMA_TCD1_BITER_ELINKYES = majorLoops;                           // Reset value for CITER (must be equal to CITER)
  
     // Trigger DMA2 (address) after each minor loop
-//    DMA_TCD1_BITER_ELINKYES |= DMA_TCD_CITER_ELINK | (0x02 << 9);
     DMA_TCD1_CITER_ELINKYES |= DMA_TCD_CITER_ELINK | (0x02 << 9);
 }
 
@@ -306,7 +300,6 @@ void Matrix::armTCD2(void* source, int majorLoops) {
     DMA_TCD2_BITER_ELINKYES = majorLoops;                           // Reset value for CITER (must be equal to CITER)
 
     // Trigger DMA3 (data) after each minor loop
-//    DMA_TCD2_BITER_ELINKYES |= DMA_TCD_CITER_ELINK | (0x03 << 9);
     DMA_TCD2_CITER_ELINKYES |= DMA_TCD_CITER_ELINK | (0x03 << 9);
 }
 
@@ -324,8 +317,7 @@ void Matrix::buildAddressTable() {
     // To make the DMA engine easier to program, we store a copy of the
     // address table for each output page.
 
-    #define addressBits(addr) ((~(addr<<DMA_S0_SHIFT)) & (0x7 << DMA_S0_SHIFT))
-    Addresses[0] = addressBits(0);
+    #define addressBits(addr) ((~addr & 0x7)<<DMA_S0_SHIFT)
 
     for(int address = 0; address < LED_ROWS; address++) {
         for(int depth = 0; depth < BIT_DEPTH; depth++) {

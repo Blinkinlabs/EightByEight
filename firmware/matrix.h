@@ -29,8 +29,8 @@
 #include "eightbyeight.h"
 
 //Display Geometry
-#define BIT_DEPTH 11 // Number of bits used to drive each LED
-#define PAGES 1 // Dithered bits
+#define BIT_DEPTH 11 // Number of physical steps in the inner PWM cycle
+#define PAGES 1 // Number of simulated (dithered) steps in the outer PWM cycle
 
 
 // RGB pixel type
