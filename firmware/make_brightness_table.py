@@ -7,8 +7,8 @@ import math
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument("-i", type=int, default=8, help="Input bit depth")
-parser.add_argument("-o", type=int, default=10, help="Output bit depth")
+parser.add_argument("-i", type=int, default=255, help="Maximum input bits")
+parser.add_argument("-o", type=int, default=16, help="Output bit depth")
 parser.add_argument("-p", type=float, default=2, help="Power")
 
 args = parser.parse_args()
@@ -16,7 +16,8 @@ args = parser.parse_args()
 inputBitDepth = args.i
 outputBitDepth = args.o
 
-inputScale = (1 << inputBitDepth)       # Number of input steps
+#inputScale = (1 << inputBitDepth)       # Number of input steps
+inputScale = inputBitDepth
 outputScale = (1 << outputBitDepth)     # Number of output steps
 
 out = open("brightness_table.h", "w")
@@ -29,6 +30,7 @@ out.write("#ifndef BRIGHTNESS_TABLE_H\n")
 out.write("#define BRIGHTNESS_TABLE_H\n")
 out.write("\n")
 out.write("#define BRIGHTNESS_STEPS %i\n" % (inputScale))
+out.write("#define BRIGHTNESS_TABLE_BIT_DEPTH %i\n" % (outputBitDepth))
 out.write("\n")
 out.write("const uint16_t brightnessTable[BRIGHTNESS_STEPS] = {\n")
 

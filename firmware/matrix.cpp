@@ -32,7 +32,6 @@ Matrix matrix;
 #define DMA_DAT_SHIFT 6 // Location of the data pin in Port C register
 
 // Offsets in the port D register (address)
-#define DMA_STB_SHIFT 4 // Location of the strobe pin in Port D register
 #define DMA_S0_SHIFT 5 // Note that S1 and S2 have to follow S0 sequentially.
 #define DMA_S1_SHIFT 6
 #define DMA_S2_SHIFT 7
@@ -110,16 +109,16 @@ void Matrix::begin() {
     // FTM
     setupFTM0();
 
-    frontBuffer = dmaBufferSpi[0];
-    backBuffer = dmaBufferSpi[1];
+    frontBuffer = dmaBuffer[0];
+    backBuffer = dmaBuffer[1];
 
     swapBuffers = false;
     currentPage = 0;
 
     // Clear the display and kick off transmission
-    memset(pixels, 0, LED_ROWS*LED_COLS*BYTES_PER_PIXEL);
-    pixelsToDmaBuffer(pixels, backBuffer);
-    pixelsToDmaBuffer(pixels, frontBuffer);
+    memset(pixels, 0, LED_ROWS*LED_COLS*sizeof(Pixel));
+    pixelsToDmaBuffer(pixels, dmaBuffer[0]);
+    pixelsToDmaBuffer(pixels, dmaBuffer[1]);
     show();
 
     setupTCD0();
@@ -183,39 +182,59 @@ float Matrix::getBrightness() const {
     return brightness;
 }
 
-// Munge the data so it can be written out by the DMA engine
-// Note: buffer[][xxx] should have BIT_DEPTH as xxx
+// Fill the DMA buffer with pre-formatted bitforms for the current screen
 void Matrix::pixelsToDmaBuffer(Pixel* pixelInput, dmaBuffer_t buffer[]) {
     // First, clear the outputs
-    memset(buffer, 0, PANEL_DEPTH_SPI_SIZE*PAGES*sizeof(dmaBuffer_t));
+    memset(buffer, 0, PANEL_DEPTH_SIZE*PAGES*sizeof(dmaBuffer_t));
 
-    for(uint8_t page = 0; page < PAGES; page++) {
-        for(uint8_t row = 0; row < LED_ROWS; row++) {
-            for(uint8_t col = 0; col < LED_COLS; col++) {
-   
-		Pixel* pixel = &pixelInput[row*LED_COLS + col];
-                uint16_t dataR = brightnessTable[(uint16_t)(brightness*(pixel->R))];
-                uint16_t dataG = brightnessTable[(uint16_t)(brightness*(pixel->G))];
-                uint16_t dataB = brightnessTable[(uint16_t)(brightness*(pixel->B))];
+    const uint8_t brightnessBits[4]= {0,1,3,15};
 
-                dataR = dataR >> (BRIGHTNESS_TABLE_BIT_DEPTH - BIT_DEPTH);
-                dataG = dataG >> (BRIGHTNESS_TABLE_BIT_DEPTH - BIT_DEPTH);
-                dataB = dataB >> (BRIGHTNESS_TABLE_BIT_DEPTH - BIT_DEPTH);
-  
-                uint8_t offsetR = OUTPUT_ORDER[col*BYTES_PER_PIXEL + 0];
-                uint8_t offsetG = OUTPUT_ORDER[col*BYTES_PER_PIXEL + 1];
-                uint8_t offsetB = OUTPUT_ORDER[col*BYTES_PER_PIXEL + 2];
+    for(uint8_t row = 0; row < LED_ROWS; row++) {
+        uint32_t rowOffset = row*ROW_DEPTH_SIZE;
 
-                for(uint8_t depth = 0; depth < BIT_DEPTH; depth++) {
-                    uint8_t bitR = ((dataR >> (depth)) & 0x01);
-                    uint8_t bitG = ((dataG >> (depth)) & 0x01);
-                    uint8_t bitB = ((dataB >> (depth)) & 0x01);
+        for(uint8_t col = 0; col < LED_COLS; col++) {
+            Pixel* pixel = &pixelInput[row*LED_COLS + col];
+
+            uint16_t dataR = brightnessTable[(uint16_t)(brightness*(pixel->R))];
+            uint16_t dataG = brightnessTable[(uint16_t)(brightness*(pixel->G))];
+            uint16_t dataB = brightnessTable[(uint16_t)(brightness*(pixel->B))];
+
+            uint8_t offsetR = OUTPUT_ORDER[col*BYTES_PER_PIXEL + 0];
+            uint8_t offsetG = OUTPUT_ORDER[col*BYTES_PER_PIXEL + 1];
+            uint8_t offsetB = OUTPUT_ORDER[col*BYTES_PER_PIXEL + 2];
+
+
+            uint16_t pwmDataR = dataR >> (PAGED_BITS - 1);
+            uint16_t pwmDataG = dataG >> (PAGED_BITS - 1);
+            uint16_t pwmDataB = dataB >> (PAGED_BITS - 1);
+
+            uint16_t pagedDataR = dataR & ((1 << PAGED_BITS)-1);    // TODO: What if PAGED_BITS == 0?
+            uint16_t pagedDataG = dataG & ((1 << PAGED_BITS)-1);
+            uint16_t pagedDataB = dataB & ((1 << PAGED_BITS)-1);
+
+            uint8_t pagedBitsR = brightnessBits[pagedDataR];
+            uint8_t pagedBitsG = brightnessBits[pagedDataG];
+            uint8_t pagedBitsB = brightnessBits[pagedDataB];
+
+            for(uint8_t depth = 0; depth < PWM_BITS; depth++) {
+                uint32_t depthOffset = depth*WRITES_PER_COLUMN;
+
+                uint8_t bitR = (pwmDataR >> (depth)) & 0x01;
+                uint8_t bitG = (pwmDataG >> (depth)) & 0x01;
+                uint8_t bitB = (pwmDataB >> (depth)) & 0x01;
+
+                for(uint8_t page = 0; page < PAGES; page++) {
+                    uint32_t pageOffset = page*PANEL_DEPTH_SIZE;
+
+                    if(depth == 0) {
+                        bitR = (pagedBitsR >> page) & 0x01;
+                        bitG = (pagedBitsG >> page) & 0x01;
+                        bitB = (pagedBitsB >> page) & 0x01;
+                    }
                    
-                    uint32_t offsetBase = row*ROW_DEPTH_SPI_SIZE + depth*WRITES_PER_COLUMN_SPI;
-                   
-                    buffer[offsetBase + (offsetR/BITS_PER_WRITE_SPI)] |= (bitR << (offsetR % BITS_PER_WRITE_SPI));
-                    buffer[offsetBase + (offsetG/BITS_PER_WRITE_SPI)] |= (bitG << (offsetG % BITS_PER_WRITE_SPI));
-                    buffer[offsetBase + (offsetB/BITS_PER_WRITE_SPI)] |= (bitB << (offsetB % BITS_PER_WRITE_SPI));
+                    buffer[pageOffset + rowOffset + depthOffset + (offsetR/BITS_PER_WRITE)] |= (bitR << (offsetR % BITS_PER_WRITE));
+                    buffer[pageOffset + rowOffset + depthOffset + (offsetG/BITS_PER_WRITE)] |= (bitG << (offsetG % BITS_PER_WRITE));
+                    buffer[pageOffset + rowOffset + depthOffset + (offsetB/BITS_PER_WRITE)] |= (bitB << (offsetB % BITS_PER_WRITE));
                 }
             }
         }
@@ -264,7 +283,7 @@ void Matrix::setupTCD2() {
 void Matrix::setupTCD3() {
     DMA_TCD3_SOFF = 2;                                              // Bytes to increment source register between writes 
     DMA_TCD3_ATTR = DMA_TCD_ATTR_SSIZE(1) | DMA_TCD_ATTR_DSIZE(1);  // 16-bit input and output
-    DMA_TCD3_NBYTES_MLNO = WRITES_PER_COLUMN_SPI*2;                 // Number of bytes to transfer in the minor loop
+    DMA_TCD3_NBYTES_MLNO = WRITES_PER_COLUMN*2;                 // Number of bytes to transfer in the minor loop
     DMA_TCD3_SLAST = 0;                                             // Bytes to add after a major iteration count (N/A)
     DMA_TCD3_DADDR = &SPI0_PUSHR;                                   // Address to write to
     DMA_TCD3_DOFF = 0;                                              // Bytes to increment destination register between write
@@ -280,6 +299,7 @@ void Matrix::armTCD0(void* source, int majorLoops) {
 
     // Trigger DMA1 (timer) after each minor loop
     DMA_TCD0_CITER_ELINKYES |= DMA_TCD_CITER_ELINK | (0x01 << 9);
+    //DMA_TCD0_CITER_ELINKYES = DMA_TCD0_BITER_ELINKYES;
 }
 
 // TCD1 updates the timer values for FTM0
@@ -320,14 +340,14 @@ void Matrix::buildAddressTable() {
     #define addressBits(addr) ((~addr & 0x7)<<DMA_S0_SHIFT)
 
     for(int address = 0; address < LED_ROWS; address++) {
-        for(int depth = 0; depth < BIT_DEPTH; depth++) {
+        for(int depth = 0; depth < PWM_BITS; depth++) {
             // Mux-based address select lines
-            Addresses[address*BIT_DEPTH + depth + 1] = addressBits(address);
+            Addresses[address*PWM_BITS + depth + 1] = addressBits(address);
         }
     }
 
     // For some reason, we have to write an additional address out for the DMA chain to work properly.
-    Addresses[BIT_DEPTH*LED_ROWS] = Addresses[BIT_DEPTH*LED_ROWS - 1];
+    Addresses[PWM_BITS*LED_ROWS] = Addresses[PWM_BITS*LED_ROWS - 1];
 }
 
 void Matrix::buildTimerTables() {
@@ -335,7 +355,7 @@ void Matrix::buildTimerTables() {
     for(int address = 0; address < LED_ROWS; address++) {
 
         // TODO: These comments need to be updated.
-        // Each row update consists of BIT_DEPTH cycles. The length of the 'on' time
+        // Each row update consists of PWM_BITS cycles. The length of the 'on' time
         // (when OE is asserted) on each cycle is set by onTime; it begins with
         // ON_TIME_MIN and doubles every cycle after that to create a binary progression.
 
@@ -350,10 +370,10 @@ void Matrix::buildTimerTables() {
         // due to residual capacitance, the LED drivers need longer than this to power on the row/column
         // drivers for the G and B channels, so the lowest usable period is actually 40uS, thus we set
         // onTime to 1.
-        int onTime = 1;
+        int onTime = 2;
  
-        for(int depth= 0; depth< BIT_DEPTH; depth++) {
-            int offset = address*BIT_DEPTH + depth;
+        for(int depth= 0; depth< PWM_BITS; depth++) {
+            int offset = address*PWM_BITS + depth;
 
             if((onTime + MIN_BLANKING_TIME) < MIN_CYCLE_TIME) {
                 // The DMA engines need enough time to update the timer states, addresses, and data
@@ -378,10 +398,10 @@ void Matrix::buildTimerTables() {
         }
     }
 
-    // Insert a long cycle at the end of all the states, to allow time for the refresh interrupt
+    // Insert an extra cycle at the end of all the states, to allow time for the refresh interrupt
     // to run.
-    FTM0_C1VStates[BIT_DEPTH*LED_ROWS] = MIN_CYCLE_TIME + 1;
-    FTM0_MODStates[BIT_DEPTH*LED_ROWS] = MIN_CYCLE_TIME;
+    FTM0_C1VStates[PWM_BITS*LED_ROWS] = MIN_CYCLE_TIME + 1;
+    FTM0_MODStates[PWM_BITS*LED_ROWS] = MIN_CYCLE_TIME;
 }
 
 void Matrix::refresh() {
@@ -390,12 +410,17 @@ void Matrix::refresh() {
         frontBuffer = backBuffer;
         backBuffer = lastBuffer;
         swapBuffers = false;
+
+        currentPage = 0;
     }
     
-    armTCD1(FTM0_C1VStates, BIT_DEPTH*LED_ROWS+2);
-    armTCD0(FTM0_MODStates, BIT_DEPTH*LED_ROWS+2);
-    armTCD2(Addresses, BIT_DEPTH*LED_ROWS+1);
-    armTCD3(frontBuffer+currentPage*PANEL_DEPTH_SPI_SIZE, BIT_DEPTH*LED_ROWS);
+    armTCD1(FTM0_C1VStates, PWM_BITS*LED_ROWS+2);
+    armTCD0(FTM0_MODStates, PWM_BITS*LED_ROWS+2);
+    armTCD2(Addresses, PWM_BITS*LED_ROWS+1);
+    armTCD3(frontBuffer+currentPage*PANEL_DEPTH_SIZE, PWM_BITS*LED_ROWS);
+
+
+    currentPage = (currentPage+1) % PAGES;
 }
 
 
@@ -404,9 +429,7 @@ void Matrix::refresh() {
 void dma_ch2_isr(void) {
     DMA_CINT = DMA_CINT_CINT(2);
 
-//    digitalWrite(15, HIGH);
     matrix.refresh();
-//    digitalWrite(15, LOW);
 }
 
 // FTM0 drives our whole operation! We need to periodically update the
@@ -444,14 +467,8 @@ void Matrix::setupFTM0(){
 
     FTM0_C4V = 0x001;      // Duty cycle of PWM signal
 
-    // Configure LED_OE_PIN pinmux (LED_OE_PIN is on PORTA-4 / FTM0_CH1)
-    PORTD_PCR4 = PORT_PCR_MUX(4) | PORT_PCR_DSE | PORT_PCR_SRE; 
-
-    // And start the clock
-//    FTM0_SC |=
-//        FTM_SC_CLKS(1)    // Use system clock source
-//        | FTM_SC_PS(0);     // Divide by 1 prescaler
-
+    // Configure LED_STROBE pinmux (LED_STROBE is on PORTD-4 / FTM0_CH1)
+    PORTD_PCR4 = PORT_PCR_MUX(4) | PORT_PCR_DSE | PORT_PCR_SRE;
 }
 
 // SPI is used to program the column drivers
@@ -466,6 +483,6 @@ void Matrix::setupSPI0() {
     SPI0_MCR |= SPI_MCR_CLR_RXF | SPI_MCR_CLR_TXF;  // Clear the FIFOs
 
     SPI0_CTAR0 = SPI_CTAR_DBR   // Double baud rate
-        | SPI_CTAR_FMSZ(BITS_PER_WRITE_SPI - 1)     // n-bit mode
+        | SPI_CTAR_FMSZ(BITS_PER_WRITE - 1)     // n-bit mode
         | SPI_CTAR_LSBFE;                          // least significant bit first
 }
