@@ -315,6 +315,9 @@ DIN A3, landscape with location and doc. field</description>
 </library>
 <library name="DevicesToMerge">
 <packages>
+<package name="IO_HOLE_2.55MM">
+<pad name="P$1" x="0" y="0" drill="2.55" diameter="4"/>
+</package>
 <package name="IO_HOLE_1.4MM">
 <pad name="P$1" x="0" y="0" drill="1.3" diameter="1.5" shape="offset"/>
 </package>
@@ -345,7 +348,15 @@ DIN A3, landscape with location and doc. field</description>
 <technology name=""/>
 </technologies>
 </device>
-<device name="" package="IO_HOLE_1.4MM">
+<device name="1.4MM" package="IO_HOLE_1.4MM">
+<connects>
+<connect gate="G$1" pin="TP" pad="P$1"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+<device name="2.55MM" package="IO_HOLE_2.55MM">
 <connects>
 <connect gate="G$1" pin="TP" pad="P$1"/>
 </connects>
@@ -605,43 +616,43 @@ We've spent an enormous amount of time creating and checking these footprints an
 <variantdefs>
 </variantdefs>
 <classes>
-<class number="0" name="default" width="0" drill="0">
+<class number="0" name="default" width="0.4064" drill="0.35">
 </class>
-<class number="1" name="power" width="0.254" drill="0.35">
+<class number="1" name="power" width="0.4064" drill="0.35">
 </class>
 </classes>
 <parts>
 <part name="FRAME2" library="frames" deviceset="A3L-LOC" device=""/>
 <part name="FRAME6" library="frames" deviceset="A3P-LOC" device=""/>
-<part name="ARM_BOOT" library="DevicesToMerge" deviceset="TEST_POINT" device=""/>
+<part name="ARM_BOOT" library="DevicesToMerge" deviceset="TEST_POINT" device="1.4MM" value="TEST_POINT1.4MM"/>
 <part name="3V7" library="supply1" deviceset="+3V3" device=""/>
 <part name="GND44" library="supply1" deviceset="GND" device=""/>
-<part name="LED_DATA" library="DevicesToMerge" deviceset="TEST_POINT" device=""/>
-<part name="LED_CLK" library="DevicesToMerge" deviceset="TEST_POINT" device=""/>
-<part name="LED_STB" library="DevicesToMerge" deviceset="TEST_POINT" device=""/>
-<part name="LED_OE" library="DevicesToMerge" deviceset="TEST_POINT" device=""/>
-<part name="I2C_SDA" library="DevicesToMerge" deviceset="TEST_POINT" device=""/>
-<part name="I2C_SCL" library="DevicesToMerge" deviceset="TEST_POINT" device=""/>
-<part name="5V" library="DevicesToMerge" deviceset="TEST_POINT" device=""/>
-<part name="VBAT" library="DevicesToMerge" deviceset="TEST_POINT" device=""/>
+<part name="LED_DATA" library="DevicesToMerge" deviceset="TEST_POINT" device="1.4MM" value="TEST_POINT1.4MM"/>
+<part name="LED_CLK" library="DevicesToMerge" deviceset="TEST_POINT" device="1.4MM" value="TEST_POINT1.4MM"/>
+<part name="LED_STB" library="DevicesToMerge" deviceset="TEST_POINT" device="1.4MM" value="TEST_POINT1.4MM"/>
+<part name="LED_OE" library="DevicesToMerge" deviceset="TEST_POINT" device="1.4MM" value="TEST_POINT1.4MM"/>
+<part name="I2C_SDA" library="DevicesToMerge" deviceset="TEST_POINT" device="1.4MM" value="TEST_POINT1.4MM"/>
+<part name="I2C_SCL" library="DevicesToMerge" deviceset="TEST_POINT" device="1.4MM" value="TEST_POINT1.4MM"/>
+<part name="5V" library="DevicesToMerge" deviceset="TEST_POINT" device="1.4MM" value="TEST_POINT1.4MM"/>
+<part name="VBAT" library="DevicesToMerge" deviceset="TEST_POINT" device="1.4MM" value="TEST_POINT1.4MM"/>
 <part name="P+6" library="supply1" deviceset="+5V" device=""/>
-<part name="ARM_3V3" library="DevicesToMerge" deviceset="TEST_POINT" device=""/>
-<part name="ARM_TMS" library="DevicesToMerge" deviceset="TEST_POINT" device=""/>
-<part name="ARM_TCK" library="DevicesToMerge" deviceset="TEST_POINT" device=""/>
-<part name="ARM_TX" library="DevicesToMerge" deviceset="TEST_POINT" device=""/>
-<part name="ARM_RX" library="DevicesToMerge" deviceset="TEST_POINT" device=""/>
-<part name="ARM_RESET" library="DevicesToMerge" deviceset="TEST_POINT" device=""/>
-<part name="ESP_GPIO0" library="DevicesToMerge" deviceset="TEST_POINT" device=""/>
-<part name="ESP_RESET" library="DevicesToMerge" deviceset="TEST_POINT" device=""/>
-<part name="GND_" library="DevicesToMerge" deviceset="TEST_POINT" device=""/>
+<part name="ARM_3V3" library="DevicesToMerge" deviceset="TEST_POINT" device="1.4MM" value="TEST_POINT1.4MM"/>
+<part name="ARM_TMS" library="DevicesToMerge" deviceset="TEST_POINT" device="1.4MM" value="TEST_POINT1.4MM"/>
+<part name="ARM_TCK" library="DevicesToMerge" deviceset="TEST_POINT" device="1.4MM" value="TEST_POINT1.4MM"/>
+<part name="ARM_TX" library="DevicesToMerge" deviceset="TEST_POINT" device="1.4MM" value="TEST_POINT1.4MM"/>
+<part name="ARM_RX" library="DevicesToMerge" deviceset="TEST_POINT" device="1.4MM" value="TEST_POINT1.4MM"/>
+<part name="ARM_RESET" library="DevicesToMerge" deviceset="TEST_POINT" device="1.4MM" value="TEST_POINT1.4MM"/>
+<part name="ESP_GPIO0" library="DevicesToMerge" deviceset="TEST_POINT" device="1.4MM" value="TEST_POINT1.4MM"/>
+<part name="ESP_RESET" library="DevicesToMerge" deviceset="TEST_POINT" device="1.4MM" value="TEST_POINT1.4MM"/>
+<part name="GND_" library="DevicesToMerge" deviceset="TEST_POINT" device="1.4MM" value="TEST_POINT1.4MM"/>
 <part name="GND22" library="supply1" deviceset="GND" device=""/>
-<part name="ARM_RX1" library="DevicesToMerge" deviceset="TEST_POINT" device=""/>
-<part name="BOOST_5V" library="DevicesToMerge" deviceset="TEST_POINT" device=""/>
-<part name="BUTTON" library="DevicesToMerge" deviceset="TEST_POINT" device=""/>
-<part name="GND" library="DevicesToMerge" deviceset="TEST_POINT" device=""/>
-<part name="ESP_GPIO5" library="DevicesToMerge" deviceset="TEST_POINT" device=""/>
-<part name="ESP_GPIO16" library="DevicesToMerge" deviceset="TEST_POINT" device=""/>
-<part name="+3V3" library="DevicesToMerge" deviceset="TEST_POINT" device=""/>
+<part name="ARM_RX1" library="DevicesToMerge" deviceset="TEST_POINT" device="1.4MM" value="TEST_POINT1.4MM"/>
+<part name="BOOST_5V" library="DevicesToMerge" deviceset="TEST_POINT" device="1.4MM" value="TEST_POINT1.4MM"/>
+<part name="BUTTON" library="DevicesToMerge" deviceset="TEST_POINT" device="1.4MM" value="TEST_POINT1.4MM"/>
+<part name="GND" library="DevicesToMerge" deviceset="TEST_POINT" device="2.55MM"/>
+<part name="ESP_GPIO5" library="DevicesToMerge" deviceset="TEST_POINT" device="2.55MM"/>
+<part name="ESP_GPIO16" library="DevicesToMerge" deviceset="TEST_POINT" device="2.55MM"/>
+<part name="+3V3" library="DevicesToMerge" deviceset="TEST_POINT" device="2.55MM"/>
 <part name="JTAG" library="blinkinlabs" deviceset="JTAG_ARM_10PIN" device=""/>
 <part name="GND1" library="supply1" deviceset="GND" device=""/>
 <part name="DIGITAL_TEST" library="SparkFun-Connectors" deviceset="M08X2" device=""/>
@@ -655,7 +666,11 @@ We've spent an enormous amount of time creating and checking these footprints an
 <text x="17.78" y="325.12" size="3.81" layer="91" align="top-left">Revision Notes/Changelog
 
 Revision A:
-Matches Rev D/E/F application versions</text>
+-Matches Rev D/E/F application versions
+
+Revision B:
+-Put connectors and labels on proper side
+-Make test card longer to give space for ribbon cables</text>
 <text x="129.54" y="358.14" size="10.16" layer="91" align="bottom-center">EightByEight Test card</text>
 <text x="129.54" y="345.44" size="6.4516" layer="91" align="bottom-center">Copyright 2016 Blinkinlabs, LLC</text>
 </plain>
