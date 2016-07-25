@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="7.6.0">
+<eagle version="7.5.0">
 <drawing>
 <settings>
 <setting alwaysvectorfont="yes"/>
@@ -999,9 +999,9 @@ the ARM JTAG pins</text>
 <pinref part="ESP_GPIO16" gate="G$1" pin="TP"/>
 </segment>
 <segment>
-<pinref part="DIGITAL_TEST" gate="G$1" pin="14"/>
-<wire x1="58.42" y1="35.56" x2="81.28" y2="35.56" width="0.1524" layer="91"/>
-<label x="63.5" y="35.56" size="1.778" layer="95"/>
+<pinref part="DIGITAL_TEST" gate="G$1" pin="5"/>
+<wire x1="43.18" y1="45.72" x2="15.24" y2="45.72" width="0.1524" layer="91"/>
+<label x="15.24" y="45.72" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="I2C_SDA" class="0">
