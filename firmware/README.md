@@ -1,4 +1,4 @@
-# LightBuddy LED controller
+# EightByEight Blinky Badge
 
 ## Firmware development
 

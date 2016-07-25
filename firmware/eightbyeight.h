@@ -1,7 +1,7 @@
 /*
- * Peripherals for the BlinkyTile controller
+ * Peripherals for the EightByEight Blinky Badge
  *
- * Copyright (c) 2014 Matt Mets
+ * Copyright (c) 2016 Blinkinlabs, LLC
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -21,9 +21,10 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef BLINKYTILE_H
-#define BLINKYTILE_H
+#ifndef EIGHTBYEIGHT_H
+#define EIGHTBYEIGHT_H
 
+#include "mk20dn64.h"
 
 #define LED_COLS 8          // Number of columns that the LED matrix has
 #define LED_ROWS 8          // Number of rows that the LED matrix has

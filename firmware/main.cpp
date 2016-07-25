@@ -1,7 +1,7 @@
 /*
- * Blinky Controller
+ * EightByEight Blinky Badge
  *
-* Copyright (c) 2014, 2016 Blinkinlabs, LLC
+ * Copyright (c) 2014, 2016 Blinkinlabs, LLC
  *
  * based on Fadecandy Firmware, Copyright (c) 2013 Micah Elizabeth Scott
  * 
@@ -38,9 +38,6 @@
 #include "usb_serial.h"
 
 #include "matrix.h"
-
-// Serial programming receiver
-//Protocol serialReceiver;
 
 // Reserved RAM area for signalling entry to bootloader
 extern uint32_t boot_token;
