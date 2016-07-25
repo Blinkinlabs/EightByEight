@@ -1,6 +1,7 @@
-# EightByEight Wifi Blinky
+# EightByEight Blinky Badge
+![image](https://github.com/Blinkinlabs/EightByEight/raw/master/documentation/blinky.jpg)
 
-Blinky Badge, Copyright 2016 Blinkinlabs, LLC
+EightByEight Blinky Badge, Copyright 2016 Blinkinlabs, LLC
 
 See the 'Getting Started Guide' in reference/ to learn about the badge.
 
