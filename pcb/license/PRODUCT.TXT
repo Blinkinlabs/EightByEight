@@ -1,0 +1,4 @@
+EightByEight Blinky Badge
+Copyright 2016 Blinkinlabs, LLC
+
+For more information, email: contact@blinkinlabs.com

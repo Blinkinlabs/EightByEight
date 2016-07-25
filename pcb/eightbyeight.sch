@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="7.6.0">
+<eagle version="7.5.0">
 <drawing>
 <settings>
 <setting alwaysvectorfont="yes"/>
@@ -9294,7 +9294,7 @@ new: Attribute TP_SIGNAL_NAME&lt;br&gt;
 <sheets>
 <sheet>
 <plain>
-<text x="17.78" y="325.12" size="3.81" layer="91" align="top-left">Revision Notes/Changelog
+<text x="17.78" y="281.94" size="3.81" layer="91" align="top-left">Revision Notes/Changelog
 
 Revision A:
 -Diode mod required to power over USB
@@ -9327,6 +9327,13 @@ TODO:
 -Cosmetic: ESP8266 GPIO 18mislabeled, should be 16</text>
 <text x="129.54" y="358.14" size="10.16" layer="91" align="bottom-center">EightByEight Blinky Badge</text>
 <text x="129.54" y="345.44" size="6.4516" layer="91" align="bottom-center">Copyright 2016 Blinkinlabs, LLC</text>
+<text x="17.78" y="297.18" size="3.81" layer="91">This documentation describes Open Hardware and is licensed under the
+CERN OHL v. 1.2. You may redistribute and modify this documentation
+under the terms of the CERN OHL v.1.2. (http://ohwr.org/cernohl). This
+documentation is distributed WITHOUT ANY EXPRESS OR IMPLIED
+WARRANTY, INCLUDING OF MERCHANTABILITY, SATISFACTORY
+QUALITY AND FITNESS FOR A PARTICULAR PURPOSE. Please see the
+CERN OHL v.1.2 for applicable conditions </text>
 </plain>
 <instances>
 <instance part="FRAME6" gate="G$1" x="0" y="0"/>
