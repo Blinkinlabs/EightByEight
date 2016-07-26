@@ -92,10 +92,11 @@ void serial_begin(uint32_t divisor)
 
 	// TODO: Move these to a better location
 	// Software RTS and DTR signals
-	CORE_PIN5_CONFIG = PORT_PCR_DSE | PORT_PCR_SRE | PORT_PCR_MUX(1);
-	CORE_PIN6_CONFIG = PORT_PCR_DSE | PORT_PCR_SRE | PORT_PCR_MUX(1);
 	GPIOB_PDDR |= 0x03;
 	GPIOB_PSOR  = 0x03;
+	CORE_PIN5_CONFIG = PORT_PCR_DSE | PORT_PCR_SRE | PORT_PCR_MUX(1);
+	CORE_PIN6_CONFIG = PORT_PCR_DSE | PORT_PCR_SRE | PORT_PCR_MUX(1);
+
 
 	UART0_BDH = (divisor >> 13) & 0x1F;
 	UART0_BDL = (divisor >> 5) & 0xFF;
