@@ -38,6 +38,7 @@
 
 #include "mma8653.h"
 #include "matrix.h"
+#include "patterns.h"
 #include "secrets.h"
 
 const int listen_port = 6454;
@@ -52,6 +53,8 @@ const int i2c_scl = 14;
 const int i2c_sda = 12;
 
 const int button = 4;
+const int pinA = 5;
+const int pinB = 16;
 
 MMA8653 mma8653;
 
@@ -69,6 +72,161 @@ float zValue;
 
 
 bool buttonPressed = false;
+
+#include "mma8653.h"
+#include "matrix.h"
+
+void colorSwirl() {
+  static float j = 0;
+  static float f = 0;
+  static float k = 0;
+
+  float xValue = getAveraged(xValues, maxValueIndex)/2 + .5;
+  if(xValue > 1) { xValue = 1;}
+  if(xValue < 0) { xValue = 0;}
+  float yValue = -getAveraged(yValues, maxValueIndex)/2 + .5;
+  if(yValue > 1) { yValue = 1;}
+  if(yValue < 0) { yValue = 0;}
+  float zValue = -getAveraged(zValues, maxValueIndex)/2 + .5;
+  if(zValue > 1) { zValue = 1;}
+  if(zValue < 0) { zValue = 0;}
+  zValue = .5;
+
+  
+  for (uint8_t row = 0; row < LED_ROWS; row++) {
+    for (uint8_t col = 0; col < LED_COLS; col++) {
+      uint8_t r = xValue*64*(1+sin(row/2.0 + -col/3.0 + j/4.0       ));
+      uint8_t g = yValue*64*(1+sin(-row/1.0 + col/4.0 + f/9.0  + 2.1));
+      uint8_t b = zValue*64*(1+sin(row/3.0 + -col/2.0 + k/14.0 + 4.2));
+      matrix.setPixelColor(row, col, r, g, b);
+    }
+  }
+  matrix.show();
+
+  j = j + .03;
+  f = f + .02;
+  k = k + .04;
+}
+
+
+void staticColor(int r, int g, int b) {
+  for (uint8_t row = 0; row < LED_ROWS; row++) {
+    for (uint8_t col = 0; col < LED_COLS; col++) {
+      matrix.setPixelColor(row, col, r, g, b);
+    }
+  }
+  matrix.show();
+}
+
+void whitePulse() {
+  static int i = 0;
+  const int counts = 2;
+
+  for (uint8_t row = 0; row < LED_ROWS; row++) {
+    for (uint8_t col = 0; col < LED_COLS; col++) {
+      if(i >= counts/2) {
+        matrix.setPixelColor(row, col, 255, 0, 0);
+      }
+      else {
+        matrix.setPixelColor(row, col, 0, 0, 255);
+      }
+    }
+  }
+  matrix.show();
+  
+  i = (i + 1)%counts;
+}
+
+void gradientTest() {
+  static int i = 0;
+  const int counts = 200;
+
+  for (uint8_t row = 0; row < LED_ROWS; row++) {
+    for (uint8_t col = 0; col < LED_COLS; col++) {
+      int val=(row*LED_COLS+col)*255.0/(LED_ROWS*LED_COLS);
+      matrix.setPixelColor(row, col, val,val,val);
+    }
+  }
+  matrix.show();
+    
+  i = (i + 1)%counts;
+}
+
+void bleedTest() {
+  static int i = 0;
+  const int counts = 200;
+
+  for (uint8_t row = 0; row < LED_ROWS; row++) {
+    for (uint8_t col = 0; col < LED_COLS; col++) {
+      if((row == 0 && col == 0)) {
+        matrix.setPixelColor(row, col, 255,255,255);
+      }
+      else if((row == 1)) {
+        matrix.setPixelColor(row, col, 255,0,0);
+      }
+      else {
+        matrix.setPixelColor(row, col, 0, 0, 0);
+      }
+    }
+  }
+  matrix.show();
+    
+  i = (i + 1)%counts;
+}
+
+void brightnessSteps() {
+  for (uint8_t row = 0; row < LED_ROWS; row++) {
+    for (uint8_t col = 0; col < LED_COLS; col++) {
+        uint8_t val = (row + col*LED_ROWS)*4;
+        matrix.setPixelColor(7-row, col, val, val, val);
+    }
+  }
+  matrix.show();
+}
+
+void rgbTest() {
+    static uint32_t count;
+  const uint32_t maxCounts = 100;
+
+  if(count < maxCounts) {
+    staticColor(255,0,0);
+  }
+  else if(count < maxCounts*2) {
+    staticColor(0,255,0);
+  }
+  else if(count < maxCounts*3) {
+    staticColor(0,0,255);
+  }
+  else if(count < maxCounts*4) {
+    staticColor(255,255,255);
+  }
+  else {
+    count = 0;
+  }
+  
+  count++;
+}
+
+void countUp() {
+  static int count = 0;
+  const int countSlowdown = 30;
+  
+  for (uint8_t row = 0; row < LED_ROWS; row++) {
+    for (uint8_t col = 0; col < LED_COLS; col++) {
+      uint8_t val = 10;
+      if(row*LED_COLS+col > count/countSlowdown) {
+        val = 255;
+      }
+      
+      matrix.setPixelColor(row, col, val, val, val);
+    }
+  }
+
+  count = (count+1)%(LED_ROWS*LED_COLS*countSlowdown);
+  
+  matrix.show();
+}
+
 
 void handleRoot() {
 	char temp[500];
@@ -153,6 +311,7 @@ void setup ( void ) {
 	Serial.println ( "HTTP server started" );
 
   Wire.begin(i2c_sda, i2c_scl);
+  Wire.setClock(400000);
   mma8653.setup();
 
   valueIndex = 0;
@@ -165,6 +324,12 @@ void setup ( void ) {
   matrix.setup();
 
   pinMode(button, INPUT_PULLUP);
+
+  pinMode(pinA, OUTPUT);
+  pinMode(pinB, OUTPUT);
+
+  
+  brightnessSteps();
 }
 
 float getAveraged(float* data, int count) {
@@ -175,75 +340,6 @@ float getAveraged(float* data, int count) {
   return (value / count);
 }
 
-void colorSwirl() {
-  static float j = 0;
-  static float f = 0;
-  static float k = 0;
-
-  float xValue = getAveraged(xValues, maxValueIndex)/2 + .5;
-  if(xValue > 1) { xValue = 1;}
-  if(xValue < 0) { xValue = 0;}
-  float yValue = -getAveraged(yValues, maxValueIndex)/2 + .5;
-  if(yValue > 1) { yValue = 1;}
-  if(yValue < 0) { yValue = 0;}
-  float zValue = -getAveraged(zValues, maxValueIndex)/2 + .5;
-  if(zValue > 1) { zValue = 1;}
-  if(zValue < 0) { zValue = 0;}
-
-  
-  for (uint8_t row = 0; row < LED_ROWS; row++) {
-    for (uint8_t col = 0; col < LED_COLS; col++) {
-      uint8_t r = xValue*64*(1+sin(row/2.0 + -col/3.0 + j/4.0       ));
-      uint8_t g = yValue*64*(1+sin(-row/1.0 + col/4.0 + f/9.0  + 2.1));
-      uint8_t b = zValue*64*(1+sin(row/3.0 + -col/2.0 + k/14.0 + 4.2));
-      matrix.setPixelColor(row, col, r, g, b);
-    }
-  }
-  matrix.show();
-
-  j = j + .3;
-  f = f + .2;
-  k = k + .4;
-}
-
-
-void whitePulse() {
-  static int i = 0;
-  const int counts = 2;
-
-  for (uint8_t row = 0; row < LED_ROWS; row++) {
-    for (uint8_t col = 0; col < LED_COLS; col++) {
-      if(i >= counts/2) {
-        matrix.setPixelColor(row, col, 255, 0, 0);
-      }
-      else {
-        matrix.setPixelColor(row, col, 0, 0, 255);
-      }
-    }
-  }
-  matrix.show();
-    
-  i = (i + 1)%counts;
-}
-
-void bleedTest() {
-  static int i = 0;
-  const int counts = 2;
-
-  for (uint8_t row = 0; row < LED_ROWS; row++) {
-    for (uint8_t col = 0; col < LED_COLS; col++) {
-      if((row == 1) && (col == 2)) {
-        matrix.setPixelColor(row, col, 2,0,0);
-      }
-      else {
-        matrix.setPixelColor(row, col, 0, 0, 0);
-      }
-    }
-  }
-  matrix.show();
-    
-  i = (i + 1)%counts;
-}
 
 
 void handleUdpPacket(int noBytes) {
@@ -280,24 +376,34 @@ void handleUdpPacket(int noBytes) {
   matrix.show();
 }
 
+unsigned long lastFrame = 0;
+
 void loop ( void ) {
+  unsigned long now = millis();
+  
 	server.handleClient();
 
   // read the accelerometer data
-  valueIndex = (valueIndex + 1) % maxValueIndex;
-  mma8653.getXYZ(xValues[valueIndex], yValues[valueIndex], zValues[valueIndex]);
+//  valueIndex = (valueIndex + 1) % maxValueIndex;
+//  mma8653.getXYZ(xValues[valueIndex], yValues[valueIndex], zValues[valueIndex]);
 
   buttonPressed = !digitalRead(button);
 
-  static bool streaming = false;
-  if(!streaming) {
-    colorSwirl();
+  
+  if(lastFrame + 3000 < now) {
+//    staticColor(255,255,255);
+//    staticColor(127,127,127);
+//    colorSwirl();
 //  bleedTest();
+//    brightnessSteps();
+//    gradientTest();
+//    rgbTest();
+    countUp();
   }
 
   int noBytes = Udp.parsePacket();
   if ( noBytes ) {
-    streaming = true;
+    lastFrame = now;
     handleUdpPacket(noBytes);
   }
 }

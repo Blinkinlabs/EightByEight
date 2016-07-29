@@ -26,5 +26,17 @@
 #include "eightbyeight.h"
 
 void initBoard() {
+    GPIOB_PDDR |= 0x03;
+    GPIOB_PSOR  = 0x03;
+    CORE_PIN5_CONFIG = PORT_PCR_DSE | PORT_PCR_SRE | PORT_PCR_MUX(1);
+    CORE_PIN6_CONFIG = PORT_PCR_DSE | PORT_PCR_SRE | PORT_PCR_MUX(1);
+/*
+    // Software RTS and DTR signals
+    // TODO: Test that I don't glitch the reset line.
+    digitalWrite(ESP_RESET_PIN, HIGH);
+    digitalWrite(ESP_GPIO0_PIN, HIGH);
 
+    pinMode(ESP_RESET_PIN, OUTPUT);
+    pinMode(ESP_GPIO0_PIN, OUTPUT);
+*/
 }

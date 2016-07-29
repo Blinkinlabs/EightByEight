@@ -36,6 +36,14 @@ uint8_t colorData[LED_ROWS*LED_COLS*LED_BYTES_PER_PIXEL];
 
 void Matrix::setup() {
   Serial1.begin( 230400 );
+
+  // Clear the matrix
+  Serial1.print(char(255));
+
+  memset(colorData, 0, LED_ROWS*LED_COLS*LED_BYTES_PER_PIXEL);
+  delay(500);
+  show();
+  delay(500);
 }
 
 void Matrix::setPixelColor(int row, int col, uint8_t r, uint8_t g, uint8_t b) {
@@ -60,6 +68,7 @@ void Matrix::show() {
     Serial1.print(char(colorData[i]));
   }
   Serial1.print(char(255));
+  //delay(1);
 }
 
 uint8_t* Matrix::getPixels() {

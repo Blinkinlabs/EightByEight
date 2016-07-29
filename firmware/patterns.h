@@ -24,6 +24,7 @@
 #ifndef PATTERNS_H
 #define PATTERNS_H
 
+extern void background(uint8_t r, uint8_t g, uint8_t b);
 extern void countUpLoop();
 extern void bleedTest();
 extern void colorSwirl();

@@ -31,7 +31,7 @@
 #include "usb_dev.h"
 
 #include "eightbyeight.h"
-//#include "patterns.h"
+#include "patterns.h"
 
 #include "HardwareSerial.h"
 #include "serialloop.h"
@@ -92,6 +92,10 @@ extern "C" int main()
 
     matrix.setBrightness(1);
     matrix.begin();
+
+    // Put the ESP8266 in reset mode
+   // digitalWrite(ESP_RESET_PIN, LOW);
+    background(0,255,255);
 
 //    bool streamingMode = false;
 

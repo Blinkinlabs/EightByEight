@@ -24,6 +24,18 @@
 #include "patterns.h"
 #include "matrix.h"
 
+
+void background(uint8_t r, uint8_t g, uint8_t b) {
+
+    for(int row = 0; row < LED_ROWS; row++) {
+        for(int col = 0; col < LED_COLS; col++) {
+            matrix.setPixelColor(row, col, r, g, b);
+        }
+    }
+
+    matrix.show();
+}
+
 void bleedTest() {
 
     memset(matrix.getPixels(), 0, LED_ROWS*LED_COLS*BYTES_PER_PIXEL);

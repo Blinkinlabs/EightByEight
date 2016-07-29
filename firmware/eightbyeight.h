@@ -34,7 +34,8 @@
 
 // Output assignments
 // Note: These can't be changed arbitrarily- the GPIOs are actually
-// referred to in the library by their port assignments.
+// referred to in the library by their port assignments. They are noted
+// here for reference.
 #define LED_HS_EN_PIN   7   // PC1
 //#define LED_CLOCK_PIN   11  // SPI0 CLK / PC6
 //#define LED_DATA_PIN    12  // SPI0 MOSI / PC5
@@ -43,6 +44,9 @@
 #define S0              15  // PD5
 #define S1              16  // PD6
 #define S2              17  // PD7
+
+#define ESP_RESET_PIN   5 // PB0
+#define ESP_GPIO0_PIN   6 // PB1
 
 // Initialize the board hardware
 extern void initBoard();

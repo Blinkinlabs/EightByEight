@@ -41,7 +41,7 @@ CPP_FILES = \
 	eightbyeight.cpp \
 	serialloop.cpp \
         matrix.cpp \
-        #patterns.cpp \
+        patterns.cpp \
 
 # Headers
 INCLUDES = -I.
