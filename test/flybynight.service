@@ -1,0 +1,16 @@
+#
+# Copy this file to /etc/systemd/system/ and run:
+#   systemctl enable flybynight.service
+# to enable LEDscape to start on each boot.
+#
+
+[Unit]
+Description=Test runner for flybynight
+
+[Service]
+WorkingDirectory=/home/debian/flybynight
+ExecStart=/home/debian/flybynight/run-flybynight.sh
+KillMode=process
+
+[Install]
+WantedBy=multi-user.target
