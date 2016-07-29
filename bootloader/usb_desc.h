@@ -38,8 +38,8 @@
 
 #define NUM_USB_BUFFERS           8
 #define VENDOR_ID                 0x1d50    // OpenMoko
-#define PRODUCT_ID                0x60a9    // Blinky light controller DFU mode
-#define DEVICE_VER                0x0100    // BCD device version
+#define PRODUCT_ID                0x60f5    // EightByEight Blinky Badge (DFU Bootloader)
+#define DEVICE_VER                0x0001    // BCD device version
 #define MANUFACTURER_NAME         {'B','l','i','n','k','i','n','l','a','b','s'}
 #define MANUFACTURER_NAME_LEN     11
 #define PRODUCT_NAME              {'E','i','g','h','t','B','y','E','i','g','h','t',' ','B','o','o','t','l','o','a','d','e','r'}

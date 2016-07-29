@@ -84,9 +84,9 @@ let me know?  http://forum.pjrc.com/forums/4-Suggestions-amp-Bug-Reports
 */
 
 #if defined(USB_SERIAL_DFU)
-  #define VENDOR_ID		0x1d50
-  #define PRODUCT_ID		0x8888
-  #define DEVICE_VER		0x0200
+  #define VENDOR_ID		0x1D50  // OpenMoko
+  #define PRODUCT_ID		0x60F6  // EightByEight Blinky Badge
+  #define DEVICE_VER		0x0001
 
   #define DEVICE_CLASS          0xEF  // Miscellaneous
   #define DEVICE_SUBCLASS       0x02  // Common class
