@@ -644,6 +644,8 @@ Modified from Laen's PCB Order Design Rules</description>
 </signal>
 <signal name="LED_DAT_0">
 <contactref element="LED_DATA" pad="P$1"/>
+<contactref element="DIGITAL_TEST" pad="7"/>
+<wire x1="5" y1="47.38" x2="33.7" y2="16.2" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="LED_OE">
 <contactref element="LED_OE" pad="P$1"/>
@@ -899,9 +901,6 @@ Modified from Laen's PCB Order Design Rules</description>
 <wire x1="39.416" y1="16.3728" x2="39.7" y2="16.2" width="0.4064" layer="16"/>
 <wire x1="5.1544" y1="55.1824" x2="5" y2="55" width="0.4064" layer="1"/>
 <via x="16.3728" y="51.544" extent="1-16" drill="0.35"/>
-</signal>
-<signal name="LED_DATA">
-<contactref element="DIGITAL_TEST" pad="7"/>
 </signal>
 <signal name="ESP_GPIO5">
 <contactref element="DIGITAL_TEST" pad="12"/>
