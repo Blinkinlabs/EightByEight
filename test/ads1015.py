@@ -6,7 +6,7 @@ import time
 # ADS1015 Class
 # ===========================================================================
 
-class ADS1015:
+class ADS1015():
 
 # ===========================================================================
 #   I2C ADDRESS/BITS
@@ -170,8 +170,8 @@ class ADS1015:
 
 		# Finally, read out the result
 		result = self._device.readU16(self.__ADS1015_REG_CONVERSION, little_endian=False)
-		#return (result >> 4)/float(1<<12-1)*6.144
-		return (result >> 4)
+		return (result >> 4)/float(1<<12-1)*6.144
+		#return (result >> 4)
 
 
 if __name__ == '__main__':

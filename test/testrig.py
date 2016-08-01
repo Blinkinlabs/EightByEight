@@ -1,5 +1,6 @@
 import ina219
-import Adafruit_ADS1x15
+import ads1015
+#import Adafruit_ADS1x15
 import RPi.GPIO as GPIO
 
 
@@ -63,8 +64,10 @@ class TestRig:
 
 		self.dutCurrent = ina219.INA219()
 
-		self.adc0 = Adafruit_ADS1x15.ADS1015(address=0x48)
-		self.adc1 = Adafruit_ADS1x15.ADS1015(address=0x49)
+		#self.adc0 = Adafruit_ADS1x15.ADS1015(address=0x48)
+		#self.adc0 = Adafruit_ADS1x15.ADS1015(address=0x48)
+		#self.adc0 = ads1015.ADS1015(address=0x48)
+		#self.adc1 = ads1015.ADS1015(address=0x49)
 
 		GPIO.setup(self.usbPin, GPIO.OUT)
 		GPIO.output(self.usbPin, GPIO.LOW)
@@ -112,9 +115,9 @@ class TestRig:
 		if (pin in self.analogPins):
 			adcinfo = self.analogPins[pin]
 			if (adcinfo[0] == 0):
-				return self.adc0.read_adc(adcinfo[1], gain=GAIN)
+				return self.adc0.measure(adcinfo[1])
 			elif (adcinfo[0] == 1):
-				return self.adc1.read_adc(adcinfo[1], gain=GAIN)
+				return self.adc1.measure(adcinfo[1])
 			else:
 				raise(NameError("Invalid adc"))
 		else:

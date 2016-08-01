@@ -1,4 +1,8 @@
 import testrig
+import espflasher
+import armflasher
+from timeout import timeout
+
 import RPi.GPIO as GPIO
 
 import subprocess
@@ -31,11 +35,13 @@ class EightByEightTestRig():
 "VBAT" : "2",
 "+5V" : "3",
 "+3V3" : "4",
-"ARM_3V3" : "5"
+#"ARM_3V3" : "5"
 }
 
 	def __init__(self):
 		self.testrig = testrig.TestRig()
+		self.espFlasher = espflasher.EspFlasher()
+		self.armFlasher = armflasher.ArmFlasher()
 
 	def reset(self):
 		self.testrig.setPowerMode("off")
@@ -80,16 +86,40 @@ class EightByEightTestRig():
 			values[pin] = self.readDutVoltage(pin)
 		return values
 
-	def checkForBootloaderDevice(self):
+	@timeout(5)
+	def checkForUsbBootloaderDevice(self):
 		# Test if the device is present on the USB bus, in bootloader mode
-		result = subprocess.call(["lsusb", "-d", "1d50:8888"])
-		return result == 0
 
-	def checkForBootloaderDevice(self):
-		# Test if the device is present on the USB bus, in bootloader mode
-		result = subprocess.call(["lsusb", "-d", "1d50:8888"])
-		return result == 0
+		result = 1
+		while (result != 0):
+			result = subprocess.call(["lsusb", "-d", "1d50:60f5"])
+			#result = subprocess.call(["lsusb", "-d", "1d50:60a9"]) # TODO
+
+		return True
+
+	@timeout(5)
+	def checkForUsbDevice(self):
+		# Test if the device is present on the USB bus, in device mode
+		result = 1
+		while (result != 0):
+
+			result = subprocess.call(["lsusb", "-d", "1d50:60f6"])
+			#result = subprocess.call(["lsusb", "-d", "1d50:8888"]) # TODO
+
+		return True
+
+	@timeout(30)
+	def checkForWifiConnection(self, macAddress):
+		# Test if the device has connected to the wifi hotspot
+		while True:
+			clients = [line.rstrip('\n') for line in open('/var/lib/misc/dnsmasq.leases')]
+
+			for client in clients:
+				if macAddress in client:
+					return True
 		
+		return False
+
 
 
 def testIcspGpio():
@@ -161,17 +191,39 @@ if __name__ == '__main__':
 	#testIcspGpio()
 	#testDigitalGpio()
 
-	# ARM reset test
-	#dut.dutPinMode("ARM_RESET", GPIO.OUT)
-	#dut.dutPinWrite("ARM_RESET", GPIO.LOW)
+
 
 	dut.testrig.setPowerMode("full")
 	dut.testrig.enableUSB()
 
-	dut.checkForBootloaderDevice()
+	# Reset into bootloader mode
+
+	dut.dutPinMode("ARM_BOOTLOADER", GPIO.OUT)
+	dut.dutPinMode("ARM_BOOTLOADER", GPIO.LOW)
+
+	dut.dutPinMode("ARM_RESET", GPIO.OUT)
+
+	dut.dutPinWrite("ARM_RESET", GPIO.LOW)
+	dut.dutPinWrite("ARM_RESET", GPIO.HIGH)
+
+	print(dut.checkForUsbBootloaderDevice())
+
+
+	# Reset into application mode
+
+	dut.dutPinMode("ARM_BOOTLOADER", GPIO.OUT)
+	dut.dutPinMode("ARM_BOOTLOADER", GPIO.HIGH)
+
+	dut.dutPinMode("ARM_RESET", GPIO.OUT)
+
+	dut.dutPinWrite("ARM_RESET", GPIO.LOW)
+	dut.dutPinWrite("ARM_RESET", GPIO.HIGH)
+
+
+	print(dut.checkForUsbDevice())
 
 
 	print(dut.testrig.readDutPower())
 	print(dut.readDutPins())
-#	print(dut.readDutVoltages())
+	print(dut.readDutVoltages())
 

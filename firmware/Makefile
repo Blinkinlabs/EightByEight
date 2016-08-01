@@ -41,7 +41,7 @@ CPP_FILES = \
 	eightbyeight.cpp \
 	serialloop.cpp \
         matrix.cpp \
-        patterns.cpp \
+        patterns.cpp
 
 # Headers
 INCLUDES = -I.
@@ -84,7 +84,11 @@ $(TARGET).elf: $(OBJS) $(LDSCRIPT)
 
 install: $(TARGET).dfu
 	$(DFU_UTIL) -d 1d50 -D $<
-#	$(DFU_UTIL) -d 1209 -D $<
+
+
+# Install with OpenOCD. (No code protection!)
+install-openocd: $(TARGET).elf
+	openocd -f openocd.cfg -c "init" -c "kinetis mdm mass_erase" -c "reset halt" -c "kinetis disable_wdog" -c "reset halt" -c "flash write_image $(TARGET).elf" -c "reset" -c "exit"
 
 # compiler generated dependency info
 -include $(OBJS:.o=.d)

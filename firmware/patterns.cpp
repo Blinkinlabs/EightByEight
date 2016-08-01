@@ -24,6 +24,7 @@
 #include "patterns.h"
 #include "matrix.h"
 
+#include <cstring>
 
 void background(uint8_t r, uint8_t g, uint8_t b) {
 
