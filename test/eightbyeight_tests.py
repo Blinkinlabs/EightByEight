@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
 
 import unittest
 #import colour_runner
@@ -100,12 +101,23 @@ class EightByEightTests(unittest.TestCase):
 # Kinetis programming tests
 
 
-	def test_400_programFirmware(self):
+	def test_400_armEraseFlash(self):
+		self.dut.testrig.setPowerMode("full")
+		self.dut.testrig.enableUSB()
+
+		self.assertTrue(self.dut.armFlasher.eraseFlash())
+
+	def test_410_armProgramBootloader(self):
 		self.dut.testrig.setPowerMode("full")
 		self.dut.testrig.enableUSB()
 
 		self.assertTrue(self.dut.armFlasher.writeFirmware("../bootloader/blinky-boot.elf"))
 
+	def test_420_armProgramBootloader(self):
+		self.dut.testrig.setPowerMode("full")
+		self.dut.testrig.enableUSB()
+
+		self.assertTrue(self.dut.armFlasher.writeFirmware("../firmware/app-image.hex"))
 
 	def test_460_usbBootloaderMode(self):
 		self.dut.testrig.setPowerMode("full")
@@ -157,10 +169,21 @@ class EightByEightTests(unittest.TestCase):
 
 
 if __name__ == '__main__':
+	class bcolors:
+		HEADER = '\033[95m'
+		OKBLUE = '\033[94m'
+		OKGREEN = '\033[92m'
+		WARNING = '\033[93m'
+		FAIL = '\033[91m'
+		ENDC = '\033[0m'
+		BOLD = '\033[1m'
+		UNDERLINE = '\033[4m'
+
 	rig = eightbyeight.EightByEightTestRig()
 
 	while True:
 
+		print(bcolors.OKBLUE)
 		print("-------------------------------------------------------")
 		print("""
   _____  ______          _______     __
@@ -172,6 +195,7 @@ if __name__ == '__main__':
 """)
 
 		print("-------------------------------------------------------")
+		print(bcolors.ENDC)
 
 		while (not rig.testrig.readStartButton()):
 			pass
@@ -187,6 +211,7 @@ if __name__ == '__main__':
 		if len(result.failures) > 0 or len(result.errors) > 0:
 			rig.testrig.setLED("pass", False)
 			rig.testrig.setLED("fail", True)
+			print(bcolors.FAIL)
 			print("""
   ______      _____ _      
  |  ____/\   |_   _| |     
@@ -195,10 +220,13 @@ if __name__ == '__main__':
  | | / ____ \ _| |_| |____ 
  |_|/_/    \_\_____|______|
 """)
+			print(bcolors.ENDC)
+
 		else:
 			rig.testrig.setLED("pass", True)
 			rig.testrig.setLED("fail", False)
 
+			print(bcolors.OKGREEN)
 			print("""
   _____         _____ _____ 
  |  __ \ /\    / ____/ ____|
@@ -207,5 +235,6 @@ if __name__ == '__main__':
  | |  / ____ \ ____) |___) |
  |_| /_/    \_\_____/_____/ 
 """)
+			print(bcolors.ENDC)
 
 	
