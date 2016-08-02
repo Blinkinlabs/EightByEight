@@ -1,0 +1,16 @@
+#
+# Copy this file to /etc/systemd/system/ and run:
+#   systemctl enable flybynight.service
+# to enable LEDscape to start on each boot.
+#
+
+[Unit]
+Description=LOTS OF RGBW
+
+[Service]
+WorkingDirectory=/home/pi/EightByEight/test
+ExecStart=/home/pi/EightByEight/test/run-spamrgb.sh
+KillMode=process
+
+[Install]
+WantedBy=multi-user.target

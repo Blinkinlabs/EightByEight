@@ -145,6 +145,8 @@ class EightByEightTests(unittest.TestCase):
 		self.results["readAcmDeviceInfo"] = self.dut.readAcmDeviceInfo()
 
 
+# LED current tests
+
 
 # ESP based tests
 	def test_600_readChipInfo(self):
@@ -153,15 +155,13 @@ class EightByEightTests(unittest.TestCase):
 		self.results["readChipInfo"] = self.dut.espFlasher.readChipInfo()
 		self.assertTrue(True)
 
-	def test_610_flashTestFirmware(self):
-		address = 0x0000
-		filename = "/home/pi/EightByEight/bin/espTestFirmware.bin"
+#	def test_610_flashTestFirmware(self):
+#		address = 0x0000
+#		filename = "/home/pi/EightByEight/bin/espTestFirmware.bin"
+#
+#		self.dut.espFlasher.writeFirmware(address, filename)
+#		self.assertTrue(True)
 
-		self.dut.espFlasher.writeFirmware(address, filename)
-		self.assertTrue(True)
-
-	def test_620_wifiConnection(self):
-		self.assertTrue(self.dut.checkForWifiConnection(self.results["readChipInfo"]["mac"]))
 
 	def test_630_flashApplicationFirmware(self):
 		address = 0x0000
@@ -170,11 +170,17 @@ class EightByEightTests(unittest.TestCase):
 		self.dut.espFlasher.writeFirmware(address, filename)
 		self.assertTrue(True)
 
-# LED current tests
+	def test_640_wifiConnection(self):
+		self.assertTrue(self.dut.checkForWifiConnection(self.results["readChipInfo"]["mac"]))
+
+
 
 
 # Accelerometer test
 
+# Expansion IO test
+
+# Button test
 
 
 if __name__ == '__main__':
