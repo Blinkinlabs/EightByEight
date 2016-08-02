@@ -2,6 +2,7 @@ import sys
 sys.path.append('/home/pi/esptool')
 
 import esptool
+from timeout import timeout
 
 
 class EspFlasher():
@@ -11,9 +12,13 @@ class EspFlasher():
 		self.port = port
 		self.baud = baud
 
-	def readChipInfo(self):
+	def connect(self):
 		device = esptool.ESPROM(self.port, self.baud)
 		device.connect()
+		return device
+
+	def readChipInfo(self):
+		device = self.connect()
 
 		info = {}
 		info["mac"] = "%02x:%02x:%02x:%02x:%02x:%02x" % device.read_mac()
@@ -23,8 +28,7 @@ class EspFlasher():
 		return info
 
 	def writeFirmware(self, address, filename):
-		device = esptool.ESPROM(self.port, self.baud)
-		device.connect()
+		device = self.connect()
 
 		class argsStub():
 			def __init__(self, address, filename):
@@ -48,3 +52,4 @@ if __name__ == '__main__':
 
 	flasher.connect()
 	print(flasher.readChipInfo())
+	flasher.writeFirmware(0, "/home/pi/EightByEight/bin/MegaDemo.bin")

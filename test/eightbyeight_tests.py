@@ -2,14 +2,14 @@
 # -*- coding: utf-8 -*-
 
 import unittest
+import blinkinlabsunittest
 #import colour_runner
 #import redgreenunittest as unittest
-import redgreenunittest
+#import redgreenunittest
 
 import eightbyeight 
 import RPi.GPIO as GPIO
 import time
-
 
 
 class EightByEightTests(unittest.TestCase):
@@ -46,9 +46,7 @@ class EightByEightTests(unittest.TestCase):
 
 		self.dut.testrig.setPowerMode("limited")
 		IIN_MIN = 30
-		IIN_MAX = 60
-		VIN_MIN = 2
-		VIN_MAX = 3.5
+		IIN_MAX = 80
 
 		time.sleep(.5)
 		power = self.dut.testrig.readDutPower()
@@ -56,8 +54,6 @@ class EightByEightTests(unittest.TestCase):
 
 		self.assertGreaterEqual(power["Iin"],IIN_MIN)
 		self.assertLessEqual(power["Iin"],IIN_MAX)
-		self.assertGreaterEqual(power["Vin"],VIN_MIN)
-		self.assertLessEqual(power["Vin"],VIN_MAX)
 
 		self.dut.dutPinMode("ARM_RESET", GPIO.IN)
 		self.dut.dutPinMode("ESP_RESET", GPIO.IN)
@@ -144,10 +140,16 @@ class EightByEightTests(unittest.TestCase):
 
 		self.assertTrue(self.dut.checkForUsbDevice())
 
+	def test_480_readAcmDeviceInfo(self):
+
+		self.results["readAcmDeviceInfo"] = self.dut.readAcmDeviceInfo()
+
 
 
 # ESP based tests
 	def test_600_readChipInfo(self):
+		self.dut.dutPinMode("ESP_RESET", GPIO.IN)
+
 		self.results["readChipInfo"] = self.dut.espFlasher.readChipInfo()
 		self.assertTrue(True)
 
@@ -161,6 +163,13 @@ class EightByEightTests(unittest.TestCase):
 	def test_620_wifiConnection(self):
 		self.assertTrue(self.dut.checkForWifiConnection(self.results["readChipInfo"]["mac"]))
 
+	def test_630_flashApplicationFirmware(self):
+		address = 0x0000
+		filename = "/home/pi/EightByEight/bin/MegaDemo.bin"
+
+		self.dut.espFlasher.writeFirmware(address, filename)
+		self.assertTrue(True)
+
 # LED current tests
 
 
@@ -169,33 +178,22 @@ class EightByEightTests(unittest.TestCase):
 
 
 if __name__ == '__main__':
-	class bcolors:
-		HEADER = '\033[95m'
-		OKBLUE = '\033[94m'
-		OKGREEN = '\033[92m'
-		WARNING = '\033[93m'
-		FAIL = '\033[91m'
-		ENDC = '\033[0m'
-		BOLD = '\033[1m'
-		UNDERLINE = '\033[4m'
+	import userinterface
+	import colorama
 
 	rig = eightbyeight.EightByEightTestRig()
 
 	while True:
-
-		print(bcolors.OKBLUE)
-		print("-------------------------------------------------------")
-		print("""
+		message = """
   _____  ______          _______     __
  |  __ \|  ____|   /\   |  __ \ \   / /
  | |__) | |__     /  \  | |  | \ \_/ / 
  |  _  /|  __|   / /\ \ | |  | |\   /  
  | | \ \| |____ / ____ \| |__| | | |   
  |_|  \_\______/_/    \_\_____/  |_|   
-""")
+"""
+		userinterface.interface.DisplayMessage(message, fgcolor=colorama.Fore.BLUE)
 
-		print("-------------------------------------------------------")
-		print(bcolors.ENDC)
 
 		while (not rig.testrig.readStartButton()):
 			pass
@@ -204,37 +202,35 @@ if __name__ == '__main__':
 		rig.testrig.setLED("fail", True)
 
 		#runner = unittest.TextTestRunner(failfast = True)
-		runner = redgreenunittest.TextTestRunner(failfast = True)
-		#runner = colour_runner.ColourTextTestRunner(failfast = True)
+		#runner = redgreenunittest.TextTestRunner(failfast = True)
+		runner = blinkinlabsunittest.BlinkinlabsTestRunner(failfast = True)
 		result = runner.run(unittest.TestLoader().loadTestsFromTestCase(EightByEightTests))
 
 		if len(result.failures) > 0 or len(result.errors) > 0:
 			rig.testrig.setLED("pass", False)
 			rig.testrig.setLED("fail", True)
-			print(bcolors.FAIL)
-			print("""
+			message = """
   ______      _____ _      
  |  ____/\   |_   _| |     
  | |__ /  \    | | | |     
  |  __/ /\ \   | | | |     
  | | / ____ \ _| |_| |____ 
  |_|/_/    \_\_____|______|
-""")
-			print(bcolors.ENDC)
+"""
+			userinterface.interface.DisplayMessage(message, fgcolor=colorama.Fore.BLACK, bgcolor=colorama.Back.RED)
 
 		else:
 			rig.testrig.setLED("pass", True)
 			rig.testrig.setLED("fail", False)
 
-			print(bcolors.OKGREEN)
-			print("""
-  _____         _____ _____ 
- |  __ \ /\    / ____/ ____|
- | |__) /  \  | (___| (___  
- |  ___/ /\ \  \___ \\___ \ 
- | |  / ____ \ ____) |___) |
- |_| /_/    \_\_____/_____/ 
-""")
-			print(bcolors.ENDC)
+			message = """
+  ____     _   __
+ / __ \   | | / /
+| |  | |  | |/ /
+| |  | |  |   |
+| |__| |  | |\ \\
+ \____/   |_| \_\\
+"""
+			userinterface.interface.DisplayMessage(message, fgcolor=colorama.Fore.BLACK, bgcolor=colorama.Back.GREEN)
 
 	

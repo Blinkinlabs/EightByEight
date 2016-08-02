@@ -6,6 +6,7 @@ from timeout import timeout
 import RPi.GPIO as GPIO
 
 import subprocess
+import serial.tools.list_ports
 
 class EightByEightTestRig():
 
@@ -93,7 +94,6 @@ class EightByEightTestRig():
 		result = 1
 		while (result != 0):
 			result = subprocess.call(["lsusb", "-d", "1d50:60f5"])
-			#result = subprocess.call(["lsusb", "-d", "1d50:60a9"]) # TODO
 
 		return True
 
@@ -104,9 +104,12 @@ class EightByEightTestRig():
 		while (result != 0):
 
 			result = subprocess.call(["lsusb", "-d", "1d50:60f6"])
-			#result = subprocess.call(["lsusb", "-d", "1d50:8888"]) # TODO
 
 		return True
+
+	def readAcmDeviceInfo(self):
+	      # TODO: return only current device info
+              return serial.tools.list_ports.comports()
 
 	@timeout(30)
 	def checkForWifiConnection(self, macAddress):
@@ -191,10 +194,13 @@ if __name__ == '__main__':
 	#testIcspGpio()
 	#testDigitalGpio()
 
-
-
 	dut.testrig.setPowerMode("full")
 	dut.testrig.enableUSB()
+
+	print(dut.readAcmDeviceInfo())
+
+	time.sleep(1)
+	exit(0)
 
 	# Reset into bootloader mode
 
