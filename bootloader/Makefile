@@ -72,7 +72,7 @@ clean:
 
 # Install with OpenOCD. (No code protection!)
 install: $(TARGET).elf
-	openocd -f openocd.cfg -c "init" -c "reset halt" -c "kinetis disable_wdog" -c "kinetis mdm mass_erase" -c "reset halt" -c "flash write_image $(TARGET).elf" -c "reset" -c "exit"
+	openocd -f openocd.cfg -c "init" -c "kinetis mdm mass_erase" -c "reset halt" -c "kinetis disable_wdog" -c "reset halt" -c "flash write_image $(TARGET).elf" -c "reset" -c "exit"
 
 objdump: $(TARGET).elf
 	$(OBJDUMP) -d $<

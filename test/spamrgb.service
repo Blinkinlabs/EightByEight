@@ -5,11 +5,11 @@
 #
 
 [Unit]
-Description=Test runner for flybynight
+Description=LOTS OF RGBW
 
 [Service]
-WorkingDirectory=/home/debian/flybynight
-ExecStart=/home/debian/flybynight/run-flybynight.sh
+WorkingDirectory=/home/pi/EightByEight/test
+ExecStart=/home/pi/EightByEight/test/run-spamrgb.sh
 KillMode=process
 
 [Install]
