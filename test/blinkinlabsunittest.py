@@ -35,6 +35,8 @@ class BlinkinlabsTestRunner():
     stopTime = time.time()
     timeTaken = stopTime - startTime
 
+    result.printErrors()
+
     run = result.testsRun
     output = "Ran %d test%s in %.3fs\n" % (run, run != 1 and "s" or "", timeTaken)
     if not result.wasSuccessful():
@@ -100,4 +102,14 @@ class BlinkinlabsTestResult(unittest.TestResult):
     unittest.TestResult.addFailure(self, test, err)
     self.interface.DisplayFail()
     #self.l.TestFail(test)
+
+  def printErrors(self):
+    self.printErrorList('ERROR', self.errors)
+    self.printErrorList('FAIL', self.failures)
+
+  def printErrorList(self, flavour, errors):
+    for test, err in errors:
+      self.interface.DisplayMessage("%s: %s" % (flavour,self.getDescription(test)))
+      self.interface.DisplayMessage("%s" % err)
+
 
