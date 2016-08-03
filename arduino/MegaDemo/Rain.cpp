@@ -55,7 +55,7 @@ bool Rain::step(float ax, float ay, float az)
 
 	// rotate the angle by 45 degrees to match the LED matrix
 	const float mag = sqrt(ax*ax+ay*ay) * dt;
-	const float angle = atan2(ax, -ay);
+	const float angle = atan2(-ay, ax);
 	const float dx = sin(angle + 45 * M_PI/180) * mag;
 	const float dy = -cos(angle + 45 * M_PI/180) * mag;
 
