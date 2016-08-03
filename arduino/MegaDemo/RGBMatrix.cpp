@@ -38,23 +38,6 @@ void RGBMatrix::begin()
 #endif
 }
 
-void RGBMatrix::setBrightness(uint8_t brightness)
-{
-#ifndef CONFIG_FEATHER
-
-  // Escape to command mode
-  for(int i = 0; i < 9; i++) {
-    Serial1.print(char(255));
-  }
-  Serial1.print(char(1)); // Set brightness command
-  Serial1.print(char(brightness)); // And the brightness data
-  
-    
-#else
-  // feather uses NeoPixel hat
-  neopixels.setBrightness(brightness);
-#endif
-}
 
 void RGBMatrix::set(
 	int row,
@@ -171,7 +154,6 @@ void RGBMatrix::show()
 	}
 
 	Serial1.print(char(255));
-//  delay(1);
 #else
 	// for the adafruit feather
 	unsigned offset = 0;
