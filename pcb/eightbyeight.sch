@@ -9322,6 +9322,7 @@ Revision E:
 Revision F:
 -Round badge corners slightly
 -Increase base brightness for LED resistors
+-Change power diodes to 1n5819 for lower reverse current leakage
 
 TODO:
 -Cosmetic: ESP8266 GPIO 18mislabeled, should be 16</text>
