@@ -8,7 +8,12 @@ DriverPackageDisplayName="Blinkinlabs USB Driver"
 ManufacturerName="Blinkinlabs LLC (blinkinlabs.com)"
 ServiceName="USB RS-232 Emulation Driver"
 
-board.application.name="Blinkinlabs EightByEight"
+DeviceName = "Blinkinlabs EightByEight"
+; Make sure "VID_" and "PID_" are always part of the strings below
+VendorID = "VID_1D50"
+ProductID = "PID_60F6"
+; Date MUST be in MM/DD/YYYY format
+Date = "10/21/2016"
 
 [DefaultInstall]
 CopyINF=blinkinlabs.inf
@@ -20,7 +25,7 @@ Signature="$Windows NT$"
 Provider=%ManufacturerName%
 DriverPackageDisplayName=%DriverPackageDisplayName%
 CatalogFile=Blinkinlabs.cat
-DriverVer=12/26/2014,2.0.0.0
+DriverVer = %Date%
 
 [Manufacturer]
 %ManufacturerName%=DeviceList, NTamd64, NTia64
@@ -30,13 +35,13 @@ FakeModemCopyFileSection=12
 DefaultDestDir=12
 
 [DeviceList]
-%board.application.name%=DriverInstall, USB\VID_1D50&PID_60AA&MI_00
+%DeviceName%=DriverInstall, USB\%VendorID%&%ProductId%&MI_00
 
 [DeviceList.NTamd64]
-%board.application.name%=DriverInstall, USB\VID_1D50&PID_60AA&MI_00
+%DeviceName%=DriverInstall, USB\%VendorID%&%ProductId%&MI_00
 
 [DeviceList.NTia64]
-%board.application.name%=DriverInstall, USB\VID_1D50&PID_60AA&MI_00
+%DeviceName%=DriverInstall, USB\%VendorID%&%ProductId%&MI_00
 
 [DriverInstall]
 include=mdmcpq.inf,usb.inf
