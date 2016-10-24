@@ -12,6 +12,7 @@ DeviceName = "Blinkinlabs EightByEight"
 ; Make sure "VID_" and "PID_" are always part of the strings below
 VendorID = "VID_1D50"
 ProductID = "PID_60F6"
+InterfaceID = "MI_01"
 ; Date MUST be in MM/DD/YYYY format
 Date = "10/21/2016"
 
@@ -35,13 +36,13 @@ FakeModemCopyFileSection=12
 DefaultDestDir=12
 
 [DeviceList]
-%DeviceName%=DriverInstall, USB\%VendorID%&%ProductId%&MI_00
+%DeviceName%=DriverInstall, USB\%VendorID%&%ProductId%&%InterfaceID%
 
 [DeviceList.NTamd64]
-%DeviceName%=DriverInstall, USB\%VendorID%&%ProductId%&MI_00
+%DeviceName%=DriverInstall, USB\%VendorID%&%ProductId%&%InterfaceID%
 
 [DeviceList.NTia64]
-%DeviceName%=DriverInstall, USB\%VendorID%&%ProductId%&MI_00
+%DeviceName%=DriverInstall, USB\%VendorID%&%ProductId%&%InterfaceID%
 
 [DriverInstall]
 include=mdmcpq.inf,usb.inf
