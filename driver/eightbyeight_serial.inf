@@ -17,7 +17,7 @@ InterfaceID = "MI_00"
 Date = "10/21/2016"
 
 [DefaultInstall]
-CopyINF=blinkinlabs.inf
+CopyINF=eightbyeight_serial.inf
 
 [Version]
 Class=Ports
