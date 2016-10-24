@@ -36,4 +36,8 @@ Finally, rrom a Windows command prompt, run the included script:
 
 	driver_signer.bat
 
+# Testing the signature
 
+Use fresh VMs for various versions of Windows. If possible, do not allow the VM to connect to the internet at any point during installation or test. We test with Windows 7 Profressional 64-bit, and Windows 10 Home 32-bit. This is to ensure that the default signature for the 
+
+It's also a good idea to test against a fully updated machine as well, if possible.
