@@ -10,7 +10,7 @@ before_install:
 
 install:
 #  - sudo apt-get -y install qt57[QTPACKAGE] qt57serialport libusb-1.0-0-dev
-  - sudo apt-get -y install gcc-arm-none-eabi
+  - sudo apt-get -y --force-yes install gcc-arm-none-eabi
 #  - sudo apt-get -y install eagle
 
 script:
