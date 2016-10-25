@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="7.5.0">
+<eagle version="7.6.0">
 <drawing>
 <settings>
 <setting alwaysvectorfont="yes"/>
@@ -9862,7 +9862,8 @@ Revision G:
 -Add bleed resistor to drain USB_5V charge when battery powered
 
 TODO:
--Cosmetic: ESP8266 GPIO 18mislabeled, should be 16</text>
+-Cosmetic: ESP8266 GPIO 18mislabeled, should be 16
+-Make resistor, cap pad sizes smaller for production</text>
 <text x="129.54" y="358.14" size="10.16" layer="91" align="bottom-center">EightByEight Blinky Badge</text>
 <text x="129.54" y="345.44" size="6.4516" layer="91" align="bottom-center">Copyright 2016 Blinkinlabs, LLC</text>
 <text x="17.78" y="297.18" size="3.81" layer="91">This documentation describes Open Hardware and is licensed under the
