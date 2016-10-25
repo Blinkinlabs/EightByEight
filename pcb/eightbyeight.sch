@@ -9859,6 +9859,7 @@ Revision F:
 
 Revision G:
 -Add fuse and diode for battery reverse polarity protection
+-Add bleed resistor to drain USB_5V charge when battery powered
 
 TODO:
 -Cosmetic: ESP8266 GPIO 18mislabeled, should be 16</text>
