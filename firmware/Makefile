@@ -1,4 +1,3 @@
-#######################################################
 # Environment setup
 
 # toolchain
@@ -68,7 +67,7 @@ LIBS = -lgcc -lc -lm
 
 OBJS := $(C_FILES:.c=.o) $(CPP_FILES:.cpp=.o)
 
-all: $(TARGET).dfu
+all: $(TARGET).dfu $(TARGET).hex
 
 $(TARGET).elf: $(OBJS) $(LDSCRIPT)
 	$(CC) $(LDFLAGS) -o $@ $(OBJS) $(LIBS)
