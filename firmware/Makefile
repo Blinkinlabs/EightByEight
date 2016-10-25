@@ -68,7 +68,7 @@ LIBS = -lgcc -lc -lm
 
 OBJS := $(C_FILES:.c=.o) $(CPP_FILES:.cpp=.o)
 
-all: $(TARGET).dfu $(TARGET).hex
+all: $(TARGET).dfu
 
 $(TARGET).elf: $(OBJS) $(LDSCRIPT)
 	$(CC) $(LDFLAGS) -o $@ $(OBJS) $(LIBS)
@@ -77,6 +77,10 @@ $(TARGET).elf: $(OBJS) $(LDSCRIPT)
 	$(SIZE) $<
 	$(OBJCOPY) -O binary $< $@
 	$(DFU_SUFFIX) -a $@
+
+%.hex: %.elf
+	$(OBJCOPY) -O ihex $< $(APP_HEX)
+	(grep -v :00000001FF $(BOOTLOADER_IMAGE); cat $(APP_HEX)) > $@
 
 install: $(TARGET).dfu
 	$(DFU_UTIL) -d 1d50 -D $<
