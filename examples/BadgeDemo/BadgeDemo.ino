@@ -38,10 +38,11 @@
 
 #include "mma8653.h"
 #include "matrix.h"
-#include "patterns.h"
-#include "secrets.h"
 
 const int listen_port = 6454;
+
+const char ssid[] = "SSID";
+const char password[] = "PASSWORD";
 
 byte buffer[512]; //buffer to hold incoming and outgoing UDP packets
 
