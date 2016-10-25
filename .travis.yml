@@ -11,7 +11,7 @@ before_install:
   - sudo apt-get update -qq
 
 # Modified Adafruit script for Arduino CI
-  - source <(curl -SLs https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/install.sh)
+  - source <(curl -SLs https://raw.githubusercontent.com/blinkinlabs/travis-ci-arduino/master/install.sh)
 
 install:
 #  - sudo apt-get -y install qt57[QTPACKAGE] qt57serialport libusb-1.0-0-dev
