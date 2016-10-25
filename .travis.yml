@@ -1,0 +1,22 @@
+# Linux instructions from: https://forum.qt.io/topic/50340/installing-qt-5-4-dev-packages-in-travis-ci/16
+# TODO: Add support for macOS builds
+
+sudo: required
+dist: trusty
+
+before_install:
+#  - sudo add-apt-repository --yes ppa:beineri/opt-qt57-trusty
+#  - sudo apt-get update -qq
+
+install:
+#  - sudo apt-get -y install qt57[QTPACKAGE] qt57serialport libusb-1.0-0-dev
+  - sudo apt-get -y install gcc-arm-none-eabi
+#  - sudo apt-get -y install eagle
+
+script:
+  - pushd bootloader
+  - make
+  - popd
+  - pushd firmware
+  - make
+  - popd
