@@ -2,11 +2,12 @@
 #include <WiFiUdp.h>
 #include <ESP8266mDNS.h>
 
-#include "Matrix.h"
-#include "secrets.h"
+#include "matrix.h"
 
 const int listen_port = 6454;
 
+const char ssid[] = "SSID";
+const char password[] = "PASSWORD";
 
 byte buffer[512]; //buffer to hold incoming and outgoing packets
 
@@ -43,12 +44,45 @@ void setup(void)
   matrix.setup();
 }
 
-void loop() {
+void handleUdpPacket(int noBytes) {
+//    Serial.print(millis() / 1000);
+//    Serial.print(":Packet of ");
+//    Serial.print(noBytes);
+//    Serial.print(" received from ");
+//    Serial.print(Udp.remoteIP());
+//    Serial.print(":");
+//    Serial.println(Udp.remotePort());
 
+  // We've received a packet, read the data from it
+  Udp.read(buffer,noBytes); // read the packet into the buffer
   
+//    // display the packet contents in HEX
+//    for (int i=1;i<=noBytes;i++){
+//      Serial.print(buffer[i-1],HEX);
+//      if (i % 32 == 0){
+//        Serial.println();
+//      }
+//      else Serial.print(' ');
+//    } // end for
+  
+  // Todo: check for a valid art-net frame here
+  uint8_t* matrixData = matrix.getPixels();
+  uint8_t* udpData = &buffer[18];
+  memcpy(matrixData, udpData, LED_ROWS*LED_COLS*LED_BYTES_PER_PIXEL);
+  
+  for(int i = 0; i < LED_ROWS*LED_COLS*LED_BYTES_PER_PIXEL; i++) {
+    if(matrixData[i] == 255) {
+      matrixData[i] = 254;
+    }
+  }
+
   matrix.show();
-    
-    Serial.println();
-  } // end if - See more at: http://www.esp8266.com/viewtopic.php?f=29&t=2222&start=8#sthash.5kCVT3fO.dpuf
+}
+
+void loop() {
+  int noBytes = Udp.parsePacket();
+  if ( noBytes ) {
+    handleUdpPacket(noBytes);
+  }
 }
 
