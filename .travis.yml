@@ -5,7 +5,12 @@ sudo: required
 dist: trusty
 
 before_install:
+# Default gcc-arm-none-eabi package is broken
   - sudo add-apt-repository --yes ppa:terry.guo/gcc-arm-embedded
+
+# Need DFU > .5
+  - sudo add-apt-repository --yes ppa:tormodvolden/ppa
+
   - sudo apt-get update -qq
 
 install:
