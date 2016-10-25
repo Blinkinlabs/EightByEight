@@ -5,8 +5,8 @@ sudo: required
 dist: trusty
 
 before_install:
-#  - sudo add-apt-repository --yes ppa:beineri/opt-qt57-trusty
-#  - sudo apt-get update -qq
+  - sudo add-apt-repository --yes ppa:terry.guo/gcc-arm-embedded
+  - sudo apt-get update -qq
 
 install:
 #  - sudo apt-get -y install qt57[QTPACKAGE] qt57serialport libusb-1.0-0-dev
