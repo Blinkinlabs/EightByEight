@@ -29,7 +29,7 @@
  */
 
 #include <ESP8266WiFi.h>
-#include <WiFiUDP.h>
+#include <WiFiUdp.h>
 #include <WiFiClient.h>
 #include <ESP8266WebServer.h>
 #include <ESP8266mDNS.h>
@@ -38,10 +38,11 @@
 
 #include "mma8653.h"
 #include "matrix.h"
-#include "patterns.h"
-#include "secrets.h"
 
 const int listen_port = 6454;
+
+const char ssid[] = "SSID";
+const char password[] = "PASSWORD";
 
 byte buffer[512]; //buffer to hold incoming and outgoing UDP packets
 
