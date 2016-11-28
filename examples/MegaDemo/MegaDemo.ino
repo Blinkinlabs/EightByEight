@@ -31,9 +31,9 @@ Snake snake;
 Demo * demos[] = {
 	&snake,
 	&rain,
+	&cycle,
 	&life,
 	&bubble,
-  &cycle,
 };
 
 const unsigned num_demos = sizeof(demos) / sizeof(*demos);
@@ -57,12 +57,12 @@ void setup()
 	// during startup
 	if (!badge.button())
 	{
-#if 0
+#if 1
 		WiFi.mode(WIFI_STA);
 		WiFi.begin("twosigma-blinky", "blinkblinkblink");
 #else
 		WiFi.mode(WIFI_AP);
-		WiFi.begin("mypocket", "BUBBLEmonkey");
+		WiFi.begin("blinky", "blinkypw");
 		WiFi.config(IPAddress(192,168,1,4), IPAddress(0,0,0,0), IPAddress(255,255,255,0));
 #endif
 	}

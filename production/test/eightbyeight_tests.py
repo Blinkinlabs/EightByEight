@@ -9,8 +9,8 @@ import blinkinlabsunittest
 
 import eightbyeight 
 import RPi.GPIO as GPIO
+import datetime
 import time
-
 
 class EightByEightTests(unittest.TestCase):
     	@classmethod
@@ -18,6 +18,10 @@ class EightByEightTests(unittest.TestCase):
 		self.dut = eightbyeight.EightByEightTestRig()
 
 		self.results = {}
+
+		self.results["startTime"] = datetime.datetime.now()
+		print("Starting test at "),
+		print(self.results["startTime"])
 
     	@classmethod
 	def tearDownClass(self):
@@ -107,13 +111,13 @@ class EightByEightTests(unittest.TestCase):
 		self.dut.testrig.setPowerMode("full")
 		self.dut.testrig.enableUSB()
 
-		self.assertTrue(self.dut.armFlasher.writeFirmware("../bootloader/blinky-boot.elf"))
+		self.assertTrue(self.dut.armFlasher.writeFirmware("../bin/blinky-boot-v100.hex"))
 
 	def test_420_armProgramBootloader(self):
 		self.dut.testrig.setPowerMode("full")
 		self.dut.testrig.enableUSB()
 
-		self.assertTrue(self.dut.armFlasher.writeFirmware("../firmware/app-image.hex"))
+		self.assertTrue(self.dut.armFlasher.writeFirmware("../bin/eightbyeight-app-image-v100.hex"))
 
 	def test_460_usbBootloaderMode(self):
 		self.dut.testrig.setPowerMode("full")
@@ -165,7 +169,7 @@ class EightByEightTests(unittest.TestCase):
 
 	def test_630_flashApplicationFirmware(self):
 		address = 0x0000
-		filename = "/home/pi/EightByEight/bin/MegaDemo.bin"
+		filename = "/home/pi/EightByEight/bin/megademo-v100.bin"
 
 		self.dut.espFlasher.writeFirmware(address, filename)
 		self.assertTrue(True)
@@ -191,13 +195,14 @@ if __name__ == '__main__':
 
 	while True:
 		message = """
-  _____  ______          _______     __
- |  __ \|  ____|   /\   |  __ \ \   / /
- | |__) | |__     /  \  | |  | \ \_/ / 
- |  _  /|  __|   / /\ \ | |  | |\   /  
- | | \ \| |____ / ____ \| |__| | | |   
- |_|  \_\______/_/    \_\_____/  |_|   
+         _____  ______          _______     __
+        |  __ \|  ____|   /\   |  __ \ \   / /
+        | |__) | |__     /  \  | |  | \ \_/ / 
+        |  _  /|  __|   / /\ \ | |  | |\   /  
+        | | \ \| |____ / ____ \| |__| | | |   
+        |_|  \_\______/_/    \_\_____/  |_|   
 """
+
 		userinterface.interface.DisplayMessage(message, fgcolor=colorama.Fore.BLUE)
 
 
@@ -215,28 +220,24 @@ if __name__ == '__main__':
 		if len(result.failures) > 0 or len(result.errors) > 0:
 			rig.testrig.setLED("pass", False)
 			rig.testrig.setLED("fail", True)
-			message = """
-  ______      _____ _      
- |  ____/\   |_   _| |     
- | |__ /  \    | | | |     
- |  __/ /\ \   | | | |     
- | | / ____ \ _| |_| |____ 
- |_|/_/    \_\_____|______|
-"""
+			message = """              ______      _____ _      
+             |  ____/\   |_   _| |     
+             | |__ /  \    | | | |     
+             |  __/ /\ \   | | | |     
+             | | / ____ \ _| |_| |____ 
+             |_|/_/    \_\_____|______|"""
 			userinterface.interface.DisplayMessage(message, fgcolor=colorama.Fore.BLACK, bgcolor=colorama.Back.RED)
 
 		else:
 			rig.testrig.setLED("pass", True)
 			rig.testrig.setLED("fail", False)
 
-			message = """
-  ____     _   __
- / __ \   | | / /
-| |  | |  | |/ /
-| |  | |  |   |
-| |__| |  | |\ \\
- \____/   |_| \_\\
-"""
+			message = """                 ____     _   __
+                / __ \   | | / /
+               | |  | |  | |/ /
+               | |  | |  |   |
+               | |__| |  | |\ \\
+                \____/   |_| \_\\"""
 			userinterface.interface.DisplayMessage(message, fgcolor=colorama.Fore.BLACK, bgcolor=colorama.Back.GREEN)
 
-	
+		time.sleep(1)	

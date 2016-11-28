@@ -1,0 +1,34 @@
+sudo: required
+dist: trusty
+language: cpp
+
+before_install:
+# Default gcc-arm-none-eabi package is broken
+  - sudo add-apt-repository --yes ppa:terry.guo/gcc-arm-embedded
+
+# Need DFU > .5 for dfu-suffix
+  - sudo add-apt-repository --yes ppa:tormodvolden/ppa
+
+  - sudo apt-get update -qq
+
+# Modified Adafruit script for Arduino CI
+  - source <(curl -SLs https://raw.githubusercontent.com/blinkinlabs/travis-ci-arduino/master/install.sh)
+
+install:
+#  - sudo apt-get -y install qt57[QTPACKAGE] qt57serialport libusb-1.0-0-dev
+  - sudo apt-get -y --force-yes install gcc-arm-none-eabi dfu-util
+#  - sudo apt-get -y install eagle
+
+script:
+# Build ARM bootloader
+  - pushd bootloader
+  - make
+  - popd
+
+# Build ARM firmware
+  - pushd firmware
+  - make
+  - popd
+
+# Build Arduino examples
+  - build_platform esp8266

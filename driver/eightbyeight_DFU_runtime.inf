@@ -45,12 +45,12 @@
 DeviceName = "EightByEight Bootloader"
 ; Make sure "VID_" and "PID_" are always part of the strings below
 VendorID = "VID_1D50"
-ProductID = "PID_60AA"
-InterfaceID = "MI_03"
-DeviceGUID = "{d35924d6-3e16-4a9e-9782-5524a4b79ba1}"
+ProductID = "PID_60F6"
+InterfaceID = "MI_02"
+DeviceGUID = "{e00c4742-7581-4eb4-b5f7-47c7131d90b1}"
 DeviceClassGUID = "{78a1c341-4539-11d3-b88d-00c04fad5171}"
 ; Date MUST be in MM/DD/YYYY format
-Date = "12/26/2014"
+Date = "10/21/2016"
 
 ; =====================================================
 ; ========== END USER CONFIGURABLE SECTION ============
