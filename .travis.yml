@@ -19,6 +19,9 @@ install:
   - sudo apt-get -y --force-yes install gcc-arm-none-eabi dfu-util
 #  - sudo apt-get -y install eagle
 
+  - arduino --install-library "PubSubClient"
+
+
 script:
 # Build ARM bootloader
   - pushd bootloader
