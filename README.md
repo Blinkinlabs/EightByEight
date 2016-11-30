@@ -3,7 +3,7 @@
 
 EightByEight Blinky Badge, Copyright 2016 Blinkinlabs, LLC
 
-See the 'Getting Started Guide' in documentation/ to learn about the badge.
+See the ['Getting Started Guide'](https://github.com/Blinkinlabs/EightByEight/blob/master/documentation/Getting%20started%20guide.pdf) in documentation/ to learn about the badge.
 
 Arduino examples are located in examples/.
 
