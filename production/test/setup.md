@@ -150,6 +150,7 @@ sudo vi /boot/config.txt
 	# force 800x600
 	hdmi_group=2
 	hdmi_mode=9
+	display_rotate=3
 
 
 # Configure to start at boot
