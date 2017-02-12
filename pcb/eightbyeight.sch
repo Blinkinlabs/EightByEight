@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="7.6.0">
+<eagle version="7.7.0">
 <drawing>
 <settings>
 <setting alwaysvectorfont="yes"/>
@@ -6660,6 +6660,127 @@ Source: http://www.osram.convergy.de/</description>
 <wire x1="-0.5" y1="2" x2="0.5" y2="2" width="0.127" layer="21"/>
 <wire x1="-0.5" y1="-2" x2="0.5" y2="-2" width="0.127" layer="21"/>
 </package>
+<package name="BUTTON_MOMENTARY_MP5">
+<wire x1="2.275" y1="-1.15" x2="2.275" y2="1.15" width="0.127" layer="51"/>
+<wire x1="2.275" y1="1.15" x2="1" y2="1.15" width="0.127" layer="51"/>
+<wire x1="1" y1="1.15" x2="-1" y2="1.15" width="0.127" layer="51"/>
+<wire x1="-1" y1="1.15" x2="-2.275" y2="1.15" width="0.127" layer="51"/>
+<wire x1="-2.275" y1="1.15" x2="-2.275" y2="-1.15" width="0.127" layer="51"/>
+<wire x1="-2.275" y1="-1.15" x2="2.275" y2="-1.15" width="0.127" layer="51"/>
+<text x="-2.73" y="3" size="0.762" layer="25">&gt;Name</text>
+<text x="-2.81" y="4.27" size="0.762" layer="27">&gt;Value</text>
+<smd name="1" x="-1.7" y="-1.3" dx="0.8" dy="1.4" layer="1" rot="R180"/>
+<hole x="0.85" y="0" drill="0.75"/>
+<hole x="-0.85" y="0" drill="0.75"/>
+<smd name="2" x="1.7" y="-1.3" dx="0.8" dy="1.4" layer="1" rot="R180"/>
+<smd name="SHEILD_1" x="-2.65" y="0.65" dx="0.7" dy="1.3" layer="1"/>
+<smd name="SHEILD_4" x="2.65" y="0.65" dx="0.7" dy="1.3" layer="1"/>
+<smd name="SHEILD_2" x="-2" y="0.975" dx="0.6" dy="0.65" layer="1"/>
+<wire x1="1" y1="2.1" x2="-1" y2="2.1" width="0.127" layer="51"/>
+<wire x1="1" y1="2.1" x2="1" y2="1.15" width="0.127" layer="51"/>
+<wire x1="-1" y1="2.1" x2="-1" y2="1.15" width="0.127" layer="51"/>
+<smd name="SHEILD_3" x="2" y="0.975" dx="0.6" dy="0.65" layer="1"/>
+</package>
+<package name="BATTERY_CR2032X2">
+<circle x="1" y="0" radius="12" width="0.127" layer="21"/>
+<wire x1="13" y1="3" x2="16" y2="3" width="0.127" layer="21"/>
+<wire x1="16" y1="3" x2="16" y2="-3" width="0.127" layer="21"/>
+<wire x1="16" y1="-3" x2="13" y2="-3" width="0.127" layer="21"/>
+<pad name="+" x="13.25" y="0" drill="1.2" diameter="2.54"/>
+<pad name="-" x="-7.25" y="0" drill="1.2" diameter="2.54"/>
+</package>
+<package name="BATTERY_COVER_AG3">
+<description>Metal battery shroud for AG3 coin cell battery.
+
+Sample part here:
+http://item.taobao.com/item.htm?spm=a230r.1.14.130.LurJbZ&amp;id=16889806763&amp;ns=1&amp;abbucket=12#detail</description>
+<wire x1="5" y1="3" x2="5" y2="-3" width="0.127" layer="21"/>
+<wire x1="5" y1="-3" x2="3" y2="-5" width="0.127" layer="21" curve="-90"/>
+<wire x1="3" y1="-5" x2="-3" y2="-5" width="0.127" layer="21"/>
+<wire x1="-3" y1="-5" x2="-5" y2="-3" width="0.127" layer="21" curve="-90"/>
+<wire x1="-5" y1="-3" x2="-5" y2="3" width="0.127" layer="21"/>
+<wire x1="-5" y1="3" x2="-3" y2="5" width="0.127" layer="21" curve="-90"/>
+<wire x1="-3" y1="5" x2="3" y2="5" width="0.127" layer="21"/>
+<wire x1="3" y1="5" x2="5" y2="3" width="0.127" layer="21" curve="-90"/>
+<smd name="+2" x="4.5" y="0" dx="4" dy="1.5" layer="1" roundness="50" rot="R90" cream="no"/>
+<smd name="+1" x="-4.5" y="0" dx="4" dy="1.5" layer="1" roundness="50" rot="R90" cream="no"/>
+<smd name="+3" x="-4.5" y="0" dx="4" dy="1.5" layer="16" roundness="50" rot="R270" cream="no"/>
+<smd name="+4" x="4.5" y="0" dx="4" dy="1.5" layer="16" roundness="50" rot="R270" cream="no"/>
+<smd name="-" x="0" y="0" dx="3" dy="3" layer="1" roundness="100"/>
+<wire x1="-4.5" y1="-0.75" x2="-4.3" y2="-0.55" width="0.127" layer="46" curve="90"/>
+<wire x1="-4.3" y1="-0.55" x2="-4.3" y2="0.55" width="0.127" layer="46"/>
+<wire x1="-4.3" y1="0.55" x2="-4.5" y2="0.75" width="0.127" layer="46" curve="90"/>
+<wire x1="-4.5" y1="0.75" x2="-4.7" y2="0.55" width="0.127" layer="46" curve="90"/>
+<wire x1="-4.7" y1="0.55" x2="-4.7" y2="-0.55" width="0.127" layer="46"/>
+<wire x1="-4.7" y1="-0.55" x2="-4.5" y2="-0.75" width="0.127" layer="46" curve="90"/>
+<wire x1="4.7" y1="-0.55" x2="4.7" y2="0.55" width="0.127" layer="46"/>
+<wire x1="4.7" y1="0.55" x2="4.5" y2="0.75" width="0.127" layer="46" curve="90"/>
+<wire x1="4.5" y1="0.75" x2="4.3" y2="0.55" width="0.127" layer="46" curve="90"/>
+<wire x1="4.3" y1="0.55" x2="4.3" y2="-0.55" width="0.127" layer="46"/>
+<wire x1="4.3" y1="-0.55" x2="4.5" y2="-0.75" width="0.127" layer="46" curve="90"/>
+<wire x1="4.5" y1="-0.75" x2="4.7" y2="-0.55" width="0.127" layer="46" curve="90"/>
+</package>
+<package name="BATTERY_COVER_AG3_REVERSABLE">
+<description>Metal battery shroud for AG3 coin cell battery. Reversable version for mouting connector on either side of PCB.
+
+Sample part here:
+http://item.taobao.com/item.htm?spm=a230r.1.14.130.LurJbZ&amp;id=16889806763&amp;ns=1&amp;abbucket=12#detail</description>
+<wire x1="5" y1="3" x2="5" y2="-3" width="0.127" layer="21"/>
+<wire x1="5" y1="-3" x2="3" y2="-5" width="0.127" layer="21" curve="-90"/>
+<wire x1="3" y1="-5" x2="-3" y2="-5" width="0.127" layer="21"/>
+<wire x1="-3" y1="-5" x2="-5" y2="-3" width="0.127" layer="21" curve="-90"/>
+<wire x1="-5" y1="-3" x2="-5" y2="3" width="0.127" layer="21"/>
+<wire x1="-5" y1="3" x2="-3" y2="5" width="0.127" layer="21" curve="-90"/>
+<wire x1="-3" y1="5" x2="3" y2="5" width="0.127" layer="21"/>
+<wire x1="3" y1="5" x2="5" y2="3" width="0.127" layer="21" curve="-90"/>
+<smd name="+2" x="4.5" y="0" dx="4" dy="1.5" layer="1" roundness="50" rot="R90" cream="no"/>
+<smd name="+1" x="-4.5" y="0" dx="4" dy="1.5" layer="1" roundness="50" rot="R90" cream="no"/>
+<smd name="+3" x="-4.5" y="0" dx="4" dy="1.5" layer="16" roundness="50" rot="R270" cream="no"/>
+<smd name="+4" x="4.5" y="0" dx="4" dy="1.5" layer="16" roundness="50" rot="R270" cream="no"/>
+<smd name="-2" x="0" y="0" dx="3" dy="3" layer="1" roundness="100"/>
+<wire x1="-4.5" y1="-0.75" x2="-4.3" y2="-0.55" width="0.127" layer="46" curve="90"/>
+<wire x1="-4.3" y1="-0.55" x2="-4.3" y2="0.55" width="0.127" layer="46"/>
+<wire x1="-4.3" y1="0.55" x2="-4.5" y2="0.75" width="0.127" layer="46" curve="90"/>
+<wire x1="-4.5" y1="0.75" x2="-4.7" y2="0.55" width="0.127" layer="46" curve="90"/>
+<wire x1="-4.7" y1="0.55" x2="-4.7" y2="-0.55" width="0.127" layer="46"/>
+<wire x1="-4.7" y1="-0.55" x2="-4.5" y2="-0.75" width="0.127" layer="46" curve="90"/>
+<wire x1="4.7" y1="-0.55" x2="4.7" y2="0.55" width="0.127" layer="46"/>
+<wire x1="4.7" y1="0.55" x2="4.5" y2="0.75" width="0.127" layer="46" curve="90"/>
+<wire x1="4.5" y1="0.75" x2="4.3" y2="0.55" width="0.127" layer="46" curve="90"/>
+<wire x1="4.3" y1="0.55" x2="4.3" y2="-0.55" width="0.127" layer="46"/>
+<wire x1="4.3" y1="-0.55" x2="4.5" y2="-0.75" width="0.127" layer="46" curve="90"/>
+<wire x1="4.5" y1="-0.75" x2="4.7" y2="-0.55" width="0.127" layer="46" curve="90"/>
+<smd name="-1" x="0" y="0" dx="3" dy="3" layer="16" roundness="100" rot="R90"/>
+</package>
+<package name="BATTERY_AAA_TABS">
+<wire x1="-20" y1="4.5" x2="-20" y2="-4.5" width="0.127" layer="21"/>
+<wire x1="18.5" y1="-4.5" x2="18.5" y2="-1.5" width="0.127" layer="21"/>
+<wire x1="18.5" y1="-1.5" x2="20" y2="-1.5" width="0.127" layer="21"/>
+<wire x1="20" y1="-1.5" x2="20" y2="1.5" width="0.127" layer="21"/>
+<wire x1="20" y1="1.5" x2="18.5" y2="1.5" width="0.127" layer="21"/>
+<wire x1="18.5" y1="1.5" x2="18.5" y2="4.5" width="0.127" layer="21"/>
+<text x="-5.08" y="-1.27" size="2.54" layer="25" font="vector">&gt;NAME</text>
+<wire x1="-25" y1="6.5" x2="25" y2="6.5" width="0.127" layer="51"/>
+<wire x1="25" y1="6.5" x2="25" y2="-6.5" width="0.127" layer="51"/>
+<wire x1="25" y1="-6.5" x2="-25" y2="-6.5" width="0.127" layer="51"/>
+<wire x1="-25" y1="-6.5" x2="-25" y2="6.5" width="0.127" layer="51"/>
+<smd name="-$1" x="-22.625" y="0" dx="1.75" dy="4.5" layer="1" roundness="100"/>
+<smd name="+$1" x="22.625" y="0" dx="1.75" dy="4.5" layer="1" roundness="100"/>
+<smd name="-$2" x="-22.625" y="0" dx="3" dy="6" layer="16" roundness="100" rot="R180"/>
+<smd name="+$2" x="22.625" y="0" dx="3" dy="6" layer="16" roundness="100" rot="R180"/>
+<wire x1="-22.25" y1="1.325" x2="-22.25" y2="-1.325" width="0.127" layer="46"/>
+<wire x1="-22.25" y1="-1.325" x2="-22.625" y2="-1.75" width="0.127" layer="46" curve="-90"/>
+<wire x1="-22.625" y1="-1.75" x2="-23" y2="-1.325" width="0.127" layer="46" curve="-90.07162"/>
+<wire x1="-23" y1="-1.325" x2="-23" y2="1.325" width="0.127" layer="46"/>
+<wire x1="-23" y1="1.325" x2="-22.625" y2="1.75" width="0.127" layer="46" curve="-89.872765"/>
+<wire x1="-22.625" y1="1.75" x2="-22.25" y2="1.325" width="0.127" layer="46" curve="-90"/>
+<wire x1="22.625" y1="-1.75" x2="22.25" y2="-1.325" width="0.127" layer="46" curve="-90"/>
+<wire x1="22.25" y1="-1.325" x2="22.25" y2="1.325" width="0.127" layer="46"/>
+<wire x1="22.25" y1="1.325" x2="22.625" y2="1.75" width="0.127" layer="46" curve="-90"/>
+<wire x1="22.625" y1="1.75" x2="23" y2="1.325" width="0.127" layer="46" curve="-90"/>
+<wire x1="23" y1="1.325" x2="23" y2="-1.325" width="0.127" layer="46"/>
+<wire x1="23" y1="-1.325" x2="22.625" y2="-1.75" width="0.127" layer="46" curve="-90"/>
+</package>
 </packages>
 <symbols>
 <symbol name="USB_MICRO">
@@ -6875,7 +6996,7 @@ Source: http://www.osram.convergy.de/</description>
 <pin name="VCC" x="-10.16" y="0" visible="off" length="middle"/>
 <pin name="RED" x="7.62" y="-5.08" visible="off" length="middle" rot="R180"/>
 </symbol>
-<symbol name="BATTERY">
+<symbol name="BATTERY-1">
 <wire x1="0" y1="5.08" x2="0" y2="-5.08" width="0.254" layer="94"/>
 <wire x1="2.54" y1="2.54" x2="2.54" y2="-2.54" width="0.254" layer="94"/>
 <text x="-5.08" y="5.08" size="1.778" layer="95" font="vector">&gt;NAME</text>
@@ -7025,11 +7146,21 @@ Source: http://www.osram.convergy.de/</description>
 <gate name="G$1" symbol="BUTTON_MOMENTARY_GROUND" x="0" y="0"/>
 </gates>
 <devices>
-<device name="" package="TD-07XB">
+<device name="TD-07XB" package="TD-07XB">
 <connects>
 <connect gate="G$1" pin="P" pad="1 2"/>
 <connect gate="G$1" pin="S" pad="3 4"/>
 <connect gate="G$1" pin="SHIELD" pad="5"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+<device name="MP5" package="BUTTON_MOMENTARY_MP5">
+<connects>
+<connect gate="G$1" pin="P" pad="1"/>
+<connect gate="G$1" pin="S" pad="2"/>
+<connect gate="G$1" pin="SHIELD" pad="SHEILD_1 SHEILD_2 SHEILD_3 SHEILD_4"/>
 </connects>
 <technologies>
 <technology name=""/>
@@ -7282,7 +7413,7 @@ Source: http://www.osram.convergy.de/</description>
 <gate name="G$1" symbol="RGBLED_CA" x="0" y="0"/>
 </gates>
 <devices>
-<device name="" package="LED_3528">
+<device name="3528" package="LED_3528">
 <connects>
 <connect gate="G$1" pin="BLUE" pad="3"/>
 <connect gate="G$1" pin="GREEN" pad="4"/>
@@ -7297,7 +7428,7 @@ Source: http://www.osram.convergy.de/</description>
 </deviceset>
 <deviceset name="BATTERY">
 <gates>
-<gate name="G$1" symbol="BATTERY" x="0" y="0"/>
+<gate name="G$1" symbol="BATTERY-1" x="0" y="0"/>
 </gates>
 <devices>
 <device name="BH-1800" package="BATTERY_BH-1800">
@@ -7309,10 +7440,46 @@ Source: http://www.osram.convergy.de/</description>
 <technology name=""/>
 </technologies>
 </device>
-<device name="" package="BATTERY_AA_SMD">
+<device name="AA_SMD" package="BATTERY_AA_SMD">
 <connects>
 <connect gate="G$1" pin="+" pad="+"/>
 <connect gate="G$1" pin="-" pad="-"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+<device name="CR2032X2" package="BATTERY_CR2032X2">
+<connects>
+<connect gate="G$1" pin="+" pad="+"/>
+<connect gate="G$1" pin="-" pad="-"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+<device name="AG3" package="BATTERY_COVER_AG3">
+<connects>
+<connect gate="G$1" pin="+" pad="+1 +2 +3 +4"/>
+<connect gate="G$1" pin="-" pad="-"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+<device name="AG3-REVERSABLE" package="BATTERY_COVER_AG3_REVERSABLE">
+<connects>
+<connect gate="G$1" pin="+" pad="+1 +2 +3 +4"/>
+<connect gate="G$1" pin="-" pad="-1 -2"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+<device name="AAA_TABS" package="BATTERY_AAA_TABS">
+<connects>
+<connect gate="G$1" pin="+" pad="+$1 +$2"/>
+<connect gate="G$1" pin="-" pad="-$1 -$2"/>
 </connects>
 <technologies>
 <technology name=""/>
@@ -9124,6 +9291,37 @@ new: Attribute TP_SIGNAL_NAME&lt;br&gt;
 <package name="IO_HOLE_3MM">
 <pad name="1" x="0" y="0" drill="3" diameter="5" thermals="no"/>
 </package>
+<package name="CAP_0402">
+<wire x1="-0.245" y1="0.224" x2="0.245" y2="0.224" width="0.1524" layer="51"/>
+<wire x1="0.245" y1="-0.224" x2="-0.245" y2="-0.224" width="0.1524" layer="51"/>
+<wire x1="-1" y1="0.483" x2="1" y2="0.483" width="0.0508" layer="39"/>
+<wire x1="1" y1="0.483" x2="1" y2="-0.483" width="0.0508" layer="39"/>
+<wire x1="1" y1="-0.483" x2="-1" y2="-0.483" width="0.0508" layer="39"/>
+<wire x1="-1" y1="-0.483" x2="-1" y2="0.483" width="0.0508" layer="39"/>
+<smd name="1" x="-0.5" y="0" dx="0.6" dy="0.7" layer="1"/>
+<smd name="2" x="0.5" y="0" dx="0.6" dy="0.7" layer="1"/>
+<text x="-0.635" y="0.762" size="1.27" layer="25">&gt;NAME</text>
+<text x="-0.635" y="-1.905" size="1.27" layer="27">&gt;VALUE</text>
+<rectangle x1="-0.554" y1="-0.3048" x2="-0.254" y2="0.2951" layer="51"/>
+<rectangle x1="0.2588" y1="-0.3048" x2="0.5588" y2="0.2951" layer="51"/>
+<rectangle x1="-0.1999" y1="-0.3" x2="0.1999" y2="0.3" layer="35"/>
+</package>
+<package name="RESISTOR_0402">
+<wire x1="-0.245" y1="0.224" x2="0.245" y2="0.224" width="0.1524" layer="51"/>
+<wire x1="0.245" y1="-0.224" x2="-0.245" y2="-0.224" width="0.1524" layer="51"/>
+<wire x1="-1" y1="0.483" x2="1" y2="0.483" width="0.0508" layer="39"/>
+<wire x1="1" y1="0.483" x2="1" y2="-0.483" width="0.0508" layer="39"/>
+<wire x1="1" y1="-0.483" x2="-1" y2="-0.483" width="0.0508" layer="39"/>
+<wire x1="-1" y1="-0.483" x2="-1" y2="0.483" width="0.0508" layer="39"/>
+<smd name="1" x="-0.5" y="0" dx="0.6" dy="0.7" layer="1"/>
+<smd name="2" x="0.5" y="0" dx="0.6" dy="0.7" layer="1"/>
+<text x="-0.635" y="0.762" size="1.27" layer="25">&gt;NAME</text>
+<text x="-0.635" y="-2.032" size="1.27" layer="27">&gt;VALUE</text>
+<rectangle x1="-0.554" y1="-0.3048" x2="-0.254" y2="0.2951" layer="51"/>
+<rectangle x1="0.2588" y1="-0.3048" x2="0.5588" y2="0.2951" layer="51"/>
+<rectangle x1="-0.1999" y1="-0.4001" x2="0.1999" y2="0.4001" layer="35"/>
+<dimension x1="-0.2" y1="-0.4" x2="0.2" y2="-0.4" x3="0" y3="-0.9" textsize="1.27" layer="21"/>
+</package>
 </packages>
 <symbols>
 <symbol name="TEST_POINT">
@@ -9132,6 +9330,31 @@ new: Attribute TP_SIGNAL_NAME&lt;br&gt;
 <wire x1="7.62" y1="1.27" x2="7.62" y2="-1.27" width="0.254" layer="94"/>
 <wire x1="7.62" y1="-1.27" x2="0" y2="-1.27" width="0.254" layer="94"/>
 <wire x1="0" y1="-1.27" x2="0" y2="1.27" width="0.254" layer="94"/>
+</symbol>
+<symbol name="C_US">
+<wire x1="-2.54" y1="0" x2="2.54" y2="0" width="0.254" layer="94"/>
+<wire x1="0" y1="-1.016" x2="0" y2="-2.54" width="0.1524" layer="94"/>
+<wire x1="0" y1="-1" x2="2.4892" y2="-1.8542" width="0.254" layer="94" curve="-37.878202" cap="flat"/>
+<wire x1="-2.4668" y1="-1.8504" x2="0" y2="-1.0161" width="0.254" layer="94" curve="-37.373024" cap="flat"/>
+<text x="1.016" y="0.635" size="1.778" layer="95">&gt;NAME</text>
+<text x="1.016" y="-4.191" size="1.778" layer="96">&gt;VALUE</text>
+<pin name="1" x="0" y="2.54" visible="off" length="short" direction="pas" swaplevel="1" rot="R270"/>
+<pin name="2" x="0" y="-5.08" visible="off" length="short" direction="pas" swaplevel="1" rot="R90"/>
+</symbol>
+<symbol name="R_US">
+<wire x1="-2.54" y1="0" x2="-2.159" y2="1.016" width="0.2032" layer="94"/>
+<wire x1="-2.159" y1="1.016" x2="-1.524" y2="-1.016" width="0.2032" layer="94"/>
+<wire x1="-1.524" y1="-1.016" x2="-0.889" y2="1.016" width="0.2032" layer="94"/>
+<wire x1="-0.889" y1="1.016" x2="-0.254" y2="-1.016" width="0.2032" layer="94"/>
+<wire x1="-0.254" y1="-1.016" x2="0.381" y2="1.016" width="0.2032" layer="94"/>
+<wire x1="0.381" y1="1.016" x2="1.016" y2="-1.016" width="0.2032" layer="94"/>
+<wire x1="1.016" y1="-1.016" x2="1.651" y2="1.016" width="0.2032" layer="94"/>
+<wire x1="1.651" y1="1.016" x2="2.286" y2="-1.016" width="0.2032" layer="94"/>
+<wire x1="2.286" y1="-1.016" x2="2.54" y2="0" width="0.2032" layer="94"/>
+<text x="-3.81" y="1.4986" size="1.778" layer="95">&gt;NAME</text>
+<text x="-3.81" y="-3.302" size="1.778" layer="96">&gt;VALUE</text>
+<pin name="2" x="5.08" y="0" visible="off" length="short" direction="pas" swaplevel="1" rot="R180"/>
+<pin name="1" x="-5.08" y="0" visible="off" length="short" direction="pas" swaplevel="1"/>
 </symbol>
 </symbols>
 <devicesets>
@@ -9143,6 +9366,38 @@ new: Attribute TP_SIGNAL_NAME&lt;br&gt;
 <device name="" package="IO_HOLE_3MM">
 <connects>
 <connect gate="G$1" pin="P$1" pad="1"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="C_US" prefix="0402">
+<gates>
+<gate name="G$1" symbol="C_US" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="CAP_0402">
+<connects>
+<connect gate="G$1" pin="1" pad="1"/>
+<connect gate="G$1" pin="2" pad="2"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="R_US">
+<gates>
+<gate name="G$1" symbol="R_US" x="0" y="0"/>
+</gates>
+<devices>
+<device name="0402" package="RESISTOR_0402">
+<connects>
+<connect gate="G$1" pin="1" pad="1"/>
+<connect gate="G$1" pin="2" pad="2"/>
 </connects>
 <technologies>
 <technology name=""/>
@@ -9571,33 +9826,33 @@ These are standard reverse protection diodes and small signal diodes. SMA packag
 <parts>
 <part name="U2" library="blinkinlabs" deviceset="ICN2026" device=""/>
 <part name="GND2" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
-<part name="C7" library="adafruit" deviceset="C-US" device="C0402" value="100nF"/>
-<part name="R1" library="adafruit" deviceset="R-US_" device="R0402" value="1k 1%"/>
+<part name="C7" library="DevicesToMerge" deviceset="C_US" device="" value="100nF"/>
+<part name="R1" library="DevicesToMerge" deviceset="R_US" device="0402" value="1k 1%"/>
 <part name="GND3" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="GND4" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
-<part name="R7" library="adafruit" deviceset="R-US_" device="R0402" value="33"/>
-<part name="R8" library="adafruit" deviceset="R-US_" device="R0402" value="33"/>
+<part name="R7" library="DevicesToMerge" deviceset="R_US" device="0402" value="33"/>
+<part name="R8" library="DevicesToMerge" deviceset="R_US" device="0402" value="33"/>
 <part name="GND7" library="supply1" deviceset="GND" device=""/>
 <part name="J1" library="blinkinlabs" deviceset="USB_MICRO" device="SMT+THRUHULE"/>
 <part name="GND17" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
-<part name="R6" library="adafruit" deviceset="R-US_" device="R0402" value="10k"/>
-<part name="C8" library="adafruit" deviceset="C-US" device="C0402" value="100nF"/>
+<part name="R6" library="DevicesToMerge" deviceset="R_US" device="0402" value="10k"/>
+<part name="C8" library="DevicesToMerge" deviceset="C_US" device="" value="100nF"/>
 <part name="GND13" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="P+8" library="supply1" deviceset="+5V" device=""/>
 <part name="SW1" library="blinkinlabs" deviceset="SWITCH_SPDT" device="" value="SWITCH_SPDT"/>
-<part name="C2" library="adafruit" deviceset="C-US" device="C0402" value="100nF"/>
-<part name="C5" library="adafruit" deviceset="C-US" device="C0402" value="2.2uF"/>
+<part name="C2" library="DevicesToMerge" deviceset="C_US" device="" value="100nF"/>
+<part name="C5" library="DevicesToMerge" deviceset="C_US" device="" value="2.2uF"/>
 <part name="GND14" library="supply1" deviceset="GND" device=""/>
 <part name="GND16" library="supply1" deviceset="GND" device=""/>
-<part name="C1" library="adafruit" deviceset="C-US" device="C0402" value="100nF"/>
+<part name="C1" library="DevicesToMerge" deviceset="C_US" device="" value="100nF"/>
 <part name="P+5" library="supply1" deviceset="+5V" device=""/>
-<part name="C4" library="adafruit" deviceset="C-US" device="C0402" value="100nF"/>
+<part name="C4" library="DevicesToMerge" deviceset="C_US" device="" value="100nF"/>
 <part name="GND18" library="supply1" deviceset="GND" device=""/>
 <part name="U1" library="blinkinlabs" deviceset="MK20D--VFM5" device="" value="MK20DN64VFM5"/>
 <part name="GND21" library="supply1" deviceset="GND" device=""/>
-<part name="C3" library="adafruit" deviceset="C-US" device="C0402" value="100nF"/>
+<part name="C3" library="DevicesToMerge" deviceset="C_US" device="" value="100nF"/>
 <part name="GND5" library="supply1" deviceset="GND" device=""/>
-<part name="SW2" library="blinkinlabs" deviceset="BUTTON_MOMENTARY_GROUND" device="" value="BRIGHTNESS"/>
+<part name="SW2" library="blinkinlabs" deviceset="BUTTON_MOMENTARY_GROUND" device="TD-07XB" value="BRIGHTNESS"/>
 <part name="U3" library="blinkinlabs" deviceset="74*138" device=""/>
 <part name="GND6" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="GND1" library="supply1" deviceset="GND" device=""/>
@@ -9610,84 +9865,84 @@ These are standard reverse protection diodes and small signal diodes. SMA packag
 <attribute name="MF" value="Littelfuse"/>
 <attribute name="MPN" value="PGB1010603NRHF"/>
 </part>
-<part name="R2" library="adafruit" deviceset="R-US_" device="R0402" value="4.7k"/>
-<part name="R3" library="adafruit" deviceset="R-US_" device="R0402" value="4.7k"/>
-<part name="R4" library="adafruit" deviceset="R-US_" device="R0402" value="4.7k"/>
-<part name="R5" library="adafruit" deviceset="R-US_" device="R0402" value="4.7k"/>
+<part name="R2" library="DevicesToMerge" deviceset="R_US" device="0402" value="4.7k"/>
+<part name="R3" library="DevicesToMerge" deviceset="R_US" device="0402" value="4.7k"/>
+<part name="R4" library="DevicesToMerge" deviceset="R_US" device="0402" value="4.7k"/>
+<part name="R5" library="DevicesToMerge" deviceset="R_US" device="0402" value="4.7k"/>
 <part name="GND8" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="U4" library="blinkinlabs" deviceset="ICN2026" device=""/>
 <part name="GND9" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
-<part name="R9" library="adafruit" deviceset="R-US_" device="R0402" value="1k 1%"/>
+<part name="R9" library="DevicesToMerge" deviceset="R_US" device="0402" value="1k 1%"/>
 <part name="GND11" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
-<part name="C11" library="adafruit" deviceset="C-US" device="C0402" value="100nF"/>
+<part name="C11" library="DevicesToMerge" deviceset="C_US" device="" value="100nF"/>
 <part name="GND19" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="U6" library="blinkinlabs" deviceset="ESP_WROOM_02" device=""/>
 <part name="3V2" library="supply1" deviceset="+3V3" device=""/>
 <part name="GND23" library="supply1" deviceset="GND" device=""/>
-<part name="LED_1" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_2" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_3" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_4" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_5" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_6" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_7" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_8" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_9" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_10" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_11" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_12" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_13" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_14" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_15" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_16" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_17" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_18" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_19" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_20" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_21" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_22" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_23" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_24" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_25" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_26" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_27" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_28" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_29" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_30" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_31" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_32" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_33" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_34" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_35" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_36" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_37" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_38" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_39" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_40" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_41" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_42" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_43" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_44" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_45" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_46" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_47" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_48" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_49" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_50" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_51" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_52" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_53" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_54" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_55" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_56" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_57" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_58" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_59" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_60" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_61" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_62" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_63" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
-<part name="LED_64" library="blinkinlabs" deviceset="LED_RGB_CA" device=""/>
+<part name="LED_1" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_2" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_3" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_4" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_5" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_6" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_7" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_8" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_9" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_10" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_11" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_12" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_13" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_14" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_15" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_16" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_17" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_18" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_19" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_20" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_21" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_22" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_23" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_24" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_25" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_26" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_27" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_28" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_29" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_30" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_31" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_32" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_33" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_34" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_35" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_36" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_37" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_38" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_39" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_40" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_41" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_42" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_43" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_44" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_45" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_46" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_47" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_48" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_49" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_50" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_51" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_52" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_53" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_54" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_55" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_56" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_57" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_58" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_59" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_60" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_61" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_62" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_63" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
+<part name="LED_64" library="blinkinlabs" deviceset="LED_RGB_CA" device="3528"/>
 <part name="FRAME2" library="frames" deviceset="A3L-LOC" device=""/>
 <part name="FRAME1" library="frames" deviceset="A3L-LOC" device=""/>
 <part name="FRAME3" library="frames" deviceset="A3L-LOC" device=""/>
@@ -9696,15 +9951,15 @@ These are standard reverse protection diodes and small signal diodes. SMA packag
 <part name="GND24" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="GND25" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="GND26" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
-<part name="R13" library="adafruit" deviceset="R-US_" device="R0402" value="4.7k"/>
-<part name="R14" library="adafruit" deviceset="R-US_" device="R0402" value="4.7k"/>
-<part name="R15" library="adafruit" deviceset="R-US_" device="R0402" value="4.7k"/>
-<part name="R16" library="adafruit" deviceset="R-US_" device="R0402" value="4.7k"/>
+<part name="R13" library="DevicesToMerge" deviceset="R_US" device="0402" value="4.7k"/>
+<part name="R14" library="DevicesToMerge" deviceset="R_US" device="0402" value="4.7k"/>
+<part name="R15" library="DevicesToMerge" deviceset="R_US" device="0402" value="4.7k"/>
+<part name="R16" library="DevicesToMerge" deviceset="R_US" device="0402" value="4.7k"/>
 <part name="GND27" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="GND28" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="GND29" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="GND30" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
-<part name="J2" library="blinkinlabs" deviceset="BATTERY" device=""/>
+<part name="J2" library="blinkinlabs" deviceset="BATTERY" device="AA_SMD"/>
 <part name="U10" library="teensy_adapter" deviceset="FDG6316P" device=""/>
 <part name="P+15" library="supply1" deviceset="+5V" device=""/>
 <part name="P+16" library="supply1" deviceset="+5V" device=""/>
@@ -9721,23 +9976,23 @@ These are standard reverse protection diodes and small signal diodes. SMA packag
 <part name="R20" library="SparkFun-Passives" deviceset="RESISTOR-ARRAY" device="0603-ARV" value="200"/>
 <part name="U8" library="teensy_adapter" deviceset="MMA8653FC" device=""/>
 <part name="GND31" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
-<part name="R17" library="adafruit" deviceset="R-US_" device="R0402" value="4.7k"/>
-<part name="R18" library="adafruit" deviceset="R-US_" device="R0402" value="4.7k"/>
-<part name="C13" library="adafruit" deviceset="C-US" device="C0402" value="100nF"/>
-<part name="C14" library="adafruit" deviceset="C-US" device="C0402" value="100nF"/>
-<part name="C15" library="adafruit" deviceset="C-US" device="C0402" value="100nF"/>
+<part name="R17" library="DevicesToMerge" deviceset="R_US" device="0402" value="4.7k"/>
+<part name="R18" library="DevicesToMerge" deviceset="R_US" device="0402" value="4.7k"/>
+<part name="C13" library="DevicesToMerge" deviceset="C_US" device="" value="100nF"/>
+<part name="C14" library="DevicesToMerge" deviceset="C_US" device="" value="100nF"/>
+<part name="C15" library="DevicesToMerge" deviceset="C_US" device="" value="100nF"/>
 <part name="GND32" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="GND33" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
-<part name="R23" library="adafruit" deviceset="R-US_" device="R0402" value="10k"/>
-<part name="R25" library="adafruit" deviceset="R-US_" device="R0402" value="10k"/>
+<part name="R23" library="DevicesToMerge" deviceset="R_US" device="0402" value="10k"/>
+<part name="R25" library="DevicesToMerge" deviceset="R_US" device="0402" value="10k"/>
 <part name="3V16" library="supply1" deviceset="+3V3" device=""/>
 <part name="GND34" library="supply1" deviceset="GND" device=""/>
 <part name="FRAME5" library="frames" deviceset="A3L-LOC" device=""/>
-<part name="R26" library="adafruit" deviceset="R-US_" device="R0402" value="10k"/>
-<part name="R27" library="adafruit" deviceset="R-US_" device="R0402" value="10k"/>
+<part name="R26" library="DevicesToMerge" deviceset="R_US" device="0402" value="10k"/>
+<part name="R27" library="DevicesToMerge" deviceset="R_US" device="0402" value="10k"/>
 <part name="3V17" library="supply1" deviceset="+3V3" device=""/>
 <part name="3V18" library="supply1" deviceset="+3V3" device=""/>
-<part name="R28" library="adafruit" deviceset="R-US_" device="R0402" value="10k"/>
+<part name="R28" library="DevicesToMerge" deviceset="R_US" device="0402" value="10k"/>
 <part name="3V1" library="supply1" deviceset="+3V3" device=""/>
 <part name="3V4" library="supply1" deviceset="+3V3" device=""/>
 <part name="3V6" library="supply1" deviceset="+3V3" device=""/>
@@ -9759,7 +10014,7 @@ These are standard reverse protection diodes and small signal diodes. SMA packag
 <part name="GND38" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="GND39" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="U5" library="SparkFun-PowerIC" deviceset="V_REG_MIC5219" device="3.3V" value="MIC5219 3.3V"/>
-<part name="C16" library="adafruit" deviceset="C-US" device="C0402" value="47pF"/>
+<part name="C16" library="DevicesToMerge" deviceset="C_US" device="" value="47pF"/>
 <part name="GND40" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="P+1" library="supply1" deviceset="+5V" device=""/>
 <part name="3V5" library="supply1" deviceset="+3V3" device=""/>
@@ -9773,9 +10028,9 @@ These are standard reverse protection diodes and small signal diodes. SMA packag
 <part name="R11" library="adafruit" deviceset="R-US_" device="R0805" value="47"/>
 <part name="GND43" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="3V3" library="supply1" deviceset="+3V3" device=""/>
-<part name="R12" library="adafruit" deviceset="R-US_" device="R0402" value="10k"/>
+<part name="R12" library="DevicesToMerge" deviceset="R_US" device="0402" value="10k"/>
 <part name="TP16" library="testpad" deviceset="PTR1" device="B1,27"/>
-<part name="R21" library="adafruit" deviceset="R-US_" device="R0402" value="10k"/>
+<part name="R21" library="DevicesToMerge" deviceset="R_US" device="0402" value="10k"/>
 <part name="GND35" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="3V7" library="supply1" deviceset="+3V3" device=""/>
 <part name="GND44" library="supply1" deviceset="GND" device=""/>
@@ -9827,7 +10082,7 @@ These are standard reverse protection diodes and small signal diodes. SMA packag
 <sheets>
 <sheet>
 <plain>
-<text x="17.78" y="281.94" size="3.81" layer="91" align="top-left">Revision Notes/Changelog
+<text x="17.78" y="289.56" size="3.81" layer="91" align="top-left">Revision Notes/Changelog
 
 Revision A:
 -Diode mod required to power over USB
@@ -9863,7 +10118,10 @@ Revision G:
 
 TODO:
 -Cosmetic: ESP8266 GPIO 18mislabeled, should be 16
--Make resistor, cap pad sizes smaller for production</text>
+-Make resistor, cap pad sizes smaller for production
+-Add polarity markings for the battery
+-Put revision and date under the battery
+-try to fit larger fuse (from lightbuddy)</text>
 <text x="129.54" y="358.14" size="10.16" layer="91" align="bottom-center">EightByEight Blinky Badge</text>
 <text x="129.54" y="345.44" size="6.4516" layer="91" align="bottom-center">Copyright 2016 Blinkinlabs, LLC</text>
 <text x="17.78" y="297.18" size="3.81" layer="91">This documentation describes Open Hardware and is licensed under the
