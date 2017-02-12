@@ -6548,6 +6548,26 @@ Source: http://www.osram.convergy.de/</description>
 <vertex x="-2" y="-7"/>
 </polygon>
 <text x="-7.5" y="-12" size="1.27" layer="25">&gt;NAME</text>
+<rectangle x1="8.25" y1="2" x2="10" y2="2.5" layer="41"/>
+<rectangle x1="8.25" y1="0.5" x2="10" y2="1" layer="41"/>
+<rectangle x1="8.25" y1="-1" x2="10" y2="-0.5" layer="41"/>
+<rectangle x1="8.25" y1="-2.5" x2="10" y2="-2" layer="41"/>
+<rectangle x1="8.25" y1="-4" x2="10" y2="-3.5" layer="41"/>
+<rectangle x1="8.25" y1="-5.5" x2="10" y2="-5" layer="41"/>
+<rectangle x1="8.25" y1="-7" x2="10" y2="-6.5" layer="41"/>
+<rectangle x1="8.25" y1="-8.5" x2="10" y2="-8" layer="41"/>
+<rectangle x1="8.25" y1="3.5" x2="10" y2="4" layer="41"/>
+<rectangle x1="8.25" y1="-10" x2="10" y2="-9.5" layer="41"/>
+<rectangle x1="-10" y1="-10" x2="-8.25" y2="-9.5" layer="41"/>
+<rectangle x1="-10" y1="-8.5" x2="-8.25" y2="-8" layer="41"/>
+<rectangle x1="-10" y1="-7" x2="-8.25" y2="-6.5" layer="41"/>
+<rectangle x1="-10" y1="-5.5" x2="-8.25" y2="-5" layer="41"/>
+<rectangle x1="-10" y1="-4" x2="-8.25" y2="-3.5" layer="41"/>
+<rectangle x1="-10" y1="-2.5" x2="-8.25" y2="-2" layer="41"/>
+<rectangle x1="-10" y1="-1" x2="-8.25" y2="-0.5" layer="41"/>
+<rectangle x1="-10" y1="0.5" x2="-8.25" y2="1" layer="41"/>
+<rectangle x1="-10" y1="2" x2="-8.25" y2="2.5" layer="41"/>
+<rectangle x1="-10" y1="3.5" x2="-8.25" y2="4" layer="41"/>
 </package>
 <package name="LED_3528">
 <circle x="-0.5" y="1" radius="0.2236" width="0.127" layer="21"/>
@@ -6943,7 +6963,7 @@ http://item.taobao.com/item.htm?spm=a230r.1.14.130.LurJbZ&amp;id=16889806763&amp
 </symbol>
 <symbol name="ESP_WROOM_02">
 <pin name="GND" x="2.54" y="15.24" length="middle"/>
-<pin name="IO18" x="35.56" y="-2.54" length="middle" rot="R180"/>
+<pin name="IO16" x="35.56" y="-2.54" length="middle" rot="R180"/>
 <pin name="TOUT" x="2.54" y="2.54" length="middle"/>
 <pin name="RST" x="2.54" y="7.62" length="middle"/>
 <pin name="IO5" x="35.56" y="10.16" length="middle" rot="R180"/>
@@ -7393,7 +7413,7 @@ http://item.taobao.com/item.htm?spm=a230r.1.14.130.LurJbZ&amp;id=16889806763&amp
 <connect gate="G$1" pin="IO13" pad="IO13"/>
 <connect gate="G$1" pin="IO14" pad="IO14"/>
 <connect gate="G$1" pin="IO15" pad="IO15"/>
-<connect gate="G$1" pin="IO18" pad="IO18"/>
+<connect gate="G$1" pin="IO16" pad="IO18"/>
 <connect gate="G$1" pin="IO2" pad="IO2"/>
 <connect gate="G$1" pin="IO4" pad="IO4"/>
 <connect gate="G$1" pin="IO5" pad="IO5"/>
@@ -9320,7 +9340,6 @@ new: Attribute TP_SIGNAL_NAME&lt;br&gt;
 <rectangle x1="-0.554" y1="-0.3048" x2="-0.254" y2="0.2951" layer="51"/>
 <rectangle x1="0.2588" y1="-0.3048" x2="0.5588" y2="0.2951" layer="51"/>
 <rectangle x1="-0.1999" y1="-0.4001" x2="0.1999" y2="0.4001" layer="35"/>
-<dimension x1="-0.2" y1="-0.4" x2="0.2" y2="-0.4" x3="0" y3="-0.9" textsize="1.27" layer="21"/>
 </package>
 </packages>
 <symbols>
@@ -10115,13 +10134,13 @@ Revision F:
 Revision G:
 -Add fuse and diode for battery reverse polarity protection
 -Add bleed resistor to drain USB_5V charge when battery powered
+-Cosmetic: ESP8266 GPIO 18mislabeled, should be 16
+-Remove copper fill between ESP8266 pads
+-Add polarity markings for the battery
+-Pull ground plane back from ESP extension pins
 
 TODO:
--Cosmetic: ESP8266 GPIO 18mislabeled, should be 16
--Make resistor, cap pad sizes smaller for production
--Add polarity markings for the battery
--Put revision and date under the battery
--try to fit larger fuse (from lightbuddy)</text>
+-Make resistor, cap pad sizes smaller for production</text>
 <text x="129.54" y="358.14" size="10.16" layer="91" align="bottom-center">EightByEight Blinky Badge</text>
 <text x="129.54" y="345.44" size="6.4516" layer="91" align="bottom-center">Copyright 2016 Blinkinlabs, LLC</text>
 <text x="17.78" y="297.18" size="3.81" layer="91">This documentation describes Open Hardware and is licensed under the
@@ -11021,7 +11040,7 @@ the ARM JTAG pins</text>
 </net>
 <net name="ESP_GPIO16" class="0">
 <segment>
-<pinref part="U6" gate="G$1" pin="IO18"/>
+<pinref part="U6" gate="G$1" pin="IO16"/>
 <wire x1="86.36" y1="200.66" x2="104.14" y2="200.66" width="0.1524" layer="91"/>
 <label x="91.44" y="200.66" size="1.778" layer="95"/>
 </segment>
@@ -11076,7 +11095,7 @@ the ARM JTAG pins</text>
 <wire x1="353.06" y1="154.94" x2="353.06" y2="251.46" width="0.4064" layer="94"/>
 <text x="264.16" y="172.72" size="1.778" layer="91">Note: LED constant current drivers are powered by
 a regulator built into the ARM part.</text>
-<text x="50.8" y="93.98" size="1.778" layer="91">Drain resistor to protect againt
+<text x="78.74" y="93.98" size="1.778" layer="91">Drain resistor to protect againt
 rapid on/off power cycles</text>
 <text x="12.7" y="137.16" size="1.778" layer="91">Powers device from USB or battery</text>
 <text x="12.7" y="142.24" size="2.54" layer="94">Power switch</text>
@@ -11106,20 +11125,24 @@ off, protecting the battery and the battery charge IC</text>
 through D3. A high potential on USB_5V will cause
 the charge IC to disable the boost circuit, leading to
 a reset condition</text>
+<text x="12.7" y="96.52" size="1.778" layer="91">Note: The reverse current leakage
+of the diodes is a critical spec. The
+leakage should be &lt;50uA at 5V and
+operating temperature.</text>
 </plain>
 <instances>
 <instance part="FRAME1" gate="G$1" x="0" y="0"/>
 <instance part="GND17" gate="1" x="22.86" y="198.12"/>
-<instance part="SW1" gate="G$1" x="50.8" y="111.76" smashed="yes" rot="R180">
-<attribute name="NAME" x="52.705" y="118.11" size="1.778" layer="95" rot="R180"/>
-<attribute name="VALUE" x="50.8" y="107.95" size="1.778" layer="96"/>
+<instance part="SW1" gate="G$1" x="78.74" y="111.76" smashed="yes" rot="R180">
+<attribute name="NAME" x="80.645" y="118.11" size="1.778" layer="95" rot="R180"/>
+<attribute name="VALUE" x="78.74" y="107.95" size="1.778" layer="96"/>
 </instance>
 <instance part="J2" gate="G$1" x="22.86" y="210.82" rot="R270"/>
 <instance part="U7" gate="G$1" x="175.26" y="208.28"/>
 <instance part="L1" gate="G$1" x="129.54" y="215.9" rot="R180"/>
 <instance part="GND10" gate="1" x="160.02" y="182.88"/>
 <instance part="GND12" gate="1" x="193.04" y="187.96"/>
-<instance part="P+13" gate="1" x="58.42" y="129.54"/>
+<instance part="P+13" gate="1" x="86.36" y="129.54"/>
 <instance part="GND15" gate="1" x="218.44" y="187.96"/>
 <instance part="D1" gate="G$1" x="210.82" y="198.12"/>
 <instance part="GND36" gate="1" x="129.54" y="182.88"/>
@@ -11145,10 +11168,10 @@ a reset condition</text>
 <instance part="C17" gate="G$1" x="149.86" y="198.12"/>
 <instance part="C18" gate="G$1" x="279.4" y="205.74"/>
 <instance part="GND42" gate="1" x="279.4" y="195.58"/>
-<instance part="D2" gate="G$1" x="33.02" y="114.3"/>
-<instance part="D3" gate="G$1" x="33.02" y="121.92"/>
-<instance part="R11" gate="G$1" x="43.18" y="99.06" rot="R90"/>
-<instance part="GND43" gate="1" x="43.18" y="86.36"/>
+<instance part="D2" gate="G$1" x="60.96" y="114.3"/>
+<instance part="D3" gate="G$1" x="60.96" y="121.92"/>
+<instance part="R11" gate="G$1" x="71.12" y="99.06" rot="R90"/>
+<instance part="GND43" gate="1" x="71.12" y="86.36"/>
 <instance part="D4" gate="G$1" x="200.66" y="198.12"/>
 <instance part="TP7" gate="G$1" x="162.56" y="127" rot="R90"/>
 <instance part="TP8" gate="G$1" x="162.56" y="121.92" rot="R90"/>
@@ -11230,7 +11253,7 @@ a reset condition</text>
 </segment>
 <segment>
 <pinref part="R11" gate="G$1" pin="1"/>
-<wire x1="43.18" y1="93.98" x2="43.18" y2="88.9" width="0.1524" layer="91"/>
+<wire x1="71.12" y1="93.98" x2="71.12" y2="88.9" width="0.1524" layer="91"/>
 <pinref part="GND43" gate="1" pin="GND"/>
 </segment>
 <segment>
@@ -11261,8 +11284,8 @@ a reset condition</text>
 </segment>
 <segment>
 <pinref part="D3" gate="G$1" pin="A"/>
-<wire x1="30.48" y1="121.92" x2="12.7" y2="121.92" width="0.1524" layer="91"/>
-<label x="15.24" y="121.92" size="1.778" layer="95"/>
+<wire x1="58.42" y1="121.92" x2="40.64" y2="121.92" width="0.1524" layer="91"/>
+<label x="43.18" y="121.92" size="1.778" layer="95"/>
 </segment>
 <segment>
 <wire x1="15.24" y1="55.88" x2="15.24" y2="66.04" width="0.1524" layer="91"/>
@@ -11331,8 +11354,8 @@ a reset condition</text>
 </segment>
 <segment>
 <pinref part="D2" gate="G$1" pin="A"/>
-<wire x1="30.48" y1="114.3" x2="12.7" y2="114.3" width="0.1524" layer="91"/>
-<label x="15.24" y="114.3" size="1.778" layer="95"/>
+<wire x1="58.42" y1="114.3" x2="40.64" y2="114.3" width="0.1524" layer="91"/>
+<label x="43.18" y="114.3" size="1.778" layer="95"/>
 </segment>
 <segment>
 <pinref part="TP24" gate="G$1" pin="TP"/>
@@ -11343,9 +11366,9 @@ a reset condition</text>
 <net name="+5V" class="0">
 <segment>
 <pinref part="P+13" gate="1" pin="+5V"/>
-<wire x1="58.42" y1="127" x2="58.42" y2="111.76" width="0.1524" layer="91"/>
+<wire x1="86.36" y1="127" x2="86.36" y2="111.76" width="0.1524" layer="91"/>
 <pinref part="SW1" gate="G$1" pin="P"/>
-<wire x1="53.34" y1="111.76" x2="58.42" y2="111.76" width="0.1524" layer="91"/>
+<wire x1="81.28" y1="111.76" x2="86.36" y2="111.76" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="U5" gate="G$1" pin="EN"/>
@@ -11398,19 +11421,19 @@ a reset condition</text>
 <segment>
 <pinref part="D2" gate="G$1" pin="C"/>
 <pinref part="SW1" gate="G$1" pin="S"/>
-<wire x1="35.56" y1="114.3" x2="43.18" y2="114.3" width="0.1524" layer="91"/>
+<wire x1="63.5" y1="114.3" x2="71.12" y2="114.3" width="0.1524" layer="91"/>
 <pinref part="D3" gate="G$1" pin="C"/>
-<wire x1="43.18" y1="114.3" x2="45.72" y2="114.3" width="0.1524" layer="91"/>
-<wire x1="35.56" y1="121.92" x2="43.18" y2="121.92" width="0.1524" layer="91"/>
-<wire x1="43.18" y1="121.92" x2="43.18" y2="114.3" width="0.1524" layer="91"/>
-<junction x="43.18" y="114.3"/>
+<wire x1="71.12" y1="114.3" x2="73.66" y2="114.3" width="0.1524" layer="91"/>
+<wire x1="63.5" y1="121.92" x2="71.12" y2="121.92" width="0.1524" layer="91"/>
+<wire x1="71.12" y1="121.92" x2="71.12" y2="114.3" width="0.1524" layer="91"/>
+<junction x="71.12" y="114.3"/>
 </segment>
 </net>
 <net name="+5V_BLEED" class="0">
 <segment>
 <pinref part="SW1" gate="G$1" pin="O"/>
-<wire x1="45.72" y1="109.22" x2="43.18" y2="109.22" width="0.1524" layer="91"/>
-<wire x1="43.18" y1="109.22" x2="43.18" y2="104.14" width="0.1524" layer="91"/>
+<wire x1="73.66" y1="109.22" x2="71.12" y2="109.22" width="0.1524" layer="91"/>
+<wire x1="71.12" y1="109.22" x2="71.12" y2="104.14" width="0.1524" layer="91"/>
 <pinref part="R11" gate="G$1" pin="2"/>
 </segment>
 </net>
