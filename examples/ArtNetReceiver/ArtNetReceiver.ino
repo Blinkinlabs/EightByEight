@@ -2,33 +2,34 @@
 #include <WiFiUdp.h>
 #include <ESP8266mDNS.h>
 
-#include "matrix.h"
+#include "badge.h"
 
 const int listen_port = 6454;
 
 const char ssid[] = "SSID";
 const char password[] = "PASSWORD";
 
-byte buffer[512]; //buffer to hold incoming and outgoing packets
+byte buffer[1000]; //buffer to hold incoming and outgoing packets
 
 WiFiUDP Udp;
 
-Matrix matrix;
-
+Badge badge;
 
 void setup(void)
 {
-  // USB communication to PC
-  Serial.begin ( 460800 );
+  badge.begin();
+  
+  badge.matrix.clear();
+  badge.matrix.show();
+  
   WiFi.begin ( ssid, password );  
-  Serial.println ( "" );
 
   // Wait for connection
   while ( WiFi.status() != WL_CONNECTED ) {
     delay ( 500 );
     Serial.print ( "." );
   }
-
+  
   Serial.println ( "" );
   Serial.print ( "Connected to " );
   Serial.println ( ssid );
@@ -40,8 +41,6 @@ void setup(void)
   }
 
   Udp.begin(listen_port);
-
-  matrix.setup();
 }
 
 void handleUdpPacket(int noBytes) {
@@ -66,7 +65,7 @@ void handleUdpPacket(int noBytes) {
 //    } // end for
   
   // Todo: check for a valid art-net frame here
-  uint8_t* matrixData = matrix.getPixels();
+  uint8_t* matrixData = badge.matrix.getPixels();
   uint8_t* udpData = &buffer[18];
   memcpy(matrixData, udpData, LED_ROWS*LED_COLS*LED_BYTES_PER_PIXEL);
   
@@ -76,13 +75,22 @@ void handleUdpPacket(int noBytes) {
     }
   }
 
-  matrix.show();
+  badge.matrix.show();
+
 }
 
 void loop() {
   int noBytes = Udp.parsePacket();
   if ( noBytes ) {
     handleUdpPacket(noBytes);
+  }
+
+  if(badge.button_edge()) {  
+    Serial.println ( "" );
+    Serial.print ( "Connected to " );
+    Serial.println ( ssid );
+    Serial.print ( "IP address: " );
+    Serial.println ( WiFi.localIP() );
   }
 }
 

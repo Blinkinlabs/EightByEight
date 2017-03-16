@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016, Blinkinlabs, LLC
+ * Copyright (c) 2015, 2016, Blinkinlabs, LLC
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -12,7 +12,7 @@
  *   list of conditions and the following disclaimer in the documentation and/or
  *   other materials provided with the distribution.
  *
- * * Neither the name of Majenko Technologies nor the names of its
+ * * Neither the name of Blinkinlabs, LLC nor the names of its
  *   contributors may be used to endorse or promote products derived from
  *   this software without specific prior written permission.
  *
@@ -28,25 +28,13 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef MATRIX_H_
-#define MATRIX_H_
+#ifndef MMA8653_H_
+#define MMA8653_H_
 
-//#include <stdint.h>
-#include <Arduino.h>
-
-#define LED_ROWS 8
-#define LED_COLS 8
-#define LED_BYTES_PER_PIXEL 3
-
-class Matrix {
+class MMA8653 {
 public:
     void setup();
-    
-    void setPixelColor(int row, int col, uint8_t r, uint8_t g, uint8_t b);
-
-    uint8_t* getPixels();
-    
-    void show();
+    bool getXYZ(float& X, float& Y, float& Z);
 };
 
 #endif
