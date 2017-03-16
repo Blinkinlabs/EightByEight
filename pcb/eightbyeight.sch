@@ -1635,6 +1635,8 @@ Source: http://www.osram.convergy.de/</description>
 <vertex x="-1.8" y="-1.8"/>
 <vertex x="-1.8" y="1.3"/>
 </polygon>
+<wire x1="-2.2" y1="2.7" x2="-2.7" y2="2.7" width="0.127" layer="21"/>
+<wire x1="-2.7" y1="2.7" x2="-2.7" y2="2.2" width="0.127" layer="21"/>
 </package>
 <package name="TD-07XB">
 <text x="-2.835" y="3.905" size="1.27" layer="25">&gt;NAME</text>
@@ -2493,7 +2495,7 @@ PYU-R_Mount_7.pdf</description>
 <pin name="GND" x="0" y="-10.16" visible="pad" direction="pwr" rot="R90"/>
 <pin name="VCC" x="0" y="10.16" visible="pad" direction="pwr" rot="R270"/>
 </symbol>
-<symbol name="ICN2026DF">
+<symbol name="ICN2027">
 <wire x1="-10.16" y1="-25.4" x2="10.16" y2="-25.4" width="0.254" layer="94"/>
 <wire x1="10.16" y1="-25.4" x2="10.16" y2="22.86" width="0.254" layer="94"/>
 <wire x1="10.16" y1="22.86" x2="-10.16" y2="22.86" width="0.254" layer="94"/>
@@ -2522,6 +2524,8 @@ PYU-R_Mount_7.pdf</description>
 <pin name="DOUT" x="15.24" y="20.32" length="middle" rot="R180"/>
 <pin name="CREF" x="-15.24" y="-5.08" length="middle"/>
 <pin name="VCC" x="-15.24" y="20.32" length="middle"/>
+<text x="-10.16" y="25.4" size="1.778" layer="95">&gt;NAME</text>
+<text x="-10.16" y="-27.94" size="1.778" layer="96">&gt;VALUE</text>
 </symbol>
 <symbol name="SWITCH_SPDT">
 <wire x1="0" y1="0" x2="2.54" y2="1.27" width="0.254" layer="94"/>
@@ -2903,12 +2907,12 @@ PYU-R_Mount_7.pdf</description>
 </device>
 </devices>
 </deviceset>
-<deviceset name="ICN2026">
+<deviceset name="ICN2027">
 <gates>
-<gate name="G$1" symbol="ICN2026DF" x="-10.16" y="-10.16"/>
+<gate name="G$1" symbol="ICN2027" x="-10.16" y="-10.16"/>
 </gates>
 <devices>
-<device name="DF" package="SOP24-300-1MM">
+<device name="SOP24-300" package="SOP24-300-1MM">
 <connects>
 <connect gate="G$1" pin="CLK" pad="3"/>
 <connect gate="G$1" pin="CREF" pad="23"/>
@@ -2939,7 +2943,7 @@ PYU-R_Mount_7.pdf</description>
 <technology name=""/>
 </technologies>
 </device>
-<device name="" package="SSOP24-150">
+<device name="SSOP24-150" package="SSOP24-150">
 <connects>
 <connect gate="G$1" pin="CLK" pad="3"/>
 <connect gate="G$1" pin="CREF" pad="23"/>
@@ -8252,7 +8256,7 @@ Source: www.bourns.com .. 6000_series.pdf</description>
 </class>
 </classes>
 <parts>
-<part name="U2" library="blinkinlabs" deviceset="ICN2026" device=""/>
+<part name="U2" library="blinkinlabs" deviceset="ICN2027" device="SSOP24-150"/>
 <part name="GND2" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="C7" library="blinkinlabs" deviceset="C_US" device="0402" value="100nF"/>
 <part name="R1" library="blinkinlabs" deviceset="R_US" device="0402" value="1k 1%"/>
@@ -8298,7 +8302,7 @@ Source: www.bourns.com .. 6000_series.pdf</description>
 <part name="R4" library="blinkinlabs" deviceset="R_US" device="0402" value="4.7k"/>
 <part name="R5" library="blinkinlabs" deviceset="R_US" device="0402" value="4.7k"/>
 <part name="GND8" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
-<part name="U4" library="blinkinlabs" deviceset="ICN2026" device=""/>
+<part name="U4" library="blinkinlabs" deviceset="ICN2027" device="SSOP24-150"/>
 <part name="GND9" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="R9" library="blinkinlabs" deviceset="R_US" device="0402" value="1k 1%"/>
 <part name="GND11" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
@@ -8510,7 +8514,7 @@ Source: www.bourns.com .. 6000_series.pdf</description>
 <sheets>
 <sheet>
 <plain>
-<text x="17.78" y="289.56" size="3.81" layer="91" align="top-left">Revision Notes/Changelog
+<text x="17.78" y="289.56" size="3.302" layer="91" align="top-left">Revision Notes/Changelog
 
 Revision A:
 -Diode mod required to power over USB
@@ -8543,16 +8547,27 @@ Revision F:
 Revision G:
 -Add fuse and diode for battery reverse polarity protection
 -Add bleed resistor to drain USB_5V charge when battery powered
+
+Revision H:
 -Cosmetic: ESP8266 GPIO 18mislabeled, should be 16
 -Remove copper fill between ESP8266 pads
 -Add polarity markings for the battery
 -Pull ground plane back from ESP extension pins
 -Swap in improved 0402, 0603, 0805 packages
 
-TODO:</text>
+Revision I:
+-Update component name for U2, U4 (should be ICN2027)
+-Add direction indicator for Kinetis part
+
+TODO:
+-Add direction indicator for accelerometer
+-Use smaller SOIC8 (150mil) footprint for MP3401A
+-Clarify exact part number for 74138 (needs to be 3.3v compatible)
+-Specify B5819W SL diode type
+-Change battery outline to show spring drawing instead of polarity markers</text>
 <text x="129.54" y="358.14" size="10.16" layer="91" align="bottom-center">EightByEight Blinky Badge</text>
-<text x="129.54" y="345.44" size="6.4516" layer="91" align="bottom-center">Copyright 2016 Blinkinlabs, LLC</text>
-<text x="17.78" y="297.18" size="3.81" layer="91">This documentation describes Open Hardware and is licensed under the
+<text x="129.54" y="345.44" size="6.4516" layer="91" align="bottom-center">Copyright 2016, 2017 Blinkinlabs, LLC</text>
+<text x="17.78" y="297.18" size="3.302" layer="91">This documentation describes Open Hardware and is licensed under the
 CERN OHL v. 1.2. You may redistribute and modify this documentation
 under the terms of the CERN OHL v.1.2. (http://ohwr.org/cernohl). This
 documentation is distributed WITHOUT ANY EXPRESS OR IMPLIED
