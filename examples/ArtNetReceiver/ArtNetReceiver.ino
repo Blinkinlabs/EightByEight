@@ -2,7 +2,7 @@
 #include <WiFiUdp.h>
 #include <ESP8266mDNS.h>
 
-#include "badge.h"
+#include "Badge.h"
 
 const int listen_port = 6454;
 
