@@ -1,4 +1,4 @@
-a/*
+/*
  * Copyright (c) 2015, 2016, Blinkinlabs, LLC
  * All rights reserved.
  *
