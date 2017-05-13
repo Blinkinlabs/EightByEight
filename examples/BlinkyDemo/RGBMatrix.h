@@ -18,7 +18,6 @@ public:
 	RGBMatrix();
 	void begin();
 	void show();
-	void show8(); // show just the first row
 
 	void clear();
 	void set(int row, int col, int r, int g, int b);

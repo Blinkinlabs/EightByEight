@@ -1,4 +1,4 @@
-/** \file
+  /** \file
  * Combine multiple demos for the Two Sigma / Blinklabs EightByEight badge.
  *
  * The button is used to cycle between the different demos.
@@ -14,39 +14,34 @@
 #include "Bubble.h"
 #include "Pixels.h"
 #include "Rain.h"
-#include "Cycle.h"
-#include "Pov.h"
 
 Badge badge;
 
-Pixels pixels;
-Bubble bubble;
+Pixels pixels; // udp packet receiver
+
+Bubble bubble;  // Enabled demos
 Life life;
 Rain rain;
-Cycle cycle;
-Pov pov;
 
 Demo * demos[] = {
-//  &cycle,
 	&rain,
 	&life,
 	&bubble,
 };
 
-const unsigned num_demos = sizeof(demos) / sizeof(*demos);
-static unsigned demo_num = 0;
-static Demo * demo;
+const unsigned demo_count = sizeof(demos) / sizeof(*demos);
+unsigned demo_num = 0;
+Demo * demo;
 
-static char mac_buf[6*3+1];
-static uint32_t last_draw_millis;
-static uint32_t last_video_millis;
-static bool draw_video;
+char mac_buf[6*3+1];
+uint32_t last_draw_millis;
+uint32_t last_video_millis;
+bool draw_video;
+
 
 void setup()
 {
 	badge.begin();
-	badge.matrix.clear();
-	badge.matrix.show();
 
 	WiFi.persistent(false);
 
@@ -78,11 +73,9 @@ void setup()
 	Serial.println(mac_buf);
 
 	pixels.begin();
-	pov.begin();
-
 
 	// Initialize all of the demos and start at 0
-	for(int i = 0 ; i < num_demos ; i++)
+	for(int i = 0 ; i < demo_count ; i++)
 		demos[i]->begin();
 
 	demo_num = 0;
@@ -92,51 +85,29 @@ void setup()
 
 void loop()
 {
-	if (badge.poll())
-	{
-		// they have tapped fairly hard, should send this to demo
-#if 0
-		pov.enabled = true;
-		badge.matrix.clear();
-		badge.matrix.show();
-#endif
-	}
-
-	if (pov.enabled)
-	{
-		if (badge.button())
-		{
-			pov.enabled = false;
-			pov.begin();
-			return;
-		}
-
-		// pov is the highest priority; we don't do anything
-		// else until it disables itself
-		pov.step(badge.ax, badge.ay, badge.az);
-		pov.draw(badge.matrix);
-		return;
-	}
-
+  if (badge.poll())
+  {
+    // Do something when the badge is tapped
+  }
+  
 	if (badge.button_edge())
 	{
 		// should cycle to the next demo
-		demo_num = (demo_num + 1) % num_demos;
+		demo_num = (demo_num + 1) % demo_count;
 		demo = demos[demo_num];
 	}
 
-	if (badge.button())
-	{
-		Serial.print(mac_buf); Serial.print(' ');
-		Serial.println(WiFi.localIP());
-
-		Serial.print(badge.nx); Serial.print(' ');
-		Serial.print(badge.ny); Serial.print(' ');
-		Serial.print(badge.nz); Serial.print(' ');
-		Serial.println(badge.g);
-	}
+//	if (badge.button())
+//	{
+//		Serial.print(mac_buf); Serial.print(' ');
+//		Serial.println(WiFi.localIP());
+//
+//		Serial.print(badge.nx); Serial.print(' ');
+//		Serial.print(badge.ny); Serial.print(' ');
+//		Serial.print(badge.nz); Serial.print(' ');
+//		Serial.println(badge.g);
+//	}
 		
-
 	const uint32_t now = millis();
 
 	bool do_draw = demo->step(badge.ax, badge.ay, badge.az);

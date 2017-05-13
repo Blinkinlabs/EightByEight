@@ -5,11 +5,6 @@
 #include <Arduino.h>
 #include "RGBMatrix.h"
 
-#ifdef CONFIG_FEATHER
-#include <Adafruit_NeoPixel.h>
-Adafruit_NeoPixel neopixels = Adafruit_NeoPixel(LED_ROWS * LED_COLS, 15, NEO_GRB);
-#endif
-
 RGBMatrix::RGBMatrix()
 {
 	this->clear();
@@ -25,37 +20,23 @@ void RGBMatrix::clear()
 
 void RGBMatrix::begin()
 {
-#ifndef CONFIG_FEATHER
 	// Serial communication to RGB matrix
 	Serial1.begin( 230400 );
 	this->clear();
 	this->show();
 	this->show();
-#else
-	// feather uses NeoPixel hat
-	neopixels.begin();
-	neopixels.setBrightness(32);
-#endif
 
-setBrightness(100);
+  setBrightness(100);
 }
 
 void RGBMatrix::setBrightness(uint8_t brightness)
 {
-#ifndef CONFIG_FEATHER
-
   // Escape to command mode
   for(int i = 0; i < 9; i++) {
     Serial1.print(char(255));
   }
   Serial1.print(char(1)); // Set brightness command
   Serial1.print(char(brightness)); // And the brightness data
-  
-    
-#else
-  // feather uses NeoPixel hat
-  neopixels.setBrightness(brightness);
-#endif
 }
 
 void RGBMatrix::set(
@@ -162,8 +143,6 @@ void RGBMatrix::set(
 
 void RGBMatrix::show()
 {
-#ifndef CONFIG_FEATHER
-	// for the Blinkin Labs hardware
 	for(int i = 0; i < LED_ROWS*LED_COLS*LED_BYTES_PER_PIXEL; i++)
 	{
 		int c = data[i];
@@ -173,49 +152,4 @@ void RGBMatrix::show()
 	}
 
 	Serial1.print(char(255));
-//  delay(1);
-#else
-	// for the adafruit feather
-	unsigned offset = 0;
-	for(int row = 0 ; row < LED_ROWS ; row++)
-	{
-		for(int col = 0 ; col < LED_COLS ; col++, offset += 3)
-		{
-			neopixels.setPixelColor(
-				row + col * LED_ROWS,
-				data[offset + 0],
-				data[offset + 1],
-				data[offset + 2]
-			);
-		}
-	}
-
-	neopixels.show();
-#endif
-}
-
-void RGBMatrix::show8()
-{
-#ifndef CONFIG_FEATHER
-	// for the Blinkin Labs hardware
-	Serial1.write(&data[0], LED_ROWS * LED_BYTES_PER_PIXEL);
-	Serial1.print(char(255));
-#else
-	// for the adafruit feather
-	unsigned offset = 0;
-	for(int row = 0 ; row < LED_ROWS ; row++)
-	{
-		for(int col = 0 ; col < LED_COLS ; col++, offset += 3)
-		{
-			neopixels.setPixelColor(
-				row + col * LED_ROWS,
-				data[offset + 0],
-				data[offset + 1],
-				data[offset + 2]
-			);
-		}
-	}
-
-	neopixels.show();
-#endif
 }

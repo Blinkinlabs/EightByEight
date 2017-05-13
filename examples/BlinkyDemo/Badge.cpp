@@ -8,16 +8,13 @@ const int BUTTON = 4;
 void
 Badge::begin()
 {
-#ifndef CONFIG_FEATHER
 	// USB communication to PC via ARM coprocessor
 	Serial.begin ( 460800 );
-#else
-	// USB communicatoin to PC via the adapter chip
-	Serial.begin(115200);
-#endif
 
 	// setup the RGB pixel matrix
 	matrix.begin();
+  matrix.clear();
+  matrix.show();
 
 	// Accelerometer setup
 	Wire.begin(i2c_sda, i2c_scl);
