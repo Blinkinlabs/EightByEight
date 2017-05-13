@@ -10,10 +10,12 @@
  */
 
 #include "Badge.h"
+#include "Pixels.h"
+
 #include "Life.h"
 #include "Bubble.h"
-#include "Pixels.h"
 #include "Rain.h"
+#include "ColorSwirl.h"
 
 Badge badge;
 
@@ -22,11 +24,13 @@ Pixels pixels; // udp packet receiver
 Bubble bubble;  // Enabled demos
 Life life;
 Rain rain;
+ColorSwirl colorSwirl;
 
 Demo * demos[] = {
 	&rain,
 	&life,
 	&bubble,
+  &colorSwirl,
 };
 
 const unsigned demo_count = sizeof(demos) / sizeof(*demos);
