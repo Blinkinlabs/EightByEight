@@ -153,3 +153,4 @@ void RGBMatrix::show()
 
 	Serial1.print(char(255));
 }
+

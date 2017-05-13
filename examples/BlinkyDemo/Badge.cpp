@@ -58,3 +58,4 @@ Badge::poll()
 	g = sqrt(ax*ax + ay*ay + az*az);
 	return g > 20;
 }
+

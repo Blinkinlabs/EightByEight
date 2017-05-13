@@ -6,8 +6,27 @@
 #include <math.h>
 
 
+static const uint32_t palette[] = {
+  0x5bc0eb,
+  0xd0cfec,
+  0x2e5eaa,
+  0xffffff,
+  0x2374ab,
+  0x0000FF,
+  0x00FF00,
+  0xFF0000,
+};
+
+static const int palette_size = sizeof(palette)/sizeof(*palette);
+
 void Bubble::begin()
 {
+  palette_index = 0;
+}
+
+void Bubble::tapped()
+{
+  palette_index = (palette_index + 1) % palette_size;
 }
 
 bool Bubble::step(float nx, float ny, float nz)
@@ -49,8 +68,9 @@ void Bubble::draw(RGBMatrix &matrix)
 			if (dist < 0)
 				continue;
 
-			//matrix.blend(x, y, dist, 255, 0, 255);
-      matrix.blend(x, y, dist, 30, 255, 152);
+      //matrix.blend(x, y, dist, 30, 255, 152);
+      matrix.blend(x, y, dist, palette[palette_index]);
 		}
 	}
 }
+

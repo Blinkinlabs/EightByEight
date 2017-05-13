@@ -14,6 +14,8 @@ public:
 
 	virtual void begin() = 0;
 
+  virtual void tapped() = 0;
+
 	// returns true if we should force a redraw
 	virtual bool step(float ax, float ay, float az) = 0;
 
@@ -22,3 +24,4 @@ public:
 };
 
 #endif
+

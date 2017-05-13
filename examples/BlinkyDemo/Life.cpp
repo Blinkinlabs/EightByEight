@@ -1,15 +1,14 @@
 #include <Arduino.h>
 #include "Life.h"
 
-Life::Life()
+void Life::begin()
 {
 	reset();
 }
 
-
-void Life::begin()
+void Life::tapped()
 {
-	reset();
+  reset();
 }
 
 void Life::reset(void)
@@ -34,12 +33,7 @@ int Life::get(int i, int j)
 
 bool Life::step(float ax, float ay, float az)
 {
-#if 0
-	// blend out based on the tilt angle
-	blend = 5 * (10 - sqrt(az*az));
-#else
 	blend = 50;
-#endif
 
 	return false;
 }
@@ -47,7 +41,7 @@ bool Life::step(float ax, float ay, float az)
 void Life::draw(RGBMatrix &matrix)
 {
 	// only update the board every few steps to keep it slow
-	const boolean do_update = steps++ % 16 == 0;
+	const boolean do_update = steps++ % 32 == 0;
 
 	// compute the new board position
 	uint8_t temp[8] = {};
@@ -155,3 +149,4 @@ void Life::draw(RGBMatrix &matrix)
 	if (steps > 16000 || live == 0)
 		reset();
 }
+

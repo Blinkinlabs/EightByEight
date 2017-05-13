@@ -1,5 +1,5 @@
 /** \file
- * Game of Life (on the 8x8 torus)
+ * Color Swirl
  */
 
 #include "Demo.h"
@@ -12,9 +12,9 @@ private:
   float k;
   
 public:
-  ColorSwirl();
-
   virtual void begin();
+
+  virtual void tapped();
 
   virtual bool step(float ax, float ay, float az);
 
@@ -22,3 +22,4 @@ public:
 
   void reset();
 };
+

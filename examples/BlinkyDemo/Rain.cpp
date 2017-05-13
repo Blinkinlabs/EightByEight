@@ -2,24 +2,12 @@
 #include <math.h>
 #include "Rain.h"
 
-Rain::Rain()
-{
-}
-
 static const uint32_t palette[] = {
   0x5bc0eb,
   0xd0cfec,
   0x2e5eaa,
   0xffffff,
   0x2374ab,
-
-//	0x00FF00,
-//	0x40FF00,
-//	0x408000,
-//	0x004000,
-//	0x002000,
-//	0x808000,
-//	0xFFFFFF,
 };
 
 static const int palette_size = sizeof(palette)/sizeof(*palette);
@@ -31,13 +19,6 @@ void Rain::new_drop(int i, float angle)
 
 	int x = LED_ROWS * -cos(a) + LED_ROWS/2;
 	int y = LED_COLS * -sin(a) + LED_COLS/2;
-
-/*
-	Serial.print("new: ");
-	Serial.print(x); Serial.print(' ');
-	Serial.print(y); Serial.print(' ');
-	Serial.println(0); //angle);
-*/
 
 	drops[i][0] = x;
 	drops[i][1] = y;
@@ -55,9 +36,13 @@ void Rain::begin()
 	}
 }
 
+void Rain::tapped()
+{
+}
+
 bool Rain::step(float ax, float ay, float az)
 {
-	const float dt = 0.001;
+	const float dt = 0.0008;
 
 	// rotate the angle by 45 degrees to match the LED matrix
 	const float mag = sqrt(ax*ax+ay*ay) * dt;
@@ -100,15 +85,8 @@ void Rain::draw(RGBMatrix &matrix)
 
 		const int x = px;
 		const int y = py;
-/*
-		const int xf = (px - x) * 256;
-		const int yf = (py - y) * 256;
-
-		matrix.blend(x+0, y+0, sqrt((256 - xf)*(256-yf)), colors[i]);
-		matrix.blend(x+0, y+1, sqrt((256 - xf)*(yf)), colors[i]);
-		matrix.blend(x+1, y+0, sqrt((xf)*(256-yf)), colors[i]);
-		matrix.blend(x+1, y+1, sqrt((xf)*(yf)), colors[i]);
-*/
+   
 		matrix.blend(x+0, y+0, 64, colors[i]);
 	}
 }
+

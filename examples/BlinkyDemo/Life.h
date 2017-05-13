@@ -14,9 +14,9 @@ private:
 	int blend;
 
 public:
-	Life();
-
 	virtual void begin();
+
+  virtual void tapped();
 
 	virtual bool step(float ax, float ay, float az);
 
@@ -24,3 +24,4 @@ public:
 
 	void reset();
 };
+

@@ -1,12 +1,13 @@
 #include <Arduino.h>
 #include "ColorSwirl.h"
 
-ColorSwirl::ColorSwirl() {
-  reset();
-}
 
 void ColorSwirl::begin() {
   reset();
+}
+
+void ColorSwirl::tapped()
+{
 }
 
 void ColorSwirl::reset() {
@@ -19,6 +20,8 @@ bool ColorSwirl::step(float ax, float ay, float az) {
   j += .03*12;
   f += .02*12;
   k += .04*12;
+
+  return true;
 }
 
 void ColorSwirl::draw(RGBMatrix &matrix) {  
@@ -32,3 +35,4 @@ void ColorSwirl::draw(RGBMatrix &matrix) {
   }
   matrix.show();
 }
+

@@ -6,6 +6,9 @@ void Pixels::begin()
 	udp.begin(UDP_PORT);
 }
 
+void Pixels::tapped()
+{
+}
 
 bool Pixels::step(float ax, float ay, float az)
 {
@@ -62,3 +65,4 @@ void Pixels::draw(RGBMatrix &matrix)
 		}
 	}
 }
+

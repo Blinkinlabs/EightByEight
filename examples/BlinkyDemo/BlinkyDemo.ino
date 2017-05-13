@@ -11,6 +11,7 @@
 
 #include "Badge.h"
 #include "Pixels.h"
+#include "SerialReceiver.h"
 
 #include "Life.h"
 #include "Bubble.h"
@@ -20,6 +21,7 @@
 Badge badge;
 
 Pixels pixels; // udp packet receiver
+SerialReceiver serialReceiver;  // BlinkyTape communications protocol
 
 Bubble bubble;  // Enabled demos
 Life life;
@@ -77,6 +79,7 @@ void setup()
 	Serial.println(mac_buf);
 
 	pixels.begin();
+  serialReceiver.begin();
 
 	// Initialize all of the demos and start at 0
 	for(int i = 0 ; i < demo_count ; i++)
@@ -91,7 +94,7 @@ void loop()
 {
   if (badge.poll())
   {
-    // Do something when the badge is tapped
+    demo->tapped();
   }
   
 	if (badge.button_edge())
@@ -101,20 +104,19 @@ void loop()
 		demo = demos[demo_num];
 	}
 
-//	if (badge.button())
-//	{
-//		Serial.print(mac_buf); Serial.print(' ');
-//		Serial.println(WiFi.localIP());
-//
-//		Serial.print(badge.nx); Serial.print(' ');
-//		Serial.print(badge.ny); Serial.print(' ');
-//		Serial.print(badge.nz); Serial.print(' ');
-//		Serial.println(badge.g);
-//	}
+	if (badge.button())
+	{
+
+	}
 		
 	const uint32_t now = millis();
 
 	bool do_draw = demo->step(badge.ax, badge.ay, badge.az);
+
+//  if (serialReceiver.step(0,0,0))
+//  {
+//    draw_mode = SERIAL_MODE;
+//  }
 
 	if (pixels.step(0,0,0))
 	{
@@ -124,6 +126,7 @@ void loop()
 		draw_video = true;
 		last_video_millis = now;
 	} else
+  
 	if (draw_video && now - last_video_millis > 10000ul)
 	{
 		// no video for ten seconds, go back to normal demo
@@ -131,8 +134,8 @@ void loop()
 	}
 	
 
-	// only draw the LEDs at 30Hz
-	if (!do_draw && now - last_draw_millis < 30)
+	// Draw the LEDs at 60Hz
+	if (!do_draw && now - last_draw_millis < (1000/60))
 		return;
 	last_draw_millis = now;
 	
@@ -143,3 +146,4 @@ void loop()
 
 	badge.matrix.show();
 }
+

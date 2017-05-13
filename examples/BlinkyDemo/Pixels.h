@@ -8,10 +8,9 @@
 class Pixels : public Demo
 {
 public:
-	Pixels() {}
-	~Pixels() {}
-
 	virtual void begin();
+
+  virtual void tapped();
 
 	virtual bool step(float ax, float ay, float az);
 	virtual void draw(RGBMatrix &matrix);
@@ -32,3 +31,4 @@ private:
 
 	pixel_packet_t pixels;
 };
+
