@@ -22,3 +22,4 @@ public:
 	virtual void draw(RGBMatrix &matrix);
 };
 
+

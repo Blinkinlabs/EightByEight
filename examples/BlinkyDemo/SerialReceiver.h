@@ -31,6 +31,8 @@ private:
 //  uint8_t controlBuffer[CONTROL_BUFFER_SIZE];     // Buffer for receiving command data
   int controlBufferIndex;     // Current location in the buffer
 
+  uint8_t data[LED_ROWS*LED_COLS*LED_BYTES_PER_PIXEL];
+
 public:
   virtual void begin();
   virtual void tapped();
@@ -38,5 +40,6 @@ public:
   virtual bool step(float ax, float ay, float az);
   virtual void draw(RGBMatrix &matrix);
 };
+
 
 

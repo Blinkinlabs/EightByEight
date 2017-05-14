@@ -140,17 +140,20 @@ void RGBMatrix::set(
 	);
 }
 
+void RGBMatrix::set(uint8_t* frame)
+{
+  memcpy(data, frame, LED_ROWS*LED_COLS*LED_BYTES_PER_PIXEL);
+}
 
 void RGBMatrix::show()
 {
-	for(int i = 0; i < LED_ROWS*LED_COLS*LED_BYTES_PER_PIXEL; i++)
-	{
-		int c = data[i];
-		// scale to 0-170 to fix a PWM bug on rev B hardware
-		//c = (170 * c) / 256;
-		Serial1.print(char(c));
-	}
+  for(int i = 0; i < LED_ROWS*LED_COLS*LED_BYTES_PER_PIXEL; i++)
+  {
+    int c = data[i];
+    Serial1.print(char(c));
+  }
 
-	Serial1.print(char(255));
+  Serial1.print(char(255));
 }
+
 

@@ -3,8 +3,8 @@
  *
  * The button is used to cycle between the different demos.
  * 
- * The pixels one is not really a separate demo; we switch to it
- * automatically if it tells us that it has received a packet.
+ * Pixels and SerialReceiver are not really seperate demos; we switch to them
+ * automatically if they tell us that they have received a packet.
  * If we go more than ten seconds without a packet, the current demo
  * is restarted.
  */
@@ -39,11 +39,9 @@ const unsigned demo_count = sizeof(demos) / sizeof(*demos);
 unsigned demo_num = 0;
 Demo * demo;
 
-char mac_buf[6*3+1];
 uint32_t last_draw_millis;
-uint32_t last_video_millis;
-bool draw_video;
-
+uint32_t streaming_start_time;
+bool streaming;
 
 void setup()
 {
@@ -64,19 +62,6 @@ void setup()
 		WiFi.config(IPAddress(192,168,1,4), IPAddress(0,0,0,0), IPAddress(255,255,255,0));
 #endif
 	}
-
-	uint8_t mac[6];
-	WiFi.macAddress(mac);
-	sprintf(mac_buf, "%02x:%02x:%02x:%02x:%02x:%02x",
-		mac[0],
-		mac[1],
-		mac[2],
-		mac[3],
-		mac[4],
-		mac[5]
-	);
-
-	Serial.println(mac_buf);
 
 	pixels.begin();
   serialReceiver.begin();
@@ -104,46 +89,46 @@ void loop()
 		demo = demos[demo_num];
 	}
 
-	if (badge.button())
-	{
-
-	}
-		
 	const uint32_t now = millis();
 
 	bool do_draw = demo->step(badge.ax, badge.ay, badge.az);
 
-//  if (serialReceiver.step(0,0,0))
-//  {
-//    draw_mode = SERIAL_MODE;
-//  }
+  if (serialReceiver.step(0,0,0))
+  {    
+    streaming = true;
+    streaming_start_time = now;
+
+    serialReceiver.draw(badge.matrix);
+    badge.matrix.show();
+  }
 
 	if (pixels.step(0,0,0))
 	{
-		// we have received a video frame.  draw it, not
-		// the demo that we're showing.
-		do_draw = true;
-		draw_video = true;
-		last_video_millis = now;
-	} else
-  
-	if (draw_video && now - last_video_millis > 10000ul)
+    streaming = true;
+    streaming_start_time = now;
+
+    pixels.draw(badge.matrix);
+    badge.matrix.show();
+	}
+
+
+	if (streaming && (now - streaming_start_time > 10000ul))
 	{
 		// no video for ten seconds, go back to normal demo
-		draw_video = false;
+		streaming = false;
 	}
-	
 
-	// Draw the LEDs at 60Hz
-	if (!do_draw && now - last_draw_millis < (1000/60))
-		return;
-	last_draw_millis = now;
+  if (!streaming)
+  {
+	  // Draw the LEDs at 60Hz
+	  if (!do_draw && now - last_draw_millis < (1000/60))
+		  return;
+	  last_draw_millis = now;
 	
-	if (draw_video)
-		pixels.draw(badge.matrix);
-	else
 		demo->draw(badge.matrix);
 
-	badge.matrix.show();
+  	badge.matrix.show();
+  }
 }
+
 

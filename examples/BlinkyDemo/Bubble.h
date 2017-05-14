@@ -17,3 +17,4 @@ private:
   int palette_index = 0;
 };
 
+

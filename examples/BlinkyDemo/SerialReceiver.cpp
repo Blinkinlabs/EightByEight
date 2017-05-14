@@ -20,68 +20,85 @@ void SerialReceiver::reset() {
 }
 
 bool SerialReceiver::step(float ax, float ay, float az) {
-  while(Serial.available()) {
-  
-    switch(serialMode) {
-        case SERIAL_MODE_DATA:
-            return readData();
-            break;
-  //      case SERIAL_MODE_COMMAND:
-  //          commandLoop();
-  //          break;
-        default:
-            reset();
+  while (Serial.available()) {
+
+    switch (serialMode) {
+      case SERIAL_MODE_DATA:
+        if(readData()) {
+          return true;
+        }
+        break;
+      //      case SERIAL_MODE_COMMAND:
+      //          commandLoop();
+      //          break;
+      default:
+        reset();
     }
   }
+
+  return false;
 }
 
 bool SerialReceiver::readData() {
-    bool canDraw = false;
-  
-    uint8_t c = Serial.read();
+  bool canDraw = false;
 
-    // Pixel character
-    if(c != 0xFF) {
-        // Reset the control character state variables
-        escapeRunCount = 0;
+  uint8_t c = Serial.read();
 
-        // Buffer the color
-        buffer[bufferIndex++] = c;
+  // Pixel character
+  if (c != 0xFF) {
+    // Reset the control character state variables
+    escapeRunCount = 0;
 
-        // If this makes a complete pixel color, update the display and reset for the next color
-        if(bufferIndex > 2) {
-            bufferIndex = 0;
+    // Copy this byte into the pixel array
+    // TODO: Copy directly into the buffer
+    // Buffer the color
+    buffer[bufferIndex++] = c;
 
-            // Prevent overflow by ignoring any pixel data beyond LED_COUNT
-            if(pixelIndex < LED_ROWS*LED_COLS) {
-//                dmxSetPixel(pixelIndex, buffer[2], buffer[1], buffer[0]);
-                pixelIndex++;
-            }
-        }
+    // If this makes a complete pixel color, update the display and reset for the next color
+    if (bufferIndex > 2) {
+      bufferIndex = 0;
+
+      // Prevent overflow by ignoring any pixel data beyond LED_COUNT
+      if (pixelIndex < LED_ROWS * LED_COLS) {
+        data[pixelIndex * LED_BYTES_PER_PIXEL + 0] = buffer[0];
+        data[pixelIndex * LED_BYTES_PER_PIXEL + 1] = buffer[1];
+        data[pixelIndex * LED_BYTES_PER_PIXEL + 2] = buffer[2];
+
+        pixelIndex++;
+      }
+    }
+  }
+
+  // Control character
+  else {
+    // reset the pixel character state vairables
+    bufferIndex = 0;
+    pixelIndex = 0;
+
+    escapeRunCount++;
+
+    // If this is the first escape character, refresh the output
+    if (escapeRunCount == 1) {
+      canDraw = true;
     }
 
-    // Control character
-    else {
-        // reset the pixel character state vairables
-        bufferIndex = 0;
-        pixelIndex = 0;
-
-        escapeRunCount++;
-
-        // If this is the first escape character, refresh the output
-        if(escapeRunCount == 1) {
-            canDraw = true;
-        }
-        
-        if(escapeRunCount > 8) {
-            serialMode = SERIAL_MODE_COMMAND;
-            controlBufferIndex = 0;
-        }
+    if (escapeRunCount > 8) {
+      serialMode = SERIAL_MODE_COMMAND;
+      controlBufferIndex = 0;
     }
+  }
 
-    return canDraw;
+  return canDraw;
 }
 
 void SerialReceiver::draw(RGBMatrix &matrix) {
-
+//  for(int x = 0 ; x < LED_ROWS ; x++)
+//  {
+//    for(int y = 0 ; y < LED_COLS ; y++)
+//    {
+//      matrix.blend(x, y, 255, 30, 255, 152);
+//    }
+//  }
+  matrix.set(data);
 }
+

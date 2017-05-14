@@ -150,3 +150,4 @@ void Life::draw(RGBMatrix &matrix)
 		reset();
 }
 
+

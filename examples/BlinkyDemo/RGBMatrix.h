@@ -26,6 +26,8 @@ public:
 	void set(int row, int col, uint32_t color);
 	void blend(int row, int col, int blend, uint32_t color);
 
+  void set(uint8_t *frame);
+
   void setBrightness(uint8_t brightness);
 
 private:
@@ -34,4 +36,5 @@ private:
 
 
 #endif
+
 

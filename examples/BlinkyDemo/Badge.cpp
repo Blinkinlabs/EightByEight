@@ -59,3 +59,4 @@ Badge::poll()
 	return g > 20;
 }
 
+
