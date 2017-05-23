@@ -2,16 +2,19 @@
  * Combine multiple demos for the Two Sigma / Blinklabs EightByEight badge.
  *
  * The button is used to cycle between the different demos.
- * 
+ *
  * Pixels and SerialReceiver are not really seperate demos; we switch to them
  * automatically if they tell us that they have received a packet.
  * If we go more than ten seconds without a packet, the current demo
  * is restarted.
  */
 
+#include "FS.h"
+
 #include "Badge.h"
 #include "Pixels.h"
 #include "SerialReceiver.h"
+#include "patterndemo.h"
 
 #include "Life.h"
 #include "Bubble.h"
@@ -23,16 +26,19 @@ Badge badge;
 Pixels pixels; // udp packet receiver
 SerialReceiver serialReceiver;  // BlinkyTape communications protocol
 
+//PatternDemo patternDemo;
+
 Bubble bubble;  // Enabled demos
 Life life;
 Rain rain;
 ColorSwirl colorSwirl;
 
 Demo * demos[] = {
-	&rain,
-	&life,
-	&bubble,
-  &colorSwirl,
+    &rain,
+    &life,
+    &bubble,
+    &colorSwirl,
+//    &patternDemo
 };
 
 const unsigned demo_count = sizeof(demos) / sizeof(*demos);
@@ -45,35 +51,37 @@ bool streaming;
 
 void setup()
 {
-	badge.begin();
+    badge.begin();
 
-	WiFi.persistent(false);
+    WiFi.persistent(false);
 
-	// do not join any wifi networks if the button is held down
-	// during startup
-	if (!badge.button())
-	{
+    SPIFFS.begin();
+
+    // do not join any wifi networks if the button is held down
+    // during startup
+    if (!badge.button())
+    {
 #if 0
-		WiFi.mode(WIFI_STA);
-		WiFi.begin("twosigma-blinky", "blinkblinkblink");
+        WiFi.mode(WIFI_STA);
+        WiFi.begin("twosigma-blinky", "blinkblinkblink");
 #else
-		WiFi.mode(WIFI_AP);
-		WiFi.begin("ssid", "password");
-		WiFi.config(IPAddress(192,168,1,4), IPAddress(0,0,0,0), IPAddress(255,255,255,0));
+        WiFi.mode(WIFI_AP);
+        WiFi.begin("ssid", "password");
+        WiFi.config(IPAddress(192,168,1,4), IPAddress(0,0,0,0), IPAddress(255,255,255,0));
 #endif
-	}
+    }
 
-	pixels.begin();
-  serialReceiver.begin();
+    pixels.begin();
 
-	// Initialize all of the demos and start at 0
-	for(int i = 0 ; i < demo_count ; i++)
-		demos[i]->begin();
+    serialReceiver.begin();
 
-	demo_num = 0;
-	demo = demos[demo_num];
+    // Initialize all of the demos and start at 0
+    for(int i = 0 ; i < demo_count ; i++)
+        demos[i]->begin();
+
+    demo_num = 0;
+    demo = demos[demo_num];
 }
-
 
 void loop()
 {
@@ -81,20 +89,49 @@ void loop()
   {
     demo->tapped();
   }
-  
-	if (badge.button_edge())
-	{
-		// should cycle to the next demo
-		demo_num = (demo_num + 1) % demo_count;
-		demo = demos[demo_num];
-	}
 
-	const uint32_t now = millis();
+    if (badge.button_edge())
+    {
+        // should cycle to the next demo
+        demo_num = (demo_num + 1) % demo_count;
+        demo = demos[demo_num];
 
-	bool do_draw = demo->step(badge.ax, badge.ay, badge.az);
+//        String str = "";
+//        Dir dir = SPIFFS.openDir("/");
+//        while (dir.next()) {
+//            str += dir.fileName();
+//            str += " / ";
+//            str += dir.fileSize();
+//            str += "\r\n";
+//        }
+//        Serial.print(str);
+
+//        File f = SPIFFS.open("/p/0","r");
+//        char buff[100];
+//        f.read((uint8_t*)buff, 3);
+//        Serial.print(buff[0]);
+//        Serial.print(buff[1]);
+//        Serial.print(buff[2]);
+
+//        uint32_t version =fileToUInt32(&f);
+//        Serial.print("version: ");
+//        Serial.println(version);
+
+//        version =fileToUInt32(&f);
+//        Serial.print("encoding: ");
+//        Serial.println(version);
+
+//        version =fileToUInt32(&f);
+//        Serial.print("led count: ");
+//        Serial.println(version);
+    }
+
+    const uint32_t now = millis();
+
+    bool do_draw = demo->step(badge.ax, badge.ay, badge.az);
 
   if (serialReceiver.step(0,0,0))
-  {    
+  {
     streaming = true;
     streaming_start_time = now;
 
@@ -102,32 +139,31 @@ void loop()
     badge.matrix.show();
   }
 
-	if (pixels.step(0,0,0))
-	{
+    if (pixels.step(0,0,0))
+    {
     streaming = true;
     streaming_start_time = now;
 
     pixels.draw(badge.matrix);
     badge.matrix.show();
-	}
+    }
 
 
-	if (streaming && (now - streaming_start_time > 10000ul))
-	{
-		// no video for ten seconds, go back to normal demo
-		streaming = false;
-	}
+    if (streaming && (now - streaming_start_time > 10000ul))
+    {
+        // no video for ten seconds, go back to normal demo
+        streaming = false;
+    }
 
   if (!streaming)
   {
-	  // Draw the LEDs at 60Hz
-	  if (!do_draw && now - last_draw_millis < (1000/60))
-		  return;
-	  last_draw_millis = now;
-	
-		demo->draw(badge.matrix);
+      // Draw the LEDs at 60Hz
+      if (!do_draw && now - last_draw_millis < (1000/60))
+          return;
+      last_draw_millis = now;
 
-  	badge.matrix.show();
+    demo->draw(badge.matrix);
+    badge.matrix.show();
   }
 }
 

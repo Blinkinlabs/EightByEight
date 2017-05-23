@@ -7,7 +7,10 @@
 #define SERIAL_MODE_DATA     0x01
 #define SERIAL_MODE_COMMAND  0x02
 
-#define CONTROL_BUFFER_SIZE 300
+#define MAX_DATA_LENGTH 255
+
+#define FILEMODE_READ  0
+#define FILEMODE_WRITE 1
 
 class SerialReceiver : public Demo
 {
@@ -15,7 +18,7 @@ private:
   void reset();
 
   bool readData();
-//  bool readCommand();
+  void readCommand();
 
   int serialMode;         // Serial protocol we are speaking
 
@@ -27,11 +30,13 @@ private:
   int bufferIndex;        // Current location in the buffer
   int pixelIndex;         // Pixel we are currently writing to
 
+  int receiveState;
 
-//  uint8_t controlBuffer[CONTROL_BUFFER_SIZE];     // Buffer for receiving command data
-  int controlBufferIndex;     // Current location in the buffer
+  uint8_t commandBuffer[MAX_DATA_LENGTH+2];
+  int commandBufferIndex;
 
   uint8_t data[LED_ROWS*LED_COLS*LED_BYTES_PER_PIXEL];
+
 
 public:
   virtual void begin();
