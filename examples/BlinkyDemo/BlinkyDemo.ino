@@ -26,7 +26,7 @@ Badge badge;
 Pixels pixels; // udp packet receiver
 SerialReceiver serialReceiver;  // BlinkyTape communications protocol
 
-//PatternDemo patternDemo;
+PatternDemo patternDemo;
 
 Bubble bubble;  // Enabled demos
 Life life;
@@ -38,7 +38,7 @@ Demo * demos[] = {
     &life,
     &bubble,
     &colorSwirl,
-//    &patternDemo
+    &patternDemo
 };
 
 const unsigned demo_count = sizeof(demos) / sizeof(*demos);

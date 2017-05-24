@@ -149,7 +149,10 @@ void RGBMatrix::show()
 {
   for(int i = 0; i < LED_ROWS*LED_COLS*LED_BYTES_PER_PIXEL; i++)
   {
-    int c = data[i];
+    uint8_t c = data[i];
+    if(c == 255) {
+        c = 254;
+    }
 
     Serial1.print(char(c));
   }

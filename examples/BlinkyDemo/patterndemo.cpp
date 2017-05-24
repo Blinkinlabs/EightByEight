@@ -33,6 +33,7 @@ bool PatternDemo::step(float ax, float ay, float az)
 //    Serial.print(patternFile.getFrameDelay());
 //    Serial.print(", frameIndex:");
 //    Serial.println(patternFile.getFrameIndex());
+//    delay(5);
 
     patternFile.draw(frameData);
 
