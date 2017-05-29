@@ -3,6 +3,9 @@
 
 #include "FS.h"
 
+
+#define FIRMWARE_VERSION 0x00000001
+
 #define COMMAND_FORMAT_FILESYTEM 0x10
 #define COMMAND_OPEN_FILE 0x11
 #define COMMAND_WRITE 0x12
@@ -10,6 +13,7 @@
 #define COMMAND_CLOSE_FILE 0x14
 #define COMMAND_LOCK_FILE_ACCESS 0x20
 #define COMMAND_UNLOCK_FILE_ACCESS 0x21
+#define COMMAND_GET_FIRMWARE_VERSION 0x30
 
 extern bool fileAccessLocked;
 extern bool reloadAnimations;
@@ -207,6 +211,18 @@ uint8_t commandUnlockFileAccess(uint8_t &length, uint8_t *buffer) {
     return 0;
 }
 
+uint8_t commandGetFirmwareVersion(uint8_t &length, uint8_t *buffer) {
+    length = 4;
+
+    // Send the protocol version, in big-endian format
+    buffer[0] = (FIRMWARE_VERSION >> 24) & 0xFF;
+    buffer[1] = (FIRMWARE_VERSION >> 16) & 0xFF;
+    buffer[2] = (FIRMWARE_VERSION >> 8) & 0xFF;
+    buffer[3] = (FIRMWARE_VERSION >> 0) & 0xFF;
+
+    return 0;
+}
+
 struct Command {
     uint8_t name;   // Command identifier
     uint8_t (*function)(uint8_t &, uint8_t *);
@@ -220,6 +236,7 @@ Command commands[] = {
     {COMMAND_CLOSE_FILE, commandCloseFile},
     {COMMAND_LOCK_FILE_ACCESS, commandLockFileAccess},
     {COMMAND_UNLOCK_FILE_ACCESS, commandUnlockFileAccess},
+    {COMMAND_GET_FIRMWARE_VERSION, commandGetFirmwareVersion},
     {0xFF,   NULL}
 };
 
