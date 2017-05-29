@@ -12,6 +12,8 @@
 #define LED_COLS 8
 #define LED_BYTES_PER_PIXEL 3
 
+#define DATA_SIZE (LED_ROWS * LED_COLS * LED_BYTES_PER_PIXEL)
+
 class RGBMatrix
 {
 public:
@@ -31,7 +33,7 @@ public:
   void setBrightness(uint8_t brightness);
 
 private:
-	uint8_t data[LED_ROWS*LED_COLS*LED_BYTES_PER_PIXEL];
+    uint8_t data[DATA_SIZE];
 };
 
 

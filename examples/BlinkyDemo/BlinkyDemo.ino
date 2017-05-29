@@ -1,4 +1,4 @@
-  /** \file
+/** \file
  * Combine multiple demos for the Two Sigma / Blinklabs EightByEight badge.
  *
  * The button is used to cycle between the different demos.
@@ -14,6 +14,7 @@
 #include "Badge.h"
 #include "Pixels.h"
 #include "SerialReceiver.h"
+#include "Patterns.h"
 #include "patterndemo.h"
 
 #include "Life.h"
@@ -23,8 +24,13 @@
 
 Badge badge;
 
+volatile bool fileAccessLocked;
+volatile bool reloadAnimations;
+
 Pixels pixels; // udp packet receiver
 SerialReceiver serialReceiver;  // BlinkyTape communications protocol
+
+Patterns patterns;
 
 PatternDemo patternDemo;
 
@@ -33,21 +39,45 @@ Life life;
 Rain rain;
 ColorSwirl colorSwirl;
 
-Demo * demos[] = {
+Demo * builtin_demos[] = {
     &rain,
     &life,
     &bubble,
-    &colorSwirl,
-    &patternDemo
+    &colorSwirl
 };
 
-const unsigned demo_count = sizeof(demos) / sizeof(*demos);
+const unsigned builtin_demo_count = sizeof(builtin_demos) / sizeof(*builtin_demos);
 unsigned demo_num = 0;
 Demo * demo;
 
 uint32_t last_draw_millis;
 uint32_t streaming_start_time;
 bool streaming;
+
+void load_demo(unsigned new_demo_num)
+{
+    // The demo order is:
+    // 0 to (n-1): stored patterns, where n is the number of stored patterns
+    // (n-1) to (n-1+builtin_demo_count): built-in demos
+
+    unsigned total_demos = patterns.getCount() + builtin_demo_count;
+
+    if(new_demo_num > total_demos) {
+        new_demo_num = 0;
+    }
+
+    if(new_demo_num < patterns.getCount()) {
+        // TODO: If this fails, load a built-in pattern?
+        patternDemo = patterns.open(new_demo_num);
+        demo = &patternDemo;
+    }
+    else {
+        demo = builtin_demos[new_demo_num - patterns.getCount()];
+    }
+
+    demo_num = new_demo_num;
+}
+
 
 void setup()
 {
@@ -75,77 +105,55 @@ void setup()
 
     serialReceiver.begin();
 
-    // Initialize all of the demos and start at 0
-    for(int i = 0 ; i < demo_count ; i++)
-        demos[i]->begin();
+    fileAccessLocked = false;
+    reloadAnimations = true;
 
-    demo_num = 0;
-    demo = demos[demo_num];
+    // Initialize all of the demos and start at 0
+    for(int i = 0 ; i < builtin_demo_count ; i++)
+        builtin_demos[i]->begin();
+
+    load_demo(0);
 }
 
 void loop()
 {
-  if (badge.poll())
-  {
-    demo->tapped();
-  }
+    if(reloadAnimations) {
+        patterns.begin();
+        reloadAnimations = false;
+
+        load_demo(0);
+    }
+
+    if (badge.poll())
+    {
+        demo->tapped();
+    }
 
     if (badge.button_edge())
     {
-        // should cycle to the next demo
-        demo_num = (demo_num + 1) % demo_count;
-        demo = demos[demo_num];
-
-//        String str = "";
-//        Dir dir = SPIFFS.openDir("/");
-//        while (dir.next()) {
-//            str += dir.fileName();
-//            str += " / ";
-//            str += dir.fileSize();
-//            str += "\r\n";
-//        }
-//        Serial.print(str);
-
-//        File f = SPIFFS.open("/p/0","r");
-//        char buff[100];
-//        f.read((uint8_t*)buff, 3);
-//        Serial.print(buff[0]);
-//        Serial.print(buff[1]);
-//        Serial.print(buff[2]);
-
-//        uint32_t version =fileToUInt32(&f);
-//        Serial.print("version: ");
-//        Serial.println(version);
-
-//        version =fileToUInt32(&f);
-//        Serial.print("encoding: ");
-//        Serial.println(version);
-
-//        version =fileToUInt32(&f);
-//        Serial.print("led count: ");
-//        Serial.println(version);
+        load_demo(demo_num + 1);
     }
 
     const uint32_t now = millis();
 
     bool do_draw = demo->step(badge.ax, badge.ay, badge.az);
 
-  if (serialReceiver.step(0,0,0))
-  {
-    streaming = true;
-    streaming_start_time = now;
+    if (serialReceiver.step(0,0,0))
+    {
+        streaming = true;
+        streaming_start_time = now;
 
-    serialReceiver.draw(badge.matrix);
-    badge.matrix.show();
-  }
+        serialReceiver.draw(badge.matrix);
+        badge.matrix.show();
+    }
 
     if (pixels.step(0,0,0))
     {
-    streaming = true;
-    streaming_start_time = now;
+        streaming = true;
+        streaming_start_time = now;
 
-    pixels.draw(badge.matrix);
-    badge.matrix.show();
+        pixels.draw(badge.matrix);
+        badge.matrix.show();
     }
 
 
@@ -155,16 +163,17 @@ void loop()
         streaming = false;
     }
 
-  if (!streaming)
-  {
-      // Draw the LEDs at 60Hz
-      if (!do_draw && now - last_draw_millis < (1000/60))
-          return;
-      last_draw_millis = now;
+    if (!streaming)
+    {
+        // Draw the LEDs at 60Hz
+        if (!do_draw && now - last_draw_millis < (1000/60))
+            return;
 
-    demo->draw(badge.matrix);
-    badge.matrix.show();
-  }
+        last_draw_millis = now;
+
+        demo->draw(badge.matrix);
+        badge.matrix.show();
+    }
 }
 
 

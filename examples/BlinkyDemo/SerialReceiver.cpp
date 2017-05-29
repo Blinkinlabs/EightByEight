@@ -8,6 +8,11 @@
 #define COMMAND_WRITE 0x12
 #define COMMAND_READ 0x13
 #define COMMAND_CLOSE_FILE 0x14
+#define COMMAND_LOCK_FILE_ACCESS 0x20
+#define COMMAND_UNLOCK_FILE_ACCESS 0x21
+
+extern bool fileAccessLocked;
+extern bool reloadAnimations;
 
 File file;
 
@@ -112,6 +117,8 @@ uint8_t commandFormatFilesystem(uint8_t &length, uint8_t *buffer) {
         return 1;
     }
 
+    // Format will automatically un-mount, then re-mount the filesystem.
+    // (esp8266/spiffs_api.h)
     if(!SPIFFS.format()) {
         return 2;
     }
@@ -179,6 +186,27 @@ uint8_t commandCloseFile(uint8_t &length, uint8_t *buffer) {
     return 0;
 }
 
+uint8_t commandLockFileAccess(uint8_t &length, uint8_t *buffer) {
+    length = 0;
+
+    // Set a magic flag that tells the device not to access the filesystem
+    fileAccessLocked = true;
+
+    return 0;
+}
+
+uint8_t commandUnlockFileAccess(uint8_t &length, uint8_t *buffer) {
+    length = 0;
+
+    // Unset a magic flag that tells the device not to access the filesystem
+    fileAccessLocked = false;
+
+    // And set another magic flag to tell the device to reload the pattern table
+    reloadAnimations = true;
+
+    return 0;
+}
+
 struct Command {
     uint8_t name;   // Command identifier
     uint8_t (*function)(uint8_t &, uint8_t *);
@@ -190,6 +218,8 @@ Command commands[] = {
     {COMMAND_WRITE, commandWrite},
     {COMMAND_READ, commandRead},
     {COMMAND_CLOSE_FILE, commandCloseFile},
+    {COMMAND_LOCK_FILE_ACCESS, commandLockFileAccess},
+    {COMMAND_UNLOCK_FILE_ACCESS, commandUnlockFileAccess},
     {0xFF,   NULL}
 };
 

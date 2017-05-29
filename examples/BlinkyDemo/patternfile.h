@@ -63,22 +63,4 @@ private:
     uint32_t frameIndex;
 };
 
-
-//// TODO: Right now, this looks at all files- later we should make it load the
-//class PatternCollection
-//{
-//public:
-////    void init();
-
-//    uint32_t getPatternCount();
-
-
-////    void getIndex();
-////    PatternFile *getCurrentPattern();
-
-//private:
-//    //uint32_t patternIndex;
-//    //PatternFile patternFile;
-//};
-
 #endif // PATTERN_FILE_H

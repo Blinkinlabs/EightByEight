@@ -1,5 +1,10 @@
 #include "patternfile.h"
 
+// TODO: Handle this at a higher level?
+extern volatile bool fileAccessLocked;
+extern volatile bool reloadAnimations;
+
+
 uint32_t fileToUInt32(File* file)
 {
     uint32_t value = 0;
@@ -15,10 +20,14 @@ uint32_t fileToUInt32(File* file)
 
 int PatternFile::open(String filename)
 {
-    if(!SPIFFS.exists(PATTERN_DIRECTORY + filename)) {
+    if(fileAccessLocked) {
+        return ERROR_READ_ERROR;
+    }
+
+    if(!SPIFFS.exists(filename)) {
         return ERROR_BAD_FILENAME;
     }
-    file = SPIFFS.open(PATTERN_DIRECTORY + filename, "r");
+    file = SPIFFS.open(filename, "r");
     if(!file) {
         return ERROR_READ_ERROR;
     }
@@ -77,6 +86,10 @@ void PatternFile::reset() {
 
 int PatternFile::draw(uint8_t *frame)
 {
+    if(fileAccessLocked) {
+        return ERROR_READ_ERROR;
+    }
+
     if(encoding == ENCODING_RGB24) {
         const uint32_t frameSize = ledCount*3;
         if (frameSize != file.read(frame, frameSize)) {

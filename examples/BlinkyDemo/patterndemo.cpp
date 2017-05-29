@@ -2,9 +2,14 @@
 
 void PatternDemo::begin()
 {
-    patternFile.open("0");
+    memset(frameData, 0, LED_ROWS*LED_COLS*LED_BYTES_PER_PIXEL);
+}
 
+bool PatternDemo::open(String fileName)
+{
     lastTime = 0;
+
+    return (patternFile.open(fileName) == ERROR_NO_ERROR);
 }
 
 void PatternDemo::tapped()
@@ -22,23 +27,7 @@ bool PatternDemo::step(float ax, float ay, float az)
 
   lastTime = time;
 
-//    Serial.print("encoding:");
-//    Serial.print(patternFile.getEncoding());
-//    Serial.print(", ledCount:");
-//    Serial.print(patternFile.getLedCount());
-//    Serial.print(", frameCount:");
-//    Serial.println(patternFile.getFrameCount());
-//    delay(5);
-//    Serial.print("frameDelay:");
-//    Serial.print(patternFile.getFrameDelay());
-//    Serial.print(", frameIndex:");
-//    Serial.println(patternFile.getFrameIndex());
-//    delay(5);
-
-    patternFile.draw(frameData);
-
-    // TODO: Test for timeout before advancing
-    return true;
+  return (patternFile.draw(frameData) == ERROR_NO_ERROR);
 }
 
 void PatternDemo::draw(RGBMatrix &matrix)

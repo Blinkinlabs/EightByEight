@@ -19,6 +19,8 @@ public:
     void tapped();
     bool step(float ax, float ay, float az);
     void draw(RGBMatrix &matrix);
+
+    bool open(String fileName);
 };
 
 #endif // PATTERNDEMO_H

@@ -13,9 +13,11 @@ RGBMatrix::RGBMatrix()
 
 void RGBMatrix::clear()
 {
-	for(int i = 0 ; i < LED_ROWS ; i++)
-		for(int j = 0 ; j < LED_COLS ; j++)
-			set(i, j, 0, 0, 0);
+//    for(int i = 0 ; i < LED_ROWS; i++)
+//        for(int j = 0 ; j < LED_COLS ; j++)
+//            set(i, j, 0, 0, 0);
+
+    memset(data, 0, DATA_SIZE);
 }
 
 void RGBMatrix::begin()
@@ -52,13 +54,6 @@ void RGBMatrix::set(
 
 	if (col < 0 || col >= LED_COLS)
 		return;
-	
-	if(r == 255)
-		r = 254;
-	if(g == 255)
-		g = 254;
-	if(b == 255)
-		b = 254;
 
 	uint8_t * const p = &data[3*(row*LED_COLS + col)];
 	p[0] = r;
@@ -84,9 +79,9 @@ void RGBMatrix::blend(
 	if (blend < 0) blend = 0;
  	if (blend > 255) blend = 255;
 	
-	if(r >= 255) r = 254;
-	if(g >= 255) g = 254;
-	if(b >= 255) b = 254;
+    if(r > 255) r = 255;
+    if(g > 255) g = 255;
+    if(b > 255) b = 255;
 	if(r < 0) r = 0;
 	if(g < 0) g = 0;
 	if(b < 0) b = 0;
@@ -96,9 +91,10 @@ void RGBMatrix::blend(
 	g = (p[1] * (255 - blend) + g * blend) / 256;
 	b = (p[2] * (255 - blend) + b * blend) / 256;
 
-	if(r >= 255) r = 254;
-	if(g >= 255) g = 254;
-	if(b >= 255) b = 254;
+    if(r > 255) r = 255;
+    if(g > 255) g = 255;
+    if(b > 255) b = 255;
+
 	if(r < 0) r = 0;
 	if(g < 0) g = 0;
 	if(b < 0) b = 0;
