@@ -14,7 +14,7 @@
 #include "Badge.h"
 #include "Pixels.h"
 #include "SerialReceiver.h"
-#include "Patterns.h"
+#include "patterns.h"
 #include "patterndemo.h"
 
 #include "Life.h"
