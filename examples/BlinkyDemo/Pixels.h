@@ -10,7 +10,7 @@ class Pixels : public Demo
 public:
 	virtual void begin();
 
-  virtual void tapped();
+    virtual void tapped();
 
 	virtual bool step(float ax, float ay, float az);
 	virtual void draw(RGBMatrix &matrix);

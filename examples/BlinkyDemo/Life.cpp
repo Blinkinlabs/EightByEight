@@ -41,7 +41,7 @@ bool Life::step(float ax, float ay, float az)
 void Life::draw(RGBMatrix &matrix)
 {
 	// only update the board every few steps to keep it slow
-	const boolean do_update = steps++ % 32 == 0;
+    const boolean do_update = steps++ % 16 == 0;
 
 	// compute the new board position
 	uint8_t temp[8] = {};

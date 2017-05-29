@@ -43,9 +43,6 @@ bool Bubble::step(float nx, float ny, float nz)
 
 void Bubble::draw(RGBMatrix &matrix)
 {
-	// don't draw the bubble once we pass 45 degree or so
-	int blend = (fabs(az)) * 50 / (2 * 9.81);
-
 	// rotate the x y by 45 degrees
 	const float rx = ax * 0.851 - ay * 0.525;
 	const float ry = ay * 0.851 + ax * 0.525;
@@ -68,8 +65,7 @@ void Bubble::draw(RGBMatrix &matrix)
 			if (dist < 0)
 				continue;
 
-      //matrix.blend(x, y, dist, 30, 255, 152);
-      matrix.blend(x, y, dist, palette[palette_index]);
+            matrix.blend(x, y, dist, palette[palette_index]);
 		}
 	}
 }
