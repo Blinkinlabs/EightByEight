@@ -38,17 +38,14 @@
 ; ========= START USER CONFIGURABLE SECTION ===========
 ; =====================================================
 
-;DeviceName = "Microsoft XBox Controller Type S"
 DeviceName = "EightByEight Bootloader"
 ; Make sure "VID_" and "PID_" are always part of the strings below
-;VendorID = "VID_045E"
-;ProductID = "PID_0289"
 VendorID = "VID_1D50"
-ProductID = "PID_60A9"
-DeviceGUID = "{d35924d6-3e16-4a9e-9782-5524a4b79bac}"
+ProductID = "PID_60F5"
+DeviceGUID = "{6a82965b-f53b-4503-9a85-15b8dbe96fd0}"
 DeviceClassGUID = "{78a1c341-4539-11d3-b88d-00c04fad5171}"
 ; Date MUST be in MM/DD/YYYY format
-Date = "12/26/2014"
+Date = "10/21/2016"
 
 ; =====================================================
 ; ========== END USER CONFIGURABLE SECTION ============
