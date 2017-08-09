@@ -4,6 +4,10 @@ The factory test uses a Raspberry Pi
 
 Setup instructions for 'Raspbian Jessie Lite'
 
+# Set a unique hostname
+
+	echo 'testrig-003' | sudo tee /etc/hostname
+
 # Get the system up to date
 
 	sudo apt-get update
@@ -161,8 +165,11 @@ Run in the terminal:
 
 Add add to the end:
 
-	cd /home/pi/EightByEight/test/; sudo ./run-eightbyeight-tests.sh
-
+	if [ -z "$SSH_CLIENT" ]; then
+		setterm -blank 0
+		clear
+		cd /home/pi/EightByEight/production/test/; sudo ./run-eightbyeight-tests.sh
+	fi
 
 And set up the rgbw test pattern generator:
 
