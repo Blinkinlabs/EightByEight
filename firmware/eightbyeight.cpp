@@ -26,10 +26,24 @@
 #include "eightbyeight.h"
 
 void initBoard() {
-    GPIOB_PDDR |= 0x03;
-    GPIOB_PSOR  = 0x03;
-    CORE_PIN5_CONFIG = PORT_PCR_DSE | PORT_PCR_SRE | PORT_PCR_MUX(1);
-    CORE_PIN6_CONFIG = PORT_PCR_DSE | PORT_PCR_SRE | PORT_PCR_MUX(1);
+    // PTB0: ESP_RESET
+    // PTB1: ESP_GPIO0
+
+    // Set reset as an output with drive strength, but keep gpio0 as an input for now.
+
+    //CORE_PIN5_CONFIG = PORT_PCR_DSE | PORT_PCR_SRE | PORT_PCR_MUX(1);
+    //CORE_PIN6_CONFIG = PORT_PCR_DSE | PORT_PCR_SRE | PORT_PCR_MUX(1);
+
+    CORE_PIN5_CONFIG = PORT_PCR_DSE | PORT_PCR_PFE | PORT_PCR_SRE | PORT_PCR_MUX(1);
+    CORE_PIN6_CONFIG = PORT_PCR_ODE | PORT_PCR_PFE | PORT_PCR_SRE | PORT_PCR_MUX(1);
+
+    // reset is output and high
+    GPIOB_PDOR  = 0x01;
+    GPIOB_PDDR |= 0x01;
+
+    // gpio is input
+    GPIOB_PDDR &= ~(0x02);
+
 /*
     // Software RTS and DTR signals
     // TODO: Test that I don't glitch the reset line.

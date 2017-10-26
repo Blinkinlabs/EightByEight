@@ -333,17 +333,35 @@ static void usb_setup(void)
 		//serial_print("set control line state\n");
 
                 // NodeMCU style DTR/RTS handling
-		// TODO: Make this happen elsewhere?
+                // PTB0: ESP_RESET
+                // PTB1: ESP_GPIO0
+
 		if(rts() && !dtr()) {
-			GPIOB_PCOR = 0x01;
-			GPIOB_PSOR = 0x02;
+                        // rts set- pull reset low (state 1)
+                        GPIOB_PDOR = 0x02;
+
+                        // Make sure GPIO is configured as an input
+                        GPIOB_PDDR &= ~(0x02);
 		}
 		else if(!rts() && dtr()) {
-			GPIOB_PCOR = 0x02;
-			GPIOB_PSOR = 0x01;
+                        // dtr set- pull reset high and boot select low (state 2)
+                        
+                        // set GPIO to output
+                        GPIOB_PCOR = 0x02;
+                        GPIOB_PDDR |= 0x02;
+                        GPIOB_PDOR = 0x01;
 		}
                 else {
-                    GPIOB_PSOR = 0x3;
+                    // both or neither set- pull both lines high (TODO: make boot select an input?)
+
+                    // Prevent glitch between states 1 and 2- only clear the lines if we were in state 2
+                    if((GPIOB_PDOR & 0x3) == (0x01)) { 
+                        // Make sure GPIO is configured as an input
+                        GPIOB_PDDR &= ~(0x02);
+
+                        // and pull reset high
+                        GPIOB_PDOR = 0x1;
+                    }
                 }
 
 		break;

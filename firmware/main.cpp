@@ -84,7 +84,8 @@ extern "C" int main()
     serialReset();
 
     // TODO: Make the baud rate adjustable
-    serial_begin(BAUD2DIV(460800));
+    //serial_begin(BAUD2DIV(460800));
+    serial_begin(BAUD2DIV(350000));
     serial_format(SERIAL_8N1);
 
     serial2_begin(BAUD2DIV(230400));
